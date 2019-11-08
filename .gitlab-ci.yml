@@ -1,0 +1,66 @@
+image: node:10
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules
+    - dist
+    - coverage
+
+stages:
+  - build
+  - test
+  - quality
+  - deploy
+
+# Build production : branche master
+build:app-production:
+  stage: build
+  only:
+    - master
+  before_script:
+    - bash ci/02-build/01_build_tools_install.sh    
+  script:
+    - bash ci/02-build/02_build_app_production.sh
+
+# Build autre branche
+build:app-autre:
+  stage: build
+  except:
+    - master
+  before_script:
+    - bash ci/02-build/01_build_tools_install.sh
+  script:
+    - bash ci/02-build/02_build_app_autre.sh
+
+# Tests unitaires
+test:app:
+  stage: test
+  before_script:
+    - bash ci/03-tests/01_tests_tools_install.sh
+  script:
+    - bash ci/03-tests/02_tests_run.sh
+  dependencies:
+    - build:app-production
+    - build:app-autre
+ 
+# Qualité de code Sonar : toutes les branches sauf master
+quality:sonar:
+  stage: quality
+  script:
+    - bash ci/03-tests/03_tests_submit_to_sonarqube.sh
+  dependencies:
+    - test:app
+
+# Déploiement : uniquement la branche master
+deploy:app:
+  stage: deploy
+  only:
+    - master
+    - nexus_test
+  before_script:
+    - bash ci/04-deploy/01_deploy_tools_install.sh
+  script:
+    - bash ci/04-deploy/02_deploy_to_nexus.sh
+  dependencies:
+    - quality:sonar

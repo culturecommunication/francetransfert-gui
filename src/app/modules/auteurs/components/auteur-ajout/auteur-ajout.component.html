@@ -1,0 +1,22 @@
+<mat-card class="auteur-liste-card">
+  <mat-card-title>Ajouter un auteur</mat-card-title>
+  <mat-card-header>
+  </mat-card-header>
+
+  <form #ajouterAuteurForm="ngForm">
+    <mat-form-field>
+      <input matInput id="inputNomId" [(ngModel)]="auteur.nom" type="text" placeholder="Nom" name="inputNom" required />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput id="inputPrenomId" [(ngModel)]="auteur.prenom" type="text" placeholder="Prénom" name="inputPrenom"
+        required />
+    </mat-form-field>
+
+    <div class=" div-button">
+      <button mat-raised-button type="button" color="primary" (click)="ajouter()"
+        [disabled]='!ajouterAuteurForm.valid'>Ajouter</button>
+      <button mat-raised-button type="button" color="basic" routerLink="/auteurs">Annuler</button>
+    </div>
+  </form>
+
+</mat-card>

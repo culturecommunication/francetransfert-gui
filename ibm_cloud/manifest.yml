@@ -1,0 +1,8 @@
+---
+applications:
+- name: sample-app-angular7
+  memory: 512M
+  disk_quota: 1024M
+  instance: 1
+  builpack: staticfile_buildpack
+  
