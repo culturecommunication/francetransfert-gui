@@ -1,16 +1,10 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { MainComponent } from './components/main/main.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-const routes: Routes = [
-  { path: "auteurs", loadChildren: "./modules/auteurs/auteurs.module#AuteursModule" },
-  { path: "", component: MainComponent, pathMatch: "full" },
-  { path: "**", component: NotFoundComponent }
-];
+const routes: Routes = [];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

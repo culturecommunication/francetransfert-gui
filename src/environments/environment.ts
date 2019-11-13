@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  configFilename: 'config.json',
-  personneUrl: 'assets/mock/personne.json',
-  personnesListUrl: 'assets/mock/personnes.json',
-  personneDetailUrl: 'assets/mock/personne-detail'
+  configFilename: "config.json",
+  personneUrl: "assets/mock/personne.json",
+  personnesListUrl: "assets/mock/personnes.json",
+  personneDetailUrl: "assets/mock/personne-detail"
 };
 
 /*
