@@ -44,7 +44,7 @@ oups-frontend:build:
 # Sonar code quality analysis - Use Boost AWS Runner
 # Job is executing manualy in order to wait code fix issues
 # Use service account to access results
-oups-frontend:sonar:
+mc-francetransfert-upload-gui:sonar:
   stage: build
   only:
      - develop
@@ -65,13 +65,13 @@ oups-frontend:sonar:
       -Dsonar.sourceEncoding="UTF-8" 
         
 # Deploy phase - No dependencies to Sonar result
-oups-frontend:deploy:
+mc-francetransfert-upload-gui:deploy:
   stage: deploy
   only:
     - develop
     - automation
   dependencies: 
-    - oups-frontend:build
+    - mc-francetransfert-upload-gui:build
   tags:
     - glr1-1
   script:
@@ -81,17 +81,17 @@ oups-frontend:deploy:
     - scp dist.tar.gz $DEPLOY_ACCOUNT_NAME@$DEPLOY_NAME_SERVER:$DEPLOY_DELIVERY_PATH
     - ssh oupsteam@en2d.teamlog.intra 'tar xzf /home/oupsteam/deploy/Apache/dist.tar.gz -C /home/oupsteam/deploy/Apache/oups-frontend' #TO FIX
   environment:
-    name: oups-frontend-integration
+    name: mc-francetransfert-upload-gui-integration
     url: $DEPLOY_PROTOCOL_SERVER://$DEPLOY_NAME_SERVER
 
 # Post test phase  
-oups-frontend:load-test:
+mc-francetransfert-upload-gui:load-test:
   stage: post-test
   only:
     - develop
     - automation
   dependencies: 
-    - oups-frontend:deploy
+    - mc-francetransfert-upload-gui:deploy
   tags:
     - glr1-1
   script:
