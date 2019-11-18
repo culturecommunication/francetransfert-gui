@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
+    <title>Icones/FranceTransfert/Fleche/Bas</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M9.88,1.29 L6,5.17 L2.12,1.29 C1.73,0.9 1.1,0.9 0.71,1.29 C0.32,1.68 0.32,2.31 0.71,2.7 L5.3,7.29 C5.69,7.68 6.32,7.68 6.71,7.29 L11.3,2.7 C11.69,2.31 11.69,1.68 11.3,1.29 C10.91,0.91 10.27,0.9 9.88,1.29 L9.88,1.29 Z" id="path-1"></path>
+    </defs>
+    <g id="Icones/FranceTransfert/Fleche/Bas" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Colors/Icones" transform="translate(6.000000, 8.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
+            <g id="Colors/FranceTransfert/Neutres/Gris-medium-1" mask="url(#mask-2)" fill="#414856">
+                <g transform="translate(-6.000000, -8.000000)" id="Colors/France-transfert/Neutres/Gris-medium-1">
+                    <rect x="0" y="0" width="24" height="24"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

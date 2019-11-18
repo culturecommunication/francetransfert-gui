@@ -1,0 +1,196 @@
+input {
+  width: calc(100% - 24px);
+  height: 34px;
+  border: 1px solid $c-sombre;
+  padding: 0 12px;
+  font-size: 18px;
+  font-weight: $f-bold;
+  color: $c-gris-m1;
+  margin: 15px 0;
+  &:focus {
+    outline: 0;
+    border: 2px solid $c-blue;
+  }
+}
+
+textarea {
+  resize: none;
+  color: $c-gris-m1;
+  border: 1px solid $c-gris-message;
+  width: calc(100% - 24px);
+  padding: 12px;
+  font-size: 18px;
+  font-weight: $f-bold;
+  margin: 15px 0;
+  background-color: $c-gris-message;
+  &::placeholder {
+    color: $c-sombre;
+    opacity: 1;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.input-add {
+  position: relative;
+  input {
+    color: $c-gris-m1;
+  }
+  &-button {
+    opacity: 0.5;
+    pointer-events: none;
+    position: absolute;
+    height: 23px;
+    width: 23px;
+    background-color: transparent;
+    border-radius: 50px;
+    top: 20px;
+    right: 11px;
+    cursor: pointer;
+    border: 2px solid $c-blue;
+    &::before {
+      content: "";
+      background: url("/assets/images/icons/Ajout_blue.svg");
+      width: 23px;
+      height: 23px;
+      position: absolute;
+      left: -1px;
+    }
+  }
+  &.valid {
+    .input-add-button {
+      opacity: 1;
+      pointer-events: all;
+    }
+    input {
+      color: $c-blue;
+    }
+  }
+}
+
+.input-password {
+  input {
+    color: $c-gris-m1;
+    &::placeholder {
+      color: $c-sombre;
+      opacity: 1;
+    }
+  }
+  &-button {
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      right: 12px;
+      top: -44px;
+      cursor: pointer;
+    }
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+  &-show {
+    &::before {
+      background-image: url("/assets/images/icons/Voir_blue.svg");
+    }
+  }
+  &-hide {
+    &::before {
+      background-image: url("/assets/images/icons/Cacher_blue.svg");
+    }
+  }
+}
+
+.tag {
+  width: fit-content;
+  float: left;
+  height: 23px;
+  border-radius: 10px;
+  border: 1px solid $c-blue-clair;
+  padding: 0 25px 0 10px;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  .delete-button {
+    position: relative;
+    cursor: pointer;
+    &::before {
+      content: "";
+      position: absolute;
+      background-color: black;
+      height: 10px;
+      width: 1px;
+      top: -11px;
+      right: -13px;
+      transform: rotate(45deg);
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      background-color: black;
+      height: 10px;
+      width: 1px;
+      top: -11px;
+      right: -13px;
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+.checkbox {
+  float: left;
+  position: relative;
+  padding-left: 30px;
+  font-size: 14px;
+  line-height: 25px;
+  color: $c-gris-m1;
+  label {
+    color: $c-blue;
+    text-decoration: underline;
+    font-weight: $f-bold;
+    cursor: pointer;
+  }
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    &:checked ~ span {
+      background: #ffffff 0% 0% no-repeat padding-box;
+      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+      border: 2px solid $c-succes;
+      border-radius: 5px;
+    }
+    &:checked ~ span:after {
+      display: block;
+    }
+  }
+  span {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    background: $c-sombre 0% 0% no-repeat padding-box;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(217, 217, 217, 1);
+    border-radius: 5px;
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      height: 9px;
+      width: 9px;
+      background: $c-succes 0% 0% no-repeat padding-box;
+      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+      border-radius: 2px;
+      left: 3px;
+      top: 3px;
+    }
+  }
+}
