@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
+    <title>Icones/FranceTransfert/Validation</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M10,0 C4.48,0 0,4.48 0,10 C0,15.52 4.48,20 10,20 C15.52,20 20,15.52 20,10 C20,4.48 15.52,0 10,0 Z M7.29,14.29 L3.7,10.7 C3.31,10.31 3.31,9.68 3.7,9.29 C4.09,8.9 4.72,8.9 5.11,9.29 L8,12.17 L14.88,5.29 C15.27,4.9 15.9,4.9 16.29,5.29 C16.68,5.68 16.68,6.31 16.29,6.7 L8.7,14.29 C8.32,14.68 7.68,14.68 7.29,14.29 Z" id="path-1"></path>
+    </defs>
+    <g id="Icones/FranceTransfert/Validation" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Colors/Icones" transform="translate(2.000000, 2.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
+            <g id="Colors/FranceTransfert/Neutres/Gris-medium-1" mask="url(#mask-2)" fill="#414856">
+                <g transform="translate(-2.000000, -2.000000)" id="Colors/France-transfert/Neutres/Gris-medium-1">
+                    <rect x="0" y="0" width="24" height="24"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

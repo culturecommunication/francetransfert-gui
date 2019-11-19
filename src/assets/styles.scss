@@ -1,0 +1,17 @@
+// Import Pages
+@import "./scss/pages/upload-index";
+@import "./scss/pages/upload-section";
+
+// Import Components
+@import "./scss/components/buttons";
+@import "./scss/components/scroll-bar";
+@import "./scss/components/circle-chart";
+@import "./scss/components/upload-item";
+@import "./scss/components/form";
+
+// Import Bases
+@import "./scss/bases/typolograhy";
+
+// Import Helpers
+@import "./scss/helpers/function";
+@import "./scss/helpers/theme.scss";

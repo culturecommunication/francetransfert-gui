@@ -1,0 +1,21 @@
+<div class="upload-item" [ngClass]="{ uploaded: transfer.progress === 1 }">
+  <circle-progress
+    *ngIf="transfer.progress < 1"
+    [percent]="transfer.progress * 100"
+  ></circle-progress>
+  <div class="upload-item-icon" *ngIf="transfer.progress === 1"></div>
+  <div class="upload-item-details">
+    <p class="upload-item-title font-bold">{{ transfer.name | filename }}</p>
+    <p class="upload-item-size text-gris-m1">
+      {{ transfer.size | filesize }}
+    </p>
+    <p class="upload-item-type text-gris-m1">
+      {{ transfer.name | filetype }}
+    </p>
+  </div>
+  <div
+    class="upload-item-delete"
+    *ngIf="transfer.progress === 1"
+    (click)="deleteTransfer()"
+  ></div>
+</div>

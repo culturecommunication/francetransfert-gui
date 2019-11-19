@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
+    <title>Icones/FranceTransfert/Dislike</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M19.3,8.08 C18.7311697,7.39706776 17.8887981,7.00151937 17,7 L12.44,7 L13,5.57 C13.4728235,4.29906007 13.291619,2.87698552 12.5151859,1.7652292 C11.7387529,0.653472879 10.4660275,-0.00630076972 9.11,-4.4724552e-05 C8.71710057,0.000819786751 8.36108826,0.231640956 8.2,0.59 L5.35,7 L3,7 C1.34314575,7 0,8.34314575 0,10 L0,17 C0,18.6568542 1.34314575,20 3,20 L15.73,20 C17.1781998,19.9995173 18.4193241,18.9645458 18.68,17.54 L19.95,10.54 C20.109022,9.664176 19.8708957,8.76295954 19.3,8.08 L19.3,8.08 Z M5,18 L3,18 C2.44771525,18 2,17.5522847 2,17 L2,10 C2,9.44771525 2.44771525,9 3,9 L5,9 L5,18 Z M18,10.18 L16.73,17.18 C16.6420327,17.6610925 16.2190037,18.0079763 15.73,18.0001348 L7,18.0001348 L7,8.21 L9.72,2.09 C10.2860519,2.25502429 10.7572339,2.64936641 11.0193976,3.17749329 C11.2815613,3.70562017 11.310789,4.31934964 11.1,4.87 L10.57,6.3 C10.340778,6.91349306 10.4264441,7.60034369 10.7993331,8.13873965 C11.1722222,8.67713561 11.7850839,8.99885447 12.44,9 L17,9 C17.2974322,8.99951697 17.5796435,9.1314599 17.77,9.36 C17.9650435,9.58539548 18.049373,9.88604867 18,10.18 Z" id="path-1"></path>
+    </defs>
+    <g id="Icones/FranceTransfert/Dislike" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Colors/Icones" transform="translate(12.000000, 12.000000) scale(-1, -1) translate(-12.000000, -12.000000) translate(2.000000, 2.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
+            <g id="Colors/FranceTransfert/Neutres/Gris-medium-1" mask="url(#mask-2)" fill="#414856">
+                <g transform="translate(-2.000000, -2.000000)" id="Colors/France-transfert/Neutres/Gris-medium-1">
+                    <rect x="0" y="0" width="24" height="24"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

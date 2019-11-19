@@ -1,0 +1,69 @@
+// Colors
+$c-surface: #ffffff;
+$c-clair: #ffffff;
+$c-sombre: #d9d9d9;
+
+$c-blue: #0269cc;
+$c-blue-clair: #0277bd;
+$c-blue-button-primary: #0277bd;
+$c-blue-button-light: #cce1f5;
+$c-blue-button-dark: #9ac3eb;
+$c-blue-button-stored: #e5f0fa;
+$c-blue-sombre: #164194;
+$c-rouge: #e30613;
+$c-rouge-clair: #ed2324;
+
+$c-green: #c5e2bf;
+$c-green-icons: #429d2f;
+
+$c-gris-clair: #d9d9d9;
+$c-gris-m1: #414856;
+$c-gris-m2: #363c48;
+$c-gris-fonce: #262a33;
+$c-gris-message: #ececec;
+$c-button-disabled-secondary: #e4e4e4;
+$c-button-disabled-stroked: #ccced2;
+$c-button-disabled-text: #999999;
+
+$c-succes: #40a02b;
+$c-info: #46bfea;
+$c-error: #e1001d;
+$c-alerte: #ed810a;
+
+$colors: (
+  clair: #ffffff,
+  sombre: #d9d9d9,
+  blue: #0269cc,
+  blue-clair: #0277bd,
+  blue-sombre: #164194,
+  rouge: #e30613,
+  rouge-clair: #ed2324,
+  gris-clair: #d9d9d9,
+  gris-m1: #414856,
+  gris-m2: #363c48,
+  gris-fonce: #262a33,
+  succes: #40a02b,
+  info: #46bfea,
+  error: #e1001d,
+  alerte: #ed810a
+);
+
+// font widths
+
+$f-extra-light: 200;
+$f-light: 300;
+$f-regular: 400;
+$f-semi-bold: 600;
+$f-bold: 700;
+$f-extra-bold: 800;
+$f-black: 900;
+
+$fonts: (
+  extra-light: 200,
+  light: 300,
+  regular: 400,
+  semi-bold: 600,
+  bold: 700,
+  extra-bold: 800,
+  black: 900
+);

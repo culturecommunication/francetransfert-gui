@@ -1,0 +1,68 @@
+@import "../helpers/mixins";
+
+.button {
+  min-width: 100px;
+  min-height: 37px;
+  box-shadow: 0px 1px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 0px 0px rgba(0, 0, 0, 0.12);
+  user-select: none;
+  cursor: pointer;
+  outline: 0;
+  border: none;
+  display: inline-block;
+  white-space: nowrap;
+  text-decoration: none;
+  vertical-align: baseline;
+  text-align: center;
+  margin: 0;
+  padding: 0 16px;
+  border-radius: 4px;
+  overflow: visible;
+  transition: 0.3s;
+  font-size: 18px;
+  line-height: 23px;
+  font-weight: $f-bold;
+  &:active {
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+      0px 3px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+
+  &-primary {
+    color: white;
+    background-color: $c-blue;
+    &:hover {
+      background-color: $c-blue-button-primary;
+    }
+    &.disabled {
+      pointer-events: none;
+      color: $c-button-disabled-text;
+      background-color: $c-sombre;
+    }
+  }
+  &-secondary {
+    color: $c-blue;
+    background-color: $c-blue-button-light;
+    &:hover {
+      background-color: $c-blue-button-dark;
+    }
+    &.disabled {
+      pointer-events: none;
+      color: $c-button-disabled-text;
+      background-color: $c-button-disabled-secondary;
+    }
+  }
+  &-stroked {
+    color: $c-blue;
+    background-color: white;
+    border: 2px solid $c-blue;
+    &:hover {
+      background-color: $c-blue-button-stored;
+    }
+    &.disabled {
+      pointer-events: none;
+      color: $c-button-disabled-text;
+      border: 2px solid $c-button-disabled-stroked;
+      background-color: white;
+    }
+  }
+}
