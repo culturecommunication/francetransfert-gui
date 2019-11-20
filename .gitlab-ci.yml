@@ -8,22 +8,22 @@ variables:
   DEPLOY_ACCOUNT_NAME: "oupsteam"
   DEPLOY_DELIVERY_PATH: "/home/oupsteam/deploy/Apache"
   SONAR_SOURCES: "$CI_PROJECT_DIR/src"
-  SONAR_COVERAGE_REPORT : "$CI_PROJECT_DIR/coverage/lcov.info"
+  SONAR_COVERAGE_REPORT: "$CI_PROJECT_DIR/coverage/lcov.info"
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - $CI_PROJECT_DIR/node_modules/
 #   - $CI_PROJECT_DIR/coverage/lcov.info
-  
-# Stages definition  
+
+# Stages definition
 stages:
   - build
   - deploy
   - post-test
 
 # Common jobs scripts
-before_script: 
+before_script:
   - echo "$DEPLOY_IP_SERVER $DEPLOY_NAME_SERVER" >> /etc/hosts && cat /etc/hosts
   - apt-get update
 
@@ -47,35 +47,35 @@ oups-frontend:build:
 mc-francetransfert-upload-gui:sonar:
   stage: build
   only:
-     - develop
-     - automation
+    - develop
+    - automation
   when: manual
-  before_script: 
+  before_script:
     - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
     - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
     - PATH=./sonar-scanner-3.3.0.1492-linux/bin:$PATH
   script:
-    - npm install      
-    - > 
+    - npm install
+    - >
       sonar-scanner 
       -Dsonar.host.url=$SONAR_URL 
       -Dsonar.projectKey=$SONAR_KEY$CI_PROJECT_NAME 
       -Dsonar.login=$SONAR_TOKEN 
       -Dsonar.sources=$SONAR_SOURCES 
-      -Dsonar.sourceEncoding="UTF-8" 
-        
+      -Dsonar.sourceEncoding="UTF-8"
+
 # Deploy phase - No dependencies to Sonar result
 mc-francetransfert-upload-gui:deploy:
   stage: deploy
   only:
     - develop
     - automation
-  dependencies: 
+  dependencies:
     - mc-francetransfert-upload-gui:build
   tags:
     - glr1-1
   script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
     - 'eval $(ssh-agent -s) && ssh-add <(echo "$SSH_PRIVATE_KEY")'
     - 'mkdir -p ~/.ssh && [[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - scp dist.tar.gz $DEPLOY_ACCOUNT_NAME@$DEPLOY_NAME_SERVER:$DEPLOY_DELIVERY_PATH
@@ -84,20 +84,19 @@ mc-francetransfert-upload-gui:deploy:
     name: mc-francetransfert-upload-gui-integration
     url: $DEPLOY_PROTOCOL_SERVER://$DEPLOY_NAME_SERVER
 
-# Post test phase  
+# Post test phase
 mc-francetransfert-upload-gui:load-test:
   stage: post-test
   only:
     - develop
     - automation
-  dependencies: 
+  dependencies:
     - mc-francetransfert-upload-gui:deploy
   tags:
     - glr1-1
   script:
     - echo "Load time request to server"
-    - apt-get --assume-yes install chromium chromium-l10n      
+    - apt-get --assume-yes install chromium chromium-l10n
     - npm install chrome-remote-interface
     - chromium --headless --remote-debugging-port=9222 --no-sandbox $DEPLOY_PROTOCOL_SERVER://$DEPLOY_NAME_SERVER &
-    - 'sleep 3 && node chromium.js'
-      
+    - "sleep 3 && node chromium.js"
