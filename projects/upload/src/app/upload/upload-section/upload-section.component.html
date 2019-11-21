@@ -1,0 +1,107 @@
+<div>
+  <div
+    class="upload-section"
+    (dragover)="onDragOver()"
+    (drop)="onDrop()"
+    (dragleave)="onDrop()"
+  >
+    <div class="upload-section-content">
+      <div class="prefect-scoll" [perfectScrollbar]="perfectScrollbarConfig">
+        <p class="upload-section-info text-gris-m1">* Champs obligatoire</p>
+        <div class="upload-section-form">
+          <ng-container #flow="flow" [flowConfig]="{}"></ng-container>
+          <div
+            class="drop-area"
+            flowDrop
+            [flow]="flow.flowJs"
+            [ngClass]="{ dragover: dragging }"
+          >
+            <ng-container *ngIf="dragging">
+              <h3 class="text-clair font-bold">
+                Ajoutez vos fichiers ou dossiers *
+              </h3>
+              <p class="form-description text-clair font-bold">
+                Cliquez sur « Ajouter » ou faites glisser ici vos fichiers pour
+                les ajouter
+              </p>
+            </ng-container>
+            <ng-container *ngIf="!dragging">
+              <h3 class="text-blue font-bold">
+                Ajoutez vos fichiers ou dossiers *
+              </h3>
+              <p class="form-description  font-bold">
+                Cliquez sur « Ajouter » ou faites glisser ici vos fichiers pour
+                les ajouter
+              </p>
+              <file-item
+                *ngFor="
+                  let transfer of (flow.transfers$ | async).transfers;
+                  trackBy: trackTransfer
+                "
+                [transfer]="transfer"
+                (deletedTransfer)="deleteTransfer($event)"
+              ></file-item>
+              <button
+                class="button button-primary add-file"
+                flowButton
+                [ngClass]="{ disabled: flow.somethingToUpload$ | async }"
+                [flow]="flow.flowJs"
+              >
+                Ajouter
+              </button>
+              <!-- Input section -->
+              <div class="upload-section-inputs">
+                <mail-input-group
+                  (newEmail)="addEmail($event)"
+                ></mail-input-group>
+                <div class="upload-section-emails">
+                  <tag
+                    *ngFor="let email of emails"
+                    (deleted)="deleteEmail($event)"
+                    [content]="email"
+                  ></tag>
+                </div>
+                <input type="text" placeholder="Votre courriel*" />
+                <label class="checkbox"
+                  >Je souhaite protéger mon envoi par un mot de passe
+                  <input type="checkbox" [(ngModel)]="withPassword" />
+                  <span></span>
+                </label>
+                <ng-container *ngIf="withPassword">
+                  <password-input
+                    [placeholder]="'Saisissez le mot de passe'"
+                    [(ngModel)]="password1"
+                  ></password-input>
+                  <password-input
+                    [placeholder]="'Confirmer le mot dev passe'"
+                    [(ngModel)]="password2"
+                  ></password-input>
+                </ng-container>
+                <textarea
+                  cols="45"
+                  rows="6"
+                  [(ngModel)]="message"
+                  placeholder="Message (facultatif)"
+                ></textarea>
+                <label class="checkbox"
+                  >J’accepte les
+                  <label>conditions générales d’utilisations*</label>
+                  <input type="checkbox" [(ngModel)]="acceptConditions" />
+                  <span></span>
+                </label>
+              </div>
+              <!-- Input section -->
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      [ngClass]="{ dragover: dragging }"
+      class="upload-section-container"
+    ></div>
+    <button class="upload-section-send button button-primary">
+      envoyer
+    </button>
+  </div>
+</div>
