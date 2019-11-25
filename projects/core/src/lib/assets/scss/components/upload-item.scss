@@ -1,19 +1,13 @@
 .upload-item {
-  height: 45px;
-  background-color: rgba(2, 105, 204, 0.1);
+  min-height: 48px;
   float: left;
-  width: 100%;
-  margin-bottom: 2px;
-  &.uploaded {
-    background-color: transparent;
-    border-bottom: 1px solid $c-sombre;
-    margin: 0 17px 10px 17px;
-    width: calc(100% - 35px);
-    height: 48px;
-  }
+  background-color: transparent;
+  border-bottom: 1px solid $c-sombre;
+  margin: 2px 17px 10px 17px;
+  width: calc(100% - 35px);
   &-details {
     float: left;
-    width: calc(100% - 82px);
+    width: calc(100% - 94px);
     padding-left: 18px;
     padding-top: 3px;
   }
@@ -50,9 +44,16 @@
     float: left;
     margin-left: 10px;
     margin-top: 2px;
-    background-image: url("../assets/images/icons/Fichier_green.svg");
-    background-position: center;
-    background-repeat: no-repeat;
+    &.folder {
+      background-image: url("../assets/images/icons/Dossier_green.svg");
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    &.file {
+      background-image: url("../assets/images/icons/Fichier_green.svg");
+      background-position: center;
+      background-repeat: no-repeat;
+    }
   }
   &-delete {
     position: relative;

@@ -1,7 +1,14 @@
-import { Component, ViewChild, AfterViewInit, OnDestroy } from "@angular/core";
+import {
+  Component,
+  ViewChild,
+  AfterViewInit,
+  OnDestroy,
+  ChangeDetectorRef,
+  TemplateRef
+} from "@angular/core";
 
 import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
-import { FLOW_EVENTS } from "../../../../../core/src/public-api";
+import { FLOW_EVENTS } from "@ft-core";
 import { FlowDirective, Transfer } from "@flowjs/ngx-flow";
 import { Subscription } from "rxjs";
 
@@ -10,6 +17,10 @@ import { Subscription } from "rxjs";
   templateUrl: "./upload-section.component.html"
 })
 export class UploadSectionComponent implements AfterViewInit, OnDestroy {
+  @ViewChild("uploadForm", { static: false }) uploadForm: TemplateRef<any>;
+  @ViewChild("uploadLoading", { static: false }) uploadLoading: TemplateRef<
+    any
+  >;
   @ViewChild("flow", { static: false })
   flow: FlowDirective;
   perfectScrollbarConfig: PerfectScrollbarConfigInterface;
@@ -23,16 +34,21 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   password2: string;
   acceptConditions: boolean;
   message: string;
-  constructor() {
+  openedButton: boolean;
+  flowDirectoryOnlyDrop: boolean;
+  templateRf: TemplateRef<any>;
+  constructor(private cd: ChangeDetectorRef) {
     this.perfectScrollbarConfig = {};
     this.dragging = false;
     this.emails = [];
     this.withPassword = false;
     this.showPassword1 = false;
     this.showPassword2 = false;
+    this.openedButton = false;
     this.password1 = "";
     this.password2 = "";
     this.acceptConditions = false;
+    this.flowDirectoryOnlyDrop = false;
     this.message = "";
   }
 
@@ -41,9 +57,12 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
    * @returns {void}
    */
   ngAfterViewInit(): void {
+    this.templateRf = this.uploadForm;
+    this.cd.detectChanges();
     this.autoUploadSubscription = this.flow.events$.subscribe(event => {
       if (event.type === FLOW_EVENTS.FILESSUBMITTED) {
-        this.flow.upload();
+        this.openedButton = false;
+        this.cd.detectChanges();
       }
     });
   }
@@ -98,6 +117,15 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
    */
   deleteTransfer(transfer: Transfer): void {
     this.flow.cancelFile(transfer);
+  }
+
+  /**
+   * Flow upload fuc
+   * @returns {void}
+   */
+  upload(): void {
+    this.templateRf = this.uploadLoading;
+    this.flow.upload();
   }
 
   ngOnDestroy(): void {

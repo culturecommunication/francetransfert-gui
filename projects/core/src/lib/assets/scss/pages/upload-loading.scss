@@ -1,0 +1,39 @@
+@import "../helpers/mixins";
+
+.upload-loading {
+  &-cercle {
+    margin: 50px auto 0 auto;
+    width: fit-content;
+    position: relative;
+    svg {
+      height: 284px;
+      width: 284px;
+    }
+    div {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      h1 {
+        font-size: 52px;
+        margin: 0 auto;
+        width: fit-content;
+        line-height: 284px;
+        color: $c-gris-m1;
+      }
+    }
+  }
+  &-details {
+    width: fit-content;
+    margin: 30px auto 0 auto;
+    text-align: center;
+    p {
+      max-width: 385px;
+      color: $c-gris-m1;
+    }
+    h3 {
+      color: $c-blue;
+      font-weight: $f-bold;
+    }
+  }
+}
