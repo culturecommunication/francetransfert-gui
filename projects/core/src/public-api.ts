@@ -19,5 +19,8 @@ export * from "./lib/pipes/transfer-mapping";
 export * from "./lib/configuration/circle.config";
 export * from "./lib/configuration/perfect-scroll.config";
 export * from "./lib/configuration/flow.config";
+export * from "./lib/configuration/cookie.config";
 
 export * from "./lib/models/ft-transfers";
+
+export * from "./lib/services/cookies.manager";

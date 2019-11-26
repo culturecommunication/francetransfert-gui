@@ -34,6 +34,7 @@
     "@flowjs/ngx-flow": "^0.4.3",
     "core-js": "^2.6.9",
     "ng-circle-progress": "^1.5.1",
+    "ngx-cookie-service": "^2.2.0",
     "ngx-perfect-scrollbar": "^8.0.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",

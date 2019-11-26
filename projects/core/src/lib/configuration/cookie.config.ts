@@ -1,0 +1,3 @@
+export const COOKIES_CONSTANTS = {
+  CONSENTED: "IS_CONSENTED"
+};

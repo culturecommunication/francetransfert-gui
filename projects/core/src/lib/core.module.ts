@@ -8,15 +8,20 @@ import { MaterialModule } from "./material.module";
 import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
 import { PERFECT_SCROLLBAR_CONFIG } from "ngx-perfect-scrollbar";
 import { DEFAULT_PERFECT_SCROLLBAR_CONFIG } from "./configuration/perfect-scroll.config";
+import { CookieService } from "ngx-cookie-service";
 
 /** Import Components */
 import { FileItemComponent } from "./components/file-item/file-item.component";
 import { MailInputGroupComponent } from "./components/mail-input-group/mail-input-group.component";
 import { PasswordInputComponent } from "./components/password-input/password-input.component";
 import { TagComponent } from "./components/tag/tag.component";
+import { CookiesBannerComponent } from "./components/cookies-banner/cookies-banner.component";
 
 /** Import Pages */
 import { IndexComponent } from "./pages/index/index.component";
+
+/** Import Services */
+import { CookiesManagerService } from "./services/cookies.manager";
 
 /** Import Pipes */
 import { FileNamePipe } from "./pipes/file-name";
@@ -31,6 +36,7 @@ import { TransfersMappingPipe } from "./pipes/transfer-mapping";
     PasswordInputComponent,
     TagComponent,
     IndexComponent,
+    CookiesBannerComponent,
     FileNamePipe,
     FileTypePipe,
     FileSizePipe,
@@ -44,6 +50,8 @@ import { TransfersMappingPipe } from "./pipes/transfer-mapping";
     PerfectScrollbarModule
   ],
   providers: [
+    CookiesManagerService,
+    CookieService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
@@ -55,6 +63,7 @@ import { TransfersMappingPipe } from "./pipes/transfer-mapping";
     PasswordInputComponent,
     TagComponent,
     IndexComponent,
+    CookiesBannerComponent,
     FileNamePipe,
     FileTypePipe,
     FileSizePipe,
