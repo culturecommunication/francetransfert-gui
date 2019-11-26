@@ -22,6 +22,7 @@ import { IndexComponent } from "./pages/index/index.component";
 import { FileNamePipe } from "./pipes/file-name";
 import { FileTypePipe } from "./pipes/file-type";
 import { FileSizePipe } from "./pipes/file-size";
+import { TransfersMappingPipe } from "./pipes/transfer-mapping";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FileSizePipe } from "./pipes/file-size";
     IndexComponent,
     FileNamePipe,
     FileTypePipe,
-    FileSizePipe
+    FileSizePipe,
+    TransfersMappingPipe
   ],
   imports: [
     CommonModule,
@@ -56,6 +58,7 @@ import { FileSizePipe } from "./pipes/file-size";
     FileNamePipe,
     FileTypePipe,
     FileSizePipe,
+    TransfersMappingPipe,
     PerfectScrollbarModule,
     CommonModule,
     FormsModule,

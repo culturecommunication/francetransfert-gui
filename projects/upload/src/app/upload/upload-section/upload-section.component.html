@@ -1,4 +1,9 @@
 <div>
+  <ng-container #flow="flow" [flowConfig]="{}"></ng-container>
+  <ng-container [ngTemplateOutlet]="templateRf"></ng-container>
+</div>
+
+<ng-template #uploadForm>
   <div
     class="upload-section"
     (dragover)="onDragOver()"
@@ -9,7 +14,6 @@
       <div class="prefect-scoll" [perfectScrollbar]="perfectScrollbarConfig">
         <p class="upload-section-info text-gris-m1">* Champs obligatoire</p>
         <div class="upload-section-form">
-          <ng-container #flow="flow" [flowConfig]="{}"></ng-container>
           <div
             class="drop-area"
             flowDrop
@@ -35,21 +39,29 @@
               </p>
               <file-item
                 *ngFor="
-                  let transfer of (flow.transfers$ | async).transfers;
+                  let transfer of (flow.transfers$ | async).transfers | tm;
                   trackBy: trackTransfer
                 "
                 [transfer]="transfer"
                 (deletedTransfer)="deleteTransfer($event)"
               ></file-item>
-              <button
-                class="button button-primary add-file"
-                flowButton
-                [ngClass]="{ disabled: flow.somethingToUpload$ | async }"
-                [flow]="flow.flowJs"
+              <div
+                class="add-file"
+                [ngClass]="{ opened: openedButton, closed: !openedButton }"
               >
-                Ajouter
-              </button>
-              <!-- Input section -->
+                <button
+                  class="button button-primary"
+                  (click)="openedButton = !openedButton"
+                >
+                  Ajouter
+                </button>
+                <div class="add-file-items">
+                  <p flowButton [flow]="flow.flowJs">Fichier</p>
+                  <p flowButton [flow]="flow.flowJs" flowDirectoryOnly="true">
+                    Dossier
+                  </p>
+                </div>
+              </div>
               <div class="upload-section-inputs">
                 <mail-input-group
                   (newEmail)="addEmail($event)"
@@ -90,7 +102,6 @@
                   <span></span>
                 </label>
               </div>
-              <!-- Input section -->
             </ng-container>
           </div>
         </div>
@@ -100,8 +111,41 @@
       [ngClass]="{ dragover: dragging }"
       class="upload-section-container"
     ></div>
-    <button class="upload-section-send button button-primary">
+    <button
+      class="upload-section-send button button-primary"
+      (click)="upload()"
+      [ngClass]="{ disabled: !(flow.transfers$ | async).transfers.length }"
+    >
       envoyer
     </button>
   </div>
-</div>
+</ng-template>
+
+<ng-template #uploadLoading>
+  <div class="upload-loading">
+    <div class="upload-loading-cercle">
+      <circle-progress
+        [percent]="
+          (flow.transfers$ | async).totalProgress * 100 | number: '1.0-0'
+        "
+      ></circle-progress>
+      <div>
+        <h1>
+          {{ (flow.transfers$ | async).totalProgress * 100 | number: "1.0-0" }}%
+        </h1>
+      </div>
+    </div>
+    <div class="upload-loading-details">
+      <h3>C’est parti !</h3>
+      <br />
+      <p>
+        L’envoi de vos fichiers peut prendre quelques minutes. Merci de
+        patienter pendant la durée du téléchargement.
+      </p>
+      <br />
+      <p>
+        Merci de ne pas fermer la fenêtre avant la fin de l’envoi.
+      </p>
+    </div>
+  </div>
+</ng-template>

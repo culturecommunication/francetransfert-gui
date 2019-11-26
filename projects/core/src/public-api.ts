@@ -14,7 +14,10 @@ export * from "./lib/pages/index/index.component";
 export * from "./lib/pipes/file-name";
 export * from "./lib/pipes/file-size";
 export * from "./lib/pipes/file-type";
+export * from "./lib/pipes/transfer-mapping";
 
 export * from "./lib/configuration/circle.config";
 export * from "./lib/configuration/perfect-scroll.config";
 export * from "./lib/configuration/flow.config";
+
+export * from "./lib/models/ft-transfers";

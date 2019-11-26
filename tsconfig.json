@@ -14,8 +14,9 @@
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2018", "dom"],
     "paths": {
-      "@ft-core": ["dist/core"],
-      "@ft-core/*": ["dist/core/*"]
+      "@ft-core": ["projects/core/src/public-api.ts"],
+      "@gui-core": ["dist/gui-core"],
+      "@gui-core/*": ["dist/gui-core/*"]
     }
   },
   "angularCompilerOptions": {

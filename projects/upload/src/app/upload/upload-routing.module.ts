@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { IndexComponent } from "../../../../core/src/public-api";
+import { IndexComponent } from "@ft-core";
 import { UploadSectionComponent } from "./upload-section/upload-section.component";
 
 const routes: Routes = [

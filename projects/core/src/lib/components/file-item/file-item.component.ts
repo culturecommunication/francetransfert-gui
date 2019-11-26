@@ -1,11 +1,12 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { Transfer } from "@flowjs/ngx-flow";
-
+import { FTTransfer } from "../../models/ft-transfers";
 @Component({
   selector: "file-item",
   template: `
-    <div class="upload-item" [ngClass]="{ uploaded: transfer.progress === 1 }">
-      <div class="upload-item-icon" *ngIf="transfer.progress === 1"></div>
+    <div class="upload-item">
+      <div [hidden]="transfer.folder" class="upload-item-icon file"></div>
+      <div [hidden]="!transfer.folder" class="upload-item-icon folder"></div>
       <div class="upload-item-details">
         <p class="upload-item-title font-bold">
           {{ transfer.name | filename }}
@@ -13,20 +14,19 @@ import { Transfer } from "@flowjs/ngx-flow";
         <p class="upload-item-size text-gris-m1">
           {{ transfer.size | filesize }}
         </p>
-        <p class="upload-item-type text-gris-m1">
+        <p *ngIf="!transfer.folder" class="upload-item-type text-gris-m1">
           {{ transfer.name | filetype }}
         </p>
+        <p *ngIf="transfer.folder" class="upload-item-type text-gris-m1">
+          Dossier
+        </p>
       </div>
-      <div
-        class="upload-item-delete"
-        *ngIf="transfer.progress === 1"
-        (click)="deleteTransfer()"
-      ></div>
+      <div class="upload-item-delete" (click)="deleteTransfer()"></div>
     </div>
   `
 })
 export class FileItemComponent {
-  @Input() transfer: Transfer;
+  @Input() transfer: FTTransfer<Transfer>;
   @Output() deletedTransfer: EventEmitter<Transfer>;
   constructor() {
     this.deletedTransfer = new EventEmitter();
@@ -37,6 +37,12 @@ export class FileItemComponent {
    * @returns {void}
    */
   deleteTransfer(): void {
-    this.deletedTransfer.emit(this.transfer);
+    if (this.transfer.folder) {
+      for (let transfer of this.transfer.childs) {
+        this.deletedTransfer.emit(transfer);
+      }
+    } else {
+      this.deletedTransfer.emit(this.transfer);
+    }
   }
 }
