@@ -10,7 +10,10 @@ import { CookiesManagerService } from "../../services/cookies.manager";
             FranceTransfert utilise des cookies et du stockage local à votre
             navigateur pour faciliter votre utilisation de ce service.
           </h5>
-          <a routerLink="/faq">Plus d'infos</a>
+          <p>
+            En poursuivant votre navigation sur ce site, vous acceptez leur
+            utilisation <a routerLink="/faq">Plus d'infos</a>
+          </p>
         </div>
         <div class="cookies-banner-buttons">
           <button class=" button button-stroked" (click)="declineCookies()">
