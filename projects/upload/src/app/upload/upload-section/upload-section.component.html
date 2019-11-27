@@ -62,9 +62,17 @@
                   </p>
                 </div>
               </div>
+              <p
+                class="upload-section-errors"
+                [hidden]="!errorsMessages.length"
+              >
+                {{ errorsMessages }}
+              </p>
               <div class="upload-section-inputs">
                 <mail-input-group
                   (newEmail)="addEmail($event)"
+                  (change)="errorsManager($event, 1)"
+                  (onBlur)="errorsManager($event, 2)"
                 ></mail-input-group>
                 <div class="upload-section-emails">
                   <tag
@@ -73,20 +81,32 @@
                     [content]="email"
                   ></tag>
                 </div>
-                <input type="text" placeholder="Votre courriel*" />
+                <input
+                  type="text"
+                  placeholder="Votre courriel*"
+                  (keyup)="errorsManager($event, 3)"
+                  (blur)="errorsManager($event, 4)"
+                  [(ngModel)]="senderMail"
+                />
                 <label class="checkbox"
                   >Je souhaite protéger mon envoi par un mot de passe
-                  <input type="checkbox" [(ngModel)]="withPassword" />
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="withPassword"
+                    (change)="errorsManager($event, 5)"
+                  />
                   <span></span>
                 </label>
                 <ng-container *ngIf="withPassword">
                   <password-input
                     [placeholder]="'Saisissez le mot de passe'"
                     [(ngModel)]="password1"
+                    (blur)="errorsManager($event, 6)"
                   ></password-input>
                   <password-input
                     [placeholder]="'Confirmer le mot dev passe'"
                     [(ngModel)]="password2"
+                    (blur)="errorsManager($event, 7)"
                   ></password-input>
                 </ng-container>
                 <textarea
@@ -97,7 +117,9 @@
                 ></textarea>
                 <label class="checkbox"
                   >J’accepte les
-                  <label>conditions générales d’utilisations*</label>
+                  <label routerLink="/cgu"
+                    >conditions générales d’utilisation*</label
+                  >
                   <input type="checkbox" [(ngModel)]="acceptConditions" />
                   <span></span>
                 </label>
@@ -114,7 +136,7 @@
     <button
       class="upload-section-send button button-primary"
       (click)="upload()"
-      [ngClass]="{ disabled: !(flow.transfers$ | async).transfers.length }"
+      [ngClass]="{ disabled: checkForm((flow.transfers$ | async).transfers) }"
     >
       envoyer
     </button>

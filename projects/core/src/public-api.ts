@@ -20,7 +20,11 @@ export * from "./lib/configuration/circle.config";
 export * from "./lib/configuration/perfect-scroll.config";
 export * from "./lib/configuration/flow.config";
 export * from "./lib/configuration/cookie.config";
+export * from "./lib/configuration/errors-messages.config";
+export * from "./lib/configuration/regex.config";
 
 export * from "./lib/models/ft-transfers";
 
 export * from "./lib/services/cookies.manager";
+
+export * from "./lib/utils/rxjs-get-value";

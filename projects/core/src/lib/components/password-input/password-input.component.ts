@@ -1,4 +1,10 @@
-import { Component, Input, forwardRef } from "@angular/core";
+import {
+  Component,
+  Input,
+  forwardRef,
+  Output,
+  EventEmitter
+} from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 const noop = () => {};
@@ -16,10 +22,12 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class PasswordInputComponent implements ControlValueAccessor {
   @Input() placeholder: string;
+  @Output() blur: EventEmitter<boolean>;
   showPassword: boolean;
   password: string;
 
   constructor() {
+    this.blur = new EventEmitter();
     this.showPassword = false;
     this.password = "";
   }
@@ -53,6 +61,7 @@ export class PasswordInputComponent implements ControlValueAccessor {
    * @returns {void}
    */
   onBlur(): void {
+    this.blur.emit(true);
     this.onTouchedCallback();
   }
 
@@ -68,7 +77,7 @@ export class PasswordInputComponent implements ControlValueAccessor {
   }
 
   /**
-   * Delete email
+   * Read password changes
    * @returns {void}
    */
   change(): void {
