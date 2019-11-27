@@ -59,6 +59,7 @@
           0px 1px 3px 0px rgba(0, 0, 0, 0.12);
         position: absolute;
         padding: 0 15px 4px 15px;
+        background: white;
         p {
           width: 100%;
           color: $c-gris-m1;
@@ -116,5 +117,10 @@
     width: calc(100% - 35px);
     margin-left: 15px;
     margin-top: 60px;
+  }
+
+  &-errors {
+    margin: 30px;
+    color: $c-error;
   }
 }
