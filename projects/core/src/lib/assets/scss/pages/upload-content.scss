@@ -1,0 +1,51 @@
+.upload-content {
+  padding: 14px 20px;
+  height: calc(100vh - 244px);
+  .title {
+    margin: 0 0 16px;
+    color: $c-gris-m1;
+  }
+  &-title {
+    margin: 24px auto 0;
+    width: fit-content;
+    font-weight: $f-bold;
+  }
+  &-emails {
+    float: left;
+    margin-top: 10px;
+  }
+  &-files {
+    float: left;
+    margin-top: 30px;
+  }
+  &-size {
+    float: left;
+    margin-top: 30px;
+    width: 100%;
+    h2 {
+      font-weight: $f-bold;
+      color: $c-blue;
+      width: fit-content;
+      margin: 32px auto 32px;
+    }
+  }
+  &-return {
+    color: $c-blue;
+    font-weight: $f-bold;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+    height: 20px;
+    padding-left: 13px;
+    &::before {
+      content: "";
+      position: absolute;
+      background-image: url("../assets/images/icons/Fleche/Precedent_blue.svg");
+      height: 18px;
+      width: 18px;
+      left: -7px;
+      top: -5px;
+      background-repeat: no-repeat;
+    }
+  }
+}

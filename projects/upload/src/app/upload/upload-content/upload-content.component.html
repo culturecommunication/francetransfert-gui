@@ -1,0 +1,28 @@
+<div class="upload-content">
+  <h6 class="upload-content-return" (click)="goto('uploadChoice')">Retour</h6>
+  <div class="prefect-scoll" [perfectScrollbar]="perfectScrollbarConfig">
+    <h3 class="upload-content-title">
+      Récapitulatif de l’envoi
+    </h3>
+    <div class="upload-content-emails">
+      <p class="title">Envoyé à :</p>
+      <tag
+        *ngFor="let email of emails"
+        [content]="email"
+        [withoutDelete]="true"
+      ></tag>
+    </div>
+    <div class="upload-content-files">
+      <p class="title">Récapitulatif des éléments envoyés :</p>
+      <file-item
+        *ngFor="let transfer of transfers"
+        [transfer]="transfer"
+        [withoutDelete]="true"
+      ></file-item>
+    </div>
+    <div class="upload-content-size">
+      <p class="title">Au total :</p>
+      <h2>{{ transfers | filemtpsize | filesize }}</h2>
+    </div>
+  </div>
+</div>

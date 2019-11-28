@@ -4,7 +4,7 @@ import { FTTransfer } from "../../models/ft-transfers";
 @Component({
   selector: "file-item",
   template: `
-    <div class="upload-item">
+    <div class="upload-item" [ngClass]="{ 'without-delete': withoutDelete }">
       <div [hidden]="transfer.folder" class="upload-item-icon file"></div>
       <div [hidden]="!transfer.folder" class="upload-item-icon folder"></div>
       <div class="upload-item-details">
@@ -21,12 +21,17 @@ import { FTTransfer } from "../../models/ft-transfers";
           Dossier
         </p>
       </div>
-      <div class="upload-item-delete" (click)="deleteTransfer()"></div>
+      <div
+        [hidden]="withoutDelete"
+        class="upload-item-delete"
+        (click)="deleteTransfer()"
+      ></div>
     </div>
   `
 })
 export class FileItemComponent {
   @Input() transfer: FTTransfer<Transfer>;
+  @Input() withoutDelete: boolean;
   @Output() deletedTransfer: EventEmitter<Transfer>;
   constructor() {
     this.deletedTransfer = new EventEmitter();
