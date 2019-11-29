@@ -54,14 +54,14 @@
   &-stroked {
     color: $c-blue;
     background-color: white;
-    border: 2px solid $c-blue;
+    border: 1px solid $c-blue;
     &:hover {
       background-color: $c-blue-button-stored;
     }
     &.disabled {
       pointer-events: none;
       color: $c-button-disabled-text;
-      border: 2px solid $c-button-disabled-stroked;
+      border: 1px solid $c-button-disabled-stroked;
       background-color: white;
     }
   }

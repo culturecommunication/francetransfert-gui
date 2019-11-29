@@ -15,6 +15,7 @@ export * from "./lib/pipes/file-name";
 export * from "./lib/pipes/file-size";
 export * from "./lib/pipes/file-type";
 export * from "./lib/pipes/transfer-mapping";
+export * from "./lib/pipes/file-multiple-size";
 
 export * from "./lib/configuration/circle.config";
 export * from "./lib/configuration/perfect-scroll.config";

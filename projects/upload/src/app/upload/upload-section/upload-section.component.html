@@ -123,6 +123,35 @@
                   <input type="checkbox" [(ngModel)]="acceptConditions" />
                   <span></span>
                 </label>
+                <div class="upload-choice-view" *ngIf="!checkChoice()">
+                  <h4>
+                    Je donne mon avis
+                  </h4>
+                  <p class="text-gris-m1">
+                    Comment trouvez-vous le service FranceTransfert ?
+                  </p>
+                  <div class="icons">
+                    <img
+                      *ngFor="let icon of icons; let i = index"
+                      [src]="
+                        './assets/images/icons/Utilisateur/' +
+                        getIcon(icon, i + 1) +
+                        '.svg'
+                      "
+                      alt="{{ icon + 'icon' }}"
+                      (click)="selectedView = i + 1; activeView = true"
+                      [ngClass]="{ active: selectedView === i + 1 }"
+                    />
+                  </div>
+                  <textarea placeholder="Message (facultatif)"></textarea>
+                  <button
+                    class=" button button-stroked"
+                    [ngClass]="{ disabled: !activeView }"
+                    (click)="makeChoice()"
+                  >
+                    Valider mon avis
+                  </button>
+                </div>
               </div>
             </ng-container>
           </div>
@@ -170,4 +199,16 @@
       </p>
     </div>
   </div>
+</ng-template>
+
+<ng-template #uploadChoice>
+  <upload-choice (nextLayout)="selectLayout($event)"></upload-choice>
+</ng-template>
+
+<ng-template #uploadContent>
+  <upload-content
+    (nextLayout)="selectLayout($event)"
+    [transfers]="(flow.transfers$ | async).transfers | tm"
+    [emails]="emails"
+  ></upload-content>
 </ng-template>

@@ -5,6 +5,9 @@
   border-bottom: 1px solid $c-sombre;
   margin: 2px 17px 10px 17px;
   width: calc(100% - 35px);
+  &.without-delete {
+    width: calc(100% - 160px);
+  }
   &-details {
     float: left;
     width: calc(100% - 94px);
