@@ -67,6 +67,37 @@ textarea {
       color: $c-blue;
     }
   }
+  &-list {
+    width: calc(100% - 28px);
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+      0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    position: absolute;
+    padding: 0 15px 0 15px;
+    background: white;
+    top: 51px;
+    left: 0;
+    max-height: 120px;
+    z-index: 999;
+    overflow: auto;
+    ul {
+      list-style: none;
+      padding: 4px 0 4px;
+      margin: 0;
+      li {
+        text-align: left;
+        border-bottom: 1px solid #d9d9d9;
+        width: 100%;
+        color: #414856;
+        height: 32px;
+        line-height: 32px;
+        font-weight: 600;
+        cursor: pointer;
+        &:last-child {
+          border: 0;
+        }
+      }
+    }
+  }
 }
 
 .input-password {

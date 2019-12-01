@@ -11,3 +11,7 @@ export const MSG_ERR = {
     "Merci de renseigner au moins un destinataire pour votre transfert.",
   MSG_ERR_07: "Merci de renseigner votre adresse de courriel."
 };
+
+export const MSG_INFO = {
+  FO_MSG_INF_04: "Votre transfert est limité à 100 destinataires différents."
+};
