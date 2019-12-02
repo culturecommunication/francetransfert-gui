@@ -19,6 +19,7 @@ import {
 import { FlowDirective, Transfer, UploadState } from "@flowjs/ngx-flow";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
+import { EMAIL_LIST } from "../mock/mock";
 
 @Component({
   selector: "app-upload-section",
@@ -64,6 +65,9 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
     this.acceptConditions = false;
     this.icons = ["Insatisfait", "Neutre", "Satisfait", "Tres-Satisfait"];
     this.initUpload();
+    if (this.cookiesManager.isConsented()) {
+      localStorage.setItem("EMAIL_LIST", JSON.stringify(EMAIL_LIST));
+    }
   }
 
   /**
@@ -222,6 +226,15 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   }
 
   /**
+   * Mange emails errors.
+   * @param {string} error
+   * @returns {void}
+   */
+  emailsErrors(error: string): void {
+    this.errorsMessages = error;
+  }
+
+  /**
    * Mange errors messages.
    * @param {string} event
    * @param {number} level
@@ -241,7 +254,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
       case 2 /** Add email sender */: {
         if (!transfers.transfers.length) {
           this.errorsMessages = MSG_ERR.MSG_ERR_03;
-        } else if (!REGEX_EXP.EMAIL.test(event)) {
+        } else if (event.length > 0 && !REGEX_EXP.EMAIL.test(event)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
         }
         break;

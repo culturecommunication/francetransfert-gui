@@ -13,7 +13,7 @@ export class IndexComponent implements OnInit {
     this.showBanner = false;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     setTimeout(() => {
       this.showBanner = !this._cookiesManager.isConsented();
     }, 1500);

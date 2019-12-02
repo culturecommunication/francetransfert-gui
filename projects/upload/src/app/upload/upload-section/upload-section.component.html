@@ -70,9 +70,10 @@
               </p>
               <div class="upload-section-inputs">
                 <mail-input-group
-                  (newEmail)="addEmail($event)"
-                  (change)="errorsManager($event, 1)"
+                  [(ngModel)]="emails"
+                  (changes)="errorsManager($event, 1)"
                   (onBlur)="errorsManager($event, 2)"
+                  (errors)="emailsErrors($event)"
                 ></mail-input-group>
                 <div class="upload-section-emails">
                   <tag
