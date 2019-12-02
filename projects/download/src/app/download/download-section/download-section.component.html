@@ -1,1 +1,82 @@
-<h1>Download Section</h1>
+<div>
+  <ng-container [ngTemplateOutlet]="templateRf"></ng-container>
+</div>
+<ng-template #downloadSection>
+  <div class="download-section">
+    <div class="prefect-scoll" [perfectScrollbar]="perfectScrollbarConfig">
+      <p class="download-section-info text-gris-m1" *ngIf="withPassword">
+        * Champs obligatoire
+      </p>
+      <div class="download-section-icon"></div>
+      <h3 class="download-section-title">Vos fichiers à télécharger</h3>
+      <p class="download-section-description">
+        Vos fichiers sont disponibles jusqu’au <b>26 juillet 2019</b>
+      </p>
+      <div class="download-section-emails">
+        <p class="title">Votre expéditeur est :</p>
+        <tag
+          *ngFor="let email of emails"
+          [content]="email"
+          [withoutDelete]="true"
+        ></tag>
+      </div>
+      <div class="download-section-files">
+        <p class="title">Récapitulatif des éléments envoyés :</p>
+        <file-item
+          *ngFor="let transfer of transfers | tm"
+          [transfer]="transfer"
+          [withoutDelete]="true"
+        ></file-item>
+      </div>
+      <div class="download-section-password" *ngIf="withPassword">
+        <p class="title">Ce transfert est sécurisé par un mot de passe* :</p>
+        <password-input
+          [placeholder]="'Saisissez le mot de passe*'"
+          [(ngModel)]="password"
+        ></password-input>
+      </div>
+      <div class="download-section-view">
+        <div class="download-choice-view" *ngIf="!checkChoice()">
+          <h4>
+            Je donne mon avis
+          </h4>
+          <p class="text-gris-m1">
+            Comment trouvez-vous le service FranceTransfert ?
+          </p>
+          <div class="icons">
+            <img
+              *ngFor="let icon of icons; let i = index"
+              [src]="
+                './assets/images/icons/Utilisateur/' +
+                getIcon(icon, i + 1) +
+                '.svg'
+              "
+              alt="{{ icon + 'icon' }}"
+              (click)="selectedView = i + 1; activeView = true"
+              [ngClass]="{ active: selectedView === i + 1 }"
+            />
+          </div>
+          <textarea placeholder="Message (facultatif)"></textarea>
+          <button
+            class=" button button-stroked"
+            [ngClass]="{ disabled: !activeView }"
+            (click)="makeChoice()"
+          >
+            Valider mon avis
+          </button>
+        </div>
+      </div>
+    </div>
+    <button
+      class="download-section-action button button-primary"
+      (click)="download()"
+      [ngClass]="{ disabled: checkValid() }"
+    >
+      Télécharger les fichiers
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #downloadchoice>
+  <download-choice (nextLayout)="selectLayout($event)"></download-choice>
+</ng-template>

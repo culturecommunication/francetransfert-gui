@@ -193,6 +193,11 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
       });
   }
 
+  /**
+   * Select Layout.
+   * @param {string} Layout
+   * @returns {void}
+   */
   selectLayout(Layout: string): void {
     this.templateRf = this[Layout];
     if (Layout === "uploadForm") {

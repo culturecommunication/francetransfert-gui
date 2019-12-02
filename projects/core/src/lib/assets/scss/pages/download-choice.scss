@@ -1,0 +1,66 @@
+.download-choice {
+  padding: 30px;
+  width: calc(100% - 60px);
+  height: calc(100vh - 335px);
+  position: relative;
+  &-icon {
+    background-image: url("../assets/images/svgs/illustration-telechargement-reussi.svg");
+    height: 155px;
+    width: 160px;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+  }
+  &-details {
+    text-align: center;
+    h3 {
+      font-weight: $f-bold;
+      color: $c-succes;
+    }
+  }
+  &-view {
+    padding: 15px;
+    border: 5px solid $c-blue;
+    border-radius: 8px;
+    text-align: center;
+    textarea {
+      height: 70px;
+    }
+    h4 {
+      margin: 0;
+      color: $c-blue;
+      font-weight: $f-bold;
+    }
+    .icons {
+      height: 48px;
+      margin: 15px 0 0;
+      img {
+        height: 40px;
+        width: 40px;
+        cursor: pointer;
+        margin: 0 24px;
+        padding: 4px;
+        border-radius: 50%;
+        &.active {
+          background: rgba(64, 160, 43, 0.15) 0% 0% no-repeat padding-box;
+        }
+      }
+    }
+  }
+  .download-choice-view {
+    position: absolute;
+    bottom: 34px;
+    width: calc(100% - 100px);
+  }
+
+  &-button {
+    position: absolute;
+    bottom: -51px;
+    width: 100%;
+    left: 0;
+    height: 59px;
+    button {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
