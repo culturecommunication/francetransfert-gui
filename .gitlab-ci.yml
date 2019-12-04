@@ -2,49 +2,31 @@ image: node
 
 # Globals var to adapt
 variables:
-  DEPLOY_IP_SERVER: "10.170.20.7"
-  DEPLOY_NAME_SERVER: "en2d.teamlog.intra"
-  DEPLOY_PROTOCOL_SERVER: "http"
-  DEPLOY_ACCOUNT_NAME: "oupsteam"
-  DEPLOY_DELIVERY_PATH: "/home/oupsteam/deploy/Apache"
   SONAR_SOURCES: "$CI_PROJECT_DIR/src"
   SONAR_COVERAGE_REPORT: "$CI_PROJECT_DIR/coverage/lcov.info"
 
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - $CI_PROJECT_DIR/node_modules/
-#   - $CI_PROJECT_DIR/coverage/lcov.info
-
-# Stages definition
+# # Stages definition
 stages:
   - build
-  - deploy
-  - post-test
-
-# Common jobs scripts
-before_script:
-  - echo "$DEPLOY_IP_SERVER $DEPLOY_NAME_SERVER" >> /etc/hosts && cat /etc/hosts
-  - apt-get update
+  - sonar
 
 # Build phase
-oups-frontend:build:
+mc-francetransfert-upload-download-gui:build:
   stage: build
   only:
     - develop
     - automation
   script:
+    - echo "Pipeline Build stage ..."
     - npm install
-    - node patch-webpack.js && node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --buildOptimizer
+    - npm run build
     - tar zcf dist.tar.gz dist/
   artifacts:
     paths:
       - dist.tar.gz
 
-# Sonar code quality analysis - Use Boost AWS Runner
-# Job is executing manualy in order to wait code fix issues
-# Use service account to access results
-mc-francetransfert-upload-gui:sonar:
+# Sonar phase
+mc-francetransfert-upload-download-gui:sonar:
   stage: build
   only:
     - develop
@@ -55,6 +37,7 @@ mc-francetransfert-upload-gui:sonar:
     - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
     - PATH=./sonar-scanner-3.3.0.1492-linux/bin:$PATH
   script:
+    - echo "Pipeline Sonar stage ..."
     - npm install
     - >
       sonar-scanner 
@@ -63,40 +46,3 @@ mc-francetransfert-upload-gui:sonar:
       -Dsonar.login=$SONAR_TOKEN 
       -Dsonar.sources=$SONAR_SOURCES 
       -Dsonar.sourceEncoding="UTF-8"
-
-# Deploy phase - No dependencies to Sonar result
-mc-francetransfert-upload-gui:deploy:
-  stage: deploy
-  only:
-    - develop
-    - automation
-  dependencies:
-    - mc-francetransfert-upload-gui:build
-  tags:
-    - glr1-1
-  script:
-    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
-    - 'eval $(ssh-agent -s) && ssh-add <(echo "$SSH_PRIVATE_KEY")'
-    - 'mkdir -p ~/.ssh && [[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - scp dist.tar.gz $DEPLOY_ACCOUNT_NAME@$DEPLOY_NAME_SERVER:$DEPLOY_DELIVERY_PATH
-    - ssh oupsteam@en2d.teamlog.intra 'tar xzf /home/oupsteam/deploy/Apache/dist.tar.gz -C /home/oupsteam/deploy/Apache/oups-frontend' #TO FIX
-  environment:
-    name: mc-francetransfert-upload-gui-integration
-    url: $DEPLOY_PROTOCOL_SERVER://$DEPLOY_NAME_SERVER
-
-# Post test phase
-mc-francetransfert-upload-gui:load-test:
-  stage: post-test
-  only:
-    - develop
-    - automation
-  dependencies:
-    - mc-francetransfert-upload-gui:deploy
-  tags:
-    - glr1-1
-  script:
-    - echo "Load time request to server"
-    - apt-get --assume-yes install chromium chromium-l10n
-    - npm install chrome-remote-interface
-    - chromium --headless --remote-debugging-port=9222 --no-sandbox $DEPLOY_PROTOCOL_SERVER://$DEPLOY_NAME_SERVER &
-    - "sleep 3 && node chromium.js"
