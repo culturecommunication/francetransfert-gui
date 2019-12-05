@@ -1,7 +1,7 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: "filetype"
+  name: 'filetype'
 })
 export class FileTypePipe implements PipeTransform {
   /**
@@ -9,10 +9,10 @@ export class FileTypePipe implements PipeTransform {
    * @param {string} filename
    * @returns {string}
    */
-  transform(filename: string = ""): string {
-    let type: string = "Pas de type";
+  transform(filename: string = ''): string {
+    let type: string = 'Pas de type';
     if (!!filename && filename !== undefined) {
-      let segments: Array<string> = filename.split(".");
+      let segments: Array<string> = filename.split('.');
       if (segments.length > 1) {
         type = `Fichier ${segments[segments.length - 1]}`;
       }

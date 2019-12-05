@@ -17,20 +17,14 @@
     <div class="icons">
       <img
         *ngFor="let icon of icons; let i = index"
-        [src]="
-          './assets/images/icons/Utilisateur/' + getIcon(icon, i + 1) + '.svg'
-        "
+        [src]="'./assets/images/icons/Utilisateur/' + getIcon(icon, i + 1) + '.svg'"
         alt="{{ icon + 'icon' }}"
         (click)="selectedView = i + 1; activeView = true"
         [ngClass]="{ active: selectedView === i + 1 }"
       />
     </div>
     <textarea placeholder="Message (facultatif)"></textarea>
-    <button
-      class=" button button-stroked"
-      [ngClass]="{ disabled: !activeView }"
-      (click)="makeChoice()"
-    >
+    <button class=" button button-stroked" [ngClass]="{ disabled: !activeView }" (click)="makeChoice()">
       Valider mon avis
     </button>
   </div>

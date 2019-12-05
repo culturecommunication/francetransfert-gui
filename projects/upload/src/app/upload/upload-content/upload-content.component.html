@@ -6,19 +6,11 @@
     </h3>
     <div class="upload-content-emails">
       <p class="title">Envoyé à :</p>
-      <tag
-        *ngFor="let email of emails"
-        [content]="email"
-        [withoutDelete]="true"
-      ></tag>
+      <lib-tag *ngFor="let email of emails" [content]="email" [withoutDelete]="true"></lib-tag>
     </div>
     <div class="upload-content-files">
       <p class="title">Récapitulatif des éléments envoyés :</p>
-      <file-item
-        *ngFor="let transfer of transfers"
-        [transfer]="transfer"
-        [withoutDelete]="true"
-      ></file-item>
+      <lib-file-item *ngFor="let transfer of transfers" [transfer]="transfer" [withoutDelete]="true"></lib-file-item>
     </div>
     <div class="upload-content-size">
       <p class="title">Au total :</p>

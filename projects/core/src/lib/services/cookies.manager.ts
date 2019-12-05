@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
-import { CookieService } from "ngx-cookie-service";
-import { COOKIES_CONSTANTS } from "../configuration/cookie.config";
+import { CookieService } from 'ngx-cookie-service';
+import { COOKIES_CONSTANTS } from '../configuration/cookie.config';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class CookiesManagerService {
   constructor(private cookieService: CookieService) {}
@@ -22,7 +22,7 @@ export class CookiesManagerService {
    * @returns {boolean}
    */
   setConsented(): void {
-    this.cookieService.set(COOKIES_CONSTANTS.CONSENTED, "1");
+    this.cookieService.set(COOKIES_CONSTANTS.CONSENTED, '1');
   }
 
   /**
@@ -31,7 +31,7 @@ export class CookiesManagerService {
    * @returns {string}
    */
   getItem(itemName: string): string {
-    return this.isConsented() ? this.cookieService.get(itemName) : "";
+    return this.isConsented() ? this.cookieService.get(itemName) : '';
   }
 
   /**

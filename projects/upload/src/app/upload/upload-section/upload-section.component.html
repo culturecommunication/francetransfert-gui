@@ -4,29 +4,18 @@
 </div>
 
 <ng-template #uploadForm>
-  <div
-    class="upload-section"
-    (dragover)="onDragOver()"
-    (drop)="onDrop()"
-    (dragleave)="onDrop()"
-  >
+  <div class="upload-section" (dragover)="onDragOver()" (drop)="onDrop()" (dragleave)="onDrop()">
     <div class="upload-section-content">
       <div class="prefect-scoll" [perfectScrollbar]="perfectScrollbarConfig">
         <p class="upload-section-info text-gris-m1">* Champs obligatoire</p>
         <div class="upload-section-form">
-          <div
-            class="drop-area"
-            flowDrop
-            [flow]="flow.flowJs"
-            [ngClass]="{ dragover: dragging }"
-          >
+          <div class="drop-area" flowDrop [flow]="flow.flowJs" [ngClass]="{ dragover: dragging }">
             <ng-container *ngIf="dragging">
               <h3 class="text-clair font-bold">
                 Ajoutez vos fichiers ou dossiers *
               </h3>
               <p class="form-description text-clair font-bold">
-                Cliquez sur « Ajouter » ou faites glisser ici vos fichiers pour
-                les ajouter
+                Cliquez sur « Ajouter » ou faites glisser ici vos fichiers pour les ajouter
               </p>
             </ng-container>
             <ng-container *ngIf="!dragging">
@@ -34,25 +23,15 @@
                 Ajoutez vos fichiers ou dossiers *
               </h3>
               <p class="form-description  font-bold">
-                Cliquez sur « Ajouter » ou faites glisser ici vos fichiers pour
-                les ajouter
+                Cliquez sur « Ajouter » ou faites glisser ici vos fichiers pour les ajouter
               </p>
-              <file-item
-                *ngFor="
-                  let transfer of (flow.transfers$ | async).transfers | tm;
-                  trackBy: trackTransfer
-                "
+              <lib-file-item
+                *ngFor="let transfer of (flow.transfers$ | async).transfers | tm; trackBy: trackTransfer"
                 [transfer]="transfer"
                 (deletedTransfer)="deleteTransfer($event)"
-              ></file-item>
-              <div
-                class="add-file"
-                [ngClass]="{ opened: openedButton, closed: !openedButton }"
-              >
-                <button
-                  class="button button-primary"
-                  (click)="openedButton = !openedButton"
-                >
+              ></lib-file-item>
+              <div class="add-file" [ngClass]="{ opened: openedButton, closed: !openedButton }">
+                <button class="button button-primary" (click)="openedButton = !openedButton">
                   Ajouter
                 </button>
                 <div class="add-file-items">
@@ -62,25 +41,18 @@
                   </p>
                 </div>
               </div>
-              <p
-                class="upload-section-errors"
-                [hidden]="!errorsMessages.length"
-              >
+              <p class="upload-section-errors" [hidden]="!errorsMessages.length">
                 {{ errorsMessages }}
               </p>
               <div class="upload-section-inputs">
-                <mail-input-group
+                <lib-mail-input-group
                   [(ngModel)]="emails"
                   (changes)="errorsManager($event, 1)"
                   (onBlur)="errorsManager($event, 2)"
                   (errors)="emailsErrors($event)"
-                ></mail-input-group>
+                ></lib-mail-input-group>
                 <div class="upload-section-emails">
-                  <tag
-                    *ngFor="let email of emails"
-                    (deleted)="deleteEmail($event)"
-                    [content]="email"
-                  ></tag>
+                  <lib-tag *ngFor="let email of emails" (deleted)="deleteEmail($event)" [content]="email"></lib-tag>
                 </div>
                 <input
                   type="text"
@@ -91,36 +63,25 @@
                 />
                 <label class="checkbox"
                   >Je souhaite protéger mon envoi par un mot de passe
-                  <input
-                    type="checkbox"
-                    [(ngModel)]="withPassword"
-                    (change)="errorsManager($event, 5)"
-                  />
+                  <input type="checkbox" [(ngModel)]="withPassword" (change)="errorsManager($event, 5)" />
                   <span></span>
                 </label>
                 <ng-container *ngIf="withPassword">
-                  <password-input
+                  <lib-password-input
                     [placeholder]="'Saisissez le mot de passe'"
                     [(ngModel)]="password1"
                     (blur)="errorsManager($event, 6)"
-                  ></password-input>
-                  <password-input
+                  ></lib-password-input>
+                  <lib-password-input
                     [placeholder]="'Confirmer le mot dev passe'"
                     [(ngModel)]="password2"
                     (blur)="errorsManager($event, 7)"
-                  ></password-input>
+                  ></lib-password-input>
                 </ng-container>
-                <textarea
-                  cols="45"
-                  rows="6"
-                  [(ngModel)]="message"
-                  placeholder="Message (facultatif)"
-                ></textarea>
+                <textarea cols="45" rows="6" [(ngModel)]="message" placeholder="Message (facultatif)"></textarea>
                 <label class="checkbox"
                   >J’accepte les
-                  <label routerLink="/cgu"
-                    >conditions générales d’utilisation*</label
-                  >
+                  <label routerLink="/cgu">conditions générales d’utilisation*</label>
                   <input type="checkbox" [(ngModel)]="acceptConditions" />
                   <span></span>
                 </label>
@@ -134,22 +95,14 @@
                   <div class="icons">
                     <img
                       *ngFor="let icon of icons; let i = index"
-                      [src]="
-                        './assets/images/icons/Utilisateur/' +
-                        getIcon(icon, i + 1) +
-                        '.svg'
-                      "
+                      [src]="'./assets/images/icons/Utilisateur/' + getIcon(icon, i + 1) + '.svg'"
                       alt="{{ icon + 'icon' }}"
                       (click)="selectedView = i + 1; activeView = true"
                       [ngClass]="{ active: selectedView === i + 1 }"
                     />
                   </div>
                   <textarea placeholder="Message (facultatif)"></textarea>
-                  <button
-                    class=" button button-stroked"
-                    [ngClass]="{ disabled: !activeView }"
-                    (click)="makeChoice()"
-                  >
+                  <button class=" button button-stroked" [ngClass]="{ disabled: !activeView }" (click)="makeChoice()">
                     Valider mon avis
                   </button>
                 </div>
@@ -159,10 +112,7 @@
         </div>
       </div>
     </div>
-    <div
-      [ngClass]="{ dragover: dragging }"
-      class="upload-section-container"
-    ></div>
+    <div [ngClass]="{ dragover: dragging }" class="upload-section-container"></div>
     <button
       class="upload-section-send button button-primary"
       (click)="upload()"
@@ -176,23 +126,16 @@
 <ng-template #uploadLoading>
   <div class="upload-loading">
     <div class="upload-loading-cercle">
-      <circle-progress
-        [percent]="
-          (flow.transfers$ | async).totalProgress * 100 | number: '1.0-0'
-        "
-      ></circle-progress>
+      <circle-progress [percent]="(flow.transfers$ | async).totalProgress * 100 | number: '1.0-0'"></circle-progress>
       <div>
-        <h1>
-          {{ (flow.transfers$ | async).totalProgress * 100 | number: "1.0-0" }}%
-        </h1>
+        <h1>{{ (flow.transfers$ | async).totalProgress * 100 | number: '1.0-0' }}%</h1>
       </div>
     </div>
     <div class="upload-loading-details">
       <h3>C’est parti !</h3>
       <br />
       <p>
-        L’envoi de vos fichiers peut prendre quelques minutes. Merci de
-        patienter pendant la durée du téléchargement.
+        L’envoi de vos fichiers peut prendre quelques minutes. Merci de patienter pendant la durée du téléchargement.
       </p>
       <br />
       <p>
@@ -203,13 +146,13 @@
 </ng-template>
 
 <ng-template #uploadChoice>
-  <upload-choice (nextLayout)="selectLayout($event)"></upload-choice>
+  <app-upload-choice (nextLayout)="selectLayout($event)"></app-upload-choice>
 </ng-template>
 
 <ng-template #uploadContent>
-  <upload-content
+  <app-upload-content
     (nextLayout)="selectLayout($event)"
     [transfers]="(flow.transfers$ | async).transfers | tm"
     [emails]="emails"
-  ></upload-content>
+  ></app-upload-content>
 </ng-template>

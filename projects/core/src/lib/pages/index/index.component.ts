@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { CookiesManagerService } from "../../services/cookies.manager";
+import { Component, OnInit } from '@angular/core';
+import { CookiesManagerService } from '../../services/cookies.manager';
+
 @Component({
-  selector: "index",
-  templateUrl: "./index.component.html"
+  selector: 'lib-index',
+  templateUrl: './index.component.html'
 })
 export class IndexComponent implements OnInit {
   public today: Date;

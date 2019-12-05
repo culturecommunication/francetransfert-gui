@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { MailInputGroupComponent } from './mail-input-group.component';
 
@@ -8,9 +9,9 @@ describe('MailInputGroupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MailInputGroupComponent ]
-    })
-    .compileComponents();
+      declarations: [MailInputGroupComponent],
+      imports: [FormsModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

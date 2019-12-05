@@ -1,22 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CookiesBannerComponent } from './cookies-banner.component';
+import { DownloadChoiseComponent } from './download-choice.component';
 import { CookieService } from 'ngx-cookie-service';
-import { CookiesManagerService } from '../../services/cookies.manager';
+import { CookiesManagerService } from '@ft-core';
 
-describe('FileItemComponent', () => {
-  let component: CookiesBannerComponent;
-  let fixture: ComponentFixture<CookiesBannerComponent>;
+describe('DownloadChoiseComponent', () => {
+  let component: DownloadChoiseComponent;
+  let fixture: ComponentFixture<DownloadChoiseComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CookiesBannerComponent],
+      declarations: [DownloadChoiseComponent],
       providers: [CookieService, CookiesManagerService]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CookiesBannerComponent);
+    fixture = TestBed.createComponent(DownloadChoiseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,9 +1,9 @@
-import { Pipe, PipeTransform } from "@angular/core";
-import { Transfer } from "@flowjs/ngx-flow";
-import { FTTransfer } from "../models/ft-transfers";
+import { Pipe, PipeTransform } from '@angular/core';
+import { Transfer } from '@flowjs/ngx-flow';
+import { FTTransfer } from '../models/ft-transfers';
 
 @Pipe({
-  name: "filemtpsize"
+  name: 'filemtpsize'
 })
 export class FileMultipleSizePipe implements PipeTransform {
   /**
@@ -12,8 +12,10 @@ export class FileMultipleSizePipe implements PipeTransform {
    * @returns {number}
    */
   transform(transfers: Array<FTTransfer<Transfer>>): number {
-    const somme = (accumulator, currentValue) =>
-      accumulator + currentValue.size;
+    if (transfers === undefined || transfers === null) {
+      transfers = [];
+    }
+    const somme = (accumulator, currentValue) => accumulator + currentValue.size;
     return transfers.reduce(somme, 0);
   }
 }

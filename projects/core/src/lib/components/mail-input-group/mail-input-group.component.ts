@@ -1,8 +1,8 @@
-import { Component, Output, EventEmitter, forwardRef } from "@angular/core";
+import { Component, Output, EventEmitter, forwardRef } from '@angular/core';
 
-import { REGEX_EXP } from "../../configuration/regex.config";
-import { MSG_INFO } from "../../configuration/errors-messages.config";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { REGEX_EXP } from '../../configuration/regex.config';
+import { MSG_INFO } from '../../configuration/errors-messages.config';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const noop = () => {};
 
@@ -13,7 +13,7 @@ export const CUSTOM_INPUT_ADD_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-  selector: "mail-input-group",
+  selector: 'lib-mail-input-group',
   template: `
     <div class="input-add" [ngClass]="{ valid: checkEmail() }">
       <input
@@ -49,14 +49,14 @@ export class MailInputGroupComponent implements ControlValueAccessor {
   emailMAX: number;
   constructor() {
     this.emails = [];
-    this.emailsRef = JSON.parse(localStorage.getItem("EMAIL_LIST"))
-      ? JSON.parse(localStorage.getItem("EMAIL_LIST"))
+    this.emailsRef = JSON.parse(localStorage.getItem('EMAIL_LIST'))
+      ? JSON.parse(localStorage.getItem('EMAIL_LIST'))
       : [];
     this.autoComplete = [];
     this.errors = new EventEmitter();
     this.changes = new EventEmitter();
     this.onBlur = new EventEmitter();
-    this.email = "";
+    this.email = '';
     this.emailPattern = REGEX_EXP.EMAIL;
     this.emailMAX = 100;
   }
@@ -94,7 +94,7 @@ export class MailInputGroupComponent implements ControlValueAccessor {
   writeValue(value: Array<string>): void {
     if (value !== this.emails && value !== null) {
       this.emails = value;
-      this.email = "";
+      this.email = '';
     }
   }
 
@@ -104,15 +104,12 @@ export class MailInputGroupComponent implements ControlValueAccessor {
    */
   change(): void {
     this.changes.emit(this.email);
-    this.email = this.email.replace(/ /g, "");
+    this.email = this.email.replace(/ /g, '');
     if (this.emails.length === this.emailMAX) {
       this.errors.emit(MSG_INFO.FO_MSG_INF_04);
     }
-    if (this.email.indexOf(";") !== -1 || this.email.indexOf(",") !== -1) {
-      let emailList: Array<string> =
-        this.email.indexOf(";") !== -1
-          ? this.email.split(";")
-          : this.email.split(",");
+    if (this.email.indexOf(';') !== -1 || this.email.indexOf(',') !== -1) {
+      let emailList: Array<string> = this.email.indexOf(';') !== -1 ? this.email.split(';') : this.email.split(',');
       for (let email of emailList) {
         if (this.emailPattern.test(email)) {
           if (this.emails.length < this.emailMAX) {
@@ -120,20 +117,14 @@ export class MailInputGroupComponent implements ControlValueAccessor {
               this.emails.push(email);
             }
             this.email =
-              this.email.indexOf(";") !== -1
+              this.email.indexOf(';') !== -1
                 ? this.email.replace(
-                    this.email.indexOf(email) !== -1 &&
-                      this.email.indexOf(`${email};`) === -1
-                      ? email
-                      : `${email};`,
-                    ""
+                    this.email.indexOf(email) !== -1 && this.email.indexOf(`${email};`) === -1 ? email : `${email};`,
+                    ''
                   )
                 : this.email.replace(
-                    this.email.indexOf(email) !== -1 &&
-                      this.email.indexOf(`${email},`) === -1
-                      ? email
-                      : `${email},`,
-                    ""
+                    this.email.indexOf(email) !== -1 && this.email.indexOf(`${email},`) === -1 ? email : `${email},`,
+                    ''
                   );
           } else {
             this.errors.emit(MSG_INFO.FO_MSG_INF_04);
@@ -146,13 +137,9 @@ export class MailInputGroupComponent implements ControlValueAccessor {
         this.autoComplete = [
           ...this.emailsRef.filter(
             (refEmail: string) =>
-              refEmail
-                .toLocaleLowerCase()
-                .indexOf(this.email.toLocaleLowerCase()) !== -1 &&
-              this.emails.findIndex(
-                (email: string) =>
-                  email.toLocaleLowerCase() === refEmail.toLocaleLowerCase()
-              ) === -1
+              refEmail.toLocaleLowerCase().indexOf(this.email.toLocaleLowerCase()) !== -1 &&
+              this.emails.findIndex((email: string) => email.toLocaleLowerCase() === refEmail.toLocaleLowerCase()) ===
+                -1
           )
         ];
       }
@@ -195,15 +182,12 @@ export class MailInputGroupComponent implements ControlValueAccessor {
       this.errors.emit(MSG_INFO.FO_MSG_INF_04);
     } else {
       if (
-        this.emails.findIndex(
-          (email: string) =>
-            email.toLocaleLowerCase() === this.email.toLocaleLowerCase()
-        ) === -1
+        this.emails.findIndex((email: string) => email.toLocaleLowerCase() === this.email.toLocaleLowerCase()) === -1
       ) {
         this.emails.push(this.email);
         this.changes.emit(this.email);
       }
-      this.email = "";
+      this.email = '';
       this.autoComplete = [];
       this.getOnblur();
     }

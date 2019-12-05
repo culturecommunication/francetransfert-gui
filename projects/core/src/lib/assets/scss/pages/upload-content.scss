@@ -47,9 +47,9 @@
     height: 20px;
     padding-left: 13px;
     &::before {
-      content: "";
+      content: '';
       position: absolute;
-      background-image: url("../assets/images/icons/Fleche/Precedent_blue.svg");
+      background-image: url('../assets/images/icons/Fleche/Precedent_blue.svg');
       height: 18px;
       width: 18px;
       left: -7px;
