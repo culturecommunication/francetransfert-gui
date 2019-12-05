@@ -1,23 +1,7 @@
 #
 # Build delivered image
 #
-# STEP 1 build static website
-FROM node:lts-alpine as builder
-
-## Set working directory
-WORKDIR /app
-
-## Copy all projects
-COPY . .
-
-## Install projects dependencies
-RUN npm install 
-
-## Build projects
-RUN npm run build 
-
-
-# STEP 2 build a small nginx image with static website
+# Build a small nginx image with static website
 FROM nginx:alpine
 
 ## Expose port 80
@@ -26,8 +10,8 @@ EXPOSE 80
 ## Remove default nginx website
 RUN rm -rf /usr/share/nginx/html/*
 
-## From 'builder' stage copy over the artifacts in dist folder to default nginx public folder
-COPY --from=builder /app/dist/ /usr/share/nginx/html
+## Copy over the artifacts in dist folder to default nginx public folder
+COPY dist /usr/share/nginx/html
 
 ## Copy nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
