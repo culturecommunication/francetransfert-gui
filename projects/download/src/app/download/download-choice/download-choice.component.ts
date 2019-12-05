@@ -1,10 +1,10 @@
-import { Component, Output, EventEmitter } from "@angular/core";
+import { Component, Output, EventEmitter } from '@angular/core';
 
-import { CookiesManagerService, COOKIES_CONSTANTS } from "@ft-core";
+import { CookiesManagerService, COOKIES_CONSTANTS } from '@ft-core';
 
 @Component({
-  selector: "download-choice",
-  templateUrl: "./download-choice.component.html"
+  selector: 'app-download-choice',
+  templateUrl: './download-choice.component.html'
 })
 export class DownloadChoiseComponent {
   @Output() nextLayout: EventEmitter<string>;
@@ -17,7 +17,7 @@ export class DownloadChoiseComponent {
     this.activeView = false;
     this.haveChoice = false;
     this.selectedView = 0;
-    this.icons = ["Insatisfait", "Neutre", "Satisfait", "Tres-Satisfait"];
+    this.icons = ['Insatisfait', 'Neutre', 'Satisfait', 'Tres-Satisfait'];
   }
 
   /**
@@ -55,8 +55,7 @@ export class DownloadChoiseComponent {
   checkChoice(): boolean {
     return (
       (+this.cookiesManager.getItem(COOKIES_CONSTANTS.HAVE_CHOICE_FORM) === 1 &&
-        +this.cookiesManager.getItem(COOKIES_CONSTANTS.HAVE_CHOICE_GLOBAL) !==
-          1) ||
+        +this.cookiesManager.getItem(COOKIES_CONSTANTS.HAVE_CHOICE_GLOBAL) !== 1) ||
       !this.cookiesManager.isConsented()
     );
   }

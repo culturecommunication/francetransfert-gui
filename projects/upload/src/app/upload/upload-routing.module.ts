@@ -1,14 +1,14 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import { IndexComponent } from "@ft-core";
-import { UploadSectionComponent } from "./upload-section/upload-section.component";
+import { IndexComponent } from '@ft-core';
+import { UploadSectionComponent } from './upload-section/upload-section.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: IndexComponent,
-    children: [{ path: "", component: UploadSectionComponent }]
+    children: [{ path: '', component: UploadSectionComponent }]
   }
 ];
 

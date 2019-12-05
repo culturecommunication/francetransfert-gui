@@ -1,8 +1,8 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { Transfer } from "@flowjs/ngx-flow";
-import { FTTransfer } from "../../models/ft-transfers";
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Transfer } from '@flowjs/ngx-flow';
+import { FTTransfer } from '../../models/ft-transfers';
 @Component({
-  selector: "file-item",
+  selector: 'lib-file-item',
   template: `
     <div class="upload-item" [ngClass]="{ 'without-delete': withoutDelete }">
       <div [hidden]="transfer.folder" class="upload-item-icon file"></div>
@@ -21,11 +21,7 @@ import { FTTransfer } from "../../models/ft-transfers";
           Dossier
         </p>
       </div>
-      <div
-        [hidden]="withoutDelete"
-        class="upload-item-delete"
-        (click)="deleteTransfer()"
-      ></div>
+      <div [hidden]="withoutDelete" class="upload-item-delete" (click)="deleteTransfer()"></div>
     </div>
   `
 })

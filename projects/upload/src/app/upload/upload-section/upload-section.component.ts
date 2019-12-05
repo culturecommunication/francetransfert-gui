@@ -1,42 +1,24 @@
-import {
-  Component,
-  ViewChild,
-  AfterViewInit,
-  OnDestroy,
-  ChangeDetectorRef,
-  TemplateRef
-} from "@angular/core";
+import { Component, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef, TemplateRef } from '@angular/core';
 
-import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
-import {
-  FLOW_EVENTS,
-  MSG_ERR,
-  getRxValue,
-  REGEX_EXP,
-  CookiesManagerService,
-  COOKIES_CONSTANTS
-} from "@ft-core";
-import { FlowDirective, Transfer, UploadState } from "@flowjs/ngx-flow";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-import { EMAIL_LIST } from "../mock/mock";
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { FLOW_EVENTS, MSG_ERR, getRxValue, REGEX_EXP, CookiesManagerService, COOKIES_CONSTANTS } from '@ft-core';
+import { FlowDirective, Transfer, UploadState } from '@flowjs/ngx-flow';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { EMAIL_LIST } from '../mock/mock';
 
 @Component({
-  selector: "app-upload-section",
-  templateUrl: "./upload-section.component.html"
+  selector: 'app-upload-section',
+  templateUrl: './upload-section.component.html'
 })
 export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   private onDestroy$: Subject<void> = new Subject();
 
-  @ViewChild("uploadForm", { static: false }) uploadForm: TemplateRef<any>;
-  @ViewChild("uploadLoading", { static: false }) uploadLoading: TemplateRef<
-    any
-  >;
-  @ViewChild("uploadChoice", { static: false }) uploadChoice: TemplateRef<any>;
-  @ViewChild("uploadContent", { static: false }) uploadContent: TemplateRef<
-    any
-  >;
-  @ViewChild("flow", { static: false })
+  @ViewChild('uploadForm', { static: false }) uploadForm: TemplateRef<any>;
+  @ViewChild('uploadLoading', { static: false }) uploadLoading: TemplateRef<any>;
+  @ViewChild('uploadChoice', { static: false }) uploadChoice: TemplateRef<any>;
+  @ViewChild('uploadContent', { static: false }) uploadContent: TemplateRef<any>;
+  @ViewChild('flow', { static: false })
   flow: FlowDirective;
   perfectScrollbarConfig: PerfectScrollbarConfigInterface;
   dragging: boolean;
@@ -56,17 +38,14 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   selectedView: number;
   icons: Array<string>;
   makedchoice: boolean;
-  constructor(
-    private cd: ChangeDetectorRef,
-    private cookiesManager: CookiesManagerService
-  ) {
+  constructor(private cd: ChangeDetectorRef, private cookiesManager: CookiesManagerService) {
     this.perfectScrollbarConfig = {};
     this.dragging = false;
     this.acceptConditions = false;
-    this.icons = ["Insatisfait", "Neutre", "Satisfait", "Tres-Satisfait"];
+    this.icons = ['Insatisfait', 'Neutre', 'Satisfait', 'Tres-Satisfait'];
     this.initUpload();
     if (this.cookiesManager.isConsented()) {
-      localStorage.setItem("EMAIL_LIST", JSON.stringify(EMAIL_LIST));
+      localStorage.setItem('EMAIL_LIST', JSON.stringify(EMAIL_LIST));
     }
   }
 
@@ -80,12 +59,12 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
     this.showPassword1 = false;
     this.showPassword2 = false;
     this.openedButton = false;
-    this.password1 = "";
-    this.password2 = "";
+    this.password1 = '';
+    this.password2 = '';
     this.acceptConditions = false;
-    this.message = "";
-    this.senderMail = "";
-    this.errorsMessages = "";
+    this.message = '';
+    this.senderMail = '';
+    this.errorsMessages = '';
     this.activeView = false;
     this.selectedView = 0;
     this.makedchoice = false;
@@ -95,9 +74,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
         this.flow.cancelFile(transfer);
       }
     }
-    if (
-      +this.cookiesManager.getItem(COOKIES_CONSTANTS.HAVE_CHOICE_FORM) === 1
-    ) {
+    if (+this.cookiesManager.getItem(COOKIES_CONSTANTS.HAVE_CHOICE_FORM) === 1) {
       this.cookiesManager.setItem(COOKIES_CONSTANTS.HAVE_CHOICE_GLOBAL, 1);
     }
   }
@@ -107,12 +84,12 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
    * @returns {void}
    */
   ngAfterViewInit(): void {
-    this.selectLayout("uploadForm");
+    this.selectLayout('uploadForm');
     this.cd.detectChanges();
     this.flow.events$.pipe(takeUntil(this.onDestroy$)).subscribe(event => {
       if (event.type === FLOW_EVENTS.FILESSUBMITTED) {
         this.openedButton = false;
-        this.errorsMessages = "";
+        this.errorsMessages = '';
         this.cd.detectChanges();
       }
     });
@@ -134,7 +111,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
    */
   deleteEmail(deletedEmail: string): void {
     this.emails.splice(this.emails.indexOf(deletedEmail), 1);
-    this.errorsMessages = "";
+    this.errorsMessages = '';
   }
 
   /**
@@ -169,7 +146,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
    */
   deleteTransfer(transfer: Transfer): void {
     this.flow.cancelFile(transfer);
-    this.errorsManager("", 1);
+    this.errorsManager('', 1);
   }
 
   /**
@@ -178,19 +155,14 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
    */
   upload(): void {
     /** Call to API */
-    this.selectLayout("uploadLoading");
+    this.selectLayout('uploadLoading');
     this.flow.upload();
-    this.flow.transfers$
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe((uploadState: UploadState) => {
-        if (
-          uploadState.totalProgress === 1 &&
-          this.templateRf === this.uploadLoading
-        ) {
-          this.selectLayout("uploadChoice");
-          this.cookiesManager.setItem(COOKIES_CONSTANTS.HAVE_CHOICE_FORM, 1);
-        }
-      });
+    this.flow.transfers$.pipe(takeUntil(this.onDestroy$)).subscribe((uploadState: UploadState) => {
+      if (uploadState.totalProgress === 1 && this.templateRf === this.uploadLoading) {
+        this.selectLayout('uploadChoice');
+        this.cookiesManager.setItem(COOKIES_CONSTANTS.HAVE_CHOICE_FORM, 1);
+      }
+    });
   }
 
   /**
@@ -200,7 +172,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
    */
   selectLayout(Layout: string): void {
     this.templateRf = this[Layout];
-    if (Layout === "uploadForm") {
+    if (Layout === 'uploadForm') {
       this.initUpload();
     }
   }
@@ -216,15 +188,8 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
       !this.emails.length ||
       !REGEX_EXP.EMAIL.test(this.senderMail) ||
       (!REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
-        this.emails.findIndex(
-          (email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)
-        ) !== -1) ||
-      !(
-        (this.withPassword &&
-          this.password1 === this.password2 &&
-          this.password1.length > 0) ||
-        !this.withPassword
-      ) ||
+        this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1) ||
+      !((this.withPassword && this.password1 === this.password2 && this.password1.length > 0) || !this.withPassword) ||
       !this.acceptConditions ||
       (!this.makedchoice && !this.checkChoice())
     );
@@ -248,7 +213,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   async errorsManager(event: string, level: number): Promise<any> {
     let transfers: UploadState = await getRxValue(this.flow.transfers$);
     this.openedButton = false;
-    this.errorsMessages = "";
+    this.errorsMessages = '';
     switch (level) {
       case 1 /** Change email group */: {
         if (!transfers.transfers.length) {
@@ -283,9 +248,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
         } else if (
           !REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex(
-            (email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)
-          ) !== -1
+          this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1
         ) {
           this.errorsMessages = MSG_ERR.MSG_ERR_02;
         }
@@ -293,8 +256,8 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
       }
 
       case 5 /** Select (with Paswword)*/: {
-        this.password1 = "";
-        this.password2 = "";
+        this.password1 = '';
+        this.password2 = '';
         if (!transfers.transfers.length) {
           this.errorsMessages = MSG_ERR.MSG_ERR_03;
         } else if (!this.emails.length) {
@@ -305,9 +268,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
         } else if (
           !REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex(
-            (email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)
-          ) !== -1
+          this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1
         ) {
           this.errorsMessages = MSG_ERR.MSG_ERR_02;
         }
@@ -325,15 +286,10 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
         } else if (
           !REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex(
-            (email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)
-          ) !== -1
+          this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1
         ) {
           this.errorsMessages = MSG_ERR.MSG_ERR_02;
-        } else if (
-          !this.password1.length ||
-          (this.password1 !== this.password2 && this.password2.length > 0)
-        ) {
+        } else if (!this.password1.length || (this.password1 !== this.password2 && this.password2.length > 0)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_01;
         }
         break;
@@ -350,15 +306,10 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
         } else if (
           !REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex(
-            (email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)
-          ) !== -1
+          this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1
         ) {
           this.errorsMessages = MSG_ERR.MSG_ERR_02;
-        } else if (
-          !this.password2.length ||
-          this.password1 !== this.password2
-        ) {
+        } else if (!this.password2.length || this.password1 !== this.password2) {
           this.errorsMessages = MSG_ERR.MSG_ERR_01;
         }
         break;
@@ -389,9 +340,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
    * @returns {boolean}
    */
   checkChoice(): boolean {
-    return (
-      +this.cookiesManager.getItem(COOKIES_CONSTANTS.HAVE_CHOICE_GLOBAL) === 1
-    );
+    return +this.cookiesManager.getItem(COOKIES_CONSTANTS.HAVE_CHOICE_GLOBAL) === 1;
   }
 
   ngOnDestroy(): void {

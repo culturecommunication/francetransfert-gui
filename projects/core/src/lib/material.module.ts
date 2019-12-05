@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -27,7 +27,7 @@ import {
   MatTooltipModule,
   MatTreeModule,
   MatProgressBarModule
-} from "@angular/material";
+} from '@angular/material';
 
 @NgModule({
   imports: [

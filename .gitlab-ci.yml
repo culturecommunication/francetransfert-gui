@@ -1,48 +1,46 @@
-image: node
-
-# Globals var to adapt
-variables:
-  SONAR_SOURCES: "$CI_PROJECT_DIR/src"
-  SONAR_COVERAGE_REPORT: "$CI_PROJECT_DIR/coverage/lcov.info"
+image: weboaks/node-karma-protractor-chrome
 
 # # Stages definition
 stages:
+  - lint
+  - test
   - build
-  - sonar
+
+# Lint phase
+mc-francetransfert-upload-download-gui:lint:
+  before_script:
+    - echo "Pipeline Lint stage ..."
+    - npm install
+  stage: lint
+  only:
+    - develop
+    - master
+    - automation
+  script:
+    - npm run lint
+
+# Test phase
+mc-francetransfert-upload-download-gui:test:
+  before_script:
+    - echo "Pipeline Test stage ..."
+    - npm install
+  stage: test
+  only:
+    - develop
+    - master
+    - automation
+  script:
+    - npm run test
 
 # Build phase
 mc-francetransfert-upload-download-gui:build:
-  stage: build
-  only:
-    - develop
-    - automation
-  script:
+  before_script:
     - echo "Pipeline Build stage ..."
     - npm install
-    - npm run build
-    - tar zcf dist.tar.gz dist/
-  artifacts:
-    paths:
-      - dist.tar.gz
-
-# Sonar phase
-mc-francetransfert-upload-download-gui:sonar:
   stage: build
   only:
     - develop
+    - master
     - automation
-  when: manual
-  before_script:
-    - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
-    - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
-    - PATH=./sonar-scanner-3.3.0.1492-linux/bin:$PATH
   script:
-    - echo "Pipeline Sonar stage ..."
-    - npm install
-    - >
-      sonar-scanner 
-      -Dsonar.host.url=$SONAR_URL 
-      -Dsonar.projectKey=$SONAR_KEY$CI_PROJECT_NAME 
-      -Dsonar.login=$SONAR_TOKEN 
-      -Dsonar.sources=$SONAR_SOURCES 
-      -Dsonar.sourceEncoding="UTF-8"
+    - npm run build

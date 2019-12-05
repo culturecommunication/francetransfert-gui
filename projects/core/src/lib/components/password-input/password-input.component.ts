@@ -1,11 +1,5 @@
-import {
-  Component,
-  Input,
-  forwardRef,
-  Output,
-  EventEmitter
-} from "@angular/core";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { Component, Input, forwardRef, Output, EventEmitter } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const noop = () => {};
 
@@ -16,8 +10,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-  selector: "password-input",
-  templateUrl: "./password-input.component.html",
+  selector: 'lib-password-input',
+  templateUrl: './password-input.component.html',
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class PasswordInputComponent implements ControlValueAccessor {
@@ -29,7 +23,7 @@ export class PasswordInputComponent implements ControlValueAccessor {
   constructor() {
     this.blur = new EventEmitter();
     this.showPassword = false;
-    this.password = "";
+    this.password = '';
   }
 
   //Placeholders for the callbacks which are later providesd

@@ -1,15 +1,11 @@
-import { Component, Output, EventEmitter, Input } from "@angular/core";
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
-  selector: "tag",
+  selector: 'lib-tag',
   template: `
     <div class="tag" [ngClass]="{ 'without-delete': withoutDelete }">
       <small class="font-bold text-blue-clair">{{ content }}</small>
-      <div
-        [hidden]="withoutDelete"
-        class="delete-button"
-        (click)="deleteEmail()"
-      ></div>
+      <div [hidden]="withoutDelete" class="delete-button" (click)="deleteEmail()"></div>
     </div>
   `
 })

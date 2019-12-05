@@ -1,26 +1,16 @@
-import {
-  Component,
-  TemplateRef,
-  ViewChild,
-  AfterViewInit,
-  ChangeDetectorRef
-} from "@angular/core";
+import { Component, TemplateRef, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 
-import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
-import { CookiesManagerService, COOKIES_CONSTANTS } from "@ft-core";
-import { EMAILS, FILES } from "../mock/mock";
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { CookiesManagerService, COOKIES_CONSTANTS } from '@ft-core';
+import { EMAILS, FILES } from '../mock/mock';
 
 @Component({
-  selector: "app-donwload-section",
-  templateUrl: "./download-section.component.html"
+  selector: 'app-donwload-section',
+  templateUrl: './download-section.component.html'
 })
 export class DownloadSectionComponent implements AfterViewInit {
-  @ViewChild("downloadSection", { static: false }) downloadSection: TemplateRef<
-    any
-  >;
-  @ViewChild("downloadchoice", { static: false }) downloadchoice: TemplateRef<
-    any
-  >;
+  @ViewChild('downloadSection', { static: false }) downloadSection: TemplateRef<any>;
+  @ViewChild('downloadchoice', { static: false }) downloadchoice: TemplateRef<any>;
 
   perfectScrollbarConfig: PerfectScrollbarConfigInterface;
   emails: Array<string>;
@@ -33,15 +23,12 @@ export class DownloadSectionComponent implements AfterViewInit {
   activeView: boolean;
   makedchoice: boolean;
 
-  constructor(
-    private cd: ChangeDetectorRef,
-    private cookiesManager: CookiesManagerService
-  ) {
+  constructor(private cd: ChangeDetectorRef, private cookiesManager: CookiesManagerService) {
     this.perfectScrollbarConfig = {};
     this.emails = EMAILS;
     this.transfers = FILES;
     this.withPassword = true;
-    this.icons = ["Insatisfait", "Neutre", "Satisfait", "Tres-Satisfait"];
+    this.icons = ['Insatisfait', 'Neutre', 'Satisfait', 'Tres-Satisfait'];
     this.initDownload();
   }
 
@@ -50,13 +37,11 @@ export class DownloadSectionComponent implements AfterViewInit {
    * @returns {void}
    */
   initDownload(): void {
-    this.password = "";
+    this.password = '';
     this.selectedView = 0;
     this.activeView = false;
     this.makedchoice = false;
-    if (
-      +this.cookiesManager.getItem(COOKIES_CONSTANTS.HAVE_CHOICE_FORM) === 1
-    ) {
+    if (+this.cookiesManager.getItem(COOKIES_CONSTANTS.HAVE_CHOICE_FORM) === 1) {
       this.cookiesManager.setItem(COOKIES_CONSTANTS.HAVE_CHOICE_GLOBAL, 1);
     }
   }
@@ -66,7 +51,7 @@ export class DownloadSectionComponent implements AfterViewInit {
    * @returns {void}
    */
   ngAfterViewInit(): void {
-    this.selectLayout("downloadSection");
+    this.selectLayout('downloadSection');
   }
 
   /**
@@ -76,7 +61,7 @@ export class DownloadSectionComponent implements AfterViewInit {
    */
   selectLayout(Layout: string): void {
     this.templateRf = this[Layout];
-    if (Layout === "downloadSection") {
+    if (Layout === 'downloadSection') {
       this.initDownload();
     }
     this.cd.detectChanges();
@@ -87,9 +72,7 @@ export class DownloadSectionComponent implements AfterViewInit {
    * @returns {boolean}
    */
   checkChoice(): boolean {
-    return (
-      +this.cookiesManager.getItem(COOKIES_CONSTANTS.HAVE_CHOICE_GLOBAL) === 1
-    );
+    return +this.cookiesManager.getItem(COOKIES_CONSTANTS.HAVE_CHOICE_GLOBAL) === 1;
   }
 
   /**
@@ -115,7 +98,7 @@ export class DownloadSectionComponent implements AfterViewInit {
    * @returns {void}
    */
   download(): void {
-    this.selectLayout("downloadchoice");
+    this.selectLayout('downloadchoice');
     this.cookiesManager.setItem(COOKIES_CONSTANTS.HAVE_CHOICE_FORM, 1);
   }
 
@@ -124,9 +107,6 @@ export class DownloadSectionComponent implements AfterViewInit {
    * @returns {boolean}
    */
   checkValid(): boolean {
-    return (
-      (!this.makedchoice && !this.checkChoice()) ||
-      (this.withPassword && !this.password.length)
-    );
+    return (!this.makedchoice && !this.checkChoice()) || (this.withPassword && !this.password.length);
   }
 }

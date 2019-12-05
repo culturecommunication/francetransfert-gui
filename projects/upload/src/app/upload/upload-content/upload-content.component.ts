@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Output, Input } from "@angular/core";
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 
-import { FTTransfer } from "@ft-core";
-import { Transfer } from "@flowjs/ngx-flow";
-import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
+import { FTTransfer } from '@ft-core';
+import { Transfer } from '@flowjs/ngx-flow';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 @Component({
-  selector: "upload-content",
-  templateUrl: "./upload-content.component.html"
+  selector: 'app-upload-content',
+  templateUrl: './upload-content.component.html'
 })
 export class UploadContentComponent {
   @Output() nextLayout: EventEmitter<string>;

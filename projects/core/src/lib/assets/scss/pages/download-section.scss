@@ -15,7 +15,7 @@
     font-weight: $f-bold;
   }
   &-icon {
-    background-image: url("../assets/images/svgs/illustration-reception.svg");
+    background-image: url('../assets/images/svgs/illustration-reception.svg');
     height: 155px;
     width: 160px;
     margin: 0 auto;
@@ -46,10 +46,10 @@
       .upload-item-icon {
         background-color: $c-blue;
         &.file {
-          background-image: url("../assets/images/icons/Fichier_white.svg");
+          background-image: url('../assets/images/icons/Fichier_white.svg');
         }
         &.folder {
-          background-image: url("../assets/images/icons/Dossier_white.svg");
+          background-image: url('../assets/images/icons/Dossier_white.svg');
         }
       }
     }

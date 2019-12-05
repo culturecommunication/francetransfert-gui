@@ -1,7 +1,7 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: "filename"
+  name: 'filename'
 })
 export class FileNamePipe implements PipeTransform {
   /**
@@ -9,10 +9,10 @@ export class FileNamePipe implements PipeTransform {
    * @param {string} filename
    * @returns {string}
    */
-  transform(filename: string = ""): string {
-    let name: string = "Pas de nom";
+  transform(filename: string = ''): string {
+    let name: string = 'Pas de nom';
     if (!!filename && filename !== undefined) {
-      let segments: Array<string> = filename.split(".");
+      let segments: Array<string> = filename.split('.');
       if (!segments.length) {
         name = filename;
       } else if (segments.length === 2) {
@@ -22,7 +22,7 @@ export class FileNamePipe implements PipeTransform {
           name = segments[0];
         }
       } else {
-        name = filename.replace(`.${segments[segments.length - 1]}`, "");
+        name = filename.replace(`.${segments[segments.length - 1]}`, '');
       }
     }
 

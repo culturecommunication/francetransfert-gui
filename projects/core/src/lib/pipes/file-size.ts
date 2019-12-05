@@ -1,10 +1,10 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: "filesize"
+  name: 'filesize'
 })
 export class FileSizePipe implements PipeTransform {
-  private units: Array<string> = ["Oct", "Ko", "Mo", "Go"];
+  private units: Array<string> = ['Oct', 'Ko', 'Mo', 'Go'];
 
   /**
    * Returns the size of the file with unit.
@@ -13,7 +13,7 @@ export class FileSizePipe implements PipeTransform {
    * @returns {string}
    */
   transform(bytes: number = 0, precision: number = 2): string {
-    if (isNaN(parseFloat(String(bytes))) || !isFinite(bytes)) return "?";
+    if (isNaN(parseFloat(String(bytes))) || !isFinite(bytes)) return '?';
 
     let unit: number = 0;
 

@@ -9,31 +9,22 @@
       </p>
       <div class="download-section-icon"></div>
       <h3 class="download-section-title">Vos fichiers à télécharger</h3>
-      <p class="download-section-description">
-        Vos fichiers sont disponibles jusqu’au <b>26 juillet 2019</b>
-      </p>
+      <p class="download-section-description">Vos fichiers sont disponibles jusqu’au <b>26 juillet 2019</b></p>
       <div class="download-section-emails">
         <p class="title">Votre expéditeur est :</p>
-        <tag
-          *ngFor="let email of emails"
-          [content]="email"
-          [withoutDelete]="true"
-        ></tag>
+        <lib-tag *ngFor="let email of emails" [content]="email" [withoutDelete]="true"></lib-tag>
       </div>
       <div class="download-section-files">
         <p class="title">Récapitulatif des éléments envoyés :</p>
-        <file-item
+        <lib-file-item
           *ngFor="let transfer of transfers | tm"
           [transfer]="transfer"
           [withoutDelete]="true"
-        ></file-item>
+        ></lib-file-item>
       </div>
       <div class="download-section-password" *ngIf="withPassword">
         <p class="title">Ce transfert est sécurisé par un mot de passe* :</p>
-        <password-input
-          [placeholder]="'Saisissez le mot de passe*'"
-          [(ngModel)]="password"
-        ></password-input>
+        <lib-password-input [placeholder]="'Saisissez le mot de passe*'" [(ngModel)]="password"></lib-password-input>
       </div>
       <div class="download-section-view">
         <div class="download-choice-view" *ngIf="!checkChoice()">
@@ -46,22 +37,14 @@
           <div class="icons">
             <img
               *ngFor="let icon of icons; let i = index"
-              [src]="
-                './assets/images/icons/Utilisateur/' +
-                getIcon(icon, i + 1) +
-                '.svg'
-              "
+              [src]="'./assets/images/icons/Utilisateur/' + getIcon(icon, i + 1) + '.svg'"
               alt="{{ icon + 'icon' }}"
               (click)="selectedView = i + 1; activeView = true"
               [ngClass]="{ active: selectedView === i + 1 }"
             />
           </div>
           <textarea placeholder="Message (facultatif)"></textarea>
-          <button
-            class=" button button-stroked"
-            [ngClass]="{ disabled: !activeView }"
-            (click)="makeChoice()"
-          >
+          <button class=" button button-stroked" [ngClass]="{ disabled: !activeView }" (click)="makeChoice()">
             Valider mon avis
           </button>
         </div>
@@ -78,5 +61,5 @@
 </ng-template>
 
 <ng-template #downloadchoice>
-  <download-choice (nextLayout)="selectLayout($event)"></download-choice>
+  <app-download-choice (nextLayout)="selectLayout($event)"></app-download-choice>
 </ng-template>
