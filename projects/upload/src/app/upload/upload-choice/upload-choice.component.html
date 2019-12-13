@@ -3,19 +3,16 @@
   <div class="upload-choice-details">
     <h3>Envoi réussi !</h3>
     <p class="text-gris-m1">
-      Un courriel de confirmation vous a été envoyé. Nous venons d’envoyer un
-      courriel à votre (vos) destinataire(s) pour récupérer votre
-      téléchargement.
+      Un courriel de confirmation vous a été envoyé. Nous venons d’envoyer un courriel à votre (vos) destinataire(s)
+      pour récupérer votre téléchargement.
     </p>
     <br />
-    <p class="text-gris-m1">
-      Votre transfert sera disponible <b>pendant 30 jours.</b>
-    </p>
+    <p class="text-gris-m1">Votre transfert sera disponible <b>pendant 30 jours.</b></p>
     <p class="upload-choice-details-link" (click)="goto('uploadContent')">
       Voir le contenu
     </p>
   </div>
-  <div class="upload-choice-view" [hidden]="checkChoice()">
+  <div class="upload-choice-view">
     <h4>
       Je donne mon avis
     </h4>
@@ -25,20 +22,14 @@
     <div class="icons">
       <img
         *ngFor="let icon of icons; let i = index"
-        [src]="
-          './assets/images/icons/Utilisateur/' + getIcon(icon, i + 1) + '.svg'
-        "
+        [src]="'./assets/images/icons/Utilisateur/' + getIcon(icon, i + 1) + '.svg'"
         alt="{{ icon + 'icon' }}"
         (click)="selectedView = i + 1; activeView = true"
         [ngClass]="{ active: selectedView === i + 1 }"
       />
     </div>
     <textarea placeholder="Message (facultatif)"></textarea>
-    <button
-      class=" button button-stroked"
-      [ngClass]="{ disabled: !activeView }"
-      (click)="makeChoice()"
-    >
+    <button class=" button button-stroked" [ngClass]="{ disabled: !activeView }" (click)="makeChoice()">
       Valider mon avis
     </button>
   </div>
