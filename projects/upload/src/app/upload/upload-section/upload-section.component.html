@@ -7,7 +7,7 @@
   <div class="upload-section" (dragover)="onDragOver()" (drop)="onDrop()" (dragleave)="onDrop()">
     <div class="upload-section-content">
       <div class="prefect-scoll" [perfectScrollbar]="perfectScrollbarConfig">
-        <p class="upload-section-info text-gris-m1">* Champs obligatoire</p>
+        <p class="upload-section-info text-gris-m1">* Champs obligatoires</p>
         <div class="upload-section-form">
           <div class="drop-area" flowDrop [flow]="flow.flowJs" [ngClass]="{ dragover: dragging }">
             <ng-container *ngIf="dragging">
@@ -73,7 +73,7 @@
                     (blur)="errorsManager($event, 6)"
                   ></lib-password-input>
                   <lib-password-input
-                    [placeholder]="'Confirmer le mot dev passe'"
+                    [placeholder]="'Confirmer le mot de passe'"
                     [(ngModel)]="password2"
                     (blur)="errorsManager($event, 7)"
                   ></lib-password-input>
@@ -125,7 +125,7 @@
 </ng-template>
 
 <ng-template #uploadChoice>
-  <app-upload-choice (nextLayout)="selectLayout($event)"></app-upload-choice>
+  <app-upload-choice (nextLayout)="selectLayout($event)" [emailSender]="senderMail"></app-upload-choice>
 </ng-template>
 
 <ng-template #uploadContent>

@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { IndexComponent, FaqComponent, MlComponent, CguComponent } from '../../../../core/src/public-api';
+import {
+  IndexComponent,
+  FaqComponent,
+  MlComponent,
+  CguComponent,
+  ErrorsComponent
+} from '../../../../core/src/public-api';
 import { DownloadSectionComponent } from './download-section/download-section.component';
 
 const routes: Routes = [
@@ -21,7 +27,12 @@ const routes: Routes = [
   {
     path: 'cgu',
     component: CguComponent
-  }
+  },
+  {
+    path: 'error',
+    component: ErrorsComponent
+  },
+  { path: '**', redirectTo: '/error' }
 ];
 
 @NgModule({

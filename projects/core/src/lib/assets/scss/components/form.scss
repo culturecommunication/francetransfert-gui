@@ -9,7 +9,11 @@ input {
   margin: 15px 0;
   &:focus {
     outline: 0;
+    width: calc(100% - 28px);
     border: 2px solid $c-blue;
+  }
+  &.error {
+    border: 1px solid $c-error;
   }
 }
 
@@ -50,8 +54,8 @@ textarea {
     cursor: pointer;
     border: 2px solid $c-blue;
     &::before {
-      content: "";
-      background: url("../assets/images/icons/Ajout_blue.svg");
+      content: '';
+      background: url('../assets/images/icons/Ajout_blue.svg');
       width: 23px;
       height: 23px;
       position: absolute;
@@ -69,8 +73,8 @@ textarea {
   }
   &-list {
     width: calc(100% - 28px);
-    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-      0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+      0px 1px 3px 0px rgba(0, 0, 0, 0.12);
     position: absolute;
     padding: 0 15px 0 15px;
     background: white;
@@ -111,7 +115,7 @@ textarea {
   &-button {
     position: relative;
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       width: 24px;
       height: 24px;
@@ -126,12 +130,12 @@ textarea {
   }
   &-show {
     &::before {
-      background-image: url("../assets/images/icons/Voir_blue.svg");
+      background-image: url('../assets/images/icons/Voir_blue.svg');
     }
   }
   &-hide {
     &::before {
-      background-image: url("../assets/images/icons/Cacher_blue.svg");
+      background-image: url('../assets/images/icons/Cacher_blue.svg');
     }
   }
 }
@@ -152,7 +156,7 @@ textarea {
     position: relative;
     cursor: pointer;
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       background-color: black;
       height: 10px;
@@ -162,7 +166,7 @@ textarea {
       transform: rotate(45deg);
     }
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       background-color: black;
       height: 10px;
@@ -215,7 +219,7 @@ textarea {
     border: 2px solid rgba(217, 217, 217, 1);
     border-radius: 5px;
     &:after {
-      content: "";
+      content: '';
       position: absolute;
       display: none;
       height: 9px;

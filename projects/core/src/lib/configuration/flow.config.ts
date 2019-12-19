@@ -13,3 +13,5 @@ export const FLOW_EVENTS = {
   UPLOADSTART: 'uploadStart',
   CATCHALL: 'catchAll'
 };
+
+export const FLOW_LIMIT = 1024 * 1024 * 1024 * 20;

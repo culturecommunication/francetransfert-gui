@@ -2,35 +2,56 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { Transfer } from '@flowjs/ngx-flow';
-import { CookiesManagerService } from '@ft-core';
+import { PopUpService, CODE_CONFIRMATION } from '@ft-core';
 import { environment as env } from '../../../environments/environment';
-import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadService {
-  constructor(private _httpClient: HttpClient, private _CookiesManager: CookiesManagerService) {}
+  constructor(private _httpClient: HttpClient, private _popUpService: PopUpService) {}
 
   sendTree(body: any): any {
     const trMapping = this._mappingTree(body.transfers);
-    return this._httpClient
-      .post(`${env.host}${env.apis.tree}`, {
-        confirmedSenderId: '',
-        senderEmail: body.senderMail,
-        recipientEmails: body.emails,
-        password: body.password,
-        message: body.message,
-        rootFiles: trMapping.files,
-        rootDirs: trMapping.dirs
+    const treeBody = {
+      confirmedSenderId: '',
+      senderEmail: body.senderMail,
+      recipientEmails: body.emails,
+      password: body.password,
+      message: body.message,
+      rootFiles: trMapping.files,
+      rootDirs: trMapping.dirs
+    };
+    return this._httpClient.post(`${env.host}${env.apis.tree}`, treeBody).pipe(
+      map((response: any) => {
+        return response ? response : this._popUpService.openModal(CODE_CONFIRMATION(treeBody.senderEmail));
       })
-      .pipe(
-        map((response: any) => {
-          this._CookiesManager.setItem('senderId', response.senderId);
-          return response.enclosureId;
-        })
-      );
+    );
+  }
+
+  validateCode(body: any): any {
+    const trMapping = this._mappingTree(body.transfers);
+    const treeBody = {
+      confirmedSenderId: '',
+      senderEmail: body.senderMail,
+      recipientEmails: body.emails,
+      password: body.password,
+      message: body.message,
+      rootFiles: trMapping.files,
+      rootDirs: trMapping.dirs
+    };
+    return this._httpClient.post(
+      `${env.host}${env.apis.confirmationCode}?code=${body.code}&senderMail=${body.senderMail}`,
+      treeBody
+    );
+  }
+
+  rate(body: any): any {
+    return this._httpClient.post(`${env.host}${env.apis.rate}`, {
+      rateRepresentation: { mailAdress: body.mail, message: body.message, satisfaction: body.satisfaction }
+    });
   }
 
   private _mappingTree(transfers: Array<any>) {

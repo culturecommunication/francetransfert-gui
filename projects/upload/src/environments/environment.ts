@@ -8,7 +8,8 @@ export const environment = {
   apis: {
     upload: 'api-private/upload-module/upload' /** Upload api */,
     tree: 'api-private/upload-module/sender-info' /** Tree api*/,
-    confirmationCode: 'api-private/confirmation-module/validate-code' /** Confirmation code api*/
+    confirmationCode: 'api-private/upload-module/validate-code' /** Confirmation code api*/,
+    rate: 'api-private/upload-module/satisfaction' /** Rate api*/
   }
 };
 

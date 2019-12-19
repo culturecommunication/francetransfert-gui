@@ -1,20 +1,24 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-
+import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { UploadService } from '../services/upload.service';
+import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-upload-choice',
   templateUrl: './upload-choice.component.html'
 })
 export class UploadChoiseComponent {
   @Output() nextLayout: EventEmitter<string>;
+  @Input() emailSender: string;
   activeView: boolean;
   haveChoice: boolean;
   selectedView: number;
   icons: Array<string>;
-  constructor() {
+  message: string;
+  constructor(private _uploadService: UploadService) {
     this.nextLayout = new EventEmitter();
     this.activeView = false;
     this.haveChoice = false;
     this.selectedView = 0;
+    this.message = '';
     this.icons = ['Insatisfait', 'Neutre', 'Satisfait', 'Tres-Satisfait'];
   }
 
@@ -42,7 +46,10 @@ export class UploadChoiseComponent {
    * @returns {void}
    */
   makeChoice(): void {
-    /** Call to API */
+    this._uploadService
+      .rate({ mail: this.emailSender, message: this.message, satisfaction: this.selectedView })
+      .pipe(take(1))
+      .subscribe(() => {});
     this.haveChoice = true;
   }
 }

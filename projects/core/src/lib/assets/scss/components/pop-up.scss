@@ -1,0 +1,15 @@
+.pop-up {
+  a {
+    color: $c-blue;
+    text-decoration: underline;
+  }
+  input {
+    width: calc(100% - 26px);
+    &:focus {
+      width: calc(100% - 28px);
+    }
+  }
+  button {
+    margin: 0 12px;
+  }
+}

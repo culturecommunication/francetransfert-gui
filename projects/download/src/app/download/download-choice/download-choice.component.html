@@ -24,14 +24,14 @@
           [ngClass]="{ active: selectedView === i + 1 }"
         />
       </div>
-      <textarea placeholder="Message (facultatif)"></textarea>
+      <textarea placeholder="Message (facultatif)" [(ngModel)]="message"></textarea>
       <button class=" button button-stroked" [ngClass]="{ disabled: !activeView }" (click)="makeChoice()">
         Valider mon avis
       </button>
     </div>
   </div>
   <div class="download-choice-button">
-    <button class=" button button-primary" (click)="goto('downloadSection')">
+    <button class=" button button-primary" [ngClass]="{ disabled: !haveChoice }" (click)="goto()">
       Accueil
     </button>
   </div>
