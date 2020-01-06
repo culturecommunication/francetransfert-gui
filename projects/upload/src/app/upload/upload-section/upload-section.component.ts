@@ -1,11 +1,13 @@
 import { Component, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef, TemplateRef } from '@angular/core';
 
+import { UploadService } from '../services/upload.service';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { FLOW_EVENTS, MSG_ERR, getRxValue, REGEX_EXP, CookiesManagerService, COOKIES_CONSTANTS } from '@ft-core';
+import { FLOW_EVENTS, MSG_ERR, getRxValue, REGEX_EXP, CookiesManagerService } from '@ft-core';
 import { FlowDirective, Transfer, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EMAIL_LIST } from '../mock/mock';
+import { FLOW_CONFIG } from '../config/flow-config';
 
 @Component({
   selector: 'app-upload-section',
@@ -34,15 +36,16 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   templateRf: TemplateRef<any>;
   senderMail: string;
   errorsMessages: string;
-  activeView: boolean;
-  selectedView: number;
-  icons: Array<string>;
   makedchoice: boolean;
-  constructor(private cd: ChangeDetectorRef, private cookiesManager: CookiesManagerService) {
+  localConfig: any;
+  constructor(
+    private cd: ChangeDetectorRef,
+    private cookiesManager: CookiesManagerService,
+    private uploadService: UploadService
+  ) {
     this.perfectScrollbarConfig = {};
     this.dragging = false;
     this.acceptConditions = false;
-    this.icons = ['Insatisfait', 'Neutre', 'Satisfait', 'Tres-Satisfait'];
     this.initUpload();
     if (this.cookiesManager.isConsented()) {
       localStorage.setItem('EMAIL_LIST', JSON.stringify(EMAIL_LIST));
@@ -65,17 +68,12 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
     this.message = '';
     this.senderMail = '';
     this.errorsMessages = '';
-    this.activeView = false;
-    this.selectedView = 0;
     this.makedchoice = false;
     if (this.flow) {
       let uploadState: UploadState = await getRxValue(this.flow.transfers$);
       for (let transfer of uploadState.transfers) {
         this.flow.cancelFile(transfer);
       }
-    }
-    if (+this.cookiesManager.getItem(COOKIES_CONSTANTS.HAVE_CHOICE_FORM) === 1) {
-      this.cookiesManager.setItem(COOKIES_CONSTANTS.HAVE_CHOICE_GLOBAL, 1);
     }
   }
 
@@ -84,6 +82,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
    * @returns {void}
    */
   ngAfterViewInit(): void {
+    this.localConfig = FLOW_CONFIG;
     this.selectLayout('uploadForm');
     this.cd.detectChanges();
     this.flow.events$.pipe(takeUntil(this.onDestroy$)).subscribe(event => {
@@ -153,16 +152,27 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
    * Flow upload fuc
    * @returns {void}
    */
-  upload(): void {
+  async upload(): Promise<any> {
     /** Call to API */
-    this.selectLayout('uploadLoading');
-    this.flow.upload();
-    this.flow.transfers$.pipe(takeUntil(this.onDestroy$)).subscribe((uploadState: UploadState) => {
-      if (uploadState.totalProgress === 1 && this.templateRf === this.uploadLoading) {
-        this.selectLayout('uploadChoice');
-        this.cookiesManager.setItem(COOKIES_CONSTANTS.HAVE_CHOICE_FORM, 1);
-      }
-    });
+    let transfers: UploadState = await getRxValue(this.flow.transfers$);
+    this.uploadService
+      .sendTree({
+        transfers: transfers.transfers,
+        emails: this.emails,
+        password: this.password1,
+        message: this.message,
+        senderMail: this.senderMail
+      })
+      .subscribe((enclosureId: string) => {
+        this.selectLayout('uploadLoading');
+        this.flow.flowJs.opts.query = { enclosureId: enclosureId };
+        this.flow.upload();
+        this.flow.transfers$.pipe(takeUntil(this.onDestroy$)).subscribe((uploadState: UploadState) => {
+          if (uploadState.totalProgress === 1 && this.templateRf === this.uploadLoading) {
+            this.selectLayout('uploadChoice');
+          }
+        });
+      });
   }
 
   /**
@@ -190,8 +200,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
       (!REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
         this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1) ||
       !((this.withPassword && this.password1 === this.password2 && this.password1.length > 0) || !this.withPassword) ||
-      !this.acceptConditions ||
-      (!this.makedchoice && !this.checkChoice())
+      !this.acceptConditions
     );
   }
 
@@ -315,32 +324,6 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
         break;
       }
     }
-  }
-
-  /**
-   * Mange active icons.
-   * @param {string} icon
-   * @param {number} index
-   * @returns {string}
-   */
-  getIcon(icon: string, index: number): string {
-    return index === this.selectedView ? `${icon}_green` : `${icon}`;
-  }
-
-  /**
-   * Select view.
-   * @returns {void}
-   */
-  makeChoice(): void {
-    this.makedchoice = true;
-  }
-
-  /**
-   * Check if the user have a choice.
-   * @returns {boolean}
-   */
-  checkChoice(): boolean {
-    return +this.cookiesManager.getItem(COOKIES_CONSTANTS.HAVE_CHOICE_GLOBAL) === 1;
   }
 
   ngOnDestroy(): void {
