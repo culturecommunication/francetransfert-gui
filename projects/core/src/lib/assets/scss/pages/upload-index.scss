@@ -1,4 +1,4 @@
-@import "../helpers/mixins";
+@import '../helpers/mixins';
 
 .upload-index {
   width: 1032px;
@@ -6,7 +6,7 @@
   background-color: $c-blue;
   float: right;
   &-background {
-    background-image: url("../assets/images/svgs/illustration-transfert-fichiers.svg");
+    background-image: url('../assets/images/svgs/illustration-transfert-fichiers.svg');
     background-repeat: no-repeat;
     height: 100%;
     width: 100%;
@@ -16,8 +16,7 @@
     opacity: 0.5;
   }
   &-card {
-    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
-      0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
     position: fixed !important;
     top: 112px;
     left: 163px;
@@ -29,6 +28,7 @@
     padding: 0 !important;
   }
   &-header {
+    z-index: 999;
     position: fixed;
     height: 100px;
     width: calc(100vw - 160px);
@@ -56,7 +56,7 @@
       font-weight: $f-bold;
       position: relative;
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         width: 45px;
         height: 2px;
@@ -80,8 +80,12 @@
       position: relative;
       margin-left: 32px;
       float: left;
+      cursor: pointer;
+      &:first-child {
+        cursor: text;
+      }
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         height: 16px;
         width: 2px;
