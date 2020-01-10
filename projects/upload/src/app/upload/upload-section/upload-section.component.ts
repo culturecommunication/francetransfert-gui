@@ -2,12 +2,13 @@ import { Component, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef, Temp
 
 import { UploadService } from '../services/upload.service';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { FLOW_EVENTS, MSG_ERR, getRxValue, REGEX_EXP, CookiesManagerService } from '@ft-core';
+import { FLOW_EVENTS, MSG_ERR, getRxValue, REGEX_EXP, CookiesManagerService, BAD_EXTENSIONS } from '@ft-core';
 import { FlowDirective, Transfer, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EMAIL_LIST } from '../mock/mock';
 import { FLOW_CONFIG } from '../config/flow-config';
+import { transformAll } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-upload-section',
@@ -87,6 +88,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
     this.cd.detectChanges();
     this.flow.events$.pipe(takeUntil(this.onDestroy$)).subscribe(event => {
       if (event.type === FLOW_EVENTS.FILESSUBMITTED) {
+        this.checkValidExtensions(event);
         this.openedButton = false;
         this.errorsMessages = '';
         this.cd.detectChanges();
@@ -323,6 +325,29 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
         }
         break;
       }
+    }
+  }
+
+  /**
+   * Bloc bad extensions.
+   * @param {event} any
+   * @returns {Promise<any>}
+   */
+  async checkValidExtensions(event): Promise<any> {
+    let transfers: UploadState = await getRxValue(this.flow.transfers$);
+    let BadFiles: any[] = [];
+    for (let file of event.event[0]) {
+      const extension = `.${file.name.split('.')[file.name.split('.').length - 1]}`;
+      if (BAD_EXTENSIONS.findIndex((ext: string) => ext.toLocaleUpperCase() === extension.toLocaleUpperCase()) !== -1) {
+        BadFiles.push(file);
+      }
+    }
+    // TODO : open popup
+
+    for (let file of BadFiles) {
+      this.flow.cancelFile(
+        transfers.transfers[transfers.transfers.findIndex((transfer: Transfer) => transfer.name === file.name)]
+      );
     }
   }
 

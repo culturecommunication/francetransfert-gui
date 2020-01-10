@@ -23,6 +23,7 @@ export * from './lib/configuration/flow.config';
 export * from './lib/configuration/cookie.config';
 export * from './lib/configuration/errors-messages.config';
 export * from './lib/configuration/regex.config';
+export * from './lib/configuration/extensions.config';
 
 export * from './lib/models/ft-transfers';
 
