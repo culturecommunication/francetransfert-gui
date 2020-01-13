@@ -10,6 +10,9 @@ export * from './lib/components/password-input/password-input.component';
 export * from './lib/components/tag/tag.component';
 
 export * from './lib/pages/index/index.component';
+export * from './lib/pages/faq/faq.component';
+export * from './lib/pages/ml/ml.component';
+export * from './lib/pages/cgu/cgu.component';
 
 export * from './lib/pipes/file-name';
 export * from './lib/pipes/file-size';

@@ -19,6 +19,9 @@ import { CookiesBannerComponent } from './components/cookies-banner/cookies-bann
 
 /** Import Pages */
 import { IndexComponent } from './pages/index/index.component';
+import { FaqComponent } from './pages/faq/faq.component';
+import { MlComponent } from './pages/ml/ml.component';
+import { CguComponent } from './pages/cgu/cgu.component';
 
 /** Import Services */
 import { CookiesManagerService } from './services/cookies.manager';
@@ -42,7 +45,10 @@ import { FileMultipleSizePipe } from './pipes/file-multiple-size';
     FileTypePipe,
     FileSizePipe,
     TransfersMappingPipe,
-    FileMultipleSizePipe
+    FileMultipleSizePipe,
+    FaqComponent,
+    MlComponent,
+    CguComponent
   ],
   imports: [CommonModule, FormsModule, RouterModule, MaterialModule, PerfectScrollbarModule],
   providers: [

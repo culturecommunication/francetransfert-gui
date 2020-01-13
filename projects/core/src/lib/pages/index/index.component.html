@@ -4,7 +4,7 @@
       <img src="./assets/images/logos/Symbole-FranceTransfert-v1.2.svg" alt="FranceTransfert logo" />
       <h3 class="text-blue-sombre font-black">FranceTransfert</h3>
     </div>
-    <a href="#" class="faq">F.A.Q</a>
+    <a href="" onclick="return false" routerLink="/faq" class="faq">F.A.Q</a>
   </header>
   <mat-card class="upload-index-card">
     <router-outlet></router-outlet>
@@ -13,8 +13,8 @@
   <footer class="upload-index-footer">
     <div class="container">
       <h6>© {{ today | date: 'yyyy' }} Service en bêta test du Ministère de la culture</h6>
-      <h6>Mentions légales</h6>
-      <h6>CGU</h6>
+      <h6 routerLink="/ml">Mentions légales</h6>
+      <h6 routerLink="/cgu">CGU</h6>
     </div>
   </footer>
   <lib-cookies-banner [show]="showBanner"></lib-cookies-banner>
