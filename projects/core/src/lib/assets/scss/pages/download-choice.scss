@@ -1,13 +1,12 @@
 .download-choice {
-  padding: 30px;
-  width: calc(100% - 60px);
-  height: calc(100vh - 335px);
+  width: 100%;
+  height: calc(100vh - 275px);
   position: relative;
   &-icon {
     background-image: url('../assets/images/svgs/illustration-telechargement-reussi.svg');
     height: 155px;
     width: 160px;
-    margin: 0 auto;
+    margin: 30px auto 0;
     background-repeat: no-repeat;
   }
   &-details {
@@ -18,6 +17,8 @@
     }
   }
   &-view {
+    width: calc(100% - 100px);
+    margin: 90px auto 15px;
     padding: 15px;
     border: 5px solid $c-blue;
     border-radius: 8px;
@@ -46,12 +47,6 @@
       }
     }
   }
-  .download-choice-view {
-    position: absolute;
-    bottom: 34px;
-    width: calc(100% - 100px);
-  }
-
   &-button {
     position: absolute;
     bottom: -51px;

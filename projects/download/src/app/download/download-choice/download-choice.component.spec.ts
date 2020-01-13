@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DownloadChoiseComponent } from './download-choice.component';
-import { CookieService } from 'ngx-cookie-service';
-import { CookiesManagerService } from '@ft-core';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 describe('DownloadChoiseComponent', () => {
   let component: DownloadChoiseComponent;
@@ -11,7 +10,7 @@ describe('DownloadChoiseComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DownloadChoiseComponent],
-      providers: [CookieService, CookiesManagerService]
+      imports: [PerfectScrollbarModule]
     }).compileComponents();
   }));
 

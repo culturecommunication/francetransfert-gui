@@ -1,32 +1,34 @@
 <div class="download-choice">
-  <div class="download-choice-icon"></div>
-  <div class="download-choice-details">
-    <h3>Téléchargement réussi !</h3>
-    <p class="text-gris-m1">
-      Vos fichiers ont bien été téléchargés.
-    </p>
-    <br />
-  </div>
-  <div class="download-choice-view" [hidden]="checkChoice()">
-    <h4>
-      Je donne mon avis
-    </h4>
-    <p class="text-gris-m1">
-      Comment trouvez-vous le service FranceTransfert ?
-    </p>
-    <div class="icons">
-      <img
-        *ngFor="let icon of icons; let i = index"
-        [src]="'./assets/images/icons/Utilisateur/' + getIcon(icon, i + 1) + '.svg'"
-        alt="{{ icon + 'icon' }}"
-        (click)="selectedView = i + 1; activeView = true"
-        [ngClass]="{ active: selectedView === i + 1 }"
-      />
+  <div class="prefect-scoll" [perfectScrollbar]="{}">
+    <div class="download-choice-icon"></div>
+    <div class="download-choice-details">
+      <h3>Téléchargement réussi !</h3>
+      <p class="text-gris-m1">
+        Vos fichiers ont bien été téléchargés.
+      </p>
+      <br />
     </div>
-    <textarea placeholder="Message (facultatif)"></textarea>
-    <button class=" button button-stroked" [ngClass]="{ disabled: !activeView }" (click)="makeChoice()">
-      Valider mon avis
-    </button>
+    <div class="download-choice-view">
+      <h4>
+        Je donne mon avis
+      </h4>
+      <p class="text-gris-m1">
+        Comment trouvez-vous le service FranceTransfert ?
+      </p>
+      <div class="icons">
+        <img
+          *ngFor="let icon of icons; let i = index"
+          [src]="'./assets/images/icons/Utilisateur/' + getIcon(icon, i + 1) + '.svg'"
+          alt="{{ icon + 'icon' }}"
+          (click)="selectedView = i + 1; activeView = true"
+          [ngClass]="{ active: selectedView === i + 1 }"
+        />
+      </div>
+      <textarea placeholder="Message (facultatif)"></textarea>
+      <button class=" button button-stroked" [ngClass]="{ disabled: !activeView }" (click)="makeChoice()">
+        Valider mon avis
+      </button>
+    </div>
   </div>
   <div class="download-choice-button">
     <button class=" button button-primary" (click)="goto('downloadSection')">
