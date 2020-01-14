@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  host: '' /** Make the server host here */,
+  apis: {
+    download: '' /** download api */,
+    downloadUrl: '' /** downloadUrl api*/
+  }
 };
 
 /*

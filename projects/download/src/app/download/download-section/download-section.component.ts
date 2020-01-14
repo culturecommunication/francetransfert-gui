@@ -1,14 +1,20 @@
-import { Component, TemplateRef, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, TemplateRef, ViewChild, AfterViewInit, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { CookiesManagerService, COOKIES_CONSTANTS } from '@ft-core';
-import { EMAILS, FILES } from '../mock/mock';
+import { DownloadService } from '../services/download.service';
+import { FTTransfer } from '@ft-core';
+import { Transfer } from '@flowjs/ngx-flow';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-donwload-section',
   templateUrl: './download-section.component.html'
 })
-export class DownloadSectionComponent implements AfterViewInit {
+export class DownloadSectionComponent implements AfterViewInit, OnInit, OnDestroy {
+  private onDestroy$: Subject<void> = new Subject();
+
   @ViewChild('downloadSection', { static: false }) downloadSection: TemplateRef<any>;
   @ViewChild('downloadchoice', { static: false }) downloadchoice: TemplateRef<any>;
 
@@ -18,32 +24,38 @@ export class DownloadSectionComponent implements AfterViewInit {
   password: string;
   withPassword: boolean;
   templateRf: TemplateRef<any>;
-  icons: Array<string>;
-  selectedView: number;
-  activeView: boolean;
-  makedchoice: boolean;
+  downloadInfos: any;
+  params: Array<{ string: string }>;
 
-  constructor(private cd: ChangeDetectorRef, private cookiesManager: CookiesManagerService) {
+  constructor(
+    private cd: ChangeDetectorRef,
+    private _downloadService: DownloadService,
+    private _activatedRoute: ActivatedRoute
+  ) {
     this.perfectScrollbarConfig = {};
-    this.emails = EMAILS;
-    this.transfers = FILES;
-    this.withPassword = true;
-    this.icons = ['Insatisfait', 'Neutre', 'Satisfait', 'Tres-Satisfait'];
-    this.initDownload();
+    this.downloadInfos = {};
+    this.params = [];
+    this.transfers = [];
+    this.withPassword = false;
+    this.password = '';
   }
 
-  /**
-   * Init Download
-   * @returns {void}
-   */
-  initDownload(): void {
-    this.password = '';
-    this.selectedView = 0;
-    this.activeView = false;
-    this.makedchoice = false;
-    if (+this.cookiesManager.getItem(COOKIES_CONSTANTS.HAVE_CHOICE_FORM) === 1) {
-      this.cookiesManager.setItem(COOKIES_CONSTANTS.HAVE_CHOICE_GLOBAL, 1);
-    }
+  ngOnInit() {
+    this._activatedRoute.queryParams.pipe(takeUntil(this.onDestroy$)).subscribe((params: Array<{ string: string }>) => {
+      this.params = params;
+      this._downloadService
+        .getDownloadInfos(params)
+        .pipe(takeUntil(this.onDestroy$))
+        .subscribe(downloadInfos => {
+          this.downloadInfos = downloadInfos;
+          this.downloadInfos.rootFiles.map(file => {
+            this.transfers.push({ ...file, folder: false } as FTTransfer<Transfer>);
+          });
+          this.downloadInfos.rootDirs.map(file => {
+            this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransfer<Transfer>);
+          });
+        });
+    });
   }
 
   /**
@@ -61,36 +73,7 @@ export class DownloadSectionComponent implements AfterViewInit {
    */
   selectLayout(Layout: string): void {
     this.templateRf = this[Layout];
-    if (Layout === 'downloadSection') {
-      this.initDownload();
-    }
     this.cd.detectChanges();
-  }
-
-  /**
-   * Check if the user have a choice.
-   * @returns {boolean}
-   */
-  checkChoice(): boolean {
-    return +this.cookiesManager.getItem(COOKIES_CONSTANTS.HAVE_CHOICE_GLOBAL) === 1;
-  }
-
-  /**
-   * Mange active icons.
-   * @param {string} icon
-   * @param {number} index
-   * @returns {string}
-   */
-  getIcon(icon: string, index: number): string {
-    return index === this.selectedView ? `${icon}_green` : `${icon}`;
-  }
-
-  /**
-   * Select view.
-   * @returns {void}
-   */
-  makeChoice(): void {
-    this.makedchoice = true;
   }
 
   /**
@@ -98,8 +81,8 @@ export class DownloadSectionComponent implements AfterViewInit {
    * @returns {void}
    */
   download(): void {
+    this._downloadService.getDownloadUrl(this.params, this.downloadInfos.withPassword, this.password);
     this.selectLayout('downloadchoice');
-    this.cookiesManager.setItem(COOKIES_CONSTANTS.HAVE_CHOICE_FORM, 1);
   }
 
   /**
@@ -107,6 +90,11 @@ export class DownloadSectionComponent implements AfterViewInit {
    * @returns {boolean}
    */
   checkValid(): boolean {
-    return (!this.makedchoice && !this.checkChoice()) || (this.withPassword && !this.password.length);
+    return this.downloadInfos && this.downloadInfos.withPassword && !this.password.length;
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 }

@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute, Data, Params } from '@angular/router';
 
 import { DownloadSectionComponent } from './download-section.component';
 import {
@@ -9,13 +11,15 @@ import {
   TransfersMappingPipe,
   FileSizePipe,
   FileNamePipe,
-  FileTypePipe,
-  CookiesManagerService
+  FileTypePipe
 } from '@ft-core';
-import { CookieService } from 'ngx-cookie-service';
 import { DownloadChoiseComponent } from '../download-choice/download-choice.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { of } from 'rxjs';
 
+let ActivatedRouteMock = {
+  queryParams: of([{ mock: 'mock' }])
+};
 describe('DownloadSectionComponent', () => {
   let component: DownloadSectionComponent;
   let fixture: ComponentFixture<DownloadSectionComponent>;
@@ -33,8 +37,13 @@ describe('DownloadSectionComponent', () => {
         FileNamePipe,
         FileTypePipe
       ],
-      imports: [PerfectScrollbarModule, FormsModule],
-      providers: [CookieService, CookiesManagerService]
+      imports: [PerfectScrollbarModule, FormsModule, HttpClientTestingModule],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: ActivatedRouteMock
+        }
+      ]
     }).compileComponents();
   }));
 

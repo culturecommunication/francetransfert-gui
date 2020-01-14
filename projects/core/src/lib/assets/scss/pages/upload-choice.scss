@@ -1,10 +1,9 @@
 .upload-choice {
-  padding: 30px;
-  width: calc(100% - 60px);
-  height: calc(100vh - 335px);
+  width: 100%;
+  height: calc(100vh - 275px);
   position: relative;
   &-icon {
-    background-image: url("../assets/images/svgs/illustration-envoi-reussi.svg");
+    background-image: url('../assets/images/svgs/illustration-envoi-reussi.svg');
     height: 155px;
     width: 160px;
     margin: 0 auto;
@@ -12,6 +11,7 @@
   }
   &-details {
     text-align: center;
+    margin: 0 30px;
     h3 {
       font-weight: $f-bold;
       color: $c-succes;
@@ -29,6 +29,7 @@
     border: 5px solid $c-blue;
     border-radius: 8px;
     text-align: center;
+    margin: 0 30px;
     textarea {
       height: 70px;
     }

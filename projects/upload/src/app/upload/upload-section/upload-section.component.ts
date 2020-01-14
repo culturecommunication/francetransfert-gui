@@ -8,7 +8,6 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EMAIL_LIST } from '../mock/mock';
 import { FLOW_CONFIG } from '../config/flow-config';
-import { transformAll } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-upload-section',

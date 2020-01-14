@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UploadChoiseComponent } from './upload-choice.component';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 describe('UploadChoiseComponent', () => {
   let component: UploadChoiseComponent;
@@ -8,7 +9,8 @@ describe('UploadChoiseComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [UploadChoiseComponent]
+      declarations: [UploadChoiseComponent],
+      imports: [PerfectScrollbarModule]
     }).compileComponents();
   }));
 
