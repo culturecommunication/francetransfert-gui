@@ -33,14 +33,31 @@ mc-francetransfert-upload-download-gui:test:
   script:
     - npm run test
 
-#Sonar phase
-mc-francetransfert-core-gui:sonar:
+#Sonar Develop phase
+mc-francetransfert-core-gui:sonar:develop:
   image: weboaks/node-karma-protractor-chrome
   before_script:
-    - echo "Pipeline Sonar stage ..."
+    - echo "Pipeline Sonar Develop stage ..."
   stage: sonar
+  only:
+    refs:
+      - develop
+
   script:
-    - bash ci/sonar/sonar.sh
+    - bash ci/sonar/sonarDev.sh
+
+#Sonar Master phase
+mc-francetransfert-core-gui:sonar:master:
+  image: weboaks/node-karma-protractor-chrome
+  before_script:
+    - echo "Pipeline Sonar Master stage ..."
+  stage: sonar
+  only:
+    refs:
+      - master
+
+  script:
+    - bash ci/sonar/sonarProd.sh
 
 #Build phase
 mc-francetransfert-upload-download-gui:build:
