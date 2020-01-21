@@ -4,14 +4,16 @@ image: node:10
 stages:
   - lint
   - test
+  - sonar
   - build
   - docker
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
-    - $CI_PROJECT_DIR/node_modules/
-    - $CI_PROJECT_DIR/dist/
+    - node_modules
+    - dist
+    - coverage
 
 # Lint phase
 mc-francetransfert-upload-download-gui:lint:
@@ -30,6 +32,15 @@ mc-francetransfert-upload-download-gui:test:
   stage: test
   script:
     - npm run test
+
+#Sonar phase
+mc-francetransfert-core-gui:sonar:
+  image: weboaks/node-karma-protractor-chrome
+  before_script:
+    - echo "Pipeline Sonar stage ..."
+  stage: sonar
+  script:
+    - bash ci/sonar/sonar.sh
 
 #Build phase
 mc-francetransfert-upload-download-gui:build:
