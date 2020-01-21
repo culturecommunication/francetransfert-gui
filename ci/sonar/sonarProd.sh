@@ -12,15 +12,23 @@ PATH=./sonar-scanner-3.3.0.1492-linux/bin:$PATH
 
 # Submit code to sonarqube server
 PROJECT_KEY=$CI_SONAR_PROJECT_KEY_MASTER
-SONAR_COVERAGE_REPORT=$CI_PROJECT_DIR/coverage/lcov.info
+MODULES='upload,download'
+UPLOADNAME="Upload"
+DOWNLOADNAME="Download"
 
 sonar-scanner -X \
-    -Dsonar.host.url=$SONAR_URL \
-    -Dsonar.login=$SONAR_TOKEN \
-    -Dsonar.projectKey=$PROJECT_KEY \
-    -Dsonar.projectName=$PROJECT_KEY \
-    -Dsonar.sources=./projects/gui-core/src/lib \
-    -Dsonar.sourceEncoding=UTF-8 \
-    -Dsonar.typescript.lcov.reportPaths=$SONAR_COVERAGE_REPORT
+    -D"sonar.host.url=${SONAR_URL}" \
+    -D"sonar.login=${SONAR_TOKEN}" \
+    -D"sonar.projectKey=${PROJECT_KEY}" \
+    -D"sonar.sourceEncoding=UTF-8" \
+    -D"sonar.modules=${MODULES}" \
+    -D"upload.sonar.projectBaseDir=./projects" \
+    -D"upload.sonar.projectName=${UPLOADNAME}" \
+    -D"upload.sonar.sources=./upload/src/app" \
+    -D"upload.sonar.typescript.lcov.reportPaths=${CI_PROJECT_DIR}/coverage/upload/lcov.info" \
+    -D"download.sonar.projectBaseDir=./projects" \
+    -D"download.sonar.projectName=${DOWNLOADNAME}" \
+    -D"download.sonar.sources=./download/src/app" \
+    -D"download.sonar.typescript.lcov.reportPaths=${CI_PROJECT_DIR}/coverage/download/lcov.info"
 
 echo "Ok, submitted to sonarqube server"
