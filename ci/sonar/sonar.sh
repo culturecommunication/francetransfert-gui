@@ -11,7 +11,7 @@ unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
 PATH=./sonar-scanner-3.3.0.1492-linux/bin:$PATH
 
 # Submit code to sonarqube server
-PROJECT_KEY=$SONAR_KEY$CI_PROJECT_NAME.$CI_COMMIT_REF_SLUG
+PROJECT_KEY=$CI_SONAR_PROJECT_KEY_DEVELOP
 MODULES='upload,download'
 UPLOADNAME="Upload"
 DOWNLOADNAME="Download"
