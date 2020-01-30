@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  host: '' /** Make the server host here */,
+  host: 'http://recette.francetransfert.culture.gouv.fr/' /** Make the server host here */,
   apis: {
-    download: '' /** download api */,
-    downloadUrl: '' /** downloadUrl api*/
+    download: 'api-private/download-module/download-info' /** download api */,
+    downloadUrl: 'api-private/download-module/generate-download-url' /** downloadUrl api*/
   }
 };

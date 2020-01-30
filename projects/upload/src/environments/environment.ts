@@ -4,10 +4,11 @@
 
 export const environment = {
   production: false,
-  host: '' /** Make the server host here */,
+  host: 'http://recette.francetransfert.culture.gouv.fr/' /** Make the server host here */,
   apis: {
-    upload: '/upload' /** Upload api */,
-    tree: '' /** Tree api*/
+    upload: 'api-private/upload-module/upload' /** Upload api */,
+    tree: 'api-private/upload-module/sender-info' /** Tree api*/,
+    confirmationCode: 'api-private/confirmation-module/validate-code' /** Confirmation code api*/
   }
 };
 
