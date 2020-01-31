@@ -16,12 +16,14 @@ import { MailInputGroupComponent } from './components/mail-input-group/mail-inpu
 import { PasswordInputComponent } from './components/password-input/password-input.component';
 import { TagComponent } from './components/tag/tag.component';
 import { CookiesBannerComponent } from './components/cookies-banner/cookies-banner.component';
+import { PopUpComponent } from './components/pop-up/pop-up.component';
 
 /** Import Pages */
 import { IndexComponent } from './pages/index/index.component';
 import { FaqComponent } from './pages/faq/faq.component';
 import { MlComponent } from './pages/ml/ml.component';
 import { CguComponent } from './pages/cgu/cgu.component';
+import { ErrorsComponent } from './pages/errors/errors.component';
 
 /** Import Services */
 import { CookiesManagerService } from './services/cookies.manager';
@@ -41,6 +43,8 @@ import { FileMultipleSizePipe } from './pipes/file-multiple-size';
     TagComponent,
     IndexComponent,
     CookiesBannerComponent,
+    PopUpComponent,
+    ErrorsComponent,
     FileNamePipe,
     FileTypePipe,
     FileSizePipe,

@@ -1,0 +1,33 @@
+<div class="errors-page">
+  <div class="errors-page-container">
+    <img class="logo" src="./assets/images/logo-ft.png" alt="FranceTransfert logo" (click)="retourHome()" />
+    <div class="errors-page-illustration"></div>
+    <div class="errors-page-content">
+      <h1>OUPS !</h1>
+      <p class="font-semi-bold" *ngIf="error?.title">
+        {{ error?.title }}
+      </p>
+      <br />
+      <p *ngIf="error?.code === '404'">
+        La page que vous cherchez à atteindre n'est pas ou plus disponible.
+      </p>
+      <p *ngIf="error?.code === '500' || error?.id">
+        Une erreur technique s'est produite. Nous vous présentons nos excusespour ce désagrément et vous invitons à
+        retenter votre opération ultérieurement.
+      </p>
+      <br />
+      <p *ngIf="error?.code === '999'">
+        Vous avez déjà téléchargé 2 fois les fichiers reçus, ils ne sont plus disponibles:
+      </p>
+      <p *ngIf="error?.id">
+        Si vous avez l'occasion de communiquer le code suivant à nos équipes, il pourra nous aider à résoudre cd
+        problème :{{ error?.code }}
+      </p>
+      <br />
+      <p *ngIf="error?.id">
+        Comme nous sommes en version bêta, cela nous aiderait que vous transmettiez ce code à l’équipe au courriel
+        suivant : <a href="mailto:erreur.francetransfert@culture.gouv.fr">erreur.francetransfert@culture.gouv.fr</a>
+      </p>
+    </div>
+  </div>
+</div>

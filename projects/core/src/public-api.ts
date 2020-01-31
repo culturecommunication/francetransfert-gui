@@ -8,11 +8,13 @@ export * from './lib/components/file-item/file-item.component';
 export * from './lib/components/mail-input-group/mail-input-group.component';
 export * from './lib/components/password-input/password-input.component';
 export * from './lib/components/tag/tag.component';
+export * from './lib/components/pop-up/pop-up.component';
 
 export * from './lib/pages/index/index.component';
 export * from './lib/pages/faq/faq.component';
 export * from './lib/pages/ml/ml.component';
 export * from './lib/pages/cgu/cgu.component';
+export * from './lib/pages/errors/errors.component';
 
 export * from './lib/pipes/file-name';
 export * from './lib/pipes/file-size';
@@ -27,9 +29,13 @@ export * from './lib/configuration/cookie.config';
 export * from './lib/configuration/errors-messages.config';
 export * from './lib/configuration/regex.config';
 export * from './lib/configuration/extensions.config';
+export * from './lib/configuration/pop-up.config';
 
 export * from './lib/models/ft-transfers';
 
 export * from './lib/services/cookies.manager';
+export * from './lib/services/pop-up.service';
+export * from './lib/services/errors.manager';
 
 export * from './lib/utils/rxjs-get-value';
+export * from './lib/utils/basic-functions';

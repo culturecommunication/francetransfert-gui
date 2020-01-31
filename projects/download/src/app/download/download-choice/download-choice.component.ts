@@ -1,5 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-
+import { DownloadService } from '../services/download.service';
+import { take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-download-choice',
   templateUrl: './download-choice.component.html'
@@ -10,11 +12,13 @@ export class DownloadChoiseComponent {
   haveChoice: boolean;
   selectedView: number;
   icons: Array<string>;
-  constructor() {
+  message: string;
+  constructor(private _downloadService: DownloadService, private _router: Router) {
     this.nextLayout = new EventEmitter();
     this.activeView = false;
     this.haveChoice = false;
     this.selectedView = 0;
+    this.message = '';
     this.icons = ['Insatisfait', 'Neutre', 'Satisfait', 'Tres-Satisfait'];
   }
 
@@ -29,12 +33,12 @@ export class DownloadChoiseComponent {
   }
 
   /**
-   * Select next Layout.
+   * Go to
    * @param {string} LayoutName
    * @returns {void}
    */
-  goto(LayoutName: string): void {
-    this.nextLayout.emit(LayoutName);
+  goto(): void {
+    this._router.navigateByUrl('/');
   }
 
   /**
@@ -42,7 +46,10 @@ export class DownloadChoiseComponent {
    * @returns {void}
    */
   makeChoice(): void {
-    /** Call to API */
+    this._downloadService
+      .rate({ mail: '', message: this.message, satisfaction: this.selectedView })
+      .pipe(take(1))
+      .subscribe(() => {});
     this.haveChoice = true;
   }
 }

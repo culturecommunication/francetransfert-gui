@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { IndexComponent, FaqComponent, MlComponent, CguComponent } from '@ft-core';
+import { IndexComponent, FaqComponent, MlComponent, CguComponent, ErrorsComponent } from '@ft-core';
 import { UploadSectionComponent } from './upload-section/upload-section.component';
 
 const routes: Routes = [
@@ -21,7 +21,12 @@ const routes: Routes = [
   {
     path: 'cgu',
     component: CguComponent
-  }
+  },
+  {
+    path: 'error',
+    component: ErrorsComponent
+  },
+  { path: '**', redirectTo: '/error' }
 ];
 
 @NgModule({

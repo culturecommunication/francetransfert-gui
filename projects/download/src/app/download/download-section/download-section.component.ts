@@ -1,5 +1,5 @@
 import { Component, TemplateRef, ViewChild, AfterViewInit, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { DownloadService } from '../services/download.service';
@@ -30,7 +30,8 @@ export class DownloadSectionComponent implements AfterViewInit, OnInit, OnDestro
   constructor(
     private cd: ChangeDetectorRef,
     private _downloadService: DownloadService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router
   ) {
     this.perfectScrollbarConfig = {};
     this.downloadInfos = {};
@@ -43,18 +44,22 @@ export class DownloadSectionComponent implements AfterViewInit, OnInit, OnDestro
   ngOnInit() {
     this._activatedRoute.queryParams.pipe(takeUntil(this.onDestroy$)).subscribe((params: Array<{ string: string }>) => {
       this.params = params;
-      this._downloadService
-        .getDownloadInfos(params)
-        .pipe(takeUntil(this.onDestroy$))
-        .subscribe(downloadInfos => {
-          this.downloadInfos = downloadInfos;
-          this.downloadInfos.rootFiles.map(file => {
-            this.transfers.push({ ...file, folder: false } as FTTransfer<Transfer>);
+      if (this.params['enclosure'] && this.params['recipient'] && this.params['token']) {
+        this._downloadService
+          .getDownloadInfos(params)
+          .pipe(takeUntil(this.onDestroy$))
+          .subscribe(downloadInfos => {
+            this.downloadInfos = downloadInfos;
+            this.downloadInfos.rootFiles.map(file => {
+              this.transfers.push({ ...file, folder: false } as FTTransfer<Transfer>);
+            });
+            this.downloadInfos.rootDirs.map(file => {
+              this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransfer<Transfer>);
+            });
           });
-          this.downloadInfos.rootDirs.map(file => {
-            this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransfer<Transfer>);
-          });
-        });
+      } else {
+        this._router.navigateByUrl('/error');
+      }
     });
   }
 

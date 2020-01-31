@@ -2,7 +2,17 @@ import { Component, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef, Temp
 
 import { UploadService } from '../services/upload.service';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { FLOW_EVENTS, MSG_ERR, getRxValue, REGEX_EXP, CookiesManagerService, BAD_EXTENSIONS } from '@ft-core';
+import {
+  FLOW_EVENTS,
+  MSG_ERR,
+  getRxValue,
+  REGEX_EXP,
+  CookiesManagerService,
+  BAD_EXTENSIONS,
+  PopUpService,
+  BAD_EXTENTION_POPUP,
+  FLOW_LIMIT
+} from '@ft-core';
 import { FlowDirective, Transfer, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -41,7 +51,8 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   constructor(
     private cd: ChangeDetectorRef,
     private cookiesManager: CookiesManagerService,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    private popUpService: PopUpService
   ) {
     this.perfectScrollbarConfig = {};
     this.dragging = false;
@@ -91,6 +102,11 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
         this.openedButton = false;
         this.errorsMessages = '';
         this.cd.detectChanges();
+      }
+    });
+    this.flow.transfers$.pipe(takeUntil(this.onDestroy$)).subscribe((uploadState: UploadState) => {
+      if (uploadState.totalProgress === 1 && this.templateRf === this.uploadLoading) {
+        this.selectLayout('uploadChoice');
       }
     });
   }
@@ -164,16 +180,46 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
         message: this.message,
         senderMail: this.senderMail
       })
-      .subscribe((enclosureId: string) => {
-        this.selectLayout('uploadLoading');
-        this.flow.flowJs.opts.query = { enclosureId: enclosureId };
-        this.flow.upload();
-        this.flow.transfers$.pipe(takeUntil(this.onDestroy$)).subscribe((uploadState: UploadState) => {
-          if (uploadState.totalProgress === 1 && this.templateRf === this.uploadLoading) {
-            this.selectLayout('uploadChoice');
-          }
-        });
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((result: any) => {
+        if (result.senderId) {
+          this.uploadBegin(result);
+        } else {
+          result.componentInstance.action.pipe(takeUntil(this.onDestroy$)).subscribe(code => {
+            this.uploadService
+              .validateCode({
+                code: code,
+                transfers: transfers.transfers,
+                emails: this.emails,
+                password: this.password1,
+                message: this.message,
+                senderMail: this.senderMail
+              })
+              .pipe(takeUntil(this.onDestroy$))
+              .subscribe(
+                rs => {
+                  result.close();
+                  this.uploadBegin(rs);
+                },
+                () => {
+                  result.componentInstance.haveError = true;
+                }
+              );
+          });
+        }
       });
+  }
+
+  uploadBegin(result) {
+    this.cookiesManager.setItem('senderId', result.senderId);
+    this.selectLayout('uploadLoading');
+    this.flow.flowJs.opts.query = { enclosureId: result.enclosureId };
+    this.flow.upload();
+    this.flow.transfers$.pipe(takeUntil(this.onDestroy$)).subscribe((uploadState: UploadState) => {
+      if (uploadState.totalProgress === 1 && this.templateRf === this.uploadLoading) {
+        this.selectLayout('uploadChoice');
+      }
+    });
   }
 
   /**
@@ -196,6 +242,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   checkForm(transfers: Array<Transfer>): boolean {
     return (
       !transfers.length ||
+      !this.checkLimit(transfers) ||
       !this.emails.length ||
       !REGEX_EXP.EMAIL.test(this.senderMail) ||
       (!REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
@@ -328,6 +375,20 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   }
 
   /**
+   * Check limit errors.
+   * @returns {any>}
+   */
+  checkLimit(transfers): boolean {
+    const somme = (accumulator, currentValue) => accumulator + currentValue.size;
+    const totalSize = transfers.reduce(somme, 0);
+    if (FLOW_LIMIT < totalSize) {
+      this.errorsMessages = MSG_ERR.MSG_ERR_00;
+      return false;
+    }
+    return true;
+  }
+
+  /**
    * Bloc bad extensions.
    * @param {event} any
    * @returns {Promise<any>}
@@ -341,12 +402,20 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
         BadFiles.push(file);
       }
     }
-    // TODO : open popup
-
-    for (let file of BadFiles) {
-      this.flow.cancelFile(
-        transfers.transfers[transfers.transfers.findIndex((transfer: Transfer) => transfer.name === file.name)]
-      );
+    if (BadFiles.length) {
+      this.popUpService
+        .openModal(
+          BAD_EXTENTION_POPUP(BadFiles.map(file => `.${file.name.split('.')[file.name.split('.').length - 1]}`))
+        )
+        .afterClosed()
+        .pipe(takeUntil(this.onDestroy$))
+        .subscribe(() => {
+          for (let file of BadFiles) {
+            this.flow.cancelFile(
+              transfers.transfers[transfers.transfers.findIndex((transfer: Transfer) => transfer.name === file.name)]
+            );
+          }
+        });
     }
   }
 

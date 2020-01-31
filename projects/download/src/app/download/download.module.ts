@@ -1,10 +1,10 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 
 import { DownloadRoutingModule } from './download-routing.module';
-import { CoreModule } from '../../../../core/src/public-api';
+import { CoreModule, ErrorsManagerService } from '@ft-core';
 
 import { DownloadSectionComponent } from './download-section/download-section.component';
 import { DownloadChoiseComponent } from './download-choice/download-choice.component';
@@ -21,6 +21,11 @@ registerLocaleData(localeFr, 'fr-FR');
     {
       provide: LOCALE_ID,
       useValue: 'fr-FR'
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorsManagerService,
+      multi: true
     }
   ]
 })
