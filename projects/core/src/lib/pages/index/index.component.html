@@ -1,10 +1,11 @@
 <div class="upload-index">
+  <div class="upload-index-banner">BETA</div>
   <header class="upload-index-header">
     <div class="logo">
       <img src="./assets/images/logos/Symbole-FranceTransfert-v1.2.svg" alt="FranceTransfert logo" />
       <h3 class="text-blue-sombre font-black">FranceTransfert</h3>
     </div>
-    <a href="" onclick="return false" routerLink="/faq" class="faq">F.A.Q</a>
+    <a target="_blank" routerLink="/faq" class="faq">F.A.Q</a>
   </header>
   <mat-card class="upload-index-card">
     <router-outlet></router-outlet>
@@ -13,8 +14,8 @@
   <footer class="upload-index-footer">
     <div class="container">
       <h6>© {{ today | date: 'yyyy' }} Service en bêta test du Ministère de la culture</h6>
-      <h6 routerLink="/ml">Mentions légales</h6>
-      <h6 routerLink="/cgu">CGU</h6>
+      <h6 (click)="openBlank('/ml')">Mentions légales</h6>
+      <h6 (click)="openBlank('/cgu')">CGU</h6>
     </div>
   </footer>
   <lib-cookies-banner [show]="showBanner"></lib-cookies-banner>

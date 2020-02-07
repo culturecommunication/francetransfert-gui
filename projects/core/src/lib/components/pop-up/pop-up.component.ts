@@ -13,7 +13,7 @@ export interface DialogData {
   selector: 'lib-pop-up',
   template: `
     <div class="pop-up">
-      <h3 *ngIf="data?.title">{{ data?.title }}</h3>
+      <h3 class="text-center" *ngIf="data?.title">{{ data?.title }}</h3>
       <mat-dialog-content>
         <div *ngIf="data?.content" [innerHTML]="data?.content"></div>
         <p *ngIf="haveError" class="text-error">Le code fourni ne correspond pas à la valeur attendue</p>

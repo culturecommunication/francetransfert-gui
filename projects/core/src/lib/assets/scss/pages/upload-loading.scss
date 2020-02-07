@@ -1,4 +1,4 @@
-@import "../helpers/mixins";
+@import '../helpers/mixins';
 
 .upload-loading {
   &-cercle {
@@ -34,6 +34,29 @@
     h3 {
       color: $c-blue;
       font-weight: $f-bold;
+    }
+  }
+  &-error {
+    height: calc(100vh - 224px);
+    position: relative;
+    &-button {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 70px;
+    }
+    p {
+      max-width: 420px;
+      text-align: center;
+      margin: 12px auto;
+      a {
+        color: #0269cc;
+        text-decoration: underline;
+      }
+    }
+    img {
+      max-width: 200px;
+      margin: 42px calc(50% - 100px) 25px;
     }
   }
 }

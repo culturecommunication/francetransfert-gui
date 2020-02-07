@@ -5,6 +5,22 @@
   height: 100vh;
   background-color: $c-blue;
   float: right;
+  position: relative;
+  &-banner {
+    position: absolute;
+    height: 50px;
+    width: 80px;
+    background-color: $c-rouge;
+    right: 160px;
+    border-radius: 0 0 10px 10px;
+    z-index: 10;
+    line-height: 50px;
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+      0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  }
   &-background {
     background-image: url('../assets/images/svgs/illustration-transfert-fichiers.svg');
     background-repeat: no-repeat;

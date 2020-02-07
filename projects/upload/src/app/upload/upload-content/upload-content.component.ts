@@ -12,6 +12,7 @@ export class UploadContentComponent {
   @Output() nextLayout: EventEmitter<string>;
   @Input() transfers: Array<FTTransfer<Transfer>>;
   @Input() emails: Array<String>;
+  @Input() message: string;
   perfectScrollbarConfig: PerfectScrollbarConfigInterface;
 
   constructor() {

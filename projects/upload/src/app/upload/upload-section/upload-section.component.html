@@ -44,6 +44,10 @@
               <p class="upload-section-errors" [hidden]="!errorsMessages.length">
                 {{ errorsMessages }}
               </p>
+              <p class="upload-section-informations" [hidden]="checkAcceptation((flow.transfers$ | async).transfers)">
+                « Merci d’accepter les conditions générales d’utilisation (CGU) afin de pouvoir utiliser le service
+                FranceTransfert »
+              </p>
               <div class="upload-section-inputs">
                 <lib-mail-input-group
                   [(ngModel)]="emails"
@@ -54,6 +58,10 @@
                 <div class="upload-section-emails">
                   <lib-tag *ngFor="let email of emails" (deleted)="deleteEmail($event)" [content]="email"></lib-tag>
                 </div>
+                <p class="form-description-mails font-bold">
+                  Pour envoyer vos fichiers à plusieurs destinataires, vous pouvez copier/coller les adresses courriels
+                  de chaque destinataire (séparés par un « ; » dans la zone « envoyer à »)
+                </p>
                 <input
                   type="text"
                   placeholder="Votre courriel*"
@@ -81,7 +89,7 @@
                 <textarea cols="45" rows="6" [(ngModel)]="message" placeholder="Message (facultatif)"></textarea>
                 <label class="checkbox"
                   >J’accepte les
-                  <label routerLink="/cgu">conditions générales d’utilisation*</label>
+                  <label (click)="openBlank('/cgu')">conditions générales d’utilisation*</label>
                   <input type="checkbox" [(ngModel)]="acceptConditions" />
                   <span></span>
                 </label>
@@ -104,13 +112,13 @@
 
 <ng-template #uploadLoading>
   <div class="upload-loading">
-    <div class="upload-loading-cercle">
+    <div class="upload-loading-cercle" *ngIf="!uploadError">
       <circle-progress [percent]="(flow.transfers$ | async).totalProgress * 100 | number: '1.0-0'"></circle-progress>
       <div>
         <h1>{{ (flow.transfers$ | async).totalProgress * 100 | number: '1.0-0' }}%</h1>
       </div>
     </div>
-    <div class="upload-loading-details">
+    <div class="upload-loading-details" *ngIf="!uploadError">
       <h3>C’est parti !</h3>
       <br />
       <p>
@@ -120,6 +128,16 @@
       <p>
         Merci de ne pas fermer la fenêtre avant la fin de l’envoi.
       </p>
+    </div>
+    <div class="upload-loading-error" *ngIf="uploadError">
+      <img src="./assets/images/svgs/illustration-envoi-echec.svg" alt="echec-icon" />
+      <p>
+        Le transfert à échoué ! Nous vous invitons à essayer de transférer de nouveau vos fichiers/dossiers Si le
+        problème persiste, n’hésitez pas à consulter la rubrique <a href="/faq" target="_blank">FAQ</a>.
+      </p>
+      <button class="upload-loading-error-button button button-primary" (click)="retournFromError()">
+        Retour au formulaire
+      </button>
     </div>
   </div>
 </ng-template>
@@ -133,5 +151,6 @@
     (nextLayout)="selectLayout($event)"
     [transfers]="(flow.transfers$ | async).transfers | tm"
     [emails]="emails"
+    [message]="message"
   ></app-upload-content>
 </ng-template>

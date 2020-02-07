@@ -12,7 +12,7 @@ import { CookiesManagerService } from '../../services/cookies.manager';
           </h5>
           <p>
             En poursuivant votre navigation sur ce site, vous acceptez leur utilisation
-            <a routerLink="/faq">Plus d'infos</a>
+            <a target="_blank" routerLink="/faq">Plus d'infos</a>
           </p>
         </div>
         <div class="cookies-banner-buttons">

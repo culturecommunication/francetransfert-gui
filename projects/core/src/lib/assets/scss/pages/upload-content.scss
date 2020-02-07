@@ -10,6 +10,10 @@
     width: fit-content;
     font-weight: $f-bold;
   }
+  &-message {
+    margin-top: 10px;
+    width: 100%;
+  }
   &-emails {
     float: left;
     margin-top: 10px;

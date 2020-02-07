@@ -38,7 +38,7 @@ export class DownloadChoiseComponent {
    * @returns {void}
    */
   goto(): void {
-    this._router.navigateByUrl('/');
+    window.location.href = window.location.origin;
   }
 
   /**

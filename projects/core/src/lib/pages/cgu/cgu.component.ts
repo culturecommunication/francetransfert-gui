@@ -5,5 +5,12 @@ import { Component } from '@angular/core';
   templateUrl: './cgu.component.html'
 })
 export class CguComponent {
-  constructor() {}
+  baseUrl: string;
+  constructor() {
+    this.baseUrl = window.location.origin;
+  }
+
+  returnHome() {
+    window.location.href = this.baseUrl;
+  }
 }

@@ -31,7 +31,7 @@
     width: calc(100% - 250px);
     padding-top: 24px;
     position: absolute;
-    height: 100%;
+    height: calc(100% - 24px);
     h5 {
       margin: 0;
     }
