@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { take } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { PAGES } from '../../configuration/errors-pages.config';
 @Component({
   selector: 'lib-errors',
@@ -8,7 +8,7 @@ import { PAGES } from '../../configuration/errors-pages.config';
 })
 export class ErrorsComponent {
   error: any;
-  constructor(private _activatedRoute: ActivatedRoute, private _router: Router) {
+  constructor(private _activatedRoute: ActivatedRoute) {
     this.error = { ...PAGES.BASIC_404 };
   }
 
@@ -23,6 +23,6 @@ export class ErrorsComponent {
   }
 
   retourHome() {
-    this._router.navigateByUrl('/'); /** TODO:Redirect to Upload */
+    window.location.href = window.location.origin;
   }
 }

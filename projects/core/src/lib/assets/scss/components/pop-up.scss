@@ -1,7 +1,14 @@
 .pop-up {
+  .text-center {
+    text-align: center;
+  }
   a {
     color: $c-blue;
     text-decoration: underline;
+    &:hover {
+      color: $c-blue;
+      text-decoration: underline;
+    }
   }
   input {
     width: calc(100% - 26px);

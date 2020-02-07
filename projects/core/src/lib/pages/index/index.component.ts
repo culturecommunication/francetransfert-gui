@@ -19,4 +19,8 @@ export class IndexComponent implements OnInit {
       this.showBanner = !this._cookiesManager.isConsented();
     }, 1500);
   }
+
+  openBlank(url: string): void {
+    window.open(url, '_blank');
+  }
 }

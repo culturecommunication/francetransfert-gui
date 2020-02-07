@@ -47,6 +47,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   senderMail: string;
   errorsMessages: string;
   makedchoice: boolean;
+  uploadError: boolean;
   localConfig: any;
   constructor(
     private cd: ChangeDetectorRef,
@@ -80,6 +81,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
     this.senderMail = '';
     this.errorsMessages = '';
     this.makedchoice = false;
+    this.uploadError = false;
     if (this.flow) {
       let uploadState: UploadState = await getRxValue(this.flow.transfers$);
       for (let transfer of uploadState.transfers) {
@@ -105,12 +107,36 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
       }
     });
     this.flow.transfers$.pipe(takeUntil(this.onDestroy$)).subscribe((uploadState: UploadState) => {
-      if (uploadState.totalProgress === 1 && this.templateRf === this.uploadLoading) {
+      this.uploadError = this.haveChunkError(uploadState);
+      if (uploadState.totalProgress === 1 && !this.uploadError && this.templateRf === this.uploadLoading) {
         this.selectLayout('uploadChoice');
+        this.uploadError = false;
       }
     });
   }
 
+  /**
+   * Check chunk error
+   * @param {UploadState} uploadState
+   * @returns {boolean}
+   */
+  haveChunkError(uploadState: UploadState): boolean {
+    for (let transfer of uploadState.transfers) {
+      if (transfer.error) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Return from error.
+   * @returns {void}
+   */
+  retournFromError(): void {
+    this.selectLayout('uploadForm');
+    this.uploadError = false;
+  }
   /**
    * Add new email
    * @param {string} newEmail
@@ -211,15 +237,9 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   }
 
   uploadBegin(result) {
-    this.cookiesManager.setItem('senderId', result.senderId);
     this.selectLayout('uploadLoading');
     this.flow.flowJs.opts.query = { enclosureId: result.enclosureId };
     this.flow.upload();
-    this.flow.transfers$.pipe(takeUntil(this.onDestroy$)).subscribe((uploadState: UploadState) => {
-      if (uploadState.totalProgress === 1 && this.templateRf === this.uploadLoading) {
-        this.selectLayout('uploadChoice');
-      }
-    });
   }
 
   /**
@@ -249,6 +269,24 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
         this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1) ||
       !((this.withPassword && this.password1 === this.password2 && this.password1.length > 0) || !this.withPassword) ||
       !this.acceptConditions
+    );
+  }
+
+  /**
+   * Check Valid form (without acceptation)(valid) : false ; (invalid) : true
+   * @param {Array<Transfer>} transfers
+   * @returns {boolean}
+   */
+  checkAcceptation(transfers: Array<Transfer>): boolean {
+    return (
+      !transfers.length ||
+      !this.checkLimit(transfers) ||
+      !this.emails.length ||
+      !REGEX_EXP.EMAIL.test(this.senderMail) ||
+      (!REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
+        this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1) ||
+      !((this.withPassword && this.password1 === this.password2 && this.password1.length > 0) || !this.withPassword) ||
+      this.acceptConditions
     );
   }
 
@@ -417,6 +455,10 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
           }
         });
     }
+  }
+
+  openBlank(url: string): void {
+    window.open(url, '_blank');
   }
 
   ngOnDestroy(): void {

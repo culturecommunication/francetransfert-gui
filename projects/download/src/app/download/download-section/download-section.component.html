@@ -12,13 +12,13 @@
       <p class="download-section-description">
         Vos fichiers sont disponibles jusqu’au <b>{{ downloadInfos?.validUntilDate | date: 'dd MMMM yyyy':'fr' }}</b>
       </p>
-      <div class="download-section-password" *ngIf="downloadInfos?.withPassword">
-        <p class="title">Ce transfert est sécurisé par un mot de passe* :</p>
-        <lib-password-input [placeholder]="'Saisissez le mot de passe*'" [(ngModel)]="password"></lib-password-input>
-      </div>
       <div class="download-section-emails">
         <p class="title">Votre expéditeur est :</p>
         <lib-tag [content]="downloadInfos?.senderEmail" [withoutDelete]="true"></lib-tag>
+      </div>
+      <div class="download-section-password" *ngIf="downloadInfos?.withPassword">
+        <p class="title">Ce transfert est sécurisé par un mot de passe* :</p>
+        <lib-password-input [placeholder]="'Saisissez votre mot de passe*'" [(ngModel)]="password"></lib-password-input>
       </div>
       <div class="download-section-files">
         <p class="title">Récapitulatif des éléments envoyés :</p>

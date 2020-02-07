@@ -5,5 +5,12 @@ import { Component } from '@angular/core';
   templateUrl: './ml.component.html'
 })
 export class MlComponent {
-  constructor() {}
+  baseUrl: string;
+  constructor() {
+    this.baseUrl = window.location.origin;
+  }
+
+  returnHome() {
+    window.location.href = this.baseUrl;
+  }
 }

@@ -4,6 +4,10 @@
     <h3 class="upload-content-title">
       Récapitulatif de l’envoi
     </h3>
+    <div class="upload-content-message" *ngIf="message.length">
+      <p class="title">Message :</p>
+      <p>{{ message }}</p>
+    </div>
     <div class="upload-content-emails">
       <p class="title">Envoyé à :</p>
       <lib-tag *ngFor="let email of emails" [content]="email" [withoutDelete]="true"></lib-tag>
