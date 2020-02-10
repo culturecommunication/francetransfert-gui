@@ -2,19 +2,23 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { Transfer } from '@flowjs/ngx-flow';
-import { PopUpService, CODE_CONFIRMATION } from '@ft-core';
+import { PopUpService, CODE_CONFIRMATION, CookiesManagerService, MAIL_COOKIES } from '@ft-core';
 import { environment as env } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadService {
-  constructor(private _httpClient: HttpClient, private _popUpService: PopUpService) {}
+  constructor(
+    private _httpClient: HttpClient,
+    private _popUpService: PopUpService,
+    private cookiesManager: CookiesManagerService
+  ) {}
 
   sendTree(body: any): any {
     const trMapping = this._mappingTree(body.transfers);
+    this._setSuggestionsEmails(body.emails.push(body.senderMail) && body.emails);
     const treeBody = {
       confirmedSenderId: '',
       senderEmail: body.senderMail,
@@ -98,5 +102,19 @@ export class UploadService {
 
   private _dirIndex(tab: Array<any>, name: string): number {
     return tab.findIndex(dir => dir.name == name);
+  }
+
+  private _setSuggestionsEmails(emails: Array<string>) {
+    if (this.cookiesManager.isConsented()) {
+      let currentEmails = JSON.parse(localStorage.getItem(MAIL_COOKIES))
+        ? JSON.parse(localStorage.getItem(MAIL_COOKIES))
+        : [];
+      for (let email of emails) {
+        if (currentEmails.findIndex(cemail => cemail.toUpperCase() === email.toUpperCase()) === -1) {
+          currentEmails.push(email);
+        }
+      }
+      localStorage.setItem(MAIL_COOKIES, JSON.stringify(currentEmails));
+    }
   }
 }

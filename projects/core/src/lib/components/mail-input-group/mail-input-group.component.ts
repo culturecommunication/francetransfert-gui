@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, forwardRef } from '@angular/core';
 
 import { REGEX_EXP } from '../../configuration/regex.config';
-import { MSG_INFO } from '../../configuration/errors-messages.config';
+import { MSG_INFO, MAIL_COOKIES } from '../../configuration/errors-messages.config';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const noop = () => {};
@@ -49,8 +49,8 @@ export class MailInputGroupComponent implements ControlValueAccessor {
   emailMAX: number;
   constructor() {
     this.emails = [];
-    this.emailsRef = JSON.parse(localStorage.getItem('EMAIL_LIST'))
-      ? JSON.parse(localStorage.getItem('EMAIL_LIST'))
+    this.emailsRef = JSON.parse(localStorage.getItem(MAIL_COOKIES))
+      ? JSON.parse(localStorage.getItem(MAIL_COOKIES))
       : [];
     this.autoComplete = [];
     this.errors = new EventEmitter();
