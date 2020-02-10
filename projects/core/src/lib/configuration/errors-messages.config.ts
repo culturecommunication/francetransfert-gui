@@ -12,3 +12,5 @@ export const MSG_ERR = {
 export const MSG_INFO = {
   FO_MSG_INF_04: 'Votre transfert est limité à 100 destinataires différents.'
 };
+
+export const MAIL_COOKIES = 'EMAIL_LIST';

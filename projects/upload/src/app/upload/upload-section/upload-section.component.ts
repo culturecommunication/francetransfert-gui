@@ -7,7 +7,6 @@ import {
   MSG_ERR,
   getRxValue,
   REGEX_EXP,
-  CookiesManagerService,
   BAD_EXTENSIONS,
   PopUpService,
   BAD_EXTENTION_POPUP,
@@ -16,7 +15,6 @@ import {
 import { FlowDirective, Transfer, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { EMAIL_LIST } from '../mock/mock';
 import { FLOW_CONFIG } from '../config/flow-config';
 
 @Component({
@@ -49,19 +47,11 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   makedchoice: boolean;
   uploadError: boolean;
   localConfig: any;
-  constructor(
-    private cd: ChangeDetectorRef,
-    private cookiesManager: CookiesManagerService,
-    private uploadService: UploadService,
-    private popUpService: PopUpService
-  ) {
+  constructor(private cd: ChangeDetectorRef, private uploadService: UploadService, private popUpService: PopUpService) {
     this.perfectScrollbarConfig = {};
     this.dragging = false;
     this.acceptConditions = false;
     this.initUpload();
-    if (this.cookiesManager.isConsented()) {
-      localStorage.setItem('EMAIL_LIST', JSON.stringify(EMAIL_LIST));
-    }
   }
 
   /**

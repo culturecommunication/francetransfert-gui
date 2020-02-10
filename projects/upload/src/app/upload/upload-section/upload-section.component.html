@@ -48,6 +48,10 @@
                 « Merci d’accepter les conditions générales d’utilisation (CGU) afin de pouvoir utiliser le service
                 FranceTransfert »
               </p>
+              <p class="form-description-mails font-bold">
+                Pour envoyer vos fichiers à plusieurs destinataires, vous pouvez copier/coller les adresses courriels de
+                chaque destinataire (séparés par un « ; » dans la zone « envoyer à »)
+              </p>
               <div class="upload-section-inputs">
                 <lib-mail-input-group
                   [(ngModel)]="emails"
@@ -58,10 +62,6 @@
                 <div class="upload-section-emails">
                   <lib-tag *ngFor="let email of emails" (deleted)="deleteEmail($event)" [content]="email"></lib-tag>
                 </div>
-                <p class="form-description-mails font-bold">
-                  Pour envoyer vos fichiers à plusieurs destinataires, vous pouvez copier/coller les adresses courriels
-                  de chaque destinataire (séparés par un « ; » dans la zone « envoyer à »)
-                </p>
                 <input
                   type="text"
                   placeholder="Votre courriel*"
