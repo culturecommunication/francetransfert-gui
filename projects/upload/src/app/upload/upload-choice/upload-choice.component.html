@@ -23,10 +23,10 @@
       <div class="icons">
         <img
           *ngFor="let icon of icons; let i = index"
-          [src]="'./assets/images/icons/Utilisateur/' + getIcon(icon, i + 1) + '.svg'"
+          [src]="'./assets/images/icons/Utilisateur/' + getIcon(icon, 3 - i) + '.svg'"
           alt="{{ icon + 'icon' }}"
-          (click)="selectedView = i + 1; activeView = true"
-          [ngClass]="{ active: selectedView === i + 1 }"
+          (click)="selectedView = 3 - i; activeView = true"
+          [ngClass]="{ active: selectedView === 3 - i }"
         />
       </div>
       <textarea placeholder="Message (facultatif)" [(ngModel)]="message"></textarea>

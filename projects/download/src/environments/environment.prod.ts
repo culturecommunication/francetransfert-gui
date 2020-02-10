@@ -4,6 +4,6 @@ export const environment = {
   apis: {
     download: 'api-private/download-module/download-info' /** download api */,
     downloadUrl: 'api-private/download-module/generate-download-url' /** downloadUrl api*/,
-    rate: 'api-private/upload-module/satisfaction' /** Rate api*/
+    rate: 'api-private/download-module/satisfaction' /** Rate api*/
   }
 };

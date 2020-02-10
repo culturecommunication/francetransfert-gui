@@ -17,7 +17,7 @@ export class UploadChoiseComponent {
     this.nextLayout = new EventEmitter();
     this.activeView = false;
     this.haveChoice = false;
-    this.selectedView = 0;
+    this.selectedView = -1;
     this.message = '';
     this.icons = ['Insatisfait', 'Neutre', 'Satisfait', 'Tres-Satisfait'];
   }
