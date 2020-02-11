@@ -2,16 +2,7 @@ import { Component, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef, Temp
 
 import { UploadService } from '../services/upload.service';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import {
-  FLOW_EVENTS,
-  MSG_ERR,
-  getRxValue,
-  REGEX_EXP,
-  BAD_EXTENSIONS,
-  PopUpService,
-  BAD_EXTENTION_POPUP,
-  FLOW_LIMIT
-} from '@ft-core';
+import { FLOW_EVENTS, MSG_ERR, getRxValue, REGEX_EXP, BAD_EXTENSIONS, FLOW_LIMIT } from '@ft-core';
 import { FlowDirective, Transfer, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -47,7 +38,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   makedchoice: boolean;
   uploadError: boolean;
   localConfig: any;
-  constructor(private cd: ChangeDetectorRef, private uploadService: UploadService, private popUpService: PopUpService) {
+  constructor(private cd: ChangeDetectorRef, private uploadService: UploadService) {
     this.perfectScrollbarConfig = {};
     this.dragging = false;
     this.acceptConditions = false;
@@ -431,19 +422,12 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
       }
     }
     if (BadFiles.length) {
-      this.popUpService
-        .openModal(
-          BAD_EXTENTION_POPUP(BadFiles.map(file => `.${file.name.split('.')[file.name.split('.').length - 1]}`))
-        )
-        .afterClosed()
-        .pipe(takeUntil(this.onDestroy$))
-        .subscribe(() => {
-          for (let file of BadFiles) {
-            this.flow.cancelFile(
-              transfers.transfers[transfers.transfers.findIndex((transfer: Transfer) => transfer.name === file.name)]
-            );
-          }
-        });
+      this.errorsMessages = MSG_ERR.MSG_ERR_08;
+      for (let file of BadFiles) {
+        this.flow.cancelFile(
+          transfers.transfers[transfers.transfers.findIndex((transfer: Transfer) => transfer.name === file.name)]
+        );
+      }
     }
   }
 

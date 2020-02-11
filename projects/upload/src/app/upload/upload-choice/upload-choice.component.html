@@ -8,7 +8,9 @@
         pour récupérer votre téléchargement.
       </p>
       <br />
-      <p class="text-gris-m1">Votre transfert sera disponible <b>pendant 30 jours.</b></p>
+      <p class="text-gris-m1">
+        Votre transfert sera disponible jusqu'au <b>{{ limitDate | date: 'dd MMMM yyyy':'fr' }}</b>
+      </p>
       <p class="upload-choice-details-link" (click)="goto('uploadContent')">
         Voir le contenu
       </p>
