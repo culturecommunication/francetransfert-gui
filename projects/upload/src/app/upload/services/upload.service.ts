@@ -55,8 +55,7 @@ export class UploadService {
   }
 
   rate(body: any): any {
-    return this._httpClient.post(`${env.host}${env.apis.rate}`, {
-      rateRepresentation: { mailAdress: body.mail, message: body.message, satisfaction: body.satisfaction }
+    return this._httpClient.post(`${env.host}${env.apis.rate}`,  { mailAdress: body.mail, message: body.message, satisfaction: body.satisfaction 
     });
   }
 
