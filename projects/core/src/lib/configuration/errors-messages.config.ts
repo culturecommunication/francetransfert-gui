@@ -6,7 +6,9 @@ export const MSG_ERR = {
   MSG_ERR_03: 'Il est nécessaire de télécharger au moins un fichier ou un dossier pour démarrer le transfert.',
   MSG_ERR_04: 'Il semble qu’au moins une des adresses de courriels soit erronée. Merci de vérifier.',
   MSG_ERR_06: 'Merci de renseigner au moins un destinataire pour votre transfert.',
-  MSG_ERR_07: 'Merci de renseigner votre adresse de courriel.'
+  MSG_ERR_07: 'Merci de renseigner votre adresse de courriel.',
+  MSG_ERR_08:
+    'Un ou plusieurs fichiers sélectionnés ne peuvent être uploadés car leurs extensions ne sont pas autorisées, Confer la FAQ pour les extensions interdites'
 };
 
 export const MSG_INFO = {

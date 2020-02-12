@@ -29,7 +29,8 @@
                 "glob": "**/*",
                 "input": "projects/core/src/lib/assets/images",
                 "output": "assets/images"
-              }
+              },
+              "projects/upload/src/upload-config.js"
             ],
             "styles": ["projects/core/src/lib/assets/styles.scss"],
             "scripts": []
@@ -97,7 +98,8 @@
                 "glob": "**/*",
                 "input": "projects/core/src/lib/assets/images",
                 "output": "assets/images"
-              }
+              },
+              "projects/upload/src/upload-config.js"
             ],
             "styles": ["projects/core/src/lib/assets/styles.scss"],
             "scripts": []
@@ -154,7 +156,8 @@
                 "glob": "**/*",
                 "input": "projects/core/src/lib/assets/images",
                 "output": "assets/images"
-              }
+              },
+              "projects/download/src/download-config.js"
             ],
             "styles": ["projects/core/src/lib/assets/styles.scss"],
             "scripts": []
@@ -222,7 +225,8 @@
                 "glob": "**/*",
                 "input": "projects/core/src/lib/assets/images",
                 "output": "assets/images"
-              }
+              },
+              "projects/download/src/download-config.js"
             ],
             "styles": ["projects/core/src/lib/assets/styles.scss"],
             "scripts": []
@@ -277,10 +281,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "projects/core/tsconfig.lib.json",
-              "projects/core/tsconfig.spec.json"
-            ],
+            "tsConfig": ["projects/core/tsconfig.lib.json", "projects/core/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         }

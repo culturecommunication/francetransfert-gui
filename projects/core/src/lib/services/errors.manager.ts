@@ -32,9 +32,9 @@ export class ErrorsManagerService implements HttpInterceptor {
           if (error.status === 404) {
             this._router.navigateByUrl(ERRORS_TYPES.FRONT_ERROR.ROUTE);
           }
-          // if (error.status === 500) {
-          //   this._router.navigateByUrl(ERRORS_TYPES.BACK_ERROR.ROUTE);
-          // }
+          if (error.status === 500) {
+            this._router.navigateByUrl(ERRORS_TYPES.BACK_ERROR.ROUTE);
+          }
           return throwError(error);
         })
       );

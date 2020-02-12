@@ -13,12 +13,15 @@ export class UploadChoiseComponent {
   selectedView: number;
   icons: Array<string>;
   message: string;
+  limitDate: Date;
   constructor(private _uploadService: UploadService) {
     this.nextLayout = new EventEmitter();
     this.activeView = false;
     this.haveChoice = false;
-    this.selectedView = 0;
+    this.selectedView = -1;
     this.message = '';
+    this.limitDate = new Date();
+    this.limitDate.setDate(this.limitDate.getDate() + 30);
     this.icons = ['Insatisfait', 'Neutre', 'Satisfait', 'Tres-Satisfait'];
   }
 
