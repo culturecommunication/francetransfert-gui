@@ -18,7 +18,9 @@ export class UploadService {
 
   sendTree(body: any): any {
     const trMapping = this._mappingTree(body.transfers);
-    this._setSuggestionsEmails(body.emails.push(body.senderMail) && body.emails);
+    let emails = [...body.emails];
+    emails.push(body.senderMail);
+    this._setSuggestionsEmails(emails);
     const treeBody = {
       confirmedSenderId: '',
       senderEmail: body.senderMail,
