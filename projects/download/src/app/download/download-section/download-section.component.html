@@ -36,5 +36,5 @@
 </ng-template>
 
 <ng-template #downloadchoice>
-  <app-download-choice (nextLayout)="selectLayout($event)"></app-download-choice>
+  <app-download-choice (nextLayout)="selectLayout($event)" [emailSender]="params['recipient']"></app-download-choice>
 </ng-template>
