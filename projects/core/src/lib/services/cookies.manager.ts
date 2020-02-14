@@ -22,7 +22,14 @@ export class CookiesManagerService {
    * @returns {boolean}
    */
   setConsented(): void {
-    this.cookieService.set(COOKIES_CONSTANTS.CONSENTED, '1', COOKIES_CONSTANTS.EXPIRED, COOKIES_CONSTANTS.PATH);
+    this.cookieService.set(
+      COOKIES_CONSTANTS.CONSENTED,
+      '1',
+      COOKIES_CONSTANTS.EXPIRED,
+      COOKIES_CONSTANTS.PATH,
+      COOKIES_CONSTANTS.DOMAINE,
+      COOKIES_CONSTANTS.SECURE
+    );
   }
 
   /**

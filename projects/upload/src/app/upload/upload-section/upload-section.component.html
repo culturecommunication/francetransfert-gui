@@ -86,7 +86,13 @@
                     (blur)="errorsManager($event, 7)"
                   ></lib-password-input>
                 </ng-container>
-                <textarea cols="45" rows="6" [(ngModel)]="message" placeholder="Message (facultatif)"></textarea>
+                <textarea
+                  cols="45"
+                  rows="6"
+                  [(ngModel)]="message"
+                  placeholder="Message (facultatif)"
+                  maxlength="2000"
+                ></textarea>
                 <label class="checkbox"
                   >J’accepte les
                   <label (click)="openBlank('/cgu')">conditions générales d’utilisation*</label>

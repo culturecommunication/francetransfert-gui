@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { DownloadService } from '../services/download.service';
 import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class DownloadChoiseComponent {
   @Output() nextLayout: EventEmitter<string>;
+  @Input() emailSender: string;
   activeView: boolean;
   haveChoice: boolean;
   selectedView: number;
@@ -47,7 +48,7 @@ export class DownloadChoiseComponent {
    */
   makeChoice(): void {
     this._downloadService
-      .rate({ mail: '', message: this.message, satisfaction: this.selectedView })
+      .rate({ mail: this.emailSender, message: this.message, satisfaction: this.selectedView })
       .pipe(take(1))
       .subscribe(() => {});
     this.haveChoice = true;

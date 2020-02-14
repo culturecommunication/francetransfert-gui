@@ -18,6 +18,7 @@
     text-align: left;
     width: 100%;
     text-transform: capitalize;
+    text-overflow: ellipsis;
     overflow: hidden;
   }
   &-size {
