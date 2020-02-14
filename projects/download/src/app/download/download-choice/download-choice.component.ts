@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   selector: 'app-download-choice',
   templateUrl: './download-choice.component.html'
 })
-export class DownloadChoiseComponent {
+export class DownloadChoiceComponent {
   @Output() nextLayout: EventEmitter<string>;
   @Input() emailSender: string;
   activeView: boolean;

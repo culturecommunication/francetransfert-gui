@@ -6,7 +6,7 @@ import localeFr from '@angular/common/locales/fr';
 import { UploadRoutingModule } from './upload-routing.module';
 import { UploadSectionComponent } from './upload-section/upload-section.component';
 import { UploadContentComponent } from './upload-content/upload-content.component';
-import { UploadChoiseComponent } from './upload-choice/upload-choice.component';
+import { UploadChoiceComponent } from './upload-choice/upload-choice.component';
 
 import { UploadService } from './services/upload.service';
 
@@ -18,7 +18,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 registerLocaleData(localeFr, 'fr-FR');
 
 @NgModule({
-  declarations: [UploadSectionComponent, UploadContentComponent, UploadChoiseComponent],
+  declarations: [UploadSectionComponent, UploadContentComponent, UploadChoiceComponent],
   imports: [
     CoreModule,
     UploadRoutingModule,

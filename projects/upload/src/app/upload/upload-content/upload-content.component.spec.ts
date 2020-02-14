@@ -10,8 +10,9 @@ import {
   FileMultipleSizePipe
 } from '@ft-core';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material';
 
-describe('UploadChoiseComponent', () => {
+describe('UploadContentComponent', () => {
   let component: UploadContentComponent;
   let fixture: ComponentFixture<UploadContentComponent>;
 
@@ -26,7 +27,11 @@ describe('UploadChoiseComponent', () => {
         FileTypePipe,
         FileMultipleSizePipe
       ],
-      imports: [PerfectScrollbarModule]
+      imports: [PerfectScrollbarModule, MatDialogModule],
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: [] }
+      ]
     }).compileComponents();
   }));
 

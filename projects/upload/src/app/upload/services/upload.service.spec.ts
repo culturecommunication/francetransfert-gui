@@ -4,12 +4,18 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UploadService } from './upload.service';
 import { CookiesManagerService } from '@ft-core';
 import { CookieService } from 'ngx-cookie-service';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material';
 
 describe('UploadService', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [CookieService, CookiesManagerService]
+      imports: [HttpClientTestingModule, MatDialogModule],
+      providers: [
+        CookieService,
+        CookiesManagerService,
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: [] }
+      ]
     })
   );
 
