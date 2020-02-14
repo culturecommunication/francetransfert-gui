@@ -149,7 +149,12 @@
 </ng-template>
 
 <ng-template #uploadChoice>
-  <app-upload-choice (nextLayout)="selectLayout($event)" [emailSender]="senderMail"></app-upload-choice>
+  <app-upload-choice
+    (nextLayout)="selectLayout($event)"
+    (setHaveChoice)="setHaveChoice($event)"
+    [emailSender]="senderMail"
+    [haveChoice]="haveChoice"
+  ></app-upload-choice>
 </ng-template>
 
 <ng-template #uploadContent>
