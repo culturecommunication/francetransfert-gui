@@ -50,7 +50,8 @@ export class DownloadChoiseComponent {
     this._downloadService
       .rate({ mail: this.emailSender, message: this.message, satisfaction: this.selectedView })
       .pipe(take(1))
-      .subscribe(() => {});
-    this.haveChoice = true;
+      .subscribe(() => {
+        this.haveChoice = true;
+      });
   }
 }

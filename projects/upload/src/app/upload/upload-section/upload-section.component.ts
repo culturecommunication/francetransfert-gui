@@ -35,13 +35,14 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   templateRf: TemplateRef<any>;
   senderMail: string;
   errorsMessages: string;
-  makedchoice: boolean;
+  haveChoice: boolean;
   uploadError: boolean;
   localConfig: any;
   constructor(private cd: ChangeDetectorRef, private uploadService: UploadService) {
     this.perfectScrollbarConfig = {};
     this.dragging = false;
     this.acceptConditions = false;
+    this.haveChoice = false;
     this.initUpload();
   }
 
@@ -61,7 +62,6 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
     this.message = '';
     this.senderMail = '';
     this.errorsMessages = '';
-    this.makedchoice = false;
     this.uploadError = false;
     if (this.flow) {
       let uploadState: UploadState = await getRxValue(this.flow.transfers$);
@@ -173,6 +173,17 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   }
 
   /**
+   * Edit have choice
+   * @param {boolean} value
+   * @returns {void}
+   */
+  setHaveChoice(value: boolean): void {
+    if (value) {
+      this.haveChoice = true;
+    }
+  }
+
+  /**
    * Flow upload fuc
    * @returns {void}
    */
@@ -231,6 +242,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   selectLayout(Layout: string): void {
     this.templateRf = this[Layout];
     if (Layout === 'uploadForm') {
+      this.haveChoice = false;
       this.initUpload();
     }
   }
@@ -302,6 +314,12 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
           this.errorsMessages = MSG_ERR.MSG_ERR_03;
         } else if (event.length > 0 && !REGEX_EXP.EMAIL.test(event)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
+        } else if (
+          this.senderMail.length &&
+          !REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
+          this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1
+        ) {
+          this.errorsMessages = MSG_ERR.MSG_ERR_02;
         }
         break;
       }

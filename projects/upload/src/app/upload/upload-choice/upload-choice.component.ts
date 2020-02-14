@@ -7,17 +7,18 @@ import { take } from 'rxjs/operators';
 })
 export class UploadChoiseComponent {
   @Output() nextLayout: EventEmitter<string>;
+  @Output() setHaveChoice: EventEmitter<boolean>;
+  @Input() haveChoice: boolean;
   @Input() emailSender: string;
   activeView: boolean;
-  haveChoice: boolean;
   selectedView: number;
   icons: Array<string>;
   message: string;
   limitDate: Date;
   constructor(private _uploadService: UploadService) {
     this.nextLayout = new EventEmitter();
+    this.setHaveChoice = new EventEmitter(false);
     this.activeView = false;
-    this.haveChoice = false;
     this.selectedView = -1;
     this.message = '';
     this.limitDate = new Date();
@@ -52,7 +53,9 @@ export class UploadChoiseComponent {
     this._uploadService
       .rate({ mail: this.emailSender, message: this.message, satisfaction: this.selectedView })
       .pipe(take(1))
-      .subscribe(() => {});
-    this.haveChoice = true;
+      .subscribe(() => {
+        this.haveChoice = true;
+        this.setHaveChoice.emit(true);
+      });
   }
 }
