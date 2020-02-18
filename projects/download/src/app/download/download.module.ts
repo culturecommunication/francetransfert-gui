@@ -7,14 +7,14 @@ import { DownloadRoutingModule } from './download-routing.module';
 import { CoreModule, ErrorsManagerService } from '@ft-core';
 
 import { DownloadSectionComponent } from './download-section/download-section.component';
-import { DownloadChoiseComponent } from './download-choice/download-choice.component';
+import { DownloadChoiceComponent } from './download-choice/download-choice.component';
 
 import { DownloadService } from './services/download.service';
 
 registerLocaleData(localeFr, 'fr-FR');
 
 @NgModule({
-  declarations: [DownloadSectionComponent, DownloadChoiseComponent],
+  declarations: [DownloadSectionComponent, DownloadChoiceComponent],
   imports: [CoreModule, DownloadRoutingModule, HttpClientModule],
   providers: [
     DownloadService,

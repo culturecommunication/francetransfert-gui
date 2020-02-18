@@ -5,7 +5,7 @@ import { take } from 'rxjs/operators';
   selector: 'app-upload-choice',
   templateUrl: './upload-choice.component.html'
 })
-export class UploadChoiseComponent {
+export class UploadChoiceComponent {
   @Output() nextLayout: EventEmitter<string>;
   @Output() setHaveChoice: EventEmitter<boolean>;
   @Input() haveChoice: boolean;

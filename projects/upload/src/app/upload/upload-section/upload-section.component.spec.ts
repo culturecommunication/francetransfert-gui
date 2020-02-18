@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { UploadSectionComponent } from './upload-section.component';
-import { UploadChoiseComponent } from '../upload-choice/upload-choice.component';
+import { UploadChoiceComponent } from '../upload-choice/upload-choice.component';
 import { UploadContentComponent } from '../upload-content/upload-content.component';
 import {
   TagComponent,
@@ -22,8 +22,9 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgxFlowModule, FlowInjectionToken } from '@flowjs/ngx-flow';
 import Flow from '@flowjs/flow.js';
 import { CookieService } from 'ngx-cookie-service';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-describe('UploadChoiseComponent', () => {
+describe('UploadSectionComponent', () => {
   let component: UploadSectionComponent;
   let fixture: ComponentFixture<UploadSectionComponent>;
 
@@ -31,7 +32,7 @@ describe('UploadChoiseComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         UploadSectionComponent,
-        UploadChoiseComponent,
+        UploadChoiceComponent,
         UploadContentComponent,
         TagComponent,
         FileItemComponent,
@@ -43,14 +44,23 @@ describe('UploadChoiseComponent', () => {
         MailInputGroupComponent,
         FileMultipleSizePipe
       ],
-      imports: [NgCircleProgressModule, FormsModule, PerfectScrollbarModule, NgxFlowModule, HttpClientTestingModule],
+      imports: [
+        NgCircleProgressModule,
+        FormsModule,
+        PerfectScrollbarModule,
+        NgxFlowModule,
+        HttpClientTestingModule,
+        MatDialogModule
+      ],
       providers: [
         CookiesManagerService,
         CookieService,
         {
           provide: FlowInjectionToken,
           useValue: Flow
-        }
+        },
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: [] }
       ]
     }).compileComponents();
   }));
