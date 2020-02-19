@@ -21,7 +21,7 @@ export function BAD_EXTENTION_POPUP(extentions) {
       title: 'Mauvaises extensions :',
       content: `<p class='text-error'>${
         getUnique(extentions).length > 1 ? 'Les extensions' : "L'extension"
-      }  : <b>${getUnique(extentions).join(' ')}</b> ${
+      }  : <strong>${getUnique(extentions).join(' ')}</strong> ${
         getUnique(extentions).length > 1 ? 'ne sont pas autorisées' : "n'est pas autorisée"
       }.</p>`,
       button: {
