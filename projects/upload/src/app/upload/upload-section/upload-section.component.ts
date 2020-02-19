@@ -89,7 +89,12 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
     });
     this.flow.transfers$.pipe(takeUntil(this.onDestroy$)).subscribe((uploadState: UploadState) => {
       this.uploadError = this.haveChunkError(uploadState);
-      if (uploadState.totalProgress === 1 && !this.uploadError && this.templateRf === this.uploadLoading) {
+      if (
+        uploadState.totalProgress === 1 &&
+        !this.uploadError &&
+        !this.getSucces(uploadState) &&
+        this.templateRf === this.uploadLoading
+      ) {
         this.selectLayout('uploadChoice');
         this.uploadError = false;
       }
@@ -103,7 +108,21 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
    */
   haveChunkError(uploadState: UploadState): boolean {
     for (let transfer of uploadState.transfers) {
-      if (transfer.error) {
+      if (transfer.error && !transfer.success) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Check succes
+   * @param {UploadState} uploadState
+   * @returns {boolean}
+   */
+  getSucces(uploadState: UploadState): boolean {
+    for (let transfer of uploadState.transfers) {
+      if (!transfer.success) {
         return true;
       }
     }
@@ -427,7 +446,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
 
   /**
    * Bloc bad extensions.
-   * @param {event} any
+   * @param {any} event
    * @returns {Promise<any>}
    */
   async checkValidExtensions(event): Promise<any> {
@@ -449,6 +468,11 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  /**
+   * Open blank Urls
+   * @param {string} url
+   * @returns {void}
+   */
   openBlank(url: string): void {
     window.open(url, '_blank');
   }

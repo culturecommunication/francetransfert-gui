@@ -11,7 +11,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 export class UploadContentComponent {
   @Output() nextLayout: EventEmitter<string>;
   @Input() transfers: Array<FTTransfer<Transfer>>;
-  @Input() emails: Array<String>;
+  @Input() emails: Array<string>;
   @Input() message: string;
   perfectScrollbarConfig: PerfectScrollbarConfigInterface;
 
