@@ -11,8 +11,9 @@
     font-weight: $f-bold;
   }
   &-message {
-    margin-top: 10px;
-    width: 100%;
+    overflow-wrap: break-word;
+    margin-bottom: 12px;
+    font-style: italic;
   }
   &-emails {
     float: left;

@@ -23,7 +23,7 @@
       </div>
       <div class="download-section-files">
         <p class="title">Récapitulatif des éléments envoyés :</p>
-        <p>{{ downloadInfos?.message }}</p>
+        <p class="message">{{ downloadInfos?.message }}</p>
         <lib-file-item *ngFor="let transfer of transfers" [transfer]="transfer" [withoutDelete]="true"></lib-file-item>
       </div>
     </div>
