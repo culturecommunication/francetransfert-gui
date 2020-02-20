@@ -4,16 +4,13 @@
     <h3 class="upload-content-title">
       Récapitulatif de l’envoi
     </h3>
-    <div class="upload-content-message" *ngIf="message?.length">
-      <p class="title">Message :</p>
-      <p>{{ message }}</p>
-    </div>
     <div class="upload-content-emails">
       <p class="title">Envoyé à :</p>
       <lib-tag *ngFor="let email of emails" [content]="email" [withoutDelete]="true"></lib-tag>
     </div>
     <div class="upload-content-files">
       <p class="title">Récapitulatif des éléments envoyés :</p>
+      <p class="upload-content-message" *ngIf="message?.length">{{ message }}</p>
       <lib-file-item *ngFor="let transfer of transfers" [transfer]="transfer" [withoutDelete]="true"></lib-file-item>
     </div>
     <div class="upload-content-size">

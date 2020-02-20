@@ -6,7 +6,7 @@
   margin: 2px 17px 10px 17px;
   width: calc(100% - 35px);
   &.without-delete {
-    width: calc(100% - 160px);
+    width: calc(100% - 30px);
   }
   &-details {
     float: left;
@@ -17,9 +17,7 @@
   &-title {
     text-align: left;
     width: 100%;
-    text-transform: capitalize;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    overflow-wrap: break-word;
   }
   &-size {
     width: fit-content;
