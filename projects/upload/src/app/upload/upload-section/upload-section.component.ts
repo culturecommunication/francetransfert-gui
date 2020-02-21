@@ -2,11 +2,12 @@ import { Component, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef, Temp
 
 import { UploadService } from '../services/upload.service';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { FLOW_EVENTS, MSG_ERR, getRxValue, REGEX_EXP, BAD_EXTENSIONS, FLOW_LIMIT } from '@ft-core';
+import { FLOW_EVENTS, MSG_ERR, getRxValue, BAD_EXTENSIONS, FLOW_LIMIT } from '@ft-core';
 import { FlowDirective, Transfer, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FLOW_CONFIG } from '../config/flow-config';
+import { environment as env } from '../../../environments/environment';
 
 @Component({
   selector: 'app-upload-section',
@@ -38,11 +39,18 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   haveChoice: boolean;
   uploadError: boolean;
   localConfig: any;
+  regex: any;
   constructor(private cd: ChangeDetectorRef, private uploadService: UploadService) {
     this.perfectScrollbarConfig = {};
     this.dragging = false;
     this.acceptConditions = false;
     this.haveChoice = false;
+    this.regex = env.regex
+      ? env.regex
+      : {
+          EMAIL: '',
+          GOUV_EMAIL: ''
+        };
     this.initUpload();
   }
 
@@ -276,9 +284,9 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
       !transfers.length ||
       !this.checkLimit(transfers) ||
       !this.emails.length ||
-      !REGEX_EXP.EMAIL.test(this.senderMail) ||
-      (!REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
-        this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1) ||
+      !this.regex.EMAIL.test(this.senderMail) ||
+      (!this.regex.GOUV_EMAIL.test(this.senderMail) &&
+        this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1) ||
       !((this.withPassword && this.password1 === this.password2 && this.password1.length > 0) || !this.withPassword) ||
       !this.acceptConditions
     );
@@ -294,9 +302,9 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
       !transfers.length ||
       !this.checkLimit(transfers) ||
       !this.emails.length ||
-      !REGEX_EXP.EMAIL.test(this.senderMail) ||
-      (!REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
-        this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1) ||
+      !this.regex.EMAIL.test(this.senderMail) ||
+      (!this.regex.GOUV_EMAIL.test(this.senderMail) &&
+        this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1) ||
       !((this.withPassword && this.password1 === this.password2 && this.password1.length > 0) || !this.withPassword) ||
       this.acceptConditions
     );
@@ -331,12 +339,12 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
       case 2 /** Add email sender */: {
         if (!transfers.transfers.length) {
           this.errorsMessages = MSG_ERR.MSG_ERR_03;
-        } else if (event.length > 0 && !REGEX_EXP.EMAIL.test(event)) {
+        } else if (event.length > 0 && !this.regex.EMAIL.test(event)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
         } else if (
           this.senderMail.length &&
-          !REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1
+          !this.regex.GOUV_EMAIL.test(this.senderMail) &&
+          this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
         ) {
           this.errorsMessages = MSG_ERR.MSG_ERR_02;
         }
@@ -357,11 +365,11 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
           this.errorsMessages = MSG_ERR.MSG_ERR_06;
         } else if (!this.senderMail.length) {
           this.errorsMessages = MSG_ERR.MSG_ERR_07;
-        } else if (!REGEX_EXP.EMAIL.test(this.senderMail)) {
+        } else if (!this.regex.EMAIL.test(this.senderMail)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
         } else if (
-          !REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1
+          !this.regex.GOUV_EMAIL.test(this.senderMail) &&
+          this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
         ) {
           this.errorsMessages = MSG_ERR.MSG_ERR_02;
         }
@@ -377,11 +385,11 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
           this.errorsMessages = MSG_ERR.MSG_ERR_06;
         } else if (!this.senderMail.length) {
           this.errorsMessages = MSG_ERR.MSG_ERR_07;
-        } else if (!REGEX_EXP.EMAIL.test(this.senderMail)) {
+        } else if (!this.regex.EMAIL.test(this.senderMail)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
         } else if (
-          !REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1
+          !this.regex.GOUV_EMAIL.test(this.senderMail) &&
+          this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
         ) {
           this.errorsMessages = MSG_ERR.MSG_ERR_02;
         }
@@ -395,11 +403,11 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
           this.errorsMessages = MSG_ERR.MSG_ERR_06;
         } else if (!this.senderMail.length) {
           this.errorsMessages = MSG_ERR.MSG_ERR_07;
-        } else if (!REGEX_EXP.EMAIL.test(this.senderMail)) {
+        } else if (!this.regex.EMAIL.test(this.senderMail)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
         } else if (
-          !REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1
+          !this.regex.GOUV_EMAIL.test(this.senderMail) &&
+          this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
         ) {
           this.errorsMessages = MSG_ERR.MSG_ERR_02;
         } else if (!this.password1.length || (this.password1 !== this.password2 && this.password2.length > 0)) {
@@ -415,11 +423,11 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
           this.errorsMessages = MSG_ERR.MSG_ERR_06;
         } else if (!this.senderMail.length) {
           this.errorsMessages = MSG_ERR.MSG_ERR_07;
-        } else if (!REGEX_EXP.EMAIL.test(this.senderMail)) {
+        } else if (!this.regex.EMAIL.test(this.senderMail)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
         } else if (
-          !REGEX_EXP.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex((email: string) => !REGEX_EXP.GOUV_EMAIL.test(email)) !== -1
+          !this.regex.GOUV_EMAIL.test(this.senderMail) &&
+          this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
         ) {
           this.errorsMessages = MSG_ERR.MSG_ERR_02;
         } else if (!this.password2.length || this.password1 !== this.password2) {
