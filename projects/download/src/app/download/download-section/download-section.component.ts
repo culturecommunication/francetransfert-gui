@@ -22,6 +22,7 @@ export class DownloadSectionComponent implements AfterViewInit, OnInit, OnDestro
   emails: Array<string>;
   transfers: Array<any>;
   password: string;
+  passwordError: boolean;
   withPassword: boolean;
   templateRf: TemplateRef<any>;
   downloadInfos: any;
@@ -39,6 +40,7 @@ export class DownloadSectionComponent implements AfterViewInit, OnInit, OnDestro
     this.transfers = [];
     this.withPassword = false;
     this.password = '';
+    this.passwordError = false;
   }
 
   ngOnInit() {
@@ -86,8 +88,17 @@ export class DownloadSectionComponent implements AfterViewInit, OnInit, OnDestro
    * @returns {void}
    */
   download(): void {
-    this._downloadService.getDownloadUrl(this.params, this.downloadInfos.withPassword, this.password);
-    this.selectLayout('downloadchoice');
+    this._downloadService
+      .getDownloadUrl(this.params, this.downloadInfos.withPassword, this.password)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(result => {
+        if (result.type && result.type === 'WRONG_PASSWORD') {
+          this.passwordError = true;
+        } else {
+          this.selectLayout('downloadchoice');
+          window.location.assign(result.downloadURL);
+        }
+      });
   }
 
   /**

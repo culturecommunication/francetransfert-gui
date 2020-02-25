@@ -15,8 +15,8 @@ export class DownloadService {
     );
   }
 
-  getDownloadUrl(params: Array<{ string: string }>, withPassword: boolean, password: string) {
-    window.location.assign(
+  getDownloadUrl(params: Array<{ string: string }>, withPassword: boolean, password: string): any {
+    return this._httpClient.get(
       `${env.host}${env.apis.downloadUrl}?enclosure=${params['enclosure']}&recipient=${params['recipient']}&token=${
         params['token']
       }&password=${withPassword ? password : ''}`
