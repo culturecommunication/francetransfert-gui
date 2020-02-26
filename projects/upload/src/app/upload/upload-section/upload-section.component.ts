@@ -40,6 +40,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   uploadError: boolean;
   localConfig: any;
   regex: any;
+  loadApi: boolean;
   constructor(private cd: ChangeDetectorRef, private uploadService: UploadService) {
     this.perfectScrollbarConfig = {};
     this.dragging = false;
@@ -71,6 +72,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
     this.senderMail = '';
     this.errorsMessages = '';
     this.uploadError = false;
+    this.loadApi = false;
     if (this.flow) {
       let uploadState: UploadState = await getRxValue(this.flow.transfers$);
       for (let transfer of uploadState.transfers) {
@@ -216,6 +218,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
    */
   async upload(): Promise<any> {
     /** Call to API */
+    this.loadApi = true;
     let transfers: UploadState = await getRxValue(this.flow.transfers$);
     this.uploadService
       .sendTree({
@@ -227,6 +230,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
       })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
+        this.loadApi = false;
         if (result.senderId) {
           this.uploadBegin(result);
         } else {
