@@ -109,7 +109,7 @@
     <button
       class="upload-section-send button button-primary"
       (click)="upload()"
-      [ngClass]="{ disabled: checkForm((flow.transfers$ | async).transfers) }"
+      [ngClass]="{ disabled: checkForm((flow.transfers$ | async).transfers) || loadApi }"
     >
       envoyer
     </button>

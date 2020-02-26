@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { environment as env } from '../../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class DownloadService {
     );
   }
 
-  getDownloadUrl(params: Array<{ string: string }>, withPassword: boolean, password: string): any {
+  getDownloadUrl(params: Array<{ string: string }>, withPassword: boolean, password: string): Observable<any> {
     return this._httpClient.get(
       `${env.host}${env.apis.downloadUrl}?enclosure=${params['enclosure']}&recipient=${params['recipient']}&token=${
         params['token']
