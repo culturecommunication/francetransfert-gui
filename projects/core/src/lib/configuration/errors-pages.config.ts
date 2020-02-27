@@ -19,10 +19,10 @@ export const PAGES = {
 export const ERRORS_TYPES = {
   TECHNICAL_ERROR: {
     KEY: 'TECHNICAL_ERROR',
-    ROUTE: '/error?type=TECHNICAL_ERROR&id'
+    ROUTE: '/error?type=TECHNICAL_ERROR&id='
   },
   NBR_ALLOWED_DOWNLOADS_EXCEEDED: {
-    KEY: 'NBR_ALLOWED_DOWNLOADS_EXCEEDED',
+    KEY: 'DOWNLOAD_LIMIT',
     ROUTE: '/error?type=DOWNLOAD_LIMIT'
   },
   FRONT_ERROR: {

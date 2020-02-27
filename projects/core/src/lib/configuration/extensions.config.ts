@@ -115,3 +115,5 @@ export const BAD_EXTENSIONS = [
   '.xll',
   '.xnk'
 ];
+
+export const BAD_CHARACTERS = ['$', '&', '@', '+', '=', '!', ';', ',', "'", '(', ')'];

@@ -1,4 +1,14 @@
 export const REGEX_EXP = {
-  EMAIL: /^\w+([\.-]\w+)*(\+\w+)?@\w+([\.-]\w+)*(\.\w+)+$/,
-  GOUV_EMAIL: /^\w+([\.-]\w+)*(\+\w+)?@(\w+([\.-]\w+)*\.)?gouv\.fr$/
+  EMAIL:
+    window['bootstrapUploadSettings'] &&
+    window['bootstrapUploadSettings'].regex &&
+    window['bootstrapUploadSettings'].regex.EMAIL
+      ? window['bootstrapUploadSettings'].regex.EMAIL
+      : '',
+  GOUV_EMAIL:
+    window['bootstrapUploadSettings'] &&
+    window['bootstrapUploadSettings'].regex &&
+    window['bootstrapUploadSettings'].regex.GOUV_EMAIL
+      ? window['bootstrapUploadSettings'].regex.GOUV_EMAIL
+      : ''
 };
