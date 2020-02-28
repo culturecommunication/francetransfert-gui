@@ -16,22 +16,23 @@ export const CUSTOM_INPUT_ADD_CONTROL_VALUE_ACCESSOR: any = {
   selector: 'lib-mail-input-group',
   template: `
     <div class="input-add" [ngClass]="{ valid: checkEmail() }">
-      <input
-        type="text"
-        placeholder="Envoyer à*"
-        [(ngModel)]="email"
-        (keyup)="change()"
-        (keyup.enter)="checkEmail() && addEmail()"
-        (blur)="getOnblur()"
-      />
-      <div class="input-add-button" (click)="addEmail()"></div>
-      <div class="input-add-list" *ngIf="autoComplete.length > 0">
-        <ul>
-          <li *ngFor="let item of autoComplete" (click)="email = item">
-            {{ item }}
-          </li>
-        </ul>
-      </div>
+      <mat-form-field [floatLabel]="'never'">
+        <input
+          matInput
+          [matAutocomplete]="auto"
+          placeholder="Envoyer à*"
+          [(ngModel)]="email"
+          (keyup)="change()"
+          (keyup.enter)="checkEmail() && addEmail()"
+          (blur)="getOnblur()"
+        />
+        <div class="input-add-button" (click)="addEmail()"></div>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let state of autoComplete" [value]="state">
+            <span>{{ state }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
     </div>
   `,
   providers: [CUSTOM_INPUT_ADD_CONTROL_VALUE_ACCESSOR]
@@ -45,7 +46,8 @@ export class MailInputGroupComponent implements ControlValueAccessor {
   emails: Array<string>;
   autoComplete: Array<string>;
   emailsRef: Array<string>;
-  emailPattern: RegExp;
+  emailPatternAgent: RegExp;
+  emailPatternNotAgent: RegExp;
   emailMAX: number;
   constructor() {
     this.emails = [];
@@ -57,7 +59,8 @@ export class MailInputGroupComponent implements ControlValueAccessor {
     this.changes = new EventEmitter();
     this.onBlur = new EventEmitter();
     this.email = '';
-    this.emailPattern = REGEX_EXP.EMAIL;
+    this.emailPatternNotAgent = REGEX_EXP.EMAIL;
+    this.emailPatternAgent = REGEX_EXP.GOUV_EMAIL;
     this.emailMAX = 100;
   }
 
@@ -111,7 +114,7 @@ export class MailInputGroupComponent implements ControlValueAccessor {
     if (this.email.indexOf(';') !== -1 || this.email.indexOf(',') !== -1) {
       let emailList: Array<string> = this.email.indexOf(';') !== -1 ? this.email.split(';') : this.email.split(',');
       for (let email of emailList) {
-        if (this.emailPattern.test(email)) {
+        if (this.emailPatternAgent.test(this.email) || this.emailPatternNotAgent.test(this.email)) {
           if (this.emails.length < this.emailMAX) {
             if (this.emails.indexOf(email) === -1) {
               this.emails.push(email);
@@ -170,7 +173,7 @@ export class MailInputGroupComponent implements ControlValueAccessor {
    * @returns {boolean}
    */
   checkEmail(): boolean {
-    return this.emailPattern.test(this.email);
+    return this.emailPatternAgent.test(this.email) || this.emailPatternNotAgent.test(this.email);
   }
 
   /**
