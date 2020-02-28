@@ -12,7 +12,7 @@
         La page que vous cherchez à atteindre n'est pas ou plus disponible.
       </p>
       <p *ngIf="error?.code === '500' || error?.id">
-        Une erreur technique s'est produite. Nous vous présentons nos excusespour ce désagrément et vous invitons à
+        Une erreur technique s'est produite. Nous vous présentons nos excuses pour ce désagrément et vous invitons à
         retenter votre opération ultérieurement.
       </p>
       <br />
@@ -21,13 +21,9 @@
         <br />Ils ont été supprimés pour faire de la place pour les autres utilisateurs.
       </p>
       <p *ngIf="error?.id">
-        Si vous avez l'occasion de communiquer le code suivant à nos équipes, il pourra nous aider à résoudre cd
-        problème :{{ error?.code }}
-      </p>
-      <br />
-      <p *ngIf="error?.id">
-        Comme nous sommes en version bêta, cela nous aiderait que vous transmettiez ce code à l’équipe au courriel
-        suivant : <a href="mailto:erreur.francetransfert@culture.gouv.fr">erreur.francetransfert@culture.gouv.fr</a>
+        Si vous avez l'occasion de communiquer le code suivant à nos équipes (
+        <a href="mailto:erreur.francetransfert@culture.gouv.fr">erreur.francetransfert@culture.gouv.fr</a> ), il pourra
+        nous aider à résoudre ce problème :{{ error?.id }}
       </p>
     </div>
   </div>
