@@ -76,12 +76,12 @@
                 </label>
                 <ng-container *ngIf="withPassword">
                   <lib-password-input
-                    [placeholder]="'Saisissez votre mot de passe'"
+                    [placeholder]="'Saisissez le mot de passe'"
                     [(ngModel)]="password1"
                     (blur)="errorsManager($event, 6)"
                   ></lib-password-input>
                   <lib-password-input
-                    [placeholder]="'Confirmer le mot de passe'"
+                    [placeholder]="'Confirmez le mot de passe'"
                     [(ngModel)]="password2"
                     (blur)="errorsManager($event, 7)"
                   ></lib-password-input>

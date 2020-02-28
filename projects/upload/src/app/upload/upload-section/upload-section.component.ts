@@ -2,7 +2,7 @@ import { Component, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef, Temp
 
 import { UploadService } from '../services/upload.service';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { FLOW_EVENTS, MSG_ERR, getRxValue, BAD_EXTENSIONS, FLOW_LIMIT } from '@ft-core';
+import { FLOW_EVENTS, MSG_ERR, getRxValue, BAD_EXTENSIONS, BAD_CHARACTERS, FLOW_LIMIT } from '@ft-core';
 import { FlowDirective, Transfer, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -92,6 +92,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
     this.flow.events$.pipe(takeUntil(this.onDestroy$)).subscribe(event => {
       if (event.type === FLOW_EVENTS.FILESSUBMITTED) {
         this.checkValidExtensions(event);
+        this.checkValidCharacters(event);
         this.openedButton = false;
         this.errorsMessages = '';
         this.cd.detectChanges();
@@ -288,7 +289,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
       !transfers.length ||
       !this.checkLimit(transfers) ||
       !this.emails.length ||
-      !this.regex.EMAIL.test(this.senderMail) ||
+      (!this.regex.EMAIL.test(this.senderMail) && !this.regex.GOUV_EMAIL.test(this.senderMail)) ||
       (!this.regex.GOUV_EMAIL.test(this.senderMail) &&
         this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1) ||
       !((this.withPassword && this.password1 === this.password2 && this.password1.length > 0) || !this.withPassword) ||
@@ -306,7 +307,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
       !transfers.length ||
       !this.checkLimit(transfers) ||
       !this.emails.length ||
-      !this.regex.EMAIL.test(this.senderMail) ||
+      (!this.regex.EMAIL.test(this.senderMail) && !this.regex.GOUV_EMAIL.test(this.senderMail)) ||
       (!this.regex.GOUV_EMAIL.test(this.senderMail) &&
         this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1) ||
       !((this.withPassword && this.password1 === this.password2 && this.password1.length > 0) || !this.withPassword) ||
@@ -369,7 +370,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
           this.errorsMessages = MSG_ERR.MSG_ERR_06;
         } else if (!this.senderMail.length) {
           this.errorsMessages = MSG_ERR.MSG_ERR_07;
-        } else if (!this.regex.EMAIL.test(this.senderMail)) {
+        } else if (!this.regex.EMAIL.test(this.senderMail) && !this.regex.GOUV_EMAIL.test(this.senderMail)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
         } else if (
           !this.regex.GOUV_EMAIL.test(this.senderMail) &&
@@ -472,6 +473,29 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
     }
     if (BadFiles.length) {
       this.errorsMessages = MSG_ERR.MSG_ERR_08;
+      for (let file of BadFiles) {
+        this.flow.cancelFile(
+          transfers.transfers[transfers.transfers.findIndex((transfer: Transfer) => transfer.name === file.name)]
+        );
+      }
+    }
+  }
+
+  /**
+   * Bloc bad extensions.
+   * @param {any} event
+   * @returns {Promise<any>}
+   */
+  async checkValidCharacters(event): Promise<any> {
+    let transfers: UploadState = await getRxValue(this.flow.transfers$);
+    let BadFiles: any[] = [];
+    for (let file of event.event[0]) {
+      if (BAD_CHARACTERS.findIndex((char: string) => file.name.indexOf(char) !== -1) !== -1) {
+        BadFiles.push(file);
+      }
+    }
+    if (BadFiles.length) {
+      this.errorsMessages = MSG_ERR.MSG_ERR_09;
       for (let file of BadFiles) {
         this.flow.cancelFile(
           transfers.transfers[transfers.transfers.findIndex((transfer: Transfer) => transfer.name === file.name)]

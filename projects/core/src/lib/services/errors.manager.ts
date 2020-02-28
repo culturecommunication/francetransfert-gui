@@ -12,10 +12,10 @@ export class ErrorsManagerService implements HttpInterceptor {
       .handle(req)
       .pipe(
         map(event => {
-          if (event instanceof HttpResponse && event.body && event.body.error) {
-            switch (event.body.error.type) {
+          if (event instanceof HttpResponse && event.body && event.body.type) {
+            switch (event.body.type) {
               case ERRORS_TYPES.TECHNICAL_ERROR.KEY: {
-                this._router.navigateByUrl(`${ERRORS_TYPES.TECHNICAL_ERROR.ROUTE}${event.body.error.id}`);
+                this._router.navigateByUrl(`${ERRORS_TYPES.TECHNICAL_ERROR.ROUTE}${event.body.id}`);
                 break;
               }
               case ERRORS_TYPES.NBR_ALLOWED_DOWNLOADS_EXCEEDED.KEY: {
