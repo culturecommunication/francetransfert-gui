@@ -80,7 +80,6 @@ export class DownloadSectionComponent implements AfterViewInit, OnInit, OnDestro
    */
   selectLayout(Layout: string): void {
     this.templateRf = this[Layout];
-    this.cd.detectChanges();
   }
 
   /**

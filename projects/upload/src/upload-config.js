@@ -10,7 +10,7 @@
     },
     regex: {
       EMAIL: /^\w+([\.-]\w+)*(\+\w+)?@\w+([\.-]\w+)*(\.\w+)+$/,
-      GOUV_EMAIL: /^\w+([\.-]\w+)*(\+\w+)?@open-groupe.com$/
+      GOUV_EMAIL: /^\w+([\.-]\w+)*(\+\w+)?@(\w+([\.-]\w+)*\.)?gouv\.fr$/
     }
   };
 
