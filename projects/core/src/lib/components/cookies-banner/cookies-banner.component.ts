@@ -7,8 +7,7 @@ import { CookiesManagerService } from '../../services/cookies.manager';
       <div class="cookies-banner-container">
         <div class="cookies-banner-content">
           <h5>
-            FranceTransfert utilise des cookies pour fluidifier le service et du stockage local à votre navigateur pour
-            faciliter votre utilisation de ce service.
+            FranceTransfert utilise des cookies pour fluidifier le service.
           </h5>
           <p>
             En poursuivant votre navigation sur ce site, vous acceptez leur utilisation

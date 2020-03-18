@@ -3,7 +3,7 @@ export function CODE_CONFIRMATION(mail) {
   return {
     width: '600px',
     data: {
-      title: 'Code de sécurité',
+      title: 'Code de confirmation',
       content: `<p class="text-center"></br>FranceTransfert est réservé aux échanges entre administrations et usagers.</br> Saisissez ici le code envoyé à votre adresse courriel ${mail}.</br></br> Cela nous permet de nous assurer que votre adresse courriel n’a pas été usurpée.</br> Pour plus d’informations, <a target="_blank" href="/faq">la FAQ est ici</a></p>`,
       input: { placeholder: 'Code de confirmation' },
       button: {
