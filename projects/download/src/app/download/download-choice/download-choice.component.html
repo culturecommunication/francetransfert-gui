@@ -25,9 +25,15 @@
         />
       </div>
       <textarea placeholder="Message (facultatif)" [(ngModel)]="message" maxlength="2000"></textarea>
-      <button class=" button button-stroked" [ngClass]="{ disabled: !activeView || haveChoice }" (click)="makeChoice()">
+      <button
+        class=" button button-stroked"
+        *ngIf="!haveChoice"
+        [ngClass]="{ disabled: !activeView }"
+        (click)="makeChoice()"
+      >
         Valider mon avis
       </button>
+      <p *ngIf="haveChoice" class="download-choice-done">Votre avis a été pris en compte. Merci.</p>
     </div>
   </div>
   <div class="download-choice-button">

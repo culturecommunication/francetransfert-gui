@@ -2,6 +2,9 @@
   width: 100%;
   height: calc(100vh - 275px);
   position: relative;
+  &-done {
+    color: #40a02b;
+  }
   &-icon {
     background-image: url('../assets/images/svgs/illustration-telechargement-reussi.svg');
     height: 155px;
