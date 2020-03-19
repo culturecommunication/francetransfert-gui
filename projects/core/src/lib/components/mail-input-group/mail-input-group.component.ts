@@ -24,6 +24,7 @@ export const CUSTOM_INPUT_ADD_CONTROL_VALUE_ACCESSOR: any = {
           [(ngModel)]="email"
           (keyup)="change()"
           (keyup.enter)="checkEmail() && addEmail()"
+          (keydown.Tab)="checkEmail() && addEmail()"
           (blur)="getOnblur()"
         />
         <div class="input-add-button" (click)="addEmail()"></div>
@@ -107,14 +108,14 @@ export class MailInputGroupComponent implements ControlValueAccessor {
    */
   change(): void {
     this.changes.emit(this.email);
-    this.email = this.email.replace(/ /g, '');
+    this.email = this.email.replace(/ /g, '').trim();
     if (this.emails.length === this.emailMAX) {
       this.errors.emit(MSG_INFO.FO_MSG_INF_04);
     }
     if (this.email.indexOf(';') !== -1 || this.email.indexOf(',') !== -1) {
       let emailList: Array<string> = this.email.indexOf(';') !== -1 ? this.email.split(';') : this.email.split(',');
       for (let email of emailList) {
-        if (this.emailPatternAgent.test(this.email) || this.emailPatternNotAgent.test(this.email)) {
+        if (this.emailPatternAgent.test(email) || this.emailPatternNotAgent.test(email)) {
           if (this.emails.length < this.emailMAX) {
             if (this.emails.indexOf(email) === -1) {
               this.emails.push(email);
