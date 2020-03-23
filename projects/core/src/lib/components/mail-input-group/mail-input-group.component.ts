@@ -24,12 +24,12 @@ export const CUSTOM_INPUT_ADD_CONTROL_VALUE_ACCESSOR: any = {
           [(ngModel)]="email"
           (keyup)="change()"
           (keyup.enter)="checkEmail() && addEmail()"
-          (keydown.Tab)="checkEmail() && addEmail()"
+          (keydown.Tab)="email.length && checkEmail() && addEmail()"
           (blur)="getOnblur()"
         />
         <div class="input-add-button" (click)="addEmail()"></div>
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let state of autoComplete" [value]="state">
+          <mat-option *ngFor="let state of autoComplete" [value]="state" (click)="checkEmail() && addEmail()">
             <span>{{ state }}</span>
           </mat-option>
         </mat-autocomplete>
@@ -89,7 +89,9 @@ export class MailInputGroupComponent implements ControlValueAccessor {
       this.onChangeCallback(v);
     }
   }
-
+  show($event) {
+    console.log($event);
+  }
   /**
    * From ControlValueAccessor interface.
    * @param {string} value
