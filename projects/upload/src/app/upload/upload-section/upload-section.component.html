@@ -50,7 +50,7 @@
               </p>
               <p class="form-description-mails font-bold">
                 Pour envoyer vos fichiers à plusieurs destinataires, vous pouvez copier/coller les adresses courriels de
-                chaque destinataire (séparés par un « ; » dans la zone « envoyer à »)
+                chaque destinataire (séparés par un « ; » ou « , » dans la zone « envoyer à »)
               </p>
               <div class="upload-section-inputs">
                 <lib-mail-input-group
@@ -137,7 +137,11 @@
         Merci de ne pas fermer la fenêtre avant 100%.
       </p>
     </div>
-    <img src="./assets/images/svgs/illustration-envoi-echec.svg" alt="echec-icon" style="visibility:hidden" />
+    <img
+      src="./assets/images/svgs/illustration-envoi-echec.svg"
+      alt="echec-icon"
+      style="visibility:hidden;widows: 0;"
+    />
     <div class="upload-loading-error" *ngIf="uploadError">
       <img src="./assets/images/svgs/illustration-envoi-echec.svg" alt="echec-icon" />
       <p><strong>Le transfert a échoué !</strong> <br /></p>
