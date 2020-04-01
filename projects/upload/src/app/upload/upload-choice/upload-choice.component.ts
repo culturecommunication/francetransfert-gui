@@ -22,7 +22,7 @@ export class UploadChoiceComponent {
     this.selectedView = -1;
     this.message = '';
     this.limitDate = new Date();
-    this.limitDate.setDate(this.limitDate.getDate() + 30);
+    this.limitDate.setDate(this.limitDate.getDate() + 2);
     this.icons = ['Insatisfait', 'Neutre', 'Satisfait', 'Tres-Satisfait'];
   }
 
