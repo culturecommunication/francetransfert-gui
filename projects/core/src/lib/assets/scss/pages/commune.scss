@@ -49,6 +49,24 @@
             text-decoration: underline;
             color: $c-blue;
           }
+          a {
+            color: $c-blue;
+            text-decoration: underline;
+          }
+          &.point {
+            position: relative;
+            margin-left: 20px;
+            &::before {
+              position: absolute;
+              content: '';
+              width: 6px;
+              height: 6px;
+              left: -20px;
+              top: 6px;
+              background: black;
+              border-radius: 50%;
+            }
+          }
         }
         &:first-child > h5 {
           margin-top: 0;
