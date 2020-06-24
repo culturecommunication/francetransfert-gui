@@ -16,7 +16,10 @@ export interface DialogData {
       <h3 class="text-center" *ngIf="data?.title">{{ data?.title }}</h3>
       <mat-dialog-content>
         <div *ngIf="data?.content" [innerHTML]="data?.content"></div>
-        <p *ngIf="haveError" class="text-error">Le code fourni ne correspond pas à la valeur attendue</p>
+        <p *ngIf="haveError" class="text-error">
+          Le code fourni ne correspond pas à celui envoyé par courriel, ou bien le délai de 5min pour l’utiliser est
+          dépassé.
+        </p>
         <input
           *ngIf="data?.input"
           type="text"

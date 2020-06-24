@@ -10,6 +10,7 @@ export class UploadChoiceComponent {
   @Output() setHaveChoice: EventEmitter<boolean>;
   @Input() haveChoice: boolean;
   @Input() emailSender: string;
+  @Input() expireDate: string;
   activeView: boolean;
   selectedView: number;
   icons: Array<string>;
@@ -21,9 +22,10 @@ export class UploadChoiceComponent {
     this.activeView = false;
     this.selectedView = -1;
     this.message = '';
-    this.limitDate = new Date();
-    this.limitDate.setDate(this.limitDate.getDate() + 2);
     this.icons = ['Insatisfait', 'Neutre', 'Satisfait', 'Tres-Satisfait'];
+  }
+  ngOnInit() {
+    this.limitDate = new Date(this.expireDate);
   }
 
   /**

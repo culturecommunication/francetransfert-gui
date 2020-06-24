@@ -2,7 +2,7 @@ import { Component, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef, Temp
 
 import { UploadService } from '../services/upload.service';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { FLOW_EVENTS, MSG_ERR, getRxValue, BAD_EXTENSIONS, BAD_CHARACTERS, FLOW_LIMIT } from '@ft-core';
+import { FLOW_EVENTS, MSG_ERR, getRxValue, BAD_EXTENSIONS, FLOW_LIMIT } from '@ft-core';
 import { FlowDirective, Transfer, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -35,6 +35,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
   openedButton: boolean;
   templateRf: TemplateRef<any>;
   senderMail: string;
+  expireDate: string;
   errorsMessages: string;
   haveChoice: boolean;
   uploadError: boolean;
@@ -92,7 +93,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
     this.flow.events$.pipe(takeUntil(this.onDestroy$)).subscribe(event => {
       if (event.type === FLOW_EVENTS.FILESSUBMITTED) {
         this.checkValidExtensions(event);
-        this.checkValidCharacters(event);
+        // this.checkValidCharacters(event);
         this.openedButton = false;
         this.errorsMessages = '';
         this.cd.detectChanges();
@@ -232,6 +233,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
         this.loadApi = false;
+        this.expireDate = result.expireDate;
         if (result.senderId) {
           this.uploadBegin(result);
         } else {
@@ -486,23 +488,23 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy {
    * @param {any} event
    * @returns {Promise<any>}
    */
-  async checkValidCharacters(event): Promise<any> {
-    let transfers: UploadState = await getRxValue(this.flow.transfers$);
-    let BadFiles: any[] = [];
-    for (let file of event.event[0]) {
-      if (BAD_CHARACTERS.findIndex((char: string) => file.name.indexOf(char) !== -1) !== -1) {
-        BadFiles.push(file);
-      }
-    }
-    if (BadFiles.length) {
-      this.errorsMessages = MSG_ERR.MSG_ERR_09;
-      for (let file of BadFiles) {
-        this.flow.cancelFile(
-          transfers.transfers[transfers.transfers.findIndex((transfer: Transfer) => transfer.name === file.name)]
-        );
-      }
-    }
-  }
+  // async checkValidCharacters(event): Promise<any> {
+  //   let transfers: UploadState = await getRxValue(this.flow.transfers$);
+  //   let BadFiles: any[] = [];
+  //   for (let file of event.event[0]) {
+  //     if (BAD_CHARACTERS.findIndex((char: string) => file.name.indexOf(char) !== -1) !== -1) {
+  //       BadFiles.push(file);
+  //     }
+  //   }
+  //   if (BadFiles.length) {
+  //     this.errorsMessages = MSG_ERR.MSG_ERR_09;
+  //     for (let file of BadFiles) {
+  //       this.flow.cancelFile(
+  //         transfers.transfers[transfers.transfers.findIndex((transfer: Transfer) => transfer.name === file.name)]
+  //       );
+  //     }
+  //   }
+  // }
 
   /**
    * Open blank Urls
