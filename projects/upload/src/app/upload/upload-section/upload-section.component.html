@@ -62,13 +62,7 @@
                 <div class="upload-section-emails">
                   <lib-tag *ngFor="let email of emails" (deleted)="deleteEmail($event)" [content]="email"></lib-tag>
                 </div>
-                <input
-                  type="text"
-                  placeholder="Votre courriel*"
-                  (keyup)="errorsManager($event, 3)"
-                  (blur)="errorsManager($event, 4)"
-                  [(ngModel)]="senderMail"
-                />
+                <lib-mail-input (changes)="errorsManager($event, 1)" [(ngModel)]="senderMail"></lib-mail-input>
                 <label class="checkbox"
                   >Je souhaite protéger mon envoi par un mot de passe
                   <input type="checkbox" [(ngModel)]="withPassword" (change)="errorsManager($event, 5)" />

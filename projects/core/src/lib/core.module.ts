@@ -13,6 +13,7 @@ import { CookieService } from 'ngx-cookie-service';
 /** Import Components */
 import { FileItemComponent } from './components/file-item/file-item.component';
 import { MailInputGroupComponent } from './components/mail-input-group/mail-input-group.component';
+import { MailInputComponent } from './components/mail-input/mail-input.component';
 import { PasswordInputComponent } from './components/password-input/password-input.component';
 import { TagComponent } from './components/tag/tag.component';
 import { CookiesBannerComponent } from './components/cookies-banner/cookies-banner.component';
@@ -39,6 +40,7 @@ import { FileMultipleSizePipe } from './pipes/file-multiple-size';
   declarations: [
     FileItemComponent,
     MailInputGroupComponent,
+    MailInputComponent,
     PasswordInputComponent,
     TagComponent,
     IndexComponent,
@@ -66,6 +68,7 @@ import { FileMultipleSizePipe } from './pipes/file-multiple-size';
   exports: [
     FileItemComponent,
     MailInputGroupComponent,
+    MailInputComponent,
     PasswordInputComponent,
     TagComponent,
     IndexComponent,

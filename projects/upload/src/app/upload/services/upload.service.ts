@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { Transfer } from '@flowjs/ngx-flow';
-import { PopUpService, CODE_CONFIRMATION, CookiesManagerService, MAIL_COOKIES } from '@ft-core';
+import { PopUpService, CODE_CONFIRMATION, CookiesManagerService, MAIL_COOKIES, SENDER_MAIL_COOKIES } from '@ft-core';
 import { environment as env } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -19,6 +19,7 @@ export class UploadService {
   sendTree(body: any): any {
     const trMapping = this._mappingTree(body.transfers);
     this._setSuggestionsEmails([...body.emails]);
+    this._setSuggestionsEmailsSender(body.senderMail);
     const treeBody = {
       confirmedSenderId: '',
       senderEmail: body.senderMail,
@@ -117,6 +118,18 @@ export class UploadService {
         }
       }
       localStorage.setItem(MAIL_COOKIES, JSON.stringify(currentEmails));
+    }
+  }
+
+  private _setSuggestionsEmailsSender(email: string) {
+    if (this.cookiesManager.isConsented()) {
+      let currentEmails = JSON.parse(localStorage.getItem(SENDER_MAIL_COOKIES))
+        ? JSON.parse(localStorage.getItem(SENDER_MAIL_COOKIES))
+        : [];
+      if (currentEmails.findIndex(cemail => cemail.toUpperCase() === email.toUpperCase()) === -1) {
+        currentEmails.push(email);
+      }
+      localStorage.setItem(SENDER_MAIL_COOKIES, JSON.stringify(currentEmails));
     }
   }
 }

@@ -17,3 +17,5 @@ export const MSG_INFO = {
 };
 
 export const MAIL_COOKIES = 'EMAIL_LIST';
+
+export const SENDER_MAIL_COOKIES = 'EMAIL_SENDER_LIST';

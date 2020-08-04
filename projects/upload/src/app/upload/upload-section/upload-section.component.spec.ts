@@ -11,6 +11,7 @@ import {
   PasswordInputComponent,
   TransfersMappingPipe,
   MailInputGroupComponent,
+  MailInputComponent,
   FileSizePipe,
   FileNamePipe,
   FileTypePipe,
@@ -42,6 +43,7 @@ describe('UploadSectionComponent', () => {
         FileNamePipe,
         FileTypePipe,
         MailInputGroupComponent,
+        MailInputComponent,
         FileMultipleSizePipe
       ],
       imports: [
