@@ -109,48 +109,49 @@ export class MailInputGroupComponent implements ControlValueAccessor {
    * @returns {void}
    */
   change(): void {
-    this.changes.emit(this.email);
     this.email = this.email.replace(/ /g, '').trim();
     if (this.emails.length === this.emailMAX) {
       this.errors.emit(MSG_INFO.FO_MSG_INF_04);
-    }
-    if (this.email.indexOf(';') !== -1 || this.email.indexOf(',') !== -1) {
-      let emailList: Array<string> = this.email.indexOf(';') !== -1 ? this.email.split(';') : this.email.split(',');
-      for (let email of emailList) {
-        if (this.emailPatternAgent.test(email) || this.emailPatternNotAgent.test(email)) {
-          if (this.emails.length < this.emailMAX) {
-            if (this.emails.indexOf(email) === -1) {
-              this.emails.push(email);
+    } else {
+      this.changes.emit(this.email);
+      if (this.email.indexOf(';') !== -1 || this.email.indexOf(',') !== -1) {
+        let emailList: Array<string> = this.email.indexOf(';') !== -1 ? this.email.split(';') : this.email.split(',');
+        for (let email of emailList) {
+          if (this.emailPatternAgent.test(email) || this.emailPatternNotAgent.test(email)) {
+            if (this.emails.length < this.emailMAX) {
+              if (this.emails.indexOf(email) === -1) {
+                this.emails.push(email);
+              }
+              this.email =
+                this.email.indexOf(';') !== -1
+                  ? this.email.replace(
+                      this.email.indexOf(email) !== -1 && this.email.indexOf(`${email};`) === -1 ? email : `${email};`,
+                      ''
+                    )
+                  : this.email.replace(
+                      this.email.indexOf(email) !== -1 && this.email.indexOf(`${email},`) === -1 ? email : `${email},`,
+                      ''
+                    );
+            } else {
+              this.errors.emit(MSG_INFO.FO_MSG_INF_04);
             }
-            this.email =
-              this.email.indexOf(';') !== -1
-                ? this.email.replace(
-                    this.email.indexOf(email) !== -1 && this.email.indexOf(`${email};`) === -1 ? email : `${email};`,
-                    ''
-                  )
-                : this.email.replace(
-                    this.email.indexOf(email) !== -1 && this.email.indexOf(`${email},`) === -1 ? email : `${email},`,
-                    ''
-                  );
-          } else {
-            this.errors.emit(MSG_INFO.FO_MSG_INF_04);
           }
         }
+      } else {
+        this.autoComplete = [];
+        if (this.email.length > 2) {
+          this.autoComplete = [
+            ...this.emailsRef.filter(
+              (refEmail: string) =>
+                refEmail.toLocaleLowerCase().indexOf(this.email.toLocaleLowerCase()) !== -1 &&
+                this.emails.findIndex((email: string) => email.toLocaleLowerCase() === refEmail.toLocaleLowerCase()) ===
+                  -1
+            )
+          ];
+        }
       }
-    } else {
-      this.autoComplete = [];
-      if (this.email.length > 2) {
-        this.autoComplete = [
-          ...this.emailsRef.filter(
-            (refEmail: string) =>
-              refEmail.toLocaleLowerCase().indexOf(this.email.toLocaleLowerCase()) !== -1 &&
-              this.emails.findIndex((email: string) => email.toLocaleLowerCase() === refEmail.toLocaleLowerCase()) ===
-                -1
-          )
-        ];
-      }
+      this.onChangeCallback(this.emails);
     }
-    this.onChangeCallback(this.emails);
   }
 
   /**
