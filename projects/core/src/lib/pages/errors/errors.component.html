@@ -17,7 +17,7 @@
       </p>
       <br />
       <p *ngIf="error?.code === '999'">
-        Vous avez déjà téléchargé 2 fois les fichiers transférés par votre correspondant.
+        Vous avez déjà téléchargé {{ nbrAllowedDownloads }} fois les fichiers transférés par votre correspondant.
         <br />Ils ont été supprimés pour faire de la place pour les autres utilisateurs.
       </p>
       <p *ngIf="error?.id">

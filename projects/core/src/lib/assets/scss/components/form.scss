@@ -46,6 +46,7 @@ textarea {
   .mat-form-field-infix {
     margin: 0 !important;
     padding: 0 !important;
+    border-top: 0;
   }
   .mat-form-field-wrapper {
     padding-bottom: 0 !important;
@@ -61,6 +62,8 @@ textarea {
     }
   }
   position: relative;
+  margin-bottom: 15px;
+
   input {
     color: $c-gris-m1;
     width: calc(100% - 24px);
