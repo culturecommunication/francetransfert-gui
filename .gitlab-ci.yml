@@ -30,6 +30,7 @@ mc-francetransfert-upload-download-gui:test:
   before_script:
     - echo "Pipeline Test stage ..."
   stage: test
+  allow_failure: true
   script:
     - npm run test
 
@@ -39,10 +40,10 @@ mc-francetransfert-core-gui:sonar:develop:
   before_script:
     - echo "Pipeline Sonar Develop stage ..."
   stage: sonar
+  allow_failure: true
   only:
     refs:
       - develop
-
   script:
     - bash ci/sonar/sonarDev.sh
 
@@ -52,10 +53,10 @@ mc-francetransfert-core-gui:sonar:master:
   before_script:
     - echo "Pipeline Sonar Master stage ..."
   stage: sonar
+  allow_failure: true
   only:
     refs:
       - master
-
   script:
     - bash ci/sonar/sonarProd.sh
 
@@ -63,24 +64,23 @@ mc-francetransfert-core-gui:sonar:master:
 mc-francetransfert-upload-download-gui:build:
   before_script:
     - echo "Pipeline Build stage ..."
-    - git clone -b develop https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.boost.open.global/mc/francetransfert/francetransfert-admin-gui.git
   stage: build
   script:
     - npm run build
-    - cd francetransfert-admin-gui
-    - npm install
-    - npm run build
-    - cp -R ./dist/* ../dist
+    - cp -R static/* dist/
+    - sed -i "s|https://recette.francetransfert.culture.gouv.fr|${DEVIC_PROTOCOL}://${DEVIC_URL}|g" dist/upload/upload-config.js
+    - sed -i "s|https://recette.francetransfert.culture.gouv.fr|${DEVIC_PROTOCOL}://${DEVIC_URL}|g" dist/download/download-config.js
 
 #Docker phase
 mc-francetransfert-upload-download-gui:docker:
   image: docker:stable
   before_script:
     - echo "Pipeline Docker stage ..."
+    - sed -i "s|localhost|${DEVIC_URL}|g" nginx.conf
   stage: docker
-  only:
-    - develop
-    - master
+  #  only:
+  #    - develop
+  #    - master
   services:
     - docker:18-dind
   script:
