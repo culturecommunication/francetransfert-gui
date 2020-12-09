@@ -65,6 +65,10 @@ mc-francetransfert-upload-download-gui:build:
   before_script:
     - echo "Pipeline Build stage ..."
   stage: build
+  only:
+    - develop
+    - sp4d
+    - master
   script:
     - npm run build
     - cp -R static/* dist/
@@ -78,9 +82,9 @@ mc-francetransfert-upload-download-gui:docker:
     - echo "Pipeline Docker stage ..."
     - sed -i "s|localhost|${DEVIC_URL}|g" nginx.conf
   stage: docker
-  #  only:
-  #    - develop
-  #    - master
+  only:
+    - develop
+    - sp4d
   services:
     - docker:18-dind
   script:
