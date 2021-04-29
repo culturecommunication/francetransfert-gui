@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Transfer } from '@flowjs/ngx-flow';
 import { FTTransfer } from '../../models/ft-transfers';
+import { DataService } from '../../services/data/data.service';
 @Component({
   selector: 'lib-file-item',
   template: `
@@ -29,7 +30,7 @@ export class FileItemComponent {
   @Input() transfer: FTTransfer<Transfer>;
   @Input() withoutDelete: boolean;
   @Output() deletedTransfer: EventEmitter<Transfer>;
-  constructor() {
+  constructor(private data: DataService) {
     this.deletedTransfer = new EventEmitter();
   }
 

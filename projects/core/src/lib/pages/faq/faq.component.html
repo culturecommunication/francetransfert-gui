@@ -1,19 +1,9 @@
 <div class="page-commune">
-  <header class="page-commune-header">
-    <div class="logo" (click)="returnHome()">
-      <img src="./assets/images/logos/Symbole-FranceTransfert-v1.2.svg" alt="FranceTransfert logo" />
-      <h5 class="text-blue-sombre font-black">FranceTransfert</h5>
-    </div>
-  </header>
-  <div class="page-commune-main">
-    <div class="container">
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <h3 class="title">FAQ FranceTransfert</h3>
+  <mat-card class="page-commune-card">
+    <mat-card-header>
+      <mat-card-title>FAQ FranceTransfert</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
       <div class="page-commune-main-content">
         <div class="part">
           <h5>Pourquoi FranceTransfert ?</h5>
@@ -38,15 +28,21 @@
         </div>
         <div class="part">
           <h5>Comment transférer des fichiers ?</h5>
-          <img src="./assets/images/faq-01.PNG" alt="" />
+          <pinch-zoom [limit-zoom]="10" [auto-zoom-out]="true" [disableZoomControl]="'disable'"
+            ><img src="./assets/images/faq-01.PNG" alt=""
+          /></pinch-zoom>
         </div>
         <div class="part">
           <h5>Comment télécharger les fichiers reçus ?</h5>
-          <img src="./assets/images/faq-02.PNG" alt="" />
+          <pinch-zoom [limit-zoom]="10" [auto-zoom-out]="true" [disableZoomControl]="'disable'"
+            ><img src="./assets/images/faq-02.PNG" alt=""
+          /></pinch-zoom>
         </div>
         <div class="part">
           <h5>Pendant combien de temps puis-je récupérer mes fichiers ?</h5>
-          <img src="./assets/images/faq-03.PNG" alt="" />
+          <pinch-zoom [limit-zoom]="10" [auto-zoom-out]="true" [disableZoomControl]="'disable'"
+            ><img src="./assets/images/faq-03.PNG" alt=""
+          /></pinch-zoom>
         </div>
         <div class="part">
           <h5>
@@ -125,6 +121,6 @@
           </p>
         </div>
       </div>
-    </div>
-  </div>
+    </mat-card-content>
+  </mat-card>
 </div>

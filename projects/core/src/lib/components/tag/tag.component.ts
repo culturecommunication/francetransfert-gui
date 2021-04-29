@@ -4,7 +4,7 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
   selector: 'lib-tag',
   template: `
     <div class="tag" [ngClass]="{ 'without-delete': withoutDelete }">
-      <small class="font-bold text-blue-clair">{{ content }}</small>
+      <small class="font-bold">{{ content }}</small>
       <div [hidden]="withoutDelete" class="delete-button" (click)="deleteEmail()"></div>
     </div>
   `

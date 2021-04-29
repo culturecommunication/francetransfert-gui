@@ -3,8 +3,8 @@ export const CIRCLE_CONFIG = {
   radius: 107,
   space: -9,
   outerStrokeWidth: 15,
-  outerStrokeColor: '#0269cc',
-  outerStrokeGradientStopColor: '#53a9ff',
+  outerStrokeColor: '#0a0a0a',
+  outerStrokeGradientStopColor: '#cacaca',
   innerStrokeColor: '#bcc2cb',
   innerStrokeWidth: 5,
   title: 'UI',
@@ -15,5 +15,6 @@ export const CIRCLE_CONFIG = {
   showSubtitle: false,
   showUnits: false,
   showBackground: false,
-  startFromZero: false
+  startFromZero: false,
+  responsive: true
 };

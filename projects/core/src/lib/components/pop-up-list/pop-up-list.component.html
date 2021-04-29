@@ -1,0 +1,23 @@
+<div class="modal-popup">
+  <div class="overlay"></div>
+  <div class="pop-up">
+    <h3 class="text-center">{{ title }}</h3>
+    <mat-dialog-content>
+      <div class="files-list" *ngIf="flow && flagFiles">
+        <lib-file-item
+          *ngFor="let transfer of (flow.transfers$ | async).transfers | tm; trackBy: trackTransfer"
+          [transfer]="transfer"
+          (deletedTransfer)="deleteTransfer($event)"
+        ></lib-file-item>
+      </div>
+      <div class="emails-list" *ngIf="!flagFiles">
+        <lib-tag *ngFor="let email of emails" (deleted)="deleteEmail($event)" [content]="email"></lib-tag>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+      <button class="button button-stroked" (click)="hidePopup()">
+        Retour
+      </button>
+    </mat-dialog-actions>
+  </div>
+</div>

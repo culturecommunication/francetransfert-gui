@@ -1,7 +1,7 @@
 input {
   width: calc(100% - 24px);
   height: 34px;
-  border: 1px solid $c-sombre;
+  //border: 1px solid $c-sombre;
   padding: 0 12px;
   font-size: 18px;
   font-weight: $f-bold;
@@ -10,48 +10,72 @@ input {
   &:focus {
     outline: 0;
     width: calc(100% - 28px);
-    border: 2px solid $c-blue;
   }
   &.error {
     border: 1px solid $c-error;
   }
 }
 
-textarea {
-  resize: none;
-  color: $c-gris-m1;
-  border: 1px solid $c-gris-message;
-  width: calc(100% - 24px);
-  padding: 12px;
-  font-size: 18px;
-  font-weight: $f-bold;
-  margin: 15px 0;
-  background-color: $c-gris-message;
-  &::placeholder {
-    color: $c-sombre;
-    opacity: 1;
-  }
-  &:focus {
-    outline: none;
+.mat-form-field-label {
+  color: #414856 !important;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-form-field-ripple {
+  background-color: $c-primary !important;
+}
+
+.mat-form-field-label-wrapper {
+  .mat-form-field-label {
+    top: 38px;
+    left: 14px;
   }
 }
 
+textarea {
+  resize: none;
+  //border: 1px solid #000;
+  width: calc(100% - 24px);
+  padding: 0 12px !important;
+  margin: 15px 0;
+  background-color: #fff;
+  height: 60px;
+  font-size: 18px;
+  font-weight: $f-bold;
+  color: $c-gris-m1;
+  caret-color: $c-primary !important;
+  &::placeholder {
+    color: #414856 !important;
+    padding-left: 10px;
+  }
+  // &:focus {
+  //   border: 2px solid #000;
+  // }
+}
+
 .input-add {
-  .mat-form-field-underline {
-    display: none;
+  // .mat-form-field-underline {
+  //   display: none;
+  // }
+  .mat-form-field-ripple {
+    background-color: $c-primary !important;
   }
   .mat-form-field {
     width: 100%;
   }
-  .mat-form-field-infix {
-    margin: 0 !important;
-    padding: 0 !important;
-    border-top: 0;
-  }
-  .mat-form-field-wrapper {
-    padding-bottom: 0 !important;
-  }
+  // .mat-form-field-infix {
+  //   margin: 0 !important;
+  //   padding: 0 !important;
+  //   border-top: 0;
+  // }
+  // .mat-form-field-wrapper {
+  //   padding-bottom: 0 !important;
+  // }
   .mat-form-field-label-wrapper {
+    padding-bottom: 0.25em;
     .mat-form-field-label {
       top: 38px;
       left: 14px;
@@ -62,13 +86,13 @@ textarea {
     }
   }
   position: relative;
-  margin-bottom: 15px;
 
   input {
+    caret-color: $c-primary;
     color: $c-gris-m1;
     width: calc(100% - 24px);
     height: 34px;
-    border: 1px solid #d9d9d9;
+    //border: 1px solid #000;
     padding: 0 12px;
     font-size: 18px;
     font-weight: 700;
@@ -76,28 +100,22 @@ textarea {
     &:focus {
       outline: 0;
       width: calc(100% - 28px);
-      border: 2px solid #0269cc;
+      //border: 2px solid #000;
     }
   }
-  &-button {
-    opacity: 0.5;
-    pointer-events: none;
+  &-button rmx-icon {
+    //opacity: 0.5;
+    pointer-events: painted;
     position: absolute;
     height: 23px;
-    width: 23px;
+    width: 28px;
     background-color: transparent;
     border-radius: 50px;
-    top: 20px;
+    top: 18px;
     right: 11px;
     cursor: pointer;
-    border: 2px solid $c-blue;
     &::before {
       content: '';
-      background: url('../assets/images/icons/Ajout_blue.svg');
-      width: 23px;
-      height: 23px;
-      position: absolute;
-      left: -1px;
     }
   }
   &.valid {
@@ -106,7 +124,7 @@ textarea {
       pointer-events: all;
     }
     input {
-      color: $c-blue;
+      color: #000;
     }
   }
   &-list {
@@ -119,7 +137,7 @@ textarea {
     top: 51px;
     left: 0;
     max-height: 120px;
-    z-index: 999;
+    // z-index: 999;
     overflow: auto;
     ul {
       list-style: none;
@@ -142,48 +160,15 @@ textarea {
   }
 }
 
-.input-password {
-  input {
-    color: $c-gris-m1;
-    &::placeholder {
-      color: $c-sombre;
-      opacity: 1;
-    }
-  }
-  &-button {
-    position: relative;
-    &::before {
-      content: '';
-      position: absolute;
-      width: 24px;
-      height: 24px;
-      right: 12px;
-      top: -44px;
-      cursor: pointer;
-    }
-    &.disabled {
-      opacity: 0.5;
-      pointer-events: none;
-    }
-  }
-  &-show {
-    &::before {
-      background-image: url('../assets/images/icons/Voir_blue.svg');
-    }
-  }
-  &-hide {
-    &::before {
-      background-image: url('../assets/images/icons/Cacher_blue.svg');
-    }
-  }
-}
-
 .tag {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   width: fit-content;
   float: left;
   height: 23px;
   border-radius: 10px;
-  border: 1px solid $c-blue-clair;
+  border: 1px solid #000;
   padding: 0 25px 0 10px;
   margin-right: 15px;
   margin-bottom: 10px;
@@ -192,6 +177,7 @@ textarea {
   }
   .delete-button {
     position: relative;
+    top: 6px;
     cursor: pointer;
     &::before {
       content: '';
@@ -224,7 +210,7 @@ textarea {
   line-height: 25px;
   color: $c-gris-m1;
   label {
-    color: $c-blue;
+    color: #000;
     text-decoration: underline;
     font-weight: $f-bold;
     cursor: pointer;
@@ -238,7 +224,7 @@ textarea {
     &:checked ~ span {
       background: #ffffff 0% 0% no-repeat padding-box;
       box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-      border: 2px solid $c-succes;
+      border: 2px solid #000;
       border-radius: 5px;
     }
     &:checked ~ span:after {
@@ -262,7 +248,7 @@ textarea {
       display: none;
       height: 9px;
       width: 9px;
-      background: $c-succes 0% 0% no-repeat padding-box;
+      background: #000 0% 0% no-repeat padding-box;
       box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
       border-radius: 2px;
       left: 3px;

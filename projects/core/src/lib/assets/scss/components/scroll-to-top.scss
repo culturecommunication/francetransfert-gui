@@ -1,0 +1,15 @@
+.scroll-to-top {
+  position: fixed;
+  bottom: 5%;
+  right: 2%;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+  .scroll-to-top-btn {
+    background-color: $c-asset !important;
+    color: $c-primary !important;
+  }
+}
+.show-scrollTop {
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
+}
