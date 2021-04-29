@@ -17,7 +17,8 @@
       "@ft-core": ["projects/core/src/public-api.ts"],
       "@gui-core": ["dist/gui-core"],
       "@gui-core/*": ["dist/gui-core/*"]
-    }
+    },
+    "skipLibCheck": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

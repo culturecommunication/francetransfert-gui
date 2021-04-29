@@ -16,18 +16,24 @@ export const CUSTOM_INPUT_ADD_CONTROL_VALUE_ACCESSOR: any = {
   selector: 'lib-mail-input-group',
   template: `
     <div class="input-add" [ngClass]="{ valid: checkEmail() }">
-      <mat-form-field [floatLabel]="'never'">
+      <mat-form-field>
+        <mat-label>Envoyer à *</mat-label>
         <input
           matInput
           [matAutocomplete]="auto"
-          placeholder="Envoyer à*"
           [(ngModel)]="email"
           (keyup)="change()"
           (keyup.enter)="checkEmail() && addEmail()"
           (keydown.Tab)="email.length && checkEmail() && addEmail()"
-          (blur)="getOnblur()"
+          (blur)="getOnblur(); checkEmail() && addEmail()"
         />
-        <div class="input-add-button" (click)="addEmail()"></div>
+        <div class="input-add-button">
+          <rmx-icon
+            name="question-fill"
+            matTooltip="Pour envoyer vos fichiers à plusieurs destinataires, vous pouvez copier/coller les adresses
+        courriels de chaque destinataire (séparés par un « ; » ou « , » dans la zone « envoyer à »)"
+          ></rmx-icon>
+        </div>
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let state of autoComplete" [value]="state" (click)="checkEmail() && addEmail()">
             <span>{{ state }}</span>

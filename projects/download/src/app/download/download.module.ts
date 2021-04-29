@@ -11,11 +11,19 @@ import { DownloadChoiceComponent } from './download-choice/download-choice.compo
 
 import { DownloadService } from './services/download.service';
 
+/** Import Remix Icons (DINUM) */
+import { RemixIconModule, RiMailFill } from 'angular-remix-icon';
+
 registerLocaleData(localeFr, 'fr-FR');
+
+// Configure the required icons before hand
+const icons = {
+  RiMailFill
+};
 
 @NgModule({
   declarations: [DownloadSectionComponent, DownloadChoiceComponent],
-  imports: [CoreModule, DownloadRoutingModule, HttpClientModule],
+  imports: [CoreModule, DownloadRoutingModule, HttpClientModule, RemixIconModule.configure(icons)],
   providers: [
     DownloadService,
     {

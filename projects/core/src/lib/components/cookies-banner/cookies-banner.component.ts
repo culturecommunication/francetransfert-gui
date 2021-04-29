@@ -11,7 +11,6 @@ import { CookiesManagerService } from '../../services/cookies.manager';
           </h5>
           <p>
             En poursuivant votre navigation sur ce site, vous acceptez leur utilisation
-            <a target="_blank" routerLink="/faq">Plus d'infos</a>
           </p>
         </div>
         <div class="cookies-banner-buttons">
@@ -28,7 +27,9 @@ import { CookiesManagerService } from '../../services/cookies.manager';
 })
 export class CookiesBannerComponent {
   @Input() show: boolean;
-  constructor(private cookiesManager: CookiesManagerService) {}
+  constructor(private cookiesManager: CookiesManagerService) {
+    this.show = this.cookiesManager.isConsented();
+  }
 
   /**
    * Hide banner.

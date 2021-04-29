@@ -1,12 +1,16 @@
 @import '../helpers/mixins';
 
-@font-face {
-  font-family: 'Muli';
-  src: url('https://fonts.googleapis.com/css?family=Muli&display=swap');
-}
+// @font-face {
+//   font-family: 'Muli';
+//   src: url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+// }
+
+// * {
+//   font-family: 'Muli', sans-serif;
+// }
 
 * {
-  font-family: 'Muli', sans-serif;
+  font-family: 'marianne', sans-serif;
 }
 
 body {
@@ -53,7 +57,7 @@ h6 {
 
 p {
   font-size: 14px;
-  line-height: 20px;
+  line-height: 15px;
   font-weight: $f-regular;
   margin: 0;
 }

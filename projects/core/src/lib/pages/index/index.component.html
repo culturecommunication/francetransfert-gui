@@ -1,22 +1,23 @@
 <div class="upload-index">
-  <div class="upload-index-banner">BETA</div>
-  <header class="upload-index-header">
-    <div class="logo" (click)="returnHome()">
-      <img src="./assets/images/logos/Symbole-FranceTransfert-v1.2.svg" alt="FranceTransfert logo" />
-      <h3 class="text-blue-sombre font-black">FranceTransfert</h3>
-    </div>
-    <a target="_blank" routerLink="/faq" class="faq">F.A.Q</a>
-  </header>
-  <mat-card class="upload-index-card">
-    <router-outlet></router-outlet>
-  </mat-card>
-  <div class="upload-index-background"></div>
-  <footer class="upload-index-footer">
-    <div class="container">
-      <h6>© {{ today | date: 'yyyy' }} Service en bêta test du Ministère de la culture</h6>
-      <h6 (click)="openBlank('/ml')">Mentions légales</h6>
-      <h6 (click)="openBlank('/cgu')">CGU</h6>
-    </div>
-  </footer>
-  <lib-cookies-banner [show]="showBanner"></lib-cookies-banner>
+  <mat-sidenav-container id="container">
+    <mat-sidenav #sidenav role="navigation" mode="over" [(opened)]="opened" (click)="sidenav.toggle()">
+      <lib-mobile-menu></lib-mobile-menu>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="sidenav-content">
+        <lib-header (sidenavToggle)="sidenav.toggle()"></lib-header>
+        <div class="upload-index-wrapper">
+          <div *ngIf="isOnMainPage" class="upload-index-card">
+            <router-outlet></router-outlet>
+          </div>
+          <div *ngIf="!isOnMainPage" class="common-page-card">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+        <lib-footer *ngIf="!isMobile"></lib-footer>
+        <lib-cookies-banner [show]="showBanner"></lib-cookies-banner>
+        <lib-scroll-to-top></lib-scroll-to-top>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

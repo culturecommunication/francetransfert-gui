@@ -15,8 +15,9 @@ export const CUSTOM_INPUT_ADD_CONTROL_VALUE_ACCESSOR: any = {
   selector: 'lib-mail-input',
   template: `
     <div class="input-add">
-      <mat-form-field [floatLabel]="'never'">
-        <input matInput [matAutocomplete]="auto" placeholder="Votre courriel*" [(ngModel)]="email" (keyup)="change()" />
+      <mat-form-field>
+        <mat-label>Votre courriel *</mat-label>
+        <input matInput [matAutocomplete]="auto" [(ngModel)]="email" (keyup)="change()" />
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let state of autoComplete" [value]="state">
             <span>{{ state }}</span>

@@ -24,7 +24,7 @@ export class UploadService {
       confirmedSenderId: '',
       senderEmail: body.senderMail,
       recipientEmails: body.emails,
-      password: body.password,
+      password: '',
       message: body.message,
       rootFiles: trMapping.files,
       rootDirs: trMapping.dirs

@@ -14,17 +14,43 @@ import { CoreModule, CIRCLE_CONFIG, PopUpComponent, PopUpService, ErrorsManagerS
 import { NgxFlowModule, FlowInjectionToken } from '@flowjs/ngx-flow';
 import Flow from '@flowjs/flow.js';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+/** Import Remix Icons (DINUM) */
+import {
+  RiEdit2Fill,
+  RiUploadCloud2Fill,
+  RiAddCircleFill,
+  RiMoreFill,
+  RiFolderAddFill,
+  RiSendPlaneFill,
+  RiFileAddFill,
+  RiInformationLine,
+  RemixIconModule
+} from 'angular-remix-icon';
+import { FormsModule } from '@angular/forms';
 
 registerLocaleData(localeFr, 'fr-FR');
+// Configure the required icons before hand
+const icons = {
+  RiUploadCloud2Fill,
+  RiEdit2Fill,
+  RiAddCircleFill,
+  RiMoreFill,
+  RiFolderAddFill,
+  RiSendPlaneFill,
+  RiFileAddFill,
+  RiInformationLine
+};
 
 @NgModule({
   declarations: [UploadSectionComponent, UploadContentComponent, UploadChoiceComponent],
   imports: [
     CoreModule,
     UploadRoutingModule,
+    FormsModule,
     NgxFlowModule,
     NgCircleProgressModule.forRoot(CIRCLE_CONFIG),
-    HttpClientModule
+    HttpClientModule,
+    RemixIconModule.configure(icons)
   ],
   providers: [
     UploadService,

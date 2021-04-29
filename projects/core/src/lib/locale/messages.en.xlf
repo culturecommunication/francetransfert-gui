@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="9915a302120305a1048e661fa028815cc83db69d" datatype="html">
+        <source>Mentions légales</source>
+        <target>Legal Notice</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../core/src/lib/components/footer/footer.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <note priority="1" from="description">mentions legales</note>
+      </trans-unit>
+      <trans-unit id="84538865f7fd0ede3e55fef124b6885a3b440f22" datatype="html">
+        <source>CGU</source>
+        <target>Terms of Service</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../core/src/lib/components/footer/footer.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <note priority="1" from="description">cgu</note>
+      </trans-unit>
+      <trans-unit id="edeba75eab203b79563e8ed94f337155b3c9a406" datatype="html">
+        <source>© <x id="INTERPOLATION" equiv-text="{{ today | date: &apos;yyyy&apos; }}"/> Service en bêta test du Ministère de la culture</source>
+        <target>© <x id="INTERPOLATION" equiv-text="{{ today | date: &apos;yyyy&apos; }}"/> Beta test service of the French Ministry of Culture</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../core/src/lib/components/footer/footer.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <note priority="1" from="description">copyright</note>
+      </trans-unit>
+      <trans-unit id="3202fcfbcb70142ca7e5c1ce41287ec85f442b35" datatype="html">
+        <source>
+                            Ajoutez vos fichiers ou dossiers *
+                          </source>
+        <target>
+                            Add your files or folders *
+                          </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/upload/upload-section/upload-section.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+        <note priority="1" from="description">upload title</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

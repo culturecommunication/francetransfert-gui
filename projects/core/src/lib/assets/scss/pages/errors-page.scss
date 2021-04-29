@@ -1,12 +1,16 @@
 .errors-page {
   &-container {
-    max-width: 815px;
-    margin: 15% auto 0;
-    position: relative;
+    // max-width: 815px;
+    // margin: 15% auto 0;
+    // position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 15%;
     .logo {
-      position: absolute;
-      top: -110px;
-      left: calc(50% - 155px);
+      // position: absolute;
+      // top: -110px;
+      // left: calc(50% - 155px);
       cursor: pointer;
     }
     h1 {
@@ -28,9 +32,9 @@
     }
   }
   &-illustration {
-    float: left;
     height: 325px;
     width: 417px;
+    align-self: center;
     position: relative;
     &::before {
       content: '';

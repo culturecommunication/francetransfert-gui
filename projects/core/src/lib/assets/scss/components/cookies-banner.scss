@@ -9,31 +9,35 @@
   height: 0;
   overflow: hidden;
   &.show {
-    height: 90px;
+    @media screen and (min-width: 812px) {
+      height: 100px;
+    }
+    @media screen and (max-width: 812px) {
+      height: 155px;
+      border-top: $c-asset solid 1px;
+    }
     overflow: auto;
   }
   &-buttons {
-    position: absolute;
-    line-height: 90px;
-    top: 0;
-    right: 0;
+    text-align: center;
     button {
       margin: 0 0 0 20px;
     }
   }
   &-container {
-    width: 70%;
-    margin: 0 auto;
     height: 100%;
-    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
   }
   &-content {
-    width: calc(100% - 250px);
-    padding-top: 24px;
-    position: absolute;
-    height: calc(100% - 24px);
+    text-align: center;
     h5 {
       margin: 0;
+      @media screen and (max-width: 812px) {
+        font-size: 14px;
+      }
     }
     a {
       color: $c-blue;
