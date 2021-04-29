@@ -1,12 +1,16 @@
 .upload-content {
   padding: 14px 20px;
-  height: calc(100vh - 244px);
+  top: 40px;
+  position: relative;
+  background-color: #fff;
+  max-height: 75vh;
+  overflow-y: auto;
   .title {
     margin: 0 0 16px;
     color: $c-gris-m1;
   }
   &-title {
-    margin: 24px auto 0;
+    margin: 24px auto 24px;
     width: fit-content;
     font-weight: $f-bold;
   }
@@ -38,13 +42,13 @@
     width: 100%;
     h2 {
       font-weight: $f-bold;
-      color: $c-blue;
+      color: $c-primary;
       width: fit-content;
       margin: 32px auto 32px;
     }
   }
   &-return {
-    color: $c-blue;
+    color: $c-primary;
     font-weight: $f-bold;
     position: relative;
     margin: 0;
@@ -54,12 +58,20 @@
     &::before {
       content: '';
       position: absolute;
-      background-image: url('../assets/images/icons/Fleche/Precedent_blue.svg');
+      background-image: url('../assets/images/icons/arrow-left-s-line.svg');
       height: 18px;
       width: 18px;
-      left: -7px;
-      top: -5px;
+      left: -10px;
+      top: -2px;
       background-repeat: no-repeat;
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .upload-content {
+    &-title {
+      font-size: 20px;
     }
   }
 }

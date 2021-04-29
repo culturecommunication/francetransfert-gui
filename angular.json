@@ -64,6 +64,24 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "fr": {
+              "aot": true,
+              "outputPath": "dist/upload/fr/",
+              "i18nFile": "projects/core/src/lib/locale/messages.fr.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "fr",
+              "i18nMissingTranslation": "error",
+              "baseHref": "/upload/fr/"
+            },
+            "en": {
+              "aot": true,
+              "outputPath": "dist/upload/en/",
+              "i18nFile": "projects/core/src/lib/locale/messages.en.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "en",
+              "i18nMissingTranslation": "error",
+              "baseHref": "/upload/en/"
             }
           }
         },
@@ -76,6 +94,12 @@
           "configurations": {
             "production": {
               "browserTarget": "upload:build:production"
+            },
+            "fr": {
+              "browserTarget": "upload:build:fr"
+            },
+            "en": {
+              "browserTarget": "upload:build:en"
             }
           }
         },

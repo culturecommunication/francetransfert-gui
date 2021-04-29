@@ -18,19 +18,23 @@ const routes: Routes = [
   },
   {
     path: 'faq',
-    component: FaqComponent
+    component: IndexComponent,
+    children: [{ path: '', component: FaqComponent }]
   },
   {
     path: 'ml',
-    component: MlComponent
+    component: IndexComponent,
+    children: [{ path: '', component: MlComponent }]
   },
   {
     path: 'cgu',
-    component: CguComponent
+    component: IndexComponent,
+    children: [{ path: '', component: CguComponent }]
   },
   {
     path: 'error',
-    component: ErrorsComponent
+    component: IndexComponent,
+    children: [{ path: '', component: ErrorsComponent }]
   },
   { path: '**', redirectTo: '/error' }
 ];
