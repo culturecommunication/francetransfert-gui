@@ -1,7 +1,7 @@
 (function(window) {
   /** Download Configuration */
   const DownloadSettings = {
-    host: 'https://recette.francetransfert.culture.gouv.fr/',
+    host: '/',
     nbrOfDownloads: 5,
     apis: {
       download: 'api-private/download-module/download-info',
