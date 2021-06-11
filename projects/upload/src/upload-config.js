@@ -1,7 +1,7 @@
 (function(window) {
   /** Upload Configuration */
   const UploadSettings = {
-    host: 'https://recette.francetransfert.culture.gouv.fr/',
+    host: '/',
     apis: {
       upload: 'api-private/upload-module/upload',
       tree: 'api-private/upload-module/sender-info',
