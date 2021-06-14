@@ -20,7 +20,6 @@
     "format:fix": "pretty-quick --staged",
     "precommit": "run-s format:fix lint"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.4",
     "@angular/cdk": "~8.2.3",
