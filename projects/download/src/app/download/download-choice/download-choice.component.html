@@ -35,10 +35,10 @@
       </button>
       <p *ngIf="haveChoice" class="download-choice-done">Votre avis a été pris en compte. Merci.</p>
     </div>
-  </div>
-  <div class="download-choice-button">
-    <button class=" button button-primary" [ngClass]="{ disabled: !haveChoice }" (click)="goto()">
-      Accueil
-    </button>
+    <div class="download-choice-button">
+      <button class=" button button-primary" [ngClass]="{ disabled: !haveChoice }" (click)="goto()">
+        Accueil
+      </button>
+    </div>
   </div>
 </div>

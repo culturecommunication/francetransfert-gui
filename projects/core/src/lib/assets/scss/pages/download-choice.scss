@@ -1,10 +1,10 @@
 .download-choice {
   width: 100%;
-  height: calc(100vh - 275px);
   position: relative;
   background-color: #fff;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   .prefect-scoll {
     max-height: initial;
   }
@@ -53,11 +53,8 @@
     }
   }
   &-button {
-    position: absolute;
-    bottom: -51px;
     width: 100%;
-    left: 0;
-    height: 59px;
+    height: 60px;
     button {
       height: 100%;
       width: 100%;
@@ -83,7 +80,6 @@
 
 @media screen and (min-width: 812px) and (max-width: 1024px) {
   .download-choice {
-    height: calc(100vh - 80px);
     margin-top: 20px;
     &-icon {
       height: 155px;

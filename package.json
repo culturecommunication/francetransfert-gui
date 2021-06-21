@@ -20,7 +20,6 @@
     "format:fix": "pretty-quick --staged",
     "precommit": "run-s format:fix lint"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.4",
     "@angular/cdk": "~8.2.3",
@@ -35,7 +34,7 @@
     "@angular/router": "~8.2.4",
     "@flowjs/flow.js": "^2.13.2",
     "@flowjs/ngx-flow": "^0.4.3",
-    "angular-remix-icon": "^1.1.0",
+    "angular-remix-icon": "^1.1.1",
     "core-js": "^2.6.11",
     "ng-circle-progress": "^1.5.1",
     "ngx-cookie-service": "^2.3.0",
