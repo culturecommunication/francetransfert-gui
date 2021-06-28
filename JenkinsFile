@@ -36,13 +36,16 @@ node {
     gitlabCommitStatus('package')
     {
         stage('Package') {
-            sh 'cp package.json dist'
-            sh 'npm publish dist --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture/'
-            jsonObject =  readJSON file: 'package.json'
             if(env.BRANCH_NAME.startsWith('develop')){
+                sh 'cp package.json dist'
+                sh 'npm publish dist --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture/'
+                jsonObject =  readJSON file: 'package.json'
                 version.updateVersionGit('app_upload_version',jsonObject["version"],'recette')
             }
             if(env.BRANCH_NAME.startsWith('master')){
+                sh 'cp package.json dist'
+                sh 'npm publish dist --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture/'
+                jsonObject =  readJSON file: 'package.json'
                 version.updateVersionGit('app_upload_version',jsonObject["version"],'production')
             }
         }
