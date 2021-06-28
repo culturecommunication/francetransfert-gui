@@ -282,7 +282,9 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
       .subscribe((result: any) => {
         this.loadApi = false;
         this.expireDate = result.expireDate;
-        if (result.senderId) {
+        if (result.canUpload == false) {
+          this.errorsMessages = MSG_ERR.MSG_ERR_02;
+        } else if (result.senderId) {
           this.uploadBegin(result);
         } else {
           result.componentInstance.action.pipe(takeUntil(this.onDestroy$)).subscribe(code => {
@@ -339,9 +341,10 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
       !transfers.length ||
       !this.checkLimit(transfers) ||
       !this.emails.length ||
-      (!this.regex.EMAIL.test(this.senderMail) && !this.regex.GOUV_EMAIL.test(this.senderMail)) ||
+      !this.regex.EMAIL.test(this.senderMail) ||
+      /*(!this.regex.EMAIL.test(this.senderMail) && !this.regex.GOUV_EMAIL.test(this.senderMail)) ||
       (!this.regex.GOUV_EMAIL.test(this.senderMail) &&
-        this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1) ||
+        this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1) ||*/
       !this.acceptConditions
     );
   }
@@ -356,9 +359,10 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
       !transfers.length ||
       !this.checkLimit(transfers) ||
       !this.emails.length ||
-      (!this.regex.EMAIL.test(this.senderMail) && !this.regex.GOUV_EMAIL.test(this.senderMail)) ||
+      !this.regex.EMAIL.test(this.senderMail) ||
+      /* (!this.regex.EMAIL.test(this.senderMail) && !this.regex.GOUV_EMAIL.test(this.senderMail)) ||
       (!this.regex.GOUV_EMAIL.test(this.senderMail) &&
-        this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1) ||
+        this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1) ||*/
       this.acceptConditions
     );
   }
@@ -408,13 +412,13 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
           this.errorsMessages = MSG_ERR.MSG_ERR_03;
         } else if (!this.emails.length) {
           this.errorsMessages = MSG_ERR.MSG_ERR_06;
-        } else if (
+        } /*else if (
           this.senderMail.length &&
           !this.regex.GOUV_EMAIL.test(this.senderMail) &&
           this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
         ) {
           this.errorsMessages = MSG_ERR.MSG_ERR_02;
-        }
+        }*/
         break;
       }
       case 4 /** Add email sender */: {
@@ -424,14 +428,14 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
           this.errorsMessages = MSG_ERR.MSG_ERR_06;
         } else if (!this.senderMail.length) {
           this.errorsMessages = MSG_ERR.MSG_ERR_07;
-        } else if (!this.regex.EMAIL.test(this.senderMail) && !this.regex.GOUV_EMAIL.test(this.senderMail)) {
+        } /* else if (!this.regex.EMAIL.test(this.senderMail) && !this.regex.GOUV_EMAIL.test(this.senderMail)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
         } else if (
           !this.regex.GOUV_EMAIL.test(this.senderMail) &&
           this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
         ) {
           this.errorsMessages = MSG_ERR.MSG_ERR_02;
-        }
+        }*/
         break;
       }
 
@@ -444,12 +448,12 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
           this.errorsMessages = MSG_ERR.MSG_ERR_07;
         } else if (!this.regex.EMAIL.test(this.senderMail)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
-        } else if (
+        } /* else if (
           !this.regex.GOUV_EMAIL.test(this.senderMail) &&
           this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
         ) {
           this.errorsMessages = MSG_ERR.MSG_ERR_02;
-        }
+        }*/
         break;
       }
 
@@ -462,12 +466,12 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
           this.errorsMessages = MSG_ERR.MSG_ERR_07;
         } else if (!this.regex.EMAIL.test(this.senderMail)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
-        } else if (
+        } /*else if (
           !this.regex.GOUV_EMAIL.test(this.senderMail) &&
           this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
         ) {
           this.errorsMessages = MSG_ERR.MSG_ERR_02;
-        }
+        }*/
         break;
       }
 
@@ -480,12 +484,12 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
           this.errorsMessages = MSG_ERR.MSG_ERR_07;
         } else if (!this.regex.EMAIL.test(this.senderMail)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
-        } else if (
+        } /*else if (
           !this.regex.GOUV_EMAIL.test(this.senderMail) &&
           this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
         ) {
           this.errorsMessages = MSG_ERR.MSG_ERR_02;
-        }
+        }*/
         break;
       }
     }
