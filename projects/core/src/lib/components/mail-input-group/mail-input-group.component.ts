@@ -53,7 +53,6 @@ export class MailInputGroupComponent implements ControlValueAccessor {
   emails: Array<string>;
   autoComplete: Array<string>;
   emailsRef: Array<string>;
-  emailPatternAgent: RegExp;
   emailPatternNotAgent: RegExp;
   emailMAX: number;
   constructor() {
@@ -122,7 +121,7 @@ export class MailInputGroupComponent implements ControlValueAccessor {
       if (this.email.indexOf(';') !== -1 || this.email.indexOf(',') !== -1) {
         let emailList: Array<string> = this.email.indexOf(';') !== -1 ? this.email.split(';') : this.email.split(',');
         for (let email of emailList) {
-          if (this.emailPatternAgent.test(email) || this.emailPatternNotAgent.test(email)) {
+          if (this.emailPatternNotAgent.test(email)) {
             if (this.emails.length < this.emailMAX) {
               if (this.emails.indexOf(email) === -1) {
                 this.emails.push(email);
@@ -182,7 +181,7 @@ export class MailInputGroupComponent implements ControlValueAccessor {
    * @returns {boolean}
    */
   checkEmail(): boolean {
-    return this.emailPatternAgent.test(this.email) || this.emailPatternNotAgent.test(this.email);
+    return this.emailPatternNotAgent.test(this.email);
   }
 
   /**
