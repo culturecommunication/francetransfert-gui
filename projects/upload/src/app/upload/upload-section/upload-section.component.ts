@@ -73,8 +73,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
     this.regex = env.regex
       ? env.regex
       : {
-          EMAIL: '',
-          GOUV_EMAIL: ''
+          EMAIL: ''
         };
     this.initUpload();
   }
@@ -142,7 +141,6 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
     this.flow.events$.pipe(takeUntil(this.onDestroy$)).subscribe(event => {
       if (event.type === FLOW_EVENTS.FILESSUBMITTED) {
         this.checkValidExtensions(event);
-        // this.checkValidCharacters(event);
         this.openedButton = false;
         this.errorsMessages = '';
         this.cd.detectChanges();
@@ -282,7 +280,9 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
       .subscribe((result: any) => {
         this.loadApi = false;
         this.expireDate = result.expireDate;
-        if (result.senderId) {
+        if (result.canUpload == false) {
+          this.errorsMessages = MSG_ERR.MSG_ERR_02;
+        } else if (result.senderId) {
           this.uploadBegin(result);
         } else {
           result.componentInstance.action.pipe(takeUntil(this.onDestroy$)).subscribe(code => {
@@ -339,9 +339,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
       !transfers.length ||
       !this.checkLimit(transfers) ||
       !this.emails.length ||
-      (!this.regex.EMAIL.test(this.senderMail) && !this.regex.GOUV_EMAIL.test(this.senderMail)) ||
-      (!this.regex.GOUV_EMAIL.test(this.senderMail) &&
-        this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1) ||
+      !this.regex.EMAIL.test(this.senderMail) ||
       !this.acceptConditions
     );
   }
@@ -356,9 +354,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
       !transfers.length ||
       !this.checkLimit(transfers) ||
       !this.emails.length ||
-      (!this.regex.EMAIL.test(this.senderMail) && !this.regex.GOUV_EMAIL.test(this.senderMail)) ||
-      (!this.regex.GOUV_EMAIL.test(this.senderMail) &&
-        this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1) ||
+      !this.regex.EMAIL.test(this.senderMail) ||
       this.acceptConditions
     );
   }
@@ -394,12 +390,6 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
           this.errorsMessages = MSG_ERR.MSG_ERR_03;
         } else if (event.length > 0 && !this.regex.EMAIL.test(event)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
-        } else if (
-          this.senderMail.length &&
-          !this.regex.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
-        ) {
-          this.errorsMessages = MSG_ERR.MSG_ERR_02;
         }
         break;
       }
@@ -408,12 +398,6 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
           this.errorsMessages = MSG_ERR.MSG_ERR_03;
         } else if (!this.emails.length) {
           this.errorsMessages = MSG_ERR.MSG_ERR_06;
-        } else if (
-          this.senderMail.length &&
-          !this.regex.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
-        ) {
-          this.errorsMessages = MSG_ERR.MSG_ERR_02;
         }
         break;
       }
@@ -424,13 +408,6 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
           this.errorsMessages = MSG_ERR.MSG_ERR_06;
         } else if (!this.senderMail.length) {
           this.errorsMessages = MSG_ERR.MSG_ERR_07;
-        } else if (!this.regex.EMAIL.test(this.senderMail) && !this.regex.GOUV_EMAIL.test(this.senderMail)) {
-          this.errorsMessages = MSG_ERR.MSG_ERR_04;
-        } else if (
-          !this.regex.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
-        ) {
-          this.errorsMessages = MSG_ERR.MSG_ERR_02;
         }
         break;
       }
@@ -444,11 +421,6 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
           this.errorsMessages = MSG_ERR.MSG_ERR_07;
         } else if (!this.regex.EMAIL.test(this.senderMail)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
-        } else if (
-          !this.regex.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
-        ) {
-          this.errorsMessages = MSG_ERR.MSG_ERR_02;
         }
         break;
       }
@@ -462,11 +434,6 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
           this.errorsMessages = MSG_ERR.MSG_ERR_07;
         } else if (!this.regex.EMAIL.test(this.senderMail)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
-        } else if (
-          !this.regex.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
-        ) {
-          this.errorsMessages = MSG_ERR.MSG_ERR_02;
         }
         break;
       }
@@ -480,11 +447,6 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
           this.errorsMessages = MSG_ERR.MSG_ERR_07;
         } else if (!this.regex.EMAIL.test(this.senderMail)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
-        } else if (
-          !this.regex.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
-        ) {
-          this.errorsMessages = MSG_ERR.MSG_ERR_02;
         }
         break;
       }
@@ -538,29 +500,6 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
       }
     }
   }
-
-  /**
-   * Bloc bad extensions.
-   * @param {any} event
-   * @returns {Promise<any>}
-   */
-  // async checkValidCharacters(event): Promise<any> {
-  //   let transfers: UploadState = await getRxValue(this.flow.transfers$);
-  //   let BadFiles: any[] = [];
-  //   for (let file of event.event[0]) {
-  //     if (BAD_CHARACTERS.findIndex((char: string) => file.name.indexOf(char) !== -1) !== -1) {
-  //       BadFiles.push(file);
-  //     }
-  //   }
-  //   if (BadFiles.length) {
-  //     this.errorsMessages = MSG_ERR.MSG_ERR_09;
-  //     for (let file of BadFiles) {
-  //       this.flow.cancelFile(
-  //         transfers.transfers[transfers.transfers.findIndex((transfer: Transfer) => transfer.name === file.name)]
-  //       );
-  //     }
-  //   }
-  // }
 
   /**
    * Open blank Urls

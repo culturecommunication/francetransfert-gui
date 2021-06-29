@@ -67,7 +67,6 @@ export class MailInputGroupComponent implements ControlValueAccessor {
     this.onBlur = new EventEmitter();
     this.email = '';
     this.emailPatternNotAgent = REGEX_EXP.EMAIL;
-    this.emailPatternAgent = REGEX_EXP.GOUV_EMAIL;
     this.emailMAX = 100;
   }
 
