@@ -73,8 +73,7 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
     this.regex = env.regex
       ? env.regex
       : {
-          EMAIL: '',
-          GOUV_EMAIL: ''
+          EMAIL: ''
         };
     this.initUpload();
   }
@@ -391,12 +390,6 @@ export class UploadSectionComponent implements AfterViewInit, OnDestroy, OnInit 
           this.errorsMessages = MSG_ERR.MSG_ERR_03;
         } else if (event.length > 0 && !this.regex.EMAIL.test(event)) {
           this.errorsMessages = MSG_ERR.MSG_ERR_04;
-        } else if (
-          this.senderMail.length &&
-          !this.regex.GOUV_EMAIL.test(this.senderMail) &&
-          this.emails.findIndex((email: string) => !this.regex.GOUV_EMAIL.test(email)) !== -1
-        ) {
-          this.errorsMessages = MSG_ERR.MSG_ERR_02;
         }
         break;
       }

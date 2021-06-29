@@ -9,8 +9,7 @@
       rate: 'api-private/upload-module/satisfaction'
     },
     regex: {
-      EMAIL: /^\w+([\.-]\w+)*(\+\w+)?@\w+([\.-]\w+)*(\.\w+)+$/,
-      GOUV_EMAIL: /^\w+([\.-]\w+)*(\+\w+)?@(\w+([\.-]\w+)*\.)?(gouv\.fr|open-groupe\.com)$/i
+      EMAIL: /^\w+([\.-]\w+)*(\+\w+)?@\w+([\.-]\w+)*(\.\w+)+$/
     }
   };
 
