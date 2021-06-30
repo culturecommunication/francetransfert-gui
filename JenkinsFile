@@ -1,4 +1,4 @@
-properties([gitLabConnection('GitLab')])
+properties([gitLabConnection('Gitlab')])
 import Version
 def version = new Version()
 
