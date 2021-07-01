@@ -1,5 +1,5 @@
 export const MSG_ERR = {
-  MSG_ERR_00: 'Vous avez dépassé la limite de 20 GO',
+  MSG_ERR_00: 'Vous avez dépassé la limite de 2 GO',
   MSG_ERR_01: 'Les deux mots de passe ne sont pas identiques. Veuillez les ressaisir.',
   MSG_ERR_02:
     'Le service en béta test « FranceTransfert » est réservé aux échanges de fichiers/dossiers volumineux avec l’administration d’État (à destination d’adresses de courriels se terminant par @xxx.gouv.fr)',
