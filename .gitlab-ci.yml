@@ -72,8 +72,6 @@ mc-francetransfert-upload-download-gui:build:
   script:
     - npm run build
     - cp -R static/* dist/
-    - sed -i "s|https://recette.francetransfert.culture.gouv.fr|${DEVIC_PROTOCOL}://${DEVIC_URL}|g" dist/upload/upload-config.js
-    - sed -i "s|https://recette.francetransfert.culture.gouv.fr|${DEVIC_PROTOCOL}://${DEVIC_URL}|g" dist/download/download-config.js
 
 #Docker phase
 mc-francetransfert-upload-download-gui:docker:

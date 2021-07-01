@@ -7,7 +7,8 @@
       <p class="download-section-info text-gris-m1" *ngIf="downloadInfos?.withPassword">
         * Champ obligatoire
       </p>
-      <div class="download-section-icon"></div>
+      <!-- <div class="download-section-icon"></div> -->
+      <rmx-icon name="mail-fill"></rmx-icon>
       <h3 class="download-section-title">Vos fichiers à télécharger</h3>
       <p class="download-section-description">
         Vos fichiers sont disponibles jusqu’au
@@ -31,14 +32,12 @@
         <p class="message">{{ downloadInfos?.message }}</p>
         <lib-file-item *ngFor="let transfer of transfers" [transfer]="transfer" [withoutDelete]="true"></lib-file-item>
       </div>
+      <div class="download-section-action">
+        <button class="button button-primary" (click)="download()" [ngClass]="{ disabled: checkValid() }">
+          Télécharger les fichiers
+        </button>
+      </div>
     </div>
-    <button
-      class="download-section-action button button-primary"
-      (click)="download()"
-      [ngClass]="{ disabled: checkValid() }"
-    >
-      Télécharger les fichiers
-    </button>
   </div>
 </ng-template>
 

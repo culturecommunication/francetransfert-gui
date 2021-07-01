@@ -16,18 +16,24 @@ export const CUSTOM_INPUT_ADD_CONTROL_VALUE_ACCESSOR: any = {
   selector: 'lib-mail-input-group',
   template: `
     <div class="input-add" [ngClass]="{ valid: checkEmail() }">
-      <mat-form-field [floatLabel]="'never'">
+      <mat-form-field>
+        <mat-label>Envoyer à *</mat-label>
         <input
           matInput
           [matAutocomplete]="auto"
-          placeholder="Envoyer à*"
           [(ngModel)]="email"
           (keyup)="change()"
           (keyup.enter)="checkEmail() && addEmail()"
           (keydown.Tab)="email.length && checkEmail() && addEmail()"
-          (blur)="getOnblur()"
+          (blur)="getOnblur(); checkEmail() && addEmail()"
         />
-        <div class="input-add-button" (click)="addEmail()"></div>
+        <div class="input-add-button">
+          <rmx-icon
+            name="question-fill"
+            matTooltip="Pour envoyer vos fichiers à plusieurs destinataires, vous pouvez copier/coller les adresses
+        courriels de chaque destinataire (séparés par un « ; » ou « , » dans la zone « envoyer à »)"
+          ></rmx-icon>
+        </div>
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let state of autoComplete" [value]="state" (click)="checkEmail() && addEmail()">
             <span>{{ state }}</span>
@@ -47,7 +53,6 @@ export class MailInputGroupComponent implements ControlValueAccessor {
   emails: Array<string>;
   autoComplete: Array<string>;
   emailsRef: Array<string>;
-  emailPatternAgent: RegExp;
   emailPatternNotAgent: RegExp;
   emailMAX: number;
   constructor() {
@@ -61,7 +66,6 @@ export class MailInputGroupComponent implements ControlValueAccessor {
     this.onBlur = new EventEmitter();
     this.email = '';
     this.emailPatternNotAgent = REGEX_EXP.EMAIL;
-    this.emailPatternAgent = REGEX_EXP.GOUV_EMAIL;
     this.emailMAX = 100;
   }
 
@@ -117,7 +121,7 @@ export class MailInputGroupComponent implements ControlValueAccessor {
       if (this.email.indexOf(';') !== -1 || this.email.indexOf(',') !== -1) {
         let emailList: Array<string> = this.email.indexOf(';') !== -1 ? this.email.split(';') : this.email.split(',');
         for (let email of emailList) {
-          if (this.emailPatternAgent.test(email) || this.emailPatternNotAgent.test(email)) {
+          if (this.emailPatternNotAgent.test(email)) {
             if (this.emails.length < this.emailMAX) {
               if (this.emails.indexOf(email) === -1) {
                 this.emails.push(email);
@@ -177,7 +181,7 @@ export class MailInputGroupComponent implements ControlValueAccessor {
    * @returns {boolean}
    */
   checkEmail(): boolean {
-    return this.emailPatternAgent.test(this.email) || this.emailPatternNotAgent.test(this.email);
+    return this.emailPatternNotAgent.test(this.email);
   }
 
   /**

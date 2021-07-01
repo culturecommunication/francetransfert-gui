@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { IndexComponent, FaqComponent, MlComponent, CguComponent, ErrorsComponent } from '@ft-core';
 import { UploadSectionComponent } from './upload-section/upload-section.component';
@@ -12,25 +13,29 @@ const routes: Routes = [
   },
   {
     path: 'faq',
-    component: FaqComponent
+    component: IndexComponent,
+    children: [{ path: '', component: FaqComponent }]
   },
   {
     path: 'ml',
-    component: MlComponent
+    component: IndexComponent,
+    children: [{ path: '', component: MlComponent }]
   },
   {
     path: 'cgu',
-    component: CguComponent
+    component: IndexComponent,
+    children: [{ path: '', component: CguComponent }]
   },
   {
     path: 'error',
-    component: ErrorsComponent
+    component: IndexComponent,
+    children: [{ path: '', component: ErrorsComponent }]
   },
   { path: '**', redirectTo: '/error' }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule, ReactiveFormsModule]
 })
 export class UploadRoutingModule {}

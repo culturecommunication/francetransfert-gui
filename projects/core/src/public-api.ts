@@ -9,6 +9,7 @@ export * from './lib/components/mail-input-group/mail-input-group.component';
 export * from './lib/components/password-input/password-input.component';
 export * from './lib/components/tag/tag.component';
 export * from './lib/components/pop-up/pop-up.component';
+export * from './lib/components/pop-up-message/pop-up-message.component';
 
 export * from './lib/pages/index/index.component';
 export * from './lib/pages/faq/faq.component';

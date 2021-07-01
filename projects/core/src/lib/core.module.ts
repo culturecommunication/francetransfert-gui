@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { APP_BASE_HREF, CommonModule, PlatformLocation } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -18,6 +18,8 @@ import { PasswordInputComponent } from './components/password-input/password-inp
 import { TagComponent } from './components/tag/tag.component';
 import { CookiesBannerComponent } from './components/cookies-banner/cookies-banner.component';
 import { PopUpComponent } from './components/pop-up/pop-up.component';
+import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.component';
+import { HeaderComponent } from './components/header/header.component';
 
 /** Import Pages */
 import { IndexComponent } from './pages/index/index.component';
@@ -35,6 +37,22 @@ import { FileTypePipe } from './pipes/file-type';
 import { FileSizePipe } from './pipes/file-size';
 import { TransfersMappingPipe } from './pipes/transfer-mapping';
 import { FileMultipleSizePipe } from './pipes/file-multiple-size';
+import { FooterComponent } from './components/footer/footer.component';
+import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.component';
+import { PopUpMessageComponent } from './components/pop-up-message/pop-up-message.component';
+import { PopUpListComponent } from './components/pop-up-list/pop-up-list.component';
+
+/** Import Remix Icons (DINUM) */
+import { RiQuestionFill, RiMenuLine, RiArrowRightSLine, RemixIconModule } from 'angular-remix-icon';
+
+import { PinchZoomModule } from 'ngx-pinch-zoom';
+
+// Configure the required icons before hand
+const icons = {
+  RiMenuLine,
+  RiArrowRightSLine,
+  RiQuestionFill
+};
 
 @NgModule({
   declarations: [
@@ -54,15 +72,34 @@ import { FileMultipleSizePipe } from './pipes/file-multiple-size';
     FileMultipleSizePipe,
     FaqComponent,
     MlComponent,
-    CguComponent
+    CguComponent,
+    MobileMenuComponent,
+    HeaderComponent,
+    FooterComponent,
+    ScrollToTopComponent,
+    PopUpMessageComponent,
+    PopUpListComponent
   ],
-  imports: [CommonModule, FormsModule, RouterModule, MaterialModule, PerfectScrollbarModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    MaterialModule,
+    PerfectScrollbarModule,
+    RemixIconModule.configure(icons),
+    PinchZoomModule
+  ],
   providers: [
     CookiesManagerService,
     CookieService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    },
+    {
+      provide: APP_BASE_HREF,
+      useFactory: (s: PlatformLocation) => s.getBaseHrefFromDOM(),
+      deps: [PlatformLocation]
     }
   ],
   exports: [
@@ -73,6 +110,8 @@ import { FileMultipleSizePipe } from './pipes/file-multiple-size';
     TagComponent,
     IndexComponent,
     CookiesBannerComponent,
+    MobileMenuComponent,
+    HeaderComponent,
     FileNamePipe,
     FileTypePipe,
     FileSizePipe,
@@ -81,7 +120,9 @@ import { FileMultipleSizePipe } from './pipes/file-multiple-size';
     PerfectScrollbarModule,
     CommonModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    PopUpMessageComponent,
+    PopUpListComponent
   ]
 })
 export class CoreModule {}
