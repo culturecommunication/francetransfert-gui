@@ -1,6 +1,6 @@
 {
   "name": "ft-upload-download",
-  "version": "0.0.1",
+  "version": "1.2.0",
   "scripts": {
     "ng": "ng",
     "serve:upload": "ng serve --project=upload",
