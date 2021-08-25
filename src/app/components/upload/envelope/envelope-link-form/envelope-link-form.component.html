@@ -1,0 +1,27 @@
+<form [formGroup]="envelopeLinkForm" class="envelope-link-form-container">
+
+    <div class="envelope-link-form-group">
+        <mat-form-field>
+            <mat-label>Nom de votre transfert</mat-label>
+            <input matInput placeholder="(Facultatif)" formControlName="transferName">
+            <mat-icon matSuffix>info_outline</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div class="envelope-link-form-group">
+        <mat-form-field>
+            <mat-label>De</mat-label>
+            <input matInput placeholder="Votre adresse mail" formControlName="from" required>
+            <mat-error *ngIf="f.from.errors?.required">Un émetteur est requis.</mat-error>
+            <mat-error *ngIf="f.from.errors?.email">Une adresse mail valide est requise.</mat-error>
+        </mat-form-field>
+    </div>    
+
+    <div class="envelope-link-form-group">
+        <mat-form-field>
+            <mat-label>Message</mat-label>
+            <textarea cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10" matInput
+                placeholder="(Facultatif)" formControlName="message"></textarea>
+        </mat-form-field>
+    </div>
+</form>

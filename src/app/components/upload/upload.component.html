@@ -1,0 +1,16 @@
+<div class="upload-wrapper">
+    <ft-loader *ngIf="uploadValidated && uploadStarted && !uploadFinished"
+        (transferCancelled)="onTransferCancelled($event)" (transferFinished)="onTransferFinished($event)"
+        class="loader-wrapper"></ft-loader>
+    <ft-check-validation-code *ngIf="uploadStarted && !uploadValidated"
+        (transferValidated)="onTransferValidated($event)" [component]="'upload'" [email]="senderEmail"
+        class="check-validation-code-wrapper">
+    </ft-check-validation-code>
+    <ft-list-elements *ngIf="!uploadStarted" [component]="'upload'" class="list-elements-wrapper"></ft-list-elements>
+    <ft-envelope *ngIf="!uploadStarted" (uploadStarted)="onUploadStarted($event)" class="envelope-wrapper">
+    </ft-envelope>
+    <ft-end-message [component]="'upload'" *ngIf="uploadFinished && uploadStarted" class="end-message-wrapper">
+    </ft-end-message>
+    <ft-satisfaction-check (satisfactionCheckDone)="onSatisfactionCheckDone($event)"
+        *ngIf="uploadFinished && uploadStarted" class="satisfaction-check-wrapper"></ft-satisfaction-check>
+</div>

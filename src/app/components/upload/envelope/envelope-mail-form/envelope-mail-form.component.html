@@ -1,0 +1,43 @@
+<form [formGroup]="envelopeMailForm" class="envelope-mail-form-container">
+    <div class="envelope-mail-form-group">
+        <mat-form-field>
+            <mat-label>De</mat-label>
+            <input matInput placeholder="Votre adresse mail" formControlName="from" required>
+            <mat-error *ngIf="f.from.errors?.required">Un émetteur est requis.</mat-error>
+            <mat-error *ngIf="f.from.errors?.email">Une adresse mail valide est requise.</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="envelope-mail-form-group">
+        <mat-form-field>
+            <mat-label>À *</mat-label>
+            <input matInput placeholder="Mails des destinataires" formControlName="to"
+                [errorStateMatcher]="matcher" (blur)="onBlurDestinataires()">
+            <mat-error *ngIf="f.to.errors?.required">Un destinataire est requis.</mat-error>
+            <mat-error *ngIf="f.to.errors?.email">Une adresse mail valide est requise.</mat-error>
+            <mat-error *ngIf="envelopeMailForm.hasError('notValid')">FranceTransfert est réservé aux échanges entre et
+                avec le personnel de l’État.</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="envelope-mail-form-group">
+        <mat-chip-list class="destinataires-chip-list">
+            <mat-chip *ngFor="let dest of destinatairesList; let index = index" class="destinataires-chip" (click)="deleteDestinataire(index)">{{dest}}</mat-chip>
+        </mat-chip-list>
+    </div>
+
+    <div class="envelope-mail-form-group">
+        <mat-form-field>
+            <mat-label>Objet</mat-label>
+            <input matInput placeholder="(Facultatif)" formControlName="subject">
+        </mat-form-field>
+    </div>
+
+    <div class="envelope-mail-form-group">
+        <mat-form-field>
+            <mat-label>Message</mat-label>
+            <textarea cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10" matInput
+                placeholder="(Facultatif)" formControlName="message"></textarea>
+        </mat-form-field>
+    </div>
+</form>

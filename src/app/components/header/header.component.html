@@ -1,0 +1,26 @@
+<mat-toolbar class="header-toolbar">
+    <mat-toolbar-row class="header-toolbar-row">
+        <div class="header-toolbar-row-title">
+            <div class="header-toolbar-logos-wrapper" [routerLink]="['/upload']">
+                <img class="header-toolbar-logo rep-fr" src="assets/logos/republique_francaise_logo.svg" />
+                <img class="header-toolbar-logo ft" src="assets/logos/france_transfert_logo.svg" />
+            </div>
+            <button mat-icon-button (click)="onToggleSidenav()" class="menu-icon" *ngIf="isMobile">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <div class="header-toolbar-right" *ngIf="!isMobile">
+                <ft-language-selector class="language-selector-wrapper"></ft-language-selector>
+                <span class="column-divider"></span>
+                <div class="header-toolbar-link" [routerLink]="['/faq']">
+                    <mat-icon>help_outline</mat-icon>
+                    <span>FAQ</span>
+                </div>
+                <span class="column-divider"></span>
+                <div class="header-toolbar-link" [routerLink]="['/contact']">
+                    <mat-icon>mail_outline</mat-icon>
+                    <span>Contact</span>
+                </div>
+            </div>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

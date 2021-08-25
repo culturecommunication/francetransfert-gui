@@ -1,0 +1,37 @@
+<mat-toolbar class="footer-toolbar" *ngIf="!isMobile">
+    <mat-toolbar-row class="footer-toolbar-row-bloc-marque">
+        <div class="footer-toolbar-row-bloc-marque-left">
+            <img class="footer-toolbar-row-bloc-marque-left-rep-fr" src="assets/logos/republique_francaise_logo.svg" />
+        </div>
+        <div class="footer-toolbar-row-bloc-marque-right">
+            <div class="footer-toolbar-row-bloc-marque-right-text">
+                <p>
+                    Texte optionnel 3 lignes maximum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consectetur et vel quam auctor semper. Cras si amet mollis dolor.
+                </p>
+            </div>
+            <div class="footer-toolbar-row-bloc-marque-right-links">
+                <span>legifrance.fr</span>
+                <span>gouvernement.fr</span>
+                <span>service-public.fr</span>
+                <span>data.gouv.fr</span>
+            </div>
+        </div>
+    </mat-toolbar-row>
+    <mat-toolbar-row class="footer-toolbar-row-mentions">
+        <div class="footer-toolbar-row-mentions-links">
+            <span>Contact</span>
+            <span class="col-separator"></span>
+            <span>Accessibilité : non conforme</span>
+            <span class="col-separator"></span>
+            <span>Mentions légales</span>
+            <span class="col-separator"></span>
+            <span>Gestion des cookies</span>
+            <span class="col-separator"></span>
+            <span>Données personnelles</span>
+        </div>
+        <div class="footer-toolbar-row-mentions-text">
+            <span>Sauf mention contraire, tous les textes de ce site sont sous licence etatlab-2.0</span>
+            <span>Version : {{version}}</span>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

@@ -1,0 +1,45 @@
+<div>
+    <ng-container #flow="flow" [flowConfig]="flowConfig"></ng-container>
+</div>
+<mat-card class="list-elements-card" [ngClass]="(flow.transfers$ | async).transfers.length > 0 ? '' : 'empty'"
+    *ngIf="component === 'upload'" ftDragDropFileUpload flowDrop [flow]="flow.flowJs">
+    <mat-card-header class="list-elements-card-header" *ngIf="(flow.transfers$ | async).transfers.length > 0">
+        <mat-card-title *ngIf="(flow.transfers$ | async).transfers.length === 1">{{(flow.transfers$ |
+            async).transfers.length}} élément {{filesSize | filesize}}</mat-card-title>
+        <mat-card-title *ngIf="(flow.transfers$ | async).transfers.length > 1">{{(flow.transfers$ |
+            async).transfers.length}} éléments {{filesSize | filesize}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="list-elements-card-content"
+        *ngIf="(flow.transfers$ | async).transfers.length > 0 ; else emptyList">
+        <ft-file-item class="file-item"
+            *ngFor="let transfer of (flow.transfers$ | async).transfers | tm; trackBy: trackTransfer"
+            [transfer]="transfer" (itemAdded)="onItemAdded($event)" (deletedTransfer)="deleteTransfer($event)">
+        </ft-file-item>
+        <div class="list-elements-add-elements-wrapper">
+            <mat-icon flowButton [flowAttributes]="{ accept: '*/*' }" [flow]="flow.flowJs"
+                class="list-elements-card-content-icon">add_circle</mat-icon>
+            <span class="list-elements-card-content-first-line">Ajoutez-vos fichiers et dossiers ou déposez-les
+                ici</span>
+        </div>
+    </mat-card-content>
+    <ng-template #emptyList>
+        <mat-card-content class="list-elements-card-content empty">
+            <mat-icon flowButton [flowAttributes]="{ accept: '*/*' }" [flow]="flow.flowJs"
+                class="list-elements-card-content-icon">add_circle</mat-icon>
+            <span class="list-elements-card-content-first-line">Ajoutez-vos fichiers et dossiers</span>
+            <span class="list-elements-card-content-second-line">ou déposez-les ici</span>
+        </mat-card-content>
+    </ng-template>
+</mat-card>
+<mat-card class="list-elements-card" *ngIf="component === 'download'">
+    <mat-card-header class="list-elements-card-header" *ngIf="transfers">
+        <mat-card-title *ngIf="transfers.length === 1">{{transfers.length}} élément {{filesSize | filesize}}
+        </mat-card-title>
+        <mat-card-title *ngIf="transfers.length > 1">{{transfers.length}} éléments {{filesSize | filesize}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="list-elements-card-content">
+        <ft-file-item class="file-item" *ngFor="let transfer of transfers"
+            [transfer]="transfer" [readOnly]="true">
+        </ft-file-item>
+    </mat-card-content>
+</mat-card>

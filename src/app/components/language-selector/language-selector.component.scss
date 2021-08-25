@@ -1,0 +1,34 @@
+.lang-selection {
+    width: 100%;
+    font-size: 14px;
+
+    .language-selected {
+      display: flex;
+      flex-direction: row;
+      width: 50%;
+      justify-content: space-around;
+      align-items: center;
+
+      span {
+        margin-top: 4px;
+      }
+    }
+}
+
+::ng-deep .mat-option-text {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    span {
+      width: 75px;
+    }
+}
+
+.flag-icon {
+    margin-top: 7px;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    margin-bottom: 1px;
+}

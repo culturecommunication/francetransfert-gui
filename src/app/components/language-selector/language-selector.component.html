@@ -1,0 +1,10 @@
+<div class="lang-selection">
+    <mat-select [(value)]="defaultLanguage">
+        <mat-select-trigger class="language-selected">
+            <img [src]="defaultLanguage.flagUrl" class="flag-icon" />
+            <span>{{ defaultLanguage.label }}</span>
+        </mat-select-trigger>
+        <mat-option [value]="lang" *ngFor="let lang of languageList" class="language-option"><img [src]="lang.flagUrl"
+                class="flag-icon" /><span>{{ lang.label }}</span></mat-option>
+    </mat-select>
+</div>

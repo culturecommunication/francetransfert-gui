@@ -1,0 +1,50 @@
+<mat-card class="check-validation-code-card" *ngIf="component === 'upload'">
+    <form [formGroup]="verificationCodeForm" class="verification-code-form-container">
+        <mat-card-content class="check-validation-code-card-content">
+            <mat-icon class="check-validation-code-card-content-icon">lock_outline</mat-icon>
+            <div class="check-validation-code-card-content-text">
+                <span class="check-validation-code-card-content-text-title">Vérifiez votre adresse mail</span>
+                <span class="check-validation-code-card-content-text-sub">Saisissez le code qui vous a été envoyé à
+                    {{email}}
+                    (vérifiez votre dossier spam).</span>
+            </div>
+
+            <div class="verification-code-form-group">
+                <mat-form-field>
+                    <mat-label>Code de vérification</mat-label>
+                    <input matInput formControlName="verificationCode" required>
+                    <mat-error *ngIf="f.verificationCode.errors?.required">Veuillez entrer votre code de
+                        vérification.</mat-error>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <mat-card-actions class="check-validation-code-card-actions">
+            <button type="submit" [disabled]="!verificationCodeForm.valid" mat-raised-button
+                class="check-validation-code-card-actions-btn" (click)="validateForm()">Valider</button>
+        </mat-card-actions>
+    </form>
+</mat-card>
+<mat-card class="check-validation-code-card" *ngIf="component === 'download'">
+    <form [formGroup]="verificationCodeForm" class="verification-code-form-container">
+        <mat-card-content class="check-validation-code-card-content">
+            <mat-icon class="check-validation-code-card-content-icon">lock_outline</mat-icon>
+            <div class="check-validation-code-card-content-text">
+                <span class="check-validation-code-card-content-text-title">Halte-là !</span>
+                <span class="check-validation-code-card-content-text-sub">La saisie d’un mot de passe est nécessaire
+                    pour télécharger ce transfert.</span>
+            </div>
+
+            <div class="verification-code-form-group">
+                <mat-form-field>
+                    <mat-label>Mot de passe</mat-label>
+                    <input matInput formControlName="verificationCode" required>
+                    <mat-error *ngIf="f.verificationCode.errors?.required">Veuillez entrer le mot de passe.</mat-error>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <mat-card-actions class="check-validation-code-card-actions">
+            <button type="submit" [disabled]="!verificationCodeForm.valid" mat-raised-button
+                class="check-validation-code-card-actions-btn" (click)="validateForm()">Valider</button>
+        </mat-card-actions>
+    </form>
+</mat-card>

@@ -1,0 +1,17 @@
+.envelope-mail-form-container {
+    height: 100%;
+    .mat-form-field {
+        width: 100%;
+    }
+    .destinataires-chip-list {
+        ::ng-deep .mat-chip-list-wrapper {
+            margin-top: 20px;
+            width: 100%;
+        }
+        .destinataires-chip {
+            background-color: #DBDBEA;
+            color: var(--ft-blue-france);
+            cursor: pointer;
+        }
+    }
+}

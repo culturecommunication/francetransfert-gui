@@ -1,0 +1,32 @@
+<form [formGroup]="envelopeParametersForm" class="envelope-parameters-form-container">
+
+    <div class="envelope-parameters-form-group">
+        <mat-form-field>
+            <mat-label>Délai de validité</mat-label>
+            <input matInput formControlName="delaiValidite">
+            <span matSuffix>jours</span>
+        </mat-form-field>
+    </div>
+
+    <div class="envelope-parameters-form-group">
+        <mat-form-field>
+            <mat-label>Mot de passe</mat-label>
+            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+
+    <div class="envelope-parameters-form-group">
+        <mat-slide-toggle formControlName="eachDownloadNotify" [labelPosition]="'before'">Être notifié à chaque
+            téléchargement</mat-slide-toggle>
+    </div>
+    <div class="envelope-parameters-form-group">
+        <mat-slide-toggle formControlName="allDownloadNotify" [labelPosition]="'before'">Être notifié quand tous les
+            destinataires auront
+            téléchargé le transfert</mat-slide-toggle>
+    </div>
+
+</form>
