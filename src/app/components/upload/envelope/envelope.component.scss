@@ -1,6 +1,4 @@
-.envelope-card {
-    height: 100%;
-    width: 100%;
+.envelope-card {    
     display: flex;
     flex-direction: column;
     .envelope-card-content {
@@ -57,4 +55,19 @@
             color: var(--ft-mention);
         }
     }
+}
+
+@media screen and (min-width: 812px) {
+    .envelope-card {
+        height: 100%;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 812px) {
+    .envelope-card {
+        height: 100%;
+    }
+}
+
+@media screen and (min-width: 200px) and (max-width: 480px) {
 }

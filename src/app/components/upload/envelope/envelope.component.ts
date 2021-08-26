@@ -34,6 +34,7 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   onMailFormGroupChangeEvent(event) {
     console.log(event);
     this.mailFormValues = event.values;
+    this.mailFormValues.to = event.destinataires;
     this.mailFormValid = event.isValid && this.selectedTab === 'Mail';
     this.checkCanSend();
   }

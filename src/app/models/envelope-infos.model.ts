@@ -5,10 +5,10 @@ export interface EnvelopeInfosModel {
 }
 
 export interface MailInfosModel extends EnvelopeInfosModel {
-    subject: string;
-    to: string[];
+    subject?: string;
+    to?: string[];
 }
 
 export interface LinkInfosModel extends EnvelopeInfosModel {
-    transferName: string;
+    transferName?: string;
 }

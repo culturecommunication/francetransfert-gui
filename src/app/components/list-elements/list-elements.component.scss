@@ -1,5 +1,4 @@
-.list-elements-card {
-    width: 100%;
+.list-elements-card {    
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -23,7 +22,6 @@
         margin-top: 10px;
         display: flex;
         flex-direction: column;
-        text-align: center;
         .file-item {
             width: 100%;
         }
@@ -60,8 +58,7 @@
     }    
 }
 
-.list-elements-card.empty {    
-    width: 100%;
+.list-elements-card.empty {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -97,17 +94,54 @@
     }
 }
 
-@media screen and (min-width: 320px) and (max-width: 812px) {
+@media screen and (min-width: 812px) {
     .list-elements-card {
-        height: 50%;
-        margin-top: 30px;
+
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 812px) {
+    .list-elements-card {
+        min-height: 70%;
         .list-elements-card-header {
         }
         .list-elements-card-content.empty {
             height: 100%;
         }
         .list-elements-card-content {
-            max-height: 70%;     
+            max-height: 180px;    
+            .file-item {       }
+            .list-elements-card-content-icon {
+            }
+            .list-elements-card-content-first-line {
+            }
+            .list-elements-card-content-second-line {
+            }
+            .list-elements-add-elements-wrapper {
+                width: 100%;
+                justify-content: center;
+                .list-elements-card-content-first-line {
+                }
+            }
+        }    
+    }
+    
+    .list-elements-card.empty {
+        height: 50%;
+    }
+}
+
+
+@media screen and (min-width: 200px) and (max-width: 480px) {
+    .list-elements-card {
+        min-height: 70%;
+        .list-elements-card-header {
+        }
+        .list-elements-card-content.empty {
+            height: 100%;
+        }
+        .list-elements-card-content {
+            max-height: 180px;    
             .file-item {       }
             .list-elements-card-content-icon {
             }

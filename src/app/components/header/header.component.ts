@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isMobile: boolean = false;
   @Output() sidenavToggle = new EventEmitter();
   responsiveSubscription: Subscription = new Subscription;
+  screenWidth: string;
 
   constructor(private responsiveService: ResponsiveService) { }
 
@@ -26,6 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onResize() {
     this.responsiveSubscription = this.responsiveService.getMobileStatus().subscribe(isMobile => {
       this.isMobile = isMobile;
+      this.screenWidth = this.responsiveService.screenWidth;
     });
   }
 
