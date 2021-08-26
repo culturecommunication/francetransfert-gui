@@ -67,6 +67,7 @@ node {
                 build job: 'deployement',wait:false, parameters: [
                 booleanParam(name: 'INFRA', value: false),
                 string(name: 'ENVIRONNEMENT', value: "recette"),
+                string(name: 'GROUP', value: "front"),
                 ]
             }
 
@@ -74,6 +75,7 @@ node {
                 build job: 'deployement',wait:false, parameters: [
                 booleanParam(name: 'INFRA', value: false),
                 string(name: 'ENVIRONNEMENT', value: "test"),
+                string(name: 'GROUP', value: "front"),
                 ]
             }
 
@@ -81,6 +83,7 @@ node {
                 build job: 'deployement',wait:false, parameters: [
                 booleanParam(name: 'INFRA', value: false),
                 string(name: 'ENVIRONNEMENT', value: "production"),
+                string(name: 'GROUP', value: "front"),
                 ]
             }
         }
