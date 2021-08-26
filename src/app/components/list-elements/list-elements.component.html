@@ -1,6 +1,6 @@
-<div>
+<!-- <div>
     <ng-container #flow="flow" [flowConfig]="flowConfig"></ng-container>
-</div>
+</div> -->
 <mat-card class="list-elements-card" [ngClass]="(flow.transfers$ | async).transfers.length > 0 ? '' : 'empty'"
     *ngIf="component === 'upload'" ftDragDropFileUpload flowDrop [flow]="flow.flowJs">
     <mat-card-header class="list-elements-card-header" *ngIf="(flow.transfers$ | async).transfers.length > 0">

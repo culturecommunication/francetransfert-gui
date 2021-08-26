@@ -46,7 +46,10 @@
                     font-size: 14px;
                     line-height: 24px;
                 }
-            }        
+            }
+            &-error {
+                color: var(--ft-error);
+            }       
         }
         .check-validation-code-card-actions {
             .check-validation-code-card-actions-btn {

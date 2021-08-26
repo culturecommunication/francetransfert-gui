@@ -21,11 +21,15 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
   }
 
   initForm() {
+    // this.envelopeParametersForm = this.fb.group({
+    //   delaiValidite: ['30'],
+    //   password: [''],
+    //   eachDownloadNotify: '',
+    //   allDownloadNotify: ''
+    // });
     this.envelopeParametersForm = this.fb.group({
-      delaiValidite: ['7'],
-      password: [''],
-      eachDownloadNotify: '',
-      allDownloadNotify: ''
+      delaiValidite: ['30'],
+      password: ['']
     });
     this.envelopeParametersFormChangeSubscription = this.envelopeParametersForm.valueChanges
       .subscribe(() => this.onFormGroupChange.emit({ isValid: this.envelopeParametersForm.valid, values: this.envelopeParametersForm.value }));

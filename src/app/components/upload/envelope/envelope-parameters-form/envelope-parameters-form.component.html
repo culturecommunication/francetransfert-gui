@@ -3,7 +3,7 @@
     <div class="envelope-parameters-form-group">
         <mat-form-field>
             <mat-label>Délai de validité</mat-label>
-            <input matInput formControlName="delaiValidite">
+            <input matInput formControlName="delaiValidite" readonly>
             <span matSuffix>jours</span>
         </mat-form-field>
     </div>
@@ -19,7 +19,7 @@
         </mat-form-field>
     </div>
 
-    <div class="envelope-parameters-form-group">
+    <!-- <div class="envelope-parameters-form-group">
         <mat-slide-toggle formControlName="eachDownloadNotify" [labelPosition]="'before'">Être notifié à chaque
             téléchargement</mat-slide-toggle>
     </div>
@@ -27,6 +27,6 @@
         <mat-slide-toggle formControlName="allDownloadNotify" [labelPosition]="'before'">Être notifié quand tous les
             destinataires auront
             téléchargé le transfert</mat-slide-toggle>
-    </div>
+    </div> -->
 
 </form>

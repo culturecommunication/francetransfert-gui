@@ -1,11 +1,8 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
-import { UploadState } from '@flowjs/ngx-flow';
 import { timer } from 'rxjs/internal/observable/timer';
-import { map } from 'rxjs/internal/operators/map';
-import { share } from 'rxjs/internal/operators/share';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { FileManagerService, UploadManagerService } from 'src/app/services';
+import { FileManagerService } from 'src/app/services';
 
 @Component({
   selector: 'ft-loader',
@@ -46,7 +43,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.timerSubscription.unsubscribe();
+    // this.timerSubscription.unsubscribe();
     this.progressSubscription.unsubscribe();
   }
 

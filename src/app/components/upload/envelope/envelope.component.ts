@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { LinkInfosModel, MailInfosModel } from 'src/app/models';
+import { LinkInfosModel, MailInfosModel, ParametersModel } from 'src/app/models';
 import { FileManagerService, UploadManagerService } from 'src/app/services';
 
 @Component({
@@ -19,12 +19,13 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   showParameters: boolean = false;
   mailFormValues: MailInfosModel;
   linkFormValues: LinkInfosModel;
+  parametersFormValues: ParametersModel;
 
   constructor(private fileManagerService: FileManagerService,
-              private uploadManagerService: UploadManagerService) { }
+    private uploadManagerService: UploadManagerService) { }
 
   ngOnInit(): void {
-    
+
   }
 
   onSelectedTabChange(event) {
@@ -32,7 +33,6 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   }
 
   onMailFormGroupChangeEvent(event) {
-    console.log(event);
     this.mailFormValues = event.values;
     this.mailFormValues.to = event.destinataires;
     this.mailFormValid = event.isValid && this.selectedTab === 'Mail';
@@ -40,19 +40,18 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   }
 
   onLinkFormGroupChangeEvent(event) {
-    console.log(event);
     this.linkFormValues = event.values;
     this.linkFormValid = event.isValid && this.selectedTab === 'Link';
     this.checkCanSend();
   }
 
   onParametersFormGroupChangeEvent(event) {
-    console.log(event);
+    this.parametersFormValues = event.values;
   }
 
   checkCanSend() {
     this.fileManagerServiceSubscription = this.fileManagerService.hasFiles.subscribe(hasFiles => {
-      console.log(`hasFiles: ${hasFiles} ; mailFormValid: ${this.mailFormValid} ; linkFormValid: ${this.linkFormValid}`)
+      // console.log(`hasFiles: ${hasFiles} ; mailFormValid: ${this.mailFormValid} ; linkFormValid: ${this.linkFormValid}`)
       this.canSend = hasFiles && (this.mailFormValid || this.linkFormValid);
     });
   }
@@ -64,10 +63,20 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   startUpload() {
     console.log('GO !')
     if (this.selectedTab === 'Mail') {
-      this.uploadManagerService.envelopeInfos.next({ type: 'mail' , ...this.mailFormValues });
+      if (this.parametersFormValues) {
+        this.mailFormValues.parameters = this.parametersFormValues;
+      } else {
+        this.mailFormValues.parameters = { expiryDays: 30,  password: ''}
+      }
+      this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.mailFormValues });
     }
     if (this.selectedTab === 'Link') {
-      this.uploadManagerService.envelopeInfos.next({ type: 'link' , ...this.linkFormValues });
+      if (this.parametersFormValues) {
+        this.linkFormValues.parameters = this.parametersFormValues;
+      } else {
+        this.linkFormValues.parameters = { expiryDays: 30,  password: ''}
+      }
+      this.uploadManagerService.envelopeInfos.next({ type: 'link', ...this.linkFormValues });
     }
     this.uploadStarted.next(true);
   }
@@ -75,6 +84,6 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.fileManagerServiceSubscription) {
       this.fileManagerServiceSubscription.unsubscribe();
-    }    
+    }
   }
 }

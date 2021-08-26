@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Transfer } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs/internal/Subject';
@@ -11,7 +11,7 @@ import { DownloadService } from 'src/app/services';
   templateUrl: './download.component.html',
   styleUrls: ['./download.component.scss']
 })
-export class DownloadComponent implements OnInit {
+export class DownloadComponent implements OnInit, OnDestroy {
   private onDestroy$: Subject<void> = new Subject();
   downloadValidated: boolean = false;
   transfers: Array<any> = [];
@@ -92,6 +92,11 @@ export class DownloadComponent implements OnInit {
 
   onDownloadValidated(event) {
     this.downloadValidated = event;
+  }
+
+  ngOnDestroy() {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
 }

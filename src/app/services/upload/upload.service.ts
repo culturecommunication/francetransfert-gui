@@ -1,15 +1,17 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Transfer } from '@flowjs/ngx-flow/lib/transfer';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { UploadManagerService } from '../upload-manager/upload-manager.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadService {
 
-  constructor(private _httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient,
+    private uploadManagerService: UploadManagerService) { }
 
   sendTree(body: any): any {
     const trMapping = this._mappingTree(body.transfers);
@@ -17,7 +19,7 @@ export class UploadService {
       confirmedSenderId: '',
       senderEmail: body.senderMail,
       recipientEmails: body.emails,
-      password: '',
+      password: body.password,
       message: body.message,
       rootFiles: trMapping.files,
       rootDirs: trMapping.dirs,
@@ -27,7 +29,8 @@ export class UploadService {
     return this._httpClient.post(`${environment.host}${environment.apis.upload.tree}`, treeBody).pipe(
       map((response: any) => {
         return response;
-      })
+      }),
+      catchError(this.handleError('sendTree'))
     );
   }
 
@@ -45,6 +48,10 @@ export class UploadService {
     return this._httpClient.post(
       `${environment.host}${environment.apis.upload.confirmationCode}?code=${body.code}&senderMail=${body.senderMail}`,
       treeBody
+    ).pipe(map(response => {
+      return response;
+    }),
+      catchError(this.handleError('validateCode'))
     );
   }
 
@@ -53,7 +60,11 @@ export class UploadService {
       mailAdress: body.mail,
       message: body.message,
       satisfaction: body.satisfaction
-    });
+    }).pipe(map(response => {
+      return response;
+    }),
+      catchError(this.handleError('rate'))
+    );
   }
 
   private _mappingTree(transfers: Array<any>) {
@@ -100,5 +111,17 @@ export class UploadService {
 
   private _dirIndex(tab: Array<any>, name: string): number {
     return tab.findIndex(dir => dir.name == name);
+  }
+
+  private handleError(operation: string) {
+    return (err: any) => {
+      const errMsg = `error in ${operation}()`;
+      console.log(`${errMsg}:`, err);
+      if (err instanceof HttpErrorResponse) {
+        this.uploadManagerService.uploadError$.next(err.status);
+        console.log(`status: ${err.status}, ${err.statusText}`);
+      }
+      throw (errMsg);
+    };
   }
 }

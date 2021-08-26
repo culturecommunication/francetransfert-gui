@@ -1,3 +1,6 @@
+<div>
+    <ng-container #flow="flow" [flowConfig]="flowConfig"></ng-container>
+</div>
 <div class="upload-wrapper" [ngStyle]="{ 'flex-direction': (screenWidth !== 'lg' && (!uploadFinished && !uploadStarted)) ? 'column-reverse' : 'row' }">
     <ft-loader *ngIf="uploadValidated && uploadStarted && !uploadFinished"
         (transferCancelled)="onTransferCancelled($event)" (transferFinished)="onTransferFinished($event)"
@@ -6,7 +9,7 @@
         (transferValidated)="onTransferValidated($event)" [component]="'upload'" [email]="senderEmail"
         class="check-validation-code-wrapper">
     </ft-check-validation-code>
-    <ft-list-elements *ngIf="!uploadStarted" [component]="'upload'" class="list-elements-wrapper"></ft-list-elements>
+    <ft-list-elements *ngIf="!uploadStarted" [component]="'upload'" [flow]="flow" class="list-elements-wrapper"></ft-list-elements>
     <ft-envelope *ngIf="!uploadStarted" (uploadStarted)="onUploadStarted($event)" class="envelope-wrapper">
     </ft-envelope>
     <ft-end-message [component]="'upload'" *ngIf="uploadFinished && uploadStarted" class="end-message-wrapper">
