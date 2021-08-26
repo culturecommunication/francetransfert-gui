@@ -4,12 +4,19 @@
 
 export const environment = {
   production: false,
-  host: 'https://recette.francetransfert.culture.gouv.fr/',
+  host: 'http://localhost:8080/',
   apis: {
-    upload: 'api-private/upload-module/upload',
-    tree: 'api-private/upload-module/sender-info',
-    confirmationCode: 'api-private/upload-module/validate-code',
-    rate: 'api-private/upload-module/satisfaction'
+    upload: {
+      upload: 'api-private/upload-module/upload',
+      tree: 'api-private/upload-module/sender-info',
+      confirmationCode: 'api-private/upload-module/validate-code',
+      rate: 'api-private/upload-module/satisfaction'
+    },
+    download: {
+      download: 'api-private/download-module/download-info',
+      downloadUrl: 'api-private/download-module/generate-download-url',
+      rate: 'api-private/download-module/satisfaction'
+    }
   },
   version: '1.0.3'
 };

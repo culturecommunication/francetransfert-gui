@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SatisfactionCheckComponent implements OnInit {
   satisfactionCheckForm: FormGroup;
   selectedFace: 'dissatisfied' | 'neutral' | 'satisfied' | '';
-  @Output() satisfactionCheckDone: EventEmitter<boolean> = new EventEmitter();
+  @Output() satisfactionCheckDone: EventEmitter<any> = new EventEmitter();
 
   constructor(private fb: FormBuilder) { }
 
@@ -32,7 +32,19 @@ export class SatisfactionCheckComponent implements OnInit {
     if (this.satisfactionCheckForm.invalid) {
       return;
     }
-    this.satisfactionCheckDone.emit(true);
+    let faceValue;
+    switch(this.selectedFace) {
+      case 'dissatisfied':
+        faceValue = 1;
+        break;
+      case 'neutral':
+        faceValue = 2;
+        break;
+      case 'satisfied':
+        faceValue = 4;
+        break;
+    }
+    this.satisfactionCheckDone.emit({ satisfaction: faceValue, message: this.satisfactionCheckForm.get('message').value });
   }
 
   selectFace(face) {

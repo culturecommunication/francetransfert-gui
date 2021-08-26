@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +22,10 @@ export class ResponsiveService {
 
   public checkWidth() {
     const width = window.innerWidth;
-    if (width <= 812) {
+    if (width <= 480) {
       this.screenWidth = 'sm';
       this.onMobileChange(true);
-    } else if (width > 812 && width <= 992) {
+    } else if (width > 480 && width <= 812) {
       this.screenWidth = 'md';
       this.onMobileChange(false);
     } else {

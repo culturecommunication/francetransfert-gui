@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'ft-download-elements',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DownloadElementsComponent implements OnInit {
 
+  @Output() dowloadStarted: EventEmitter<boolean> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  download() {
+    this.dowloadStarted.emit(true);
   }
 
 }

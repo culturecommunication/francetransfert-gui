@@ -1,14 +1,18 @@
 <mat-toolbar class="header-toolbar">
     <mat-toolbar-row class="header-toolbar-row">
         <div class="header-toolbar-row-title">
-            <div class="header-toolbar-logos-wrapper" [routerLink]="['/upload']">
+            <div class="header-toolbar-logos-wrapper" [routerLink]="['/upload']" *ngIf="!isMobile">
                 <img class="header-toolbar-logo rep-fr" src="assets/logos/republique_francaise_logo.svg" />
                 <img class="header-toolbar-logo ft" src="assets/logos/france_transfert_logo.svg" />
             </div>
-            <button mat-icon-button (click)="onToggleSidenav()" class="menu-icon" *ngIf="isMobile">
+            <div class="header-toolbar-logos-wrapper" [routerLink]="['/upload']" *ngIf="isMobile">
+                <img class="header-toolbar-logo rep-fr" src="assets/logos/republique_francaise_logo.svg" />
+                <img class="header-toolbar-logo ft" src="assets/logos/monogramme_ft.png" />
+            </div>
+            <button mat-icon-button (click)="onToggleSidenav()" class="menu-icon" *ngIf="screenWidth !== 'lg'">
                 <mat-icon>menu</mat-icon>
             </button>
-            <div class="header-toolbar-right" *ngIf="!isMobile">
+            <div class="header-toolbar-right" *ngIf="screenWidth === 'lg'">
                 <ft-language-selector class="language-selector-wrapper"></ft-language-selector>
                 <span class="column-divider"></span>
                 <div class="header-toolbar-link" [routerLink]="['/faq']">

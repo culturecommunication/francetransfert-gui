@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Transfer } from '@flowjs/ngx-flow';
+import { Subject } from 'rxjs/internal/Subject';
+import { takeUntil } from 'rxjs/operators';
 import { FTTransferModel } from 'src/app/models';
+import { DownloadService } from 'src/app/services';
 
 @Component({
   selector: 'ft-download',
@@ -8,10 +12,15 @@ import { FTTransferModel } from 'src/app/models';
   styleUrls: ['./download.component.scss']
 })
 export class DownloadComponent implements OnInit {
-
+  private onDestroy$: Subject<void> = new Subject();
   downloadValidated: boolean = false;
   transfers: Array<any> = [];
   downloadInfos: any;
+  emails: Array<string>;
+  password: string;
+  passwordError: boolean;
+  withPassword: boolean;
+  params: Array<{ string: string }>;
 
   MOCK_RESPONSE_DOWNLOAD = {
     validUntilDate: '2021-08-23',
@@ -25,16 +34,60 @@ export class DownloadComponent implements OnInit {
     ]
   };
 
-  constructor() { }
+  constructor(private _downloadService: DownloadService,
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router) { }
 
   ngOnInit(): void {
-    this.downloadInfos = this.MOCK_RESPONSE_DOWNLOAD;
-    this.downloadInfos.rootFiles.map(file => {
-      this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
+
+    this._activatedRoute.queryParams.pipe(takeUntil(this.onDestroy$)).subscribe((params: Array<{ string: string }>) => {
+      this.params = params;
+      if (this.params['enclosure'] && this.params['recipient'] && this.params['token']) {
+        this._downloadService
+          .getDownloadInfos(params)
+          .pipe(takeUntil(this.onDestroy$))
+          .subscribe(downloadInfos => {
+            this.downloadInfos = downloadInfos;
+            this.downloadInfos.rootFiles.map(file => {
+              this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
+            });
+            this.downloadInfos.rootDirs.map(file => {
+              this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
+            });
+          });
+      } else {
+        if (this.params['mock']) {
+          this.downloadInfos = this.MOCK_RESPONSE_DOWNLOAD;
+          this.downloadInfos.rootFiles.map(file => {
+            this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
+          });
+          this.downloadInfos.rootDirs.map(file => {
+            this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
+          });
+        } else {
+          this._router.navigateByUrl('/error');
+        }
+      }
     });
-    this.downloadInfos.rootDirs.map(file => {
-      this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
-    });
+  }
+
+  download(): void {
+    this._downloadService
+      .getDownloadUrl(this.params, this.downloadInfos.withPassword, this.password)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(result => {
+        if (result.type && result.type === 'WRONG_PASSWORD') {
+          this.passwordError = true;
+        } else {
+          window.location.assign(result.downloadURL);
+        }
+      });
+  }
+
+  onDowloadStarted(event) {
+    if (event) {
+      this.download();
+    }
   }
 
   onDownloadValidated(event) {

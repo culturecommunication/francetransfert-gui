@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.backgroundPath = this.backgroundSelectionService.getBackground();
-    this.tarteaucitronService.initTarteaucitron();    
+    this.tarteaucitronService.initTarteaucitron();
     this.responsiveSubscription = this.responsiveService.getMobileStatus().subscribe(isMobile => {
       this.isMobile = isMobile;
       if (isMobile) {
@@ -47,8 +47,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   toggleSideNav() {
-    if (this.isMobile) {
-      this.sidenav.toggle();
-    }
+    this.sidenav.toggle();
   }
 }

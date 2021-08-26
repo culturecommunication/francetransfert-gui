@@ -39,7 +39,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
       message: ['']
     }, { validator: this.checkEmails });
     this.envelopeMailFormChangeSubscription = this.envelopeMailForm.valueChanges
-      .subscribe(() => this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value }));
+      .subscribe(() => this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList }));
   }
 
   // convenience getter for easy access to form fields

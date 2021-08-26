@@ -1,6 +1,6 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FlowDirective, Transfer } from '@flowjs/ngx-flow';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { FileManagerService } from 'src/app/services';
 import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
 
@@ -35,7 +35,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadSubscription = this.flow.events$.subscribe((event) => {
       console.log(event);
       if (event.type === 'filesSubmitted') {
-        // this.flow.upload();
+        this.fileManagerService.transfers.next(this.flow.transfers$);
         this.cdr.detectChanges();
       }
     });
