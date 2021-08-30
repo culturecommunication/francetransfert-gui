@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  host: 'https://recette.francetransfert.culture.gouv.fr/',
+  host: '/',
   apis: {
     upload: {
       upload: 'api-private/upload-module/upload',

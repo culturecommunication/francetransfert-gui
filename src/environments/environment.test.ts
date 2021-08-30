@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  host: 'https://test-francetransfert.aot.agency/',
+  host: '/',
   apis: {
     upload: {
       upload: 'api-private/upload-module/upload',
