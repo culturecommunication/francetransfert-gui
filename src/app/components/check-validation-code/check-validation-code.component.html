@@ -8,13 +8,21 @@
                     {{email}}
                     (vérifiez votre dossier spam).</span>
             </div>
-
+            <div class="check-validation-code-card-content-error" *ngIf="errorCode === 501">
+                <span>Le code de vérification est invalide.</span>
+            </div>
+            <div class="check-validation-code-card-content-error" *ngIf="errorCode === 400">
+                <span>Une erreur technique s'est produite.</span>
+            </div>
             <div class="verification-code-form-group">
                 <mat-form-field>
                     <mat-label>Code de vérification</mat-label>
                     <input matInput formControlName="verificationCode" required>
                     <mat-error *ngIf="f.verificationCode.errors?.required">Veuillez entrer votre code de
                         vérification.</mat-error>
+                    <mat-error *ngIf="f.verificationCode.errors?.minlength || f.verificationCode.errors?.maxlength">Le
+                        code de
+                        vérification doit comporter 6 caractères.</mat-error>
                 </mat-form-field>
             </div>
         </mat-card-content>

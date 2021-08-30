@@ -13,9 +13,10 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() component: 'upload' | 'download';
   @Input() transfers: Array<any>;
-  @ViewChild('flow')
-  flow: FlowDirective;
-  flowConfig: any;
+  @Input() flow: FlowDirective;
+  // @ViewChild('flow')
+  // flow: FlowDirective;
+  // flowConfig: any;
   filesSize: number = 0;
 
   uploadSubscription: Subscription;
@@ -23,7 +24,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private cdr: ChangeDetectorRef, private fileManagerService: FileManagerService) { }
 
   ngOnInit(): void {
-    this.flowConfig = FLOW_CONFIG;
+    // this.flowConfig = FLOW_CONFIG;
     if (this.component === 'download') {
       this.transfers.forEach(t => {
         this.filesSize += t.size;

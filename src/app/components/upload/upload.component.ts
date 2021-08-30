@@ -1,16 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UploadState } from '@flowjs/ngx-flow';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FlowDirective, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs/internal/Subject';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { take, takeUntil } from 'rxjs/operators';
 import { FileManagerService, ResponsiveService, UploadManagerService, UploadService } from 'src/app/services';
+import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
 
 @Component({
   selector: 'ft-upload',
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss']
 })
-export class UploadComponent implements OnInit, OnDestroy {
+export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private onDestroy$: Subject<void> = new Subject();
   isMobile: boolean = false;
@@ -21,14 +22,18 @@ export class UploadComponent implements OnInit, OnDestroy {
   uploadManagerSubscription: Subscription;
   responsiveSubscription: Subscription = new Subscription;
   senderEmail: string;
+  @ViewChild('flow')
+  flow: FlowDirective;
+  flowConfig: any;
 
   constructor(private responsiveService: ResponsiveService,
-              private uploadManagerService: UploadManagerService,
-              private fileManagerService: FileManagerService,
-              private uploadService: UploadService) { }
+    private uploadManagerService: UploadManagerService,
+    private fileManagerService: FileManagerService,
+    private uploadService: UploadService) { }
 
   ngOnInit(): void {
     this.onResize();
+    this.flowConfig = FLOW_CONFIG;
     this.responsiveService.checkWidth();
     this.uploadManagerSubscription = this.uploadManagerService.envelopeInfos.subscribe(_envelopeInfos => {
       console.log(_envelopeInfos);
@@ -36,7 +41,11 @@ export class UploadComponent implements OnInit, OnDestroy {
         this.senderEmail = _envelopeInfos.from;
       }
     });
-  }  
+  }
+
+  ngAfterViewInit() {
+    // console.log(this.flow);
+  }
 
   onResize() {
     this.responsiveSubscription = this.responsiveService.getMobileStatus().subscribe(isMobile => {
@@ -52,6 +61,7 @@ export class UploadComponent implements OnInit, OnDestroy {
 
   onTransferCancelled(event) {
     this.uploadStarted = !event;
+    this.uploadValidated = !event;
   }
 
   onTransferFinished(event) {
@@ -59,15 +69,18 @@ export class UploadComponent implements OnInit, OnDestroy {
   }
 
   onTransferValidated(event) {
-    this.uploadValidated = event;
+    if (event) {
+      // this.uploadValidated = true;
+      this.validateCode(event);
+    }
   }
 
   onSatisfactionCheckDone(event) {
     if (event) {
       this.uploadService.rate({ mail: this.uploadManagerService.envelopeInfos.getValue().from, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
-      .subscribe(() => {
-        
-      });
+        .subscribe(() => {
+
+        });
       this.uploadStarted = false;
       this.uploadValidated = false;
       this.uploadFinished = false;
@@ -84,38 +97,41 @@ export class UploadComponent implements OnInit, OnDestroy {
         transfers: transfers.transfers,
         emails: this.uploadManagerService.envelopeInfos.getValue().to,
         message: this.uploadManagerService.envelopeInfos.getValue().message,
-        senderMail: this.uploadManagerService.envelopeInfos.getValue().from
+        senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
+        password: this.uploadManagerService.envelopeInfos.getValue().parameters.password
       })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
-        if (result.senderId) {
-          console.log(`this.uploadBegin(${result})`);
-        } else {
-          result.componentInstance.action.pipe(takeUntil(this.onDestroy$)).subscribe(code => {
-            this.uploadService
-              .validateCode({
-                code: code,
-                transfers: transfers.transfers,
-                emails: this.uploadManagerService.envelopeInfos.getValue().to,
-                message: this.uploadManagerService.envelopeInfos.getValue().message,
-                senderMail: this.uploadManagerService.envelopeInfos.getValue().from
-              })
-              .pipe(takeUntil(this.onDestroy$))
-              .subscribe(
-                rs => {
-                  result.close();
-                  console.log(`this.uploadBegin(${result})`);
-                },
-                () => {
-                  result.componentInstance.haveError = true;
-                }
-              );
-          });
-        }
       });
   }
 
+  async validateCode(code: string): Promise<any> {
+    let transfers: UploadState = await this.uploadManagerService.getRxValue(this.fileManagerService.transfers.getValue());
+    this.uploadService
+      .validateCode({
+        code: code,
+        transfers: transfers.transfers,
+        emails: this.uploadManagerService.envelopeInfos.getValue().to,
+        message: this.uploadManagerService.envelopeInfos.getValue().message,
+        senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
+        password: this.uploadManagerService.envelopeInfos.getValue().parameters.password
+      })
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((result: any) => {
+        this.uploadManagerService.uploadInfos.next(result);
+        this.uploadValidated = true;
+        this.beginUpload(result);
+      });
+  }
+
+  beginUpload(result) {
+    this.flow.flowJs.opts.query = { enclosureId: result.enclosureId };
+    this.flow.upload();
+  }
+
   ngOnDestroy() {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
     this.responsiveSubscription.unsubscribe();
     this.uploadManagerSubscription.unsubscribe();
   }

@@ -7,3 +7,4 @@ export { LanguageSelectionService } from './language-selection/language-selectio
 export { BackgroundSelectionService } from './background-selection/background-selection.service';
 export { UploadService } from './upload/upload.service';
 export { DownloadService } from './download/download.service';
+export { DownloadManagerService } from './download-manager/download-manager.service';

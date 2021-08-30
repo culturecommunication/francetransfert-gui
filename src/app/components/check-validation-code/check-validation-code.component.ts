@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { UploadManagerService } from 'src/app/services';
 
 @Component({
@@ -7,23 +8,34 @@ import { UploadManagerService } from 'src/app/services';
   templateUrl: './check-validation-code.component.html',
   styleUrls: ['./check-validation-code.component.scss']
 })
-export class CheckValidationCodeComponent implements OnInit {
+export class CheckValidationCodeComponent implements OnInit, OnDestroy {
 
   @Input() component: 'upload' | 'download';
   @Input() email: string;
   verificationCodeForm: FormGroup;
-  @Output() transferValidated: EventEmitter<boolean> = new EventEmitter();
-  @Output() dowloadValidated: EventEmitter<boolean> = new EventEmitter();
+  @Output() transferValidated: EventEmitter<string> = new EventEmitter();
+  @Output() dowloadValidated: EventEmitter<string> = new EventEmitter();
+  errorSubscription: Subscription = new Subscription();
+  errorCode: number;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private uploadManagerService: UploadManagerService) { }
 
   ngOnInit(): void {
-    this.initForm();    
+    this.initForm();
+    this.errorSubscription = this.uploadManagerService.uploadError$.subscribe(error => {
+      if (error) {
+        this.errorCode = error;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.errorSubscription.unsubscribe();
   }
 
   initForm() {
     this.verificationCodeForm = this.fb.group({
-      verificationCode: ['', [Validators.required]],
+      verificationCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
     });
   }
 
@@ -36,10 +48,10 @@ export class CheckValidationCodeComponent implements OnInit {
       return;
     }
     if (this.component === 'upload') {
-      this.transferValidated.emit(true);
+      this.transferValidated.emit(this.verificationCodeForm.get('verificationCode').value);
     }
     if (this.component === 'download') {
-      this.dowloadValidated.emit(true);
+      this.dowloadValidated.emit(this.verificationCodeForm.get('verificationCode').value);
     }
   }
 
