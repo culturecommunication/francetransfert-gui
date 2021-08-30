@@ -39,6 +39,8 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+.scannerwork
+sonar-project.properties
 
 # System Files
 .DS_Store
