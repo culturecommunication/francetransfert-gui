@@ -60,3 +60,15 @@ $dark-theme: mat.define-dark-theme($dark-primary, $dark-accent, $dark-warn);
 div, span, p, h1, h2, h3, h4, h5 {
   font-family: 'marianne', sans-serif !important; 
 }
+
+h1 {
+  font-weight: bold !important;
+  font-size: 40px !important;
+  line-height: 48px !important;
+}
+
+h2 {
+  font-weight: bold !important;
+  font-size: 32px !important;
+  line-height: 40px !important;
+}

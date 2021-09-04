@@ -35,7 +35,7 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.verificationCodeForm = this.fb.group({
-      verificationCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+      verificationCode: ['', [Validators.required]],
     });
   }
 

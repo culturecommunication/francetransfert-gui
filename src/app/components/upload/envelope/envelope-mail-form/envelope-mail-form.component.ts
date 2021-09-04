@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Subscription } from 'rxjs';
+import { MailInfosModel } from 'src/app/models';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -17,6 +18,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./envelope-mail-form.component.scss']
 })
 export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
+  @Input() mailFormValues: MailInfosModel;
   envelopeMailForm: FormGroup;
   @Output() public onFormGroupChange = new EventEmitter<any>();
   envelopeMailFormChangeSubscription: Subscription;
@@ -33,10 +35,10 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   initForm() {
     this.envelopeMailForm = this.fb.group({
       // from: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9](\.?[a-z0-9]){3,}@culture\.gouv\.fr$')]],
-      from: ['', [Validators.required, Validators.email]],
-      to: ['', [Validators.email]],
-      subject: [''],
-      message: ['']
+      from: [this.mailFormValues?.from, [Validators.required, Validators.email]],
+      to: [this.mailFormValues?.to, [Validators.email]],
+      subject: [this.mailFormValues?.subject],
+      message: [this.mailFormValues?.message]
     }, { validator: this.checkEmails });
     this.envelopeMailFormChangeSubscription = this.envelopeMailForm.valueChanges
       .subscribe(() => this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList }));
@@ -46,11 +48,16 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   get f() { return this.envelopeMailForm.controls; }
 
   onBlurDestinataires() {
-    if (this.envelopeMailForm.get('to').value !== '') {
-      this.destinatairesList.push(this.envelopeMailForm.get('to').value);
-      this.envelopeMailForm.get('to').setValue('');
-      this.envelopeMailForm.controls['to'].setErrors(null);
-    }    
+    if (this.envelopeMailForm.get('to').value && !this.envelopeMailForm.get('to').hasError('email')) {
+      let found = this.destinatairesList.find(o => o === this.envelopeMailForm.get('to').value);
+      if (!found) {
+        if (this.destinatairesList.length < 100) {
+          this.destinatairesList.push(this.envelopeMailForm.get('to').value);
+          this.envelopeMailForm.get('to').setValue('');
+          this.envelopeMailForm.controls['to'].setErrors(null);
+        }
+      }
+    }
   }
 
   checkEmails: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
@@ -82,8 +89,8 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     this.destinatairesList.splice(index, 1);
     this.envelopeMailForm.get('to').setValue('');
     if (this.destinatairesList.length === 0) {
-      this.envelopeMailForm.controls['to'].setErrors({'required': true});
-    }    
+      this.envelopeMailForm.controls['to'].setErrors({ 'required': true });
+    }
   }
 
 }

@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { ParametersModel } from 'src/app/models';
 
 @Component({
   selector: 'ft-envelope-parameters-form',
@@ -8,7 +9,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
   styleUrls: ['./envelope-parameters-form.component.scss']
 })
 export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
-
+  @Input() parametersFormValues: ParametersModel;
   envelopeParametersForm: FormGroup;
   @Output() public onFormGroupChange = new EventEmitter<any>();
   envelopeParametersFormChangeSubscription: Subscription;
@@ -28,8 +29,8 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
     //   allDownloadNotify: ''
     // });
     this.envelopeParametersForm = this.fb.group({
-      delaiValidite: ['30'],
-      password: ['']
+      expiryDays: [this.parametersFormValues?.expiryDays ? this.parametersFormValues?.expiryDays : '30', [Validators.max(90), Validators.min(1)]],
+      password: [this.parametersFormValues?.password]
     });
     this.envelopeParametersFormChangeSubscription = this.envelopeParametersForm.valueChanges
       .subscribe(() => this.onFormGroupChange.emit({ isValid: this.envelopeParametersForm.valid, values: this.envelopeParametersForm.value }));

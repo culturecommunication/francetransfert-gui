@@ -3,7 +3,7 @@
         <mat-tab-group (selectedTabChange)="onSelectedTabChange($event)" class="envelope-card-tab-group"
             mat-align-tabs="start">
             <mat-tab label="Mail">
-                <ft-envelope-mail-form (onFormGroupChange)="onMailFormGroupChangeEvent($event)"
+                <ft-envelope-mail-form [mailFormValues]="mailFormValues" (onFormGroupChange)="onMailFormGroupChangeEvent($event)"
                     class="envelope-mail-form-wrapper"></ft-envelope-mail-form>
             </mat-tab>
             <mat-tab label="Lien">
@@ -13,7 +13,7 @@
                         <mat-icon class="envelope-card-info-icon">info_outline</mat-icon>
                     </div>
                 </ng-template>
-                <ft-envelope-link-form (onFormGroupChange)="onLinkFormGroupChangeEvent($event)"
+                <ft-envelope-link-form [linkFormValues]="linkFormValues" (onFormGroupChange)="onLinkFormGroupChangeEvent($event)"
                     class="envelope-link-form-wrapper"></ft-envelope-link-form>
             </mat-tab>
         </mat-tab-group>
@@ -32,7 +32,7 @@
             <mat-card-title>Paramètres du transfert</mat-card-title>
         </mat-card-header>
         <mat-card-content class="envelope-card-content">
-            <ft-envelope-parameters-form (onFormGroupChange)="onParametersFormGroupChangeEvent($event)"
+            <ft-envelope-parameters-form [parametersFormValues]="parametersFormValues" (onFormGroupChange)="onParametersFormGroupChangeEvent($event)"
                 class="envelope-parameters-form-wrapper"></ft-envelope-parameters-form>
         </mat-card-content>
         <mat-card-actions class="envelope-card-actions">

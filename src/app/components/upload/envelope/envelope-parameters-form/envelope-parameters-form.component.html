@@ -3,8 +3,10 @@
     <div class="envelope-parameters-form-group">
         <mat-form-field>
             <mat-label>Délai de validité</mat-label>
-            <input matInput formControlName="delaiValidite" readonly>
+            <input matInput formControlName="expiryDays">
             <span matSuffix>jours</span>
+            <mat-error *ngIf="f.expiryDays.errors?.min">Le délai de validité ne peut être inférieur à 1 jour</mat-error>
+            <mat-error *ngIf="f.expiryDays.errors?.max">Le délai de validité ne peut être supérieur à 90 jours</mat-error>
         </mat-form-field>
     </div>
 

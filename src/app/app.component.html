@@ -6,12 +6,12 @@
       <ft-menu class="app-menu" (sidenavToggle)="toggleSideNav()"></ft-menu>
     </mat-sidenav>
     <mat-sidenav-content>
-      <div class="sidenav-content">
+      <div class="sidenav-content" #topRoot>
         <div class="app-content">
           <router-outlet #outlet="outlet" class="app-outlet"></router-outlet>
-        </div>
+        </div>        
       </div>
-      <ft-footer class="app-footer"></ft-footer>
+      <ft-footer (routingCalled)="onRoutingCalled($event)" class="app-footer"></ft-footer>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

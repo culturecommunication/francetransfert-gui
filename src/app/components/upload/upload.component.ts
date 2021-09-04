@@ -22,6 +22,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   uploadManagerSubscription: Subscription;
   responsiveSubscription: Subscription = new Subscription;
   senderEmail: string;
+  availabilityDays: number;
   @ViewChild('flow')
   flow: FlowDirective;
   flowConfig: any;
@@ -39,6 +40,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log(_envelopeInfos);
       if (_envelopeInfos && _envelopeInfos.from) {
         this.senderEmail = _envelopeInfos.from;
+        this.availabilityDays = _envelopeInfos.parameters.expiryDays
       }
     });
   }
@@ -86,6 +88,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       this.uploadFinished = false;
     }
     this.uploadManagerService.envelopeInfos.next(null);
+    this.fileManagerService.transfers.next(null);
   }
 
   async upload(): Promise<any> {
@@ -95,10 +98,12 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadService
       .sendTree({
         transfers: transfers.transfers,
-        emails: this.uploadManagerService.envelopeInfos.getValue().to,
+        ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
         senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
-        password: this.uploadManagerService.envelopeInfos.getValue().parameters.password
+        password: this.uploadManagerService.envelopeInfos.getValue().parameters.password,
+        expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays,
+        ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false }
       })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
@@ -111,10 +116,12 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       .validateCode({
         code: code,
         transfers: transfers.transfers,
-        emails: this.uploadManagerService.envelopeInfos.getValue().to,
+        ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
         senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
-        password: this.uploadManagerService.envelopeInfos.getValue().parameters.password
+        password: this.uploadManagerService.envelopeInfos.getValue().parameters.password,
+        expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays,
+        ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false }
       })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
@@ -127,6 +134,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   beginUpload(result) {
     this.flow.flowJs.opts.query = { enclosureId: result.enclosureId };
     this.flow.upload();
+    this.uploadFinished = true;
   }
 
   ngOnDestroy() {

@@ -3,14 +3,14 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
 import { filter } from 'rxjs/internal/operators/filter';
 import { first } from 'rxjs/internal/operators/first';
-import { MailInfosModel, UploadInfosModel } from 'src/app/models';
+import { LinkInfosModel, MailInfosModel, UploadInfosModel } from 'src/app/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadManagerService {
 
-  envelopeInfos: BehaviorSubject<MailInfosModel> = new BehaviorSubject<MailInfosModel>(null);
+  envelopeInfos: BehaviorSubject<MailInfosModel | LinkInfosModel> = new BehaviorSubject<MailInfosModel | LinkInfosModel>(null);
   uploadError$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
   uploadInfos: BehaviorSubject<UploadInfosModel> = new BehaviorSubject<UploadInfosModel>(null);
 

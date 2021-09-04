@@ -14,6 +14,7 @@ export class UploadService {
     private uploadManagerService: UploadManagerService) { }
 
   sendTree(body: any): any {
+    console.log(body)
     const trMapping = this._mappingTree(body.transfers);
     const treeBody = {
       confirmedSenderId: '',
@@ -23,8 +24,8 @@ export class UploadService {
       message: body.message,
       rootFiles: trMapping.files,
       rootDirs: trMapping.dirs,
-      //publicLink: true
-      //expireDelay: body.expireDelay
+      publicLink: body.publicLink,
+      expireDelay: body.expiryDays
     };
     return this._httpClient.post(`${environment.host}${environment.apis.upload.tree}`, treeBody).pipe(
       map((response: any) => {
@@ -43,7 +44,9 @@ export class UploadService {
       password: body.password,
       message: body.message,
       rootFiles: trMapping.files,
-      rootDirs: trMapping.dirs
+      rootDirs: trMapping.dirs,
+      publicLink: body.publicLink,
+      expireDelay: body.expiryDays
     };
     return this._httpClient.post(
       `${environment.host}${environment.apis.upload.confirmationCode}?code=${body.code}&senderMail=${body.senderMail}`,

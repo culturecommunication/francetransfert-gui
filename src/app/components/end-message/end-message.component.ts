@@ -8,13 +8,16 @@ import { Component, Input, OnInit } from '@angular/core';
 export class EndMessageComponent implements OnInit {
 
   @Input() component: 'upload' | 'download';
+  @Input() availabilityDays: number;
   availabilityDate: Date;
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.availabilityDays)
     this.availabilityDate = new Date();
-    this.availabilityDate.setDate( this.availabilityDate.getDate() + 7 );
+    this.availabilityDate.setDate( this.availabilityDate.getDate() + this.availabilityDays );
+    console.log(this.availabilityDate)
   }
 
 }

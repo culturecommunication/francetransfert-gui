@@ -5,7 +5,15 @@
     .list-elements-card-header {
         width: 100%;
         align-self: flex-start;
-        border-bottom: 1px solid var(--ft-asset);
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid var(--ft-asset);        
+        .mat-card-title {
+            font-size: 16px;
+        }
+        .error-message {
+            color: var(--ft-error);
+        }
     }
     .list-elements-card-content.empty {
         display: flex;

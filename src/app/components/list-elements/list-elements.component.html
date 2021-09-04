@@ -5,9 +5,14 @@
     *ngIf="component === 'upload'" ftDragDropFileUpload flowDrop [flow]="flow.flowJs">
     <mat-card-header class="list-elements-card-header" *ngIf="(flow.transfers$ | async).transfers.length > 0">
         <mat-card-title *ngIf="(flow.transfers$ | async).transfers.length === 1">{{(flow.transfers$ |
-            async).transfers.length}} élément {{filesSize | filesize}}</mat-card-title>
+            async).transfers.length}} élément {{filesSize | filesize}} / {{filesSizeLimit | filesize}}</mat-card-title>
         <mat-card-title *ngIf="(flow.transfers$ | async).transfers.length > 1">{{(flow.transfers$ |
-            async).transfers.length}} éléments {{filesSize | filesize}}</mat-card-title>
+            async).transfers.length}} éléments {{filesSize | filesize}} / {{filesSizeLimit | filesize}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-header class="list-elements-card-header" *ngIf="errorMessage !== ''">
+        <mat-card-title>
+            <span class="error-message">{{errorMessage}}</span>
+        </mat-card-title>        
     </mat-card-header>
     <mat-card-content class="list-elements-card-content"
         *ngIf="(flow.transfers$ | async).transfers.length > 0 ; else emptyList">

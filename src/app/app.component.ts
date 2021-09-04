@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { BackgroundSelectionService, PwaService, ResponsiveService, TarteaucitronService } from './services';
 import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
@@ -14,6 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
   sideNavMode: MatDrawerMode = 'over';
   responsiveSubscription: Subscription = new Subscription;
   @ViewChild('sidenav') sidenav!: MatSidenav;
+  @ViewChild('topRoot') private topRoot: ElementRef;
   fixedTopGap = 114;
   backgroundPath: string;
 
@@ -48,5 +49,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   toggleSideNav() {
     this.sidenav.toggle();
+  }
+
+  onRoutingCalled(_event) {
+    if (_event && this.topRoot) {
+      this.topRoot.nativeElement.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
   }
 }
