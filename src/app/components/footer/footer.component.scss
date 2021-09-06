@@ -55,6 +55,9 @@
             .col-separator {
                 border-left: 1px solid var(--ft-asset);
             }
+            .link {
+                cursor: pointer;
+            }
         }
         &-text {
             display: flex;

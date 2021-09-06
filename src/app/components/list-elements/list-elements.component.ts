@@ -1,8 +1,7 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FlowDirective, Transfer } from '@flowjs/ngx-flow';
 import { Subscription } from 'rxjs';
 import { FileManagerService } from 'src/app/services';
-import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
 
 @Component({
   selector: 'ft-list-elements',
@@ -14,17 +13,15 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() component: 'upload' | 'download';
   @Input() transfers: Array<any>;
   @Input() flow: FlowDirective;
-  // @ViewChild('flow')
-  // flow: FlowDirective;
-  // flowConfig: any;
   filesSize: number = 0;
+  filesSizeLimit: number = 1024 * 1024 * 1024 * 20;
+  errorMessage: string = '';
 
   uploadSubscription: Subscription;
 
   constructor(private cdr: ChangeDetectorRef, private fileManagerService: FileManagerService) { }
 
   ngOnInit(): void {
-    // this.flowConfig = FLOW_CONFIG;
     if (this.component === 'download') {
       this.transfers.forEach(t => {
         this.filesSize += t.size;
@@ -64,11 +61,21 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filesSize -= transfer.size;
     this.fileManagerService.hasFiles.next(this.filesSize > 0);
     this.cdr.detectChanges();
+    if (this.filesSize <= this.filesSizeLimit) {
+      this.errorMessage = '';
+    }
   }
   
   onItemAdded(event) {
     this.filesSize += event.size;
-    this.fileManagerService.hasFiles.next(this.filesSize > 0);
-    this.cdr.detectChanges();
+    if (this.filesSize <= this.filesSizeLimit) {
+      this.fileManagerService.hasFiles.next(this.filesSize > 0);
+      this.cdr.detectChanges();
+      this.errorMessage = '';
+    } else {
+      this.filesSize -= event.size;
+      this.flow.cancelFile(event);
+      this.errorMessage = 'Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale autorisée';
+    }
   }
 }

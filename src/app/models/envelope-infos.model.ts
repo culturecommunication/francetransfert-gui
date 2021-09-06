@@ -11,7 +11,8 @@ export interface MailInfosModel extends EnvelopeInfosModel {
 }
 
 export interface LinkInfosModel extends EnvelopeInfosModel {
-    transferName?: string;
+    subject?: string;
+    to?: string[];
     parameters?: ParametersModel;
 }
 

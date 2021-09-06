@@ -41,7 +41,7 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   onLinkFormGroupChangeEvent(event) {
     this.linkFormValues = event.values;
-    this.linkFormValid = event.isValid && this.selectedTab === 'Link';
+    this.linkFormValid = event.isValid && this.selectedTab === 'Lien';
     this.checkCanSend();
   }
 
@@ -70,7 +70,7 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
       }
       this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.mailFormValues });
     }
-    if (this.selectedTab === 'Link') {
+    if (this.selectedTab === 'Lien') {
       if (this.parametersFormValues) {
         this.linkFormValues.parameters = this.parametersFormValues;
       } else {

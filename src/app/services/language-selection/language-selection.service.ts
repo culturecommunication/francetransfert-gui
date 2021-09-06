@@ -15,9 +15,9 @@ export class LanguageSelectionService {
     const rootHref = this.baseHref.split('/');
     this.languageList = [
       { code: 'fr', label: 'Français', flagUrl: './assets/flags/flag_fr.svg', href: `${rootHref[1]}/fr/` },
-      { code: 'en', label: 'English', flagUrl: './assets/flags/flag_en.svg', href: `${rootHref[1]}/en/` },
-      { code: 'de', label: 'Deutsch', flagUrl: './assets/flags/flag_de.svg', href: `${rootHref[1]}/de/` },
-      { code: 'es', label: 'Español', flagUrl: './assets/flags/flag_es.svg', href: `${rootHref[1]}/es/` }
+      // { code: 'en', label: 'English', flagUrl: './assets/flags/flag_en.svg', href: `${rootHref[1]}/en/` },
+      // { code: 'de', label: 'Deutsch', flagUrl: './assets/flags/flag_de.svg', href: `${rootHref[1]}/de/` },
+      // { code: 'es', label: 'Español', flagUrl: './assets/flags/flag_es.svg', href: `${rootHref[1]}/es/` }
     ];
     this.selectedLanguage.next(this.languageList[0]);
   }

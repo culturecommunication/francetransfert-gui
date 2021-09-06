@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ResponsiveService } from 'src/app/services';
 import { environment } from '../../../environments/environment';
@@ -12,8 +13,10 @@ export class FooterComponent implements OnInit, OnDestroy {
   isMobile: boolean = false;
   responsiveSubscription: Subscription = new Subscription;
   version: string;
+  @Output() routingCalled: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private responsiveService: ResponsiveService) { 
+  constructor(private responsiveService: ResponsiveService,
+              private router: Router) { 
     this.version = environment.version;
   }
 
@@ -30,6 +33,11 @@ export class FooterComponent implements OnInit, OnDestroy {
     this.responsiveSubscription = this.responsiveService.getMobileStatus().subscribe(isMobile => {
       this.isMobile = isMobile;
     });
+  }
+
+  routeTo(_route) {
+    this.router.navigate([_route]);
+    this.routingCalled.emit(true);
   }
 
 }

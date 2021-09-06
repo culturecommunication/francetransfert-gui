@@ -20,9 +20,6 @@
                     <input matInput formControlName="verificationCode" required>
                     <mat-error *ngIf="f.verificationCode.errors?.required">Veuillez entrer votre code de
                         vérification.</mat-error>
-                    <mat-error *ngIf="f.verificationCode.errors?.minlength || f.verificationCode.errors?.maxlength">Le
-                        code de
-                        vérification doit comporter 6 caractères.</mat-error>
                 </mat-form-field>
             </div>
         </mat-card-content>

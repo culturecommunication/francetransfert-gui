@@ -10,10 +10,12 @@
       height: 100%;
         .app-content {
             height: 100%;
-            width: 100%;            
+            width: 100%;           
         }
     }
 }
+
+
 
 @media screen and (min-width: 812px) {
     ::ng-deep .mat-sidenav-container {
