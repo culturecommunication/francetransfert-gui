@@ -16,6 +16,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   private onDestroy$: Subject<void> = new Subject();
   downloadValidated: boolean = false;
   downloadStarted: boolean = false;
+  usingPublicLink: boolean = false;
   transfers: Array<any> = [];
   downloadInfos: any;
   emails: Array<string>;
@@ -61,34 +62,68 @@ export class DownloadComponent implements OnInit, OnDestroy {
             });
           });
       } else {
-        if (this.params['mock']) {
-          this.downloadInfos = this.MOCK_RESPONSE_DOWNLOAD;
-          this.downloadInfos.rootFiles.map(file => {
-            this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
-          });
-          this.downloadInfos.rootDirs.map(file => {
-            this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
-          });
+        if (this._router.url.includes('download/download-info-public')) {
+          if (this.params['enclosure']) {
+            this._downloadService
+              .getDownloadInfosPublic(params)
+              .pipe(takeUntil(this.onDestroy$))
+              .subscribe(downloadInfosPublic => {
+                this.downloadInfos = downloadInfosPublic;
+                this.downloadInfos.rootFiles.map(file => {
+                  this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
+                });
+                this.downloadInfos.rootDirs.map(file => {
+                  this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
+                });
+              });
+            this.usingPublicLink = true;
+          }
         } else {
-          this._router.navigateByUrl('/error');
+          if (this.params['mock']) {
+            this.downloadInfos = this.MOCK_RESPONSE_DOWNLOAD;
+            this.downloadInfos.rootFiles.map(file => {
+              this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
+            });
+            this.downloadInfos.rootDirs.map(file => {
+              this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
+            });
+          } else {
+            this._router.navigateByUrl('/error');
+          }
         }
       }
     });
   }
 
   download(): void {
-    this._downloadService
-      .getDownloadUrl(this.params, this.downloadInfos.withPassword, this.password)
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe(result => {
-        console.log(result)
-        if (result.type && result.type === 'WRONG_PASSWORD') {
-          this.passwordError = true;
-        } else {
-          window.location.assign(result.downloadURL);
-          this.downloadStarted = true;
-        }
-      });
+    if (this.usingPublicLink) {
+      this._downloadService
+        .getDownloadUrlPublic(this.params, this.password)
+        .pipe(takeUntil(this.onDestroy$))
+        .subscribe(result => {
+          console.log(result)
+          if (result.type && result.type === 'WRONG_PASSWORD') {
+            this.passwordError = true;
+          } else {
+            window.location.assign(result.downloadURL);
+            this.downloadStarted = true;
+          }
+        });
+    } else {
+      this._downloadService
+        .getDownloadUrl(this.params, this.downloadInfos.withPassword, this.password)
+        .pipe(takeUntil(this.onDestroy$))
+        .subscribe(result => {
+          console.log(result)
+          if (result.type && result.type === 'WRONG_PASSWORD') {
+            this.passwordError = true;
+          } else {
+            window.location.assign(result.downloadURL);
+            this.downloadStarted = true;
+          }
+        });
+    }
+
   }
 
   onDowloadStarted(event) {

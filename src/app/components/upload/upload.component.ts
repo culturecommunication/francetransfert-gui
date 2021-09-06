@@ -22,6 +22,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   uploadManagerSubscription: Subscription;
   responsiveSubscription: Subscription = new Subscription;
   senderEmail: string;
+  availabilityDate: Date;
   availabilityDays: number;
   @ViewChild('flow')
   flow: FlowDirective;
@@ -127,6 +128,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((result: any) => {
         this.uploadManagerService.uploadInfos.next(result);
         this.uploadValidated = true;
+        this.availabilityDate = result.expireDate;
         this.beginUpload(result);
       });
   }

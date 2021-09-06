@@ -19,7 +19,7 @@ export class DownloadService {
     ).pipe(map(response => {
       return response;
     }),
-      catchError(this.handleError('rate'))
+      catchError(this.handleError('download-info'))
     );
   }
 
@@ -34,7 +34,28 @@ export class DownloadService {
     ).pipe(map(response => {
       return response;
     }),
-      catchError(this.handleError('rate'))
+      catchError(this.handleError('generate-download-url'))
+    );
+  }
+
+  getDownloadInfosPublic(params: Array<{ string: string }>) {
+    return this._httpClient.get(
+      `${environment.host}${environment.apis.download.downloadInfosPublic}?enclosure=${params['enclosure']}`
+    ).pipe(map(response => {
+      return response;
+    }),
+      catchError(this.handleError('download-info-public'))
+    );
+  }
+
+  getDownloadUrlPublic(params: Array<{ string: string }>, password: string): Observable<any> {
+    let escapedPassword = encodeURIComponent(password);
+    return this._httpClient.get(
+      `${environment.host}${environment.apis.download.downloadUrlPublic}?enclosure=${params['enclosure']}&password=${escapedPassword}`
+    ).pipe(map(response => {
+      return response;
+    }),
+      catchError(this.handleError('generate-download-url-public'))
     );
   }
 
