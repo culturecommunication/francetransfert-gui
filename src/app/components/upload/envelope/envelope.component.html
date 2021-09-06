@@ -1,6 +1,6 @@
 <mat-card class="envelope-card" *ngIf="!showParameters; else parametersShowed">
     <mat-card-content class="envelope-card-content">
-        <mat-tab-group (selectedTabChange)="onSelectedTabChange($event)" class="envelope-card-tab-group"
+        <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedTabChange)="onSelectedTabChange($event)" class="envelope-card-tab-group"
             mat-align-tabs="start">
             <mat-tab label="Mail">
                 <ft-envelope-mail-form [mailFormValues]="mailFormValues" (onFormGroupChange)="onMailFormGroupChangeEvent($event)"

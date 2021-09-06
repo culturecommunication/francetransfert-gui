@@ -8,7 +8,13 @@ const routes: Routes = [
     path: 'upload', component: UploadComponent
   },
   {
-    path: 'download', component: DownloadComponent, canActivate: [DownloadGuard]
+    path: 'download', component: DownloadComponent, canActivate: [DownloadGuard],
+    children: [
+      {
+        path: 'download-info-public',
+        component: DownloadComponent
+      }
+    ]
   },
   {
     path: 'accessibilite', component: AccessibiliteComponent

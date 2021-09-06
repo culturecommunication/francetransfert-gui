@@ -12,6 +12,7 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   @Output() uploadStarted: EventEmitter<boolean> = new EventEmitter();
   selectedTab: string = 'Mail';
+  selectedTabIndex: number = 0;
   canSend: boolean = false;
   mailFormValid: boolean = false;
   linkFormValid: boolean = false;
@@ -30,6 +31,7 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   onSelectedTabChange(event) {
     this.selectedTab = event.tab.textLabel;
+    this.selectedTabIndex = event.index;
   }
 
   onMailFormGroupChangeEvent(event) {

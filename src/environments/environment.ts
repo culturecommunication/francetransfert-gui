@@ -15,6 +15,8 @@ export const environment = {
     download: {
       download: 'api-private/download-module/download-info',
       downloadUrl: 'api-private/download-module/generate-download-url',
+      downloadInfosPublic: 'api-private/download-module/download-info-public',
+      downloadUrlPublic: 'api-private/download-module/generate-download-url-public',
       rate: 'api-private/download-module/satisfaction'
     }
   },
