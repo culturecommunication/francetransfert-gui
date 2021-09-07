@@ -38,6 +38,7 @@ import { EndMessageComponent } from './components/end-message/end-message.compon
 import { SatisfactionCheckComponent } from './components/satisfaction-check/satisfaction-check.component';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminComponent } from './components/admin/admin.component';
 
 registerLocaleData(localeFr);
 const initializer = (pwaService: PwaService) => () =>
@@ -74,7 +75,8 @@ const initializer = (pwaService: PwaService) => () =>
     CheckValidationCodeComponent,
     EndMessageComponent,
     SatisfactionCheckComponent,
-    LanguageSelectorComponent
+    LanguageSelectorComponent,
+    AdminComponent
   ],
   imports: [
     HttpClientModule,

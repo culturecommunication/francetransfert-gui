@@ -18,9 +18,14 @@ export const environment = {
       downloadInfosPublic: 'api-private/download-module/download-info-public',
       downloadUrlPublic: 'api-private/download-module/generate-download-url-public',
       rate: 'api-private/download-module/satisfaction'
+    },
+    admin: {
+      deleteFile: 'api-private/upload-module/delete-file',
+      updateExpiredDate: 'api-private/upload-module/update-expired-date',
+      fileInfos: 'api-private/upload-module/file-info'
     }
   },
-  version: '1.0.3'
+  version: '1.0.4'
 };
 
 /*

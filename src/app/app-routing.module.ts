@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DownloadComponent, UploadComponent, AccessibiliteComponent, ContactComponent, FaqComponent, MentionsLegalesComponent } from './components';
+import { DownloadComponent, UploadComponent, AccessibiliteComponent, ContactComponent, FaqComponent, MentionsLegalesComponent, AdminComponent } from './components';
 import { DownloadGuard } from './shared/guards';
 
 const routes: Routes = [
@@ -15,6 +15,9 @@ const routes: Routes = [
         component: DownloadComponent
       }
     ]
+  },
+  {
+    path: 'admin', component: AdminComponent
   },
   {
     path: 'accessibilite', component: AccessibiliteComponent
