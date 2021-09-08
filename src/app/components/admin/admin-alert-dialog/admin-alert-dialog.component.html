@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Etes-vous sûr ?</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Cette action supprimera définitivement votre pli et le rendra inaccessible.</h3>
+  <p>Poursuivre ?</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn" mat-button mat-dialog-close>Annuler</button>
+  <button class="btn" mat-button [mat-dialog-close]="true" cdkFocusInitial>Supprimer</button>
+</mat-dialog-actions>

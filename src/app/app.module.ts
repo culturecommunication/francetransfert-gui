@@ -39,6 +39,7 @@ import { SatisfactionCheckComponent } from './components/satisfaction-check/sati
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminComponent } from './components/admin/admin.component';
+import { AdminAlertDialogComponent } from './components/admin/admin-alert-dialog/admin-alert-dialog.component';
 
 registerLocaleData(localeFr);
 const initializer = (pwaService: PwaService) => () =>
@@ -76,7 +77,8 @@ const initializer = (pwaService: PwaService) => () =>
     EndMessageComponent,
     SatisfactionCheckComponent,
     LanguageSelectorComponent,
-    AdminComponent
+    AdminComponent,
+    AdminAlertDialogComponent
   ],
   imports: [
     HttpClientModule,
