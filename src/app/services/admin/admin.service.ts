@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { map } from 'rxjs/internal/operators/map';
 import { environment } from 'src/environments/environment';
@@ -8,6 +9,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AdminService {
+
+  adminError$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
 
   constructor(private _httpClient: HttpClient) { }
 
@@ -48,6 +51,7 @@ export class AdminService {
       const errMsg = `error in ${operation}()`;
       console.log(`${errMsg}:`, err);
       if (err instanceof HttpErrorResponse) {
+        this.adminError$.next(err.status);
         console.log(`status: ${err.status}, ${err.statusText}`);
       }
       throw (errMsg);
