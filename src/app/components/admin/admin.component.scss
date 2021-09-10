@@ -4,9 +4,7 @@
     align-items: center;
     height: 100%;
     width: 100%;
-    .admin-card {
-        height: 60%;
-        width: 50%;
+    .admin-card {        
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -63,6 +61,35 @@
         .admin-card-actions-btn {
             background-color: var(--ft-blue-france);
             color: var(--ft-white);
+        }
+    }
+}
+
+@media screen and (min-width: 812px) {
+    .admin-wrapper {
+        .admin-card {
+            height: 60%;
+            width: 50%;
+        }
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 812px) {
+    .admin-wrapper {
+        .admin-card {
+            height: 60%;
+            width: 50%;
+        }
+    }
+}
+
+
+@media screen and (min-width: 200px) and (max-width: 480px) {
+    .admin-wrapper {
+        .admin-card {
+            margin-top: 215px;
+            height: 100%;
+            width: 100%;
         }
     }
 }
