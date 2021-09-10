@@ -67,18 +67,18 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       return { 'flex-direction': 'row' }
     }
     if (this.screenWidth === 'md') {
-      if (!this.uploadFinished && !this.uploadStarted){
+      if (!this.uploadFinished && !this.uploadStarted) {
         return { 'flex-direction': 'column-reverse' }
       } else {
         return { 'flex-direction': 'row' }
       }
     }
     if (this.screenWidth === 'sm') {
-      if (this.uploadFinished && this.uploadStarted){
+      if (this.uploadFinished && this.uploadStarted) {
         return { 'flex-direction': 'column' }
       } else {
         return { 'flex-direction': 'column-reverse' }
-      }      
+      }
     }
     return {}
   }
@@ -122,6 +122,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     let transfers: UploadState = await this.uploadManagerService.getRxValue(this.fileManagerService.transfers.getValue());
     console.log(transfers);
     console.log(this.uploadManagerService.envelopeInfos.getValue());
+    this.uploadValidated = true;
     this.uploadService
       .sendTree({
         transfers: transfers.transfers,
@@ -134,6 +135,14 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
+        if (result && result.canUpload) {
+          this.uploadManagerService.uploadInfos.next(result);
+          this.uploadValidated = true;
+          this.availabilityDate = result.expireDate;
+          this.beginUpload(result);
+        } else {
+          this.uploadValidated = false;
+        }
       });
   }
 
