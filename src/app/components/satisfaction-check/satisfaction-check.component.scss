@@ -8,7 +8,7 @@
         height: 100%;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: center;        
         .satisfaction-check-faces {
             width: 100%;
             display: flex;
@@ -63,7 +63,7 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                text-align: center;
+                text-align: center;                
                 &-title {
                     font-weight: bold;
                     font-size: 28px;
@@ -94,8 +94,14 @@
         height: 100%;
         .satisfaction-check-card-content {
             &-icon{
-                margin-right: 30px;
+                margin-right: 50px;
             }
+            &-text {
+                margin-top: 50px;
+            }   
+        }
+        .satisfaction-check-card-actions {
+            padding: 0px !important;
         }
     }
 }
@@ -105,7 +111,7 @@
         height: 100%;
         .satisfaction-check-card-content {
             &-icon{
-                margin-right: 30px;
+                margin-right: 50px;
             }
         }
     }
