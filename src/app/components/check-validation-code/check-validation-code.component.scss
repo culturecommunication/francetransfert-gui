@@ -80,5 +80,14 @@
 @media screen and (min-width: 200px) and (max-width: 480px) {
     .check-validation-code-card {
         height: 100%;
+        .check-validation-code-card-content {            
+            &-text {
+                margin-top: 20px;
+            }
+        }        
+        .mat-card-actions {
+            padding: 0px !important;
+            margin-bottom: 0px !important;
+        }
     }
 }

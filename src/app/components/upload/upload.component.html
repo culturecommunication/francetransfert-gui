@@ -1,7 +1,7 @@
 <div>
     <ng-container #flow="flow" [flowConfig]="flowConfig"></ng-container>
 </div>
-<div class="upload-wrapper" [ngStyle]="{ 'flex-direction': (screenWidth !== 'lg' && (!uploadFinished && !uploadStarted)) ? 'column-reverse' : 'row' }">
+<div class="upload-wrapper" [ngStyle]="styleObject()">
     <ft-loader *ngIf="uploadValidated && uploadStarted && !uploadFinished"
         (transferCancelled)="onTransferCancelled($event)" (transferFinished)="onTransferFinished($event)"
         class="loader-wrapper"></ft-loader>
