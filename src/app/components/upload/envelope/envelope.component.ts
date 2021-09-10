@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LinkInfosModel, MailInfosModel, ParametersModel } from 'src/app/models';
 import { FileManagerService, UploadManagerService } from 'src/app/services';
@@ -17,16 +17,29 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   mailFormValid: boolean = false;
   linkFormValid: boolean = false;
   fileManagerServiceSubscription: Subscription;
+  uploadManagerSubscription: Subscription;
   showParameters: boolean = false;
   mailFormValues: MailInfosModel;
   linkFormValues: LinkInfosModel;
   parametersFormValues: ParametersModel;
 
   constructor(private fileManagerService: FileManagerService,
-    private uploadManagerService: UploadManagerService) { }
+    private uploadManagerService: UploadManagerService,
+    private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-
+    this.uploadManagerSubscription = this.uploadManagerService.envelopeInfos.subscribe(_infos => {
+      if(_infos) {
+        if (_infos.type === 'mail') {
+          this.mailFormValues = _infos
+        }
+        if (_infos.type === 'link') {
+          this.linkFormValues = _infos
+        }
+        this.parametersFormValues = _infos.parameters;
+        this.cdr.detectChanges();
+      }      
+    });
   }
 
   onSelectedTabChange(event) {
@@ -49,6 +62,12 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   onParametersFormGroupChangeEvent(event) {
     this.parametersFormValues = event.values;
+    if (this.selectedTab === 'Mail') {
+      this.uploadManagerService.envelopeInfos.next({...this.mailFormValues, parameters: event.values});
+    }
+    if (this.selectedTab === 'Lien') {
+      this.uploadManagerService.envelopeInfos.next({...this.linkFormValues, parameters: event.values});
+    }
   }
 
   checkCanSend() {
@@ -86,6 +105,9 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.fileManagerServiceSubscription) {
       this.fileManagerServiceSubscription.unsubscribe();
+    }
+    if (this.uploadManagerSubscription) {
+      this.uploadManagerSubscription.unsubscribe();
     }
   }
 }

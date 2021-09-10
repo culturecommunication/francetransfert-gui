@@ -21,10 +21,15 @@ export class LoaderComponent implements OnInit, OnDestroy {
   constructor(private fileManagerService: FileManagerService) { }
 
   ngOnInit(): void {
-    // this.observableTimer();
-    this.progressSubscription = this.fileManagerService.transfers.getValue().subscribe(t => {
-      this.progressValue = t.totalProgress;
-    });
+    this.observableTimer();
+    // this.progressSubscription = this.fileManagerService.transfers.getValue().subscribe(t => {
+    //   this.progressValue = t.totalProgress * 100;
+    //   if (this.progressValue < 100) {
+
+    //   } else {
+    //     this.transferFinished.emit(true);
+    //   }
+    // });
   }
 
   observableTimer() {
@@ -33,7 +38,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
         if (this.progressValue < 100) {
           this.progressValue += 20;
         } else {
-          this.transferFinished.emit(true);
+          // this.transferFinished.emit(true);
         }
       });    
   }

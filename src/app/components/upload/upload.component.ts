@@ -21,12 +21,15 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   uploadValidated: boolean = false;
   uploadManagerSubscription: Subscription;
   responsiveSubscription: Subscription = new Subscription;
+  fileManagerSubscription: Subscription = new Subscription;
   senderEmail: string;
   availabilityDate: Date;
   availabilityDays: number;
   @ViewChild('flow')
   flow: FlowDirective;
   flowConfig: any;
+  hasFiles: boolean = false;
+  listExpanded: boolean = false;
 
   constructor(private responsiveService: ResponsiveService,
     private uploadManagerService: UploadManagerService,
@@ -38,11 +41,13 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.flowConfig = FLOW_CONFIG;
     this.responsiveService.checkWidth();
     this.uploadManagerSubscription = this.uploadManagerService.envelopeInfos.subscribe(_envelopeInfos => {
-      console.log(_envelopeInfos);
       if (_envelopeInfos && _envelopeInfos.from) {
         this.senderEmail = _envelopeInfos.from;
         this.availabilityDays = _envelopeInfos.parameters.expiryDays
       }
+    });
+    this.fileManagerSubscription = this.fileManagerService.hasFiles.subscribe(_hasFiles => {
+      this.hasFiles = _hasFiles;
     });
   }
 
@@ -55,6 +60,27 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isMobile = isMobile;
       this.screenWidth = this.responsiveService.screenWidth;
     });
+  }
+
+  styleObject(): Object {
+    if (this.screenWidth === 'lg') {
+      return { 'flex-direction': 'row' }
+    }
+    if (this.screenWidth === 'md') {
+      if (!this.uploadFinished && !this.uploadStarted){
+        return { 'flex-direction': 'column-reverse' }
+      } else {
+        return { 'flex-direction': 'row' }
+      }
+    }
+    if (this.screenWidth === 'sm') {
+      if (this.uploadFinished && this.uploadStarted){
+        return { 'flex-direction': 'column' }
+      } else {
+        return { 'flex-direction': 'column-reverse' }
+      }      
+    }
+    return {}
   }
 
   onUploadStarted(event) {
@@ -84,12 +110,12 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         .subscribe(() => {
 
         });
-      this.uploadStarted = false;
-      this.uploadValidated = false;
-      this.uploadFinished = false;
+      window.location.reload();
     }
-    this.uploadManagerService.envelopeInfos.next(null);
-    this.fileManagerService.transfers.next(null);
+  }
+
+  onListExpanded(event) {
+    this.listExpanded = event;
   }
 
   async upload(): Promise<any> {
@@ -136,7 +162,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   beginUpload(result) {
     this.flow.flowJs.opts.query = { enclosureId: result.enclosureId };
     this.flow.upload();
-    this.uploadFinished = true;
   }
 
   ngOnDestroy() {
@@ -144,5 +169,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.onDestroy$.complete();
     this.responsiveSubscription.unsubscribe();
     this.uploadManagerSubscription.unsubscribe();
+    this.fileManagerSubscription.unsubscribe();
   }
 }

@@ -3,7 +3,7 @@
     <div class="envelope-parameters-form-group">
         <mat-form-field>
             <mat-label>Délai de validité</mat-label>
-            <input matInput formControlName="expiryDays">
+            <input matInput formControlName="expiryDays" autocomplete="off">
             <span matSuffix>jours</span>
             <mat-error *ngIf="f.expiryDays.errors?.min">Le délai de validité ne peut être inférieur à 1 jour</mat-error>
             <mat-error *ngIf="f.expiryDays.errors?.max">Le délai de validité ne peut être supérieur à 90 jours</mat-error>
@@ -18,6 +18,10 @@
                 [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
+            <mat-icon matSuffix [matTooltip]="passwordHelp" [matTooltipClass]="'tootlip-ml'">info_outline</mat-icon>
+            <mat-error *ngIf="f.password.errors?.minLength">Le mot de passe doit comporter 10 caractères minimum</mat-error>
+            <mat-error *ngIf="f.password.errors?.maxLength">Le mot de passe doit comporter 20 caractères maximum</mat-error>
+            <mat-error *ngIf="f.password.errors?.pattern">Le mot de passe ne respecte pas les critères demandés</mat-error>
         </mat-form-field>
     </div>
 

@@ -1,6 +1,4 @@
-.loader-card {
-    height: 100%;
-    width: 100%;
+.loader-card {   
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -54,5 +52,30 @@
             background-color: var(--ft-grey);
             color: var(--ft-mention);
         }      
+    }
+}
+
+
+@media screen and (min-width: 812px) {
+    .loader-card {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 812px) {
+    .loader-card {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+
+@media screen and (min-width: 200px) and (max-width: 480px) {
+    .loader-card {
+        height: 100%;
+        .mat-card-actions {
+            margin-bottom: 0px !important;
+        }
     }
 }

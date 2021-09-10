@@ -7,10 +7,8 @@
         align-self: flex-start;
         display: flex;
         flex-direction: column;
-        border-bottom: 1px solid var(--ft-asset);        
-        .mat-card-title {
-            font-size: 16px;
-        }
+        border-bottom: 1px solid var(--ft-asset);  
+        
         .error-message {
             color: var(--ft-error);
         }
@@ -20,7 +18,8 @@
         align-self: center;
         align-items: center;
         justify-content: space-around;
-        flex-direction: column;        
+        flex-direction: column;
+        text-align: center; 
         width: 100%;
     }
     .list-elements-card-content {
@@ -76,6 +75,9 @@
     .list-elements-card {
         height: 100%;
         .list-elements-card-header {
+            .mat-card-title {
+                font-size: 16px;
+            }
         }
         .list-elements-card-content.empty {
             height: 30%;
@@ -110,14 +112,17 @@
 
 @media screen and (min-width: 480px) and (max-width: 812px) {
     .list-elements-card {
-        min-height: 70%;
+        min-height: 90%;
         .list-elements-card-header {
+            .mat-card-title {
+                font-size: 16px;
+            }
         }
         .list-elements-card-content.empty {
             height: 100%;
         }
         .list-elements-card-content {
-            max-height: 180px;    
+            max-height: 280px;    
             .file-item {       }
             .list-elements-card-content-icon {
             }
@@ -127,7 +132,7 @@
             }
             .list-elements-add-elements-wrapper {
                 width: 100%;
-                justify-content: center;
+                justify-content: center;                
                 .list-elements-card-content-first-line {
                 }
             }
@@ -142,15 +147,22 @@
 
 @media screen and (min-width: 200px) and (max-width: 480px) {
     .list-elements-card {
-        min-height: 70%;
+        min-height: 80%;
         .list-elements-card-header {
+            .mat-card-title {
+                font-size: 14px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
         }
         .list-elements-card-content.empty {
-            height: 100%;
+            height: 50%;
         }
         .list-elements-card-content {
-            max-height: 180px;    
-            .file-item {       }
+            .file-item {       
+            }
             .list-elements-card-content-icon {
             }
             .list-elements-card-content-first-line {
@@ -158,8 +170,11 @@
             .list-elements-card-content-second-line {
             }
             .list-elements-add-elements-wrapper {
-                width: 100%;
+                width: 90%;
                 justify-content: center;
+                margin-bottom: 15px;
+                position: inherit;
+                bottom: 0;
                 .list-elements-card-content-first-line {
                 }
             }
@@ -167,6 +182,6 @@
     }
     
     .list-elements-card.empty {
-        height: 50%;
+        height: calc(100vh - 122px);
     }
 }

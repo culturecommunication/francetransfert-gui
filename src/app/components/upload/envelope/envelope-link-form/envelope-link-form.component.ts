@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { LinkInfosModel } from 'src/app/models';
+import { UploadManagerService } from 'src/app/services';
 
 @Component({
   selector: 'ft-envelope-link-form',
@@ -14,7 +15,8 @@ export class EnvelopeLinkFormComponent implements OnInit {
   @Output() public onFormGroupChange = new EventEmitter<any>();
   envelopeLinkFormChangeSubscription: Subscription;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private uploadManagerService: UploadManagerService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -27,7 +29,10 @@ export class EnvelopeLinkFormComponent implements OnInit {
       message: [this.linkFormValues?.message]
     });
     this.envelopeLinkFormChangeSubscription = this.envelopeLinkForm.valueChanges
-      .subscribe(() => this.onFormGroupChange.emit({ isValid: this.envelopeLinkForm.valid, values: this.envelopeLinkForm.value }));
+      .subscribe(() => {
+        this.onFormGroupChange.emit({ isValid: this.envelopeLinkForm.valid, values: this.envelopeLinkForm.value })
+        this.uploadManagerService.envelopeInfos.next({ type: 'link', ...this.envelopeLinkForm.value });
+      });
   }
 
   // convenience getter for easy access to form fields

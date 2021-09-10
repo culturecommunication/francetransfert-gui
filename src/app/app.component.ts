@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
       if (isMobile) {
         this.opened = false;
         this.sideNavMode = 'over';
-        this.fixedTopGap = 114
+        this.fixedTopGap = 0;
       }
     });
     this.onResize();

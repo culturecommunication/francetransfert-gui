@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirectiv
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Subscription } from 'rxjs';
 import { MailInfosModel } from 'src/app/models';
+import { UploadManagerService } from 'src/app/services';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -26,7 +27,8 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   destinatairesList: string[] = [];
   regexDomain = new RegExp('^[a-z0-9](\.?[a-z0-9]){3,}@culture\.gouv\.fr$');
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private uploadManagerService: UploadManagerService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -41,7 +43,10 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
       message: [this.mailFormValues?.message]
     }, { validator: this.checkEmails });
     this.envelopeMailFormChangeSubscription = this.envelopeMailForm.valueChanges
-      .subscribe(() => this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList }));
+      .subscribe(() => {
+        this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
+        this.uploadManagerService.envelopeInfos.next({type: 'mail', ...this.envelopeMailForm.value});
+      });
   }
 
   // convenience getter for easy access to form fields

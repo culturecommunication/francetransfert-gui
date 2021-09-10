@@ -8,24 +8,24 @@
         align-items: center;
     
         .list-elements-wrapper {
-            height: 60%;
+            height: 75%;
             width: 25%;
             margin-right: 2.5%;
         }
     
         .download-elements-wrapper {
-            height: 60%;
+            height: 75%;
             width: 25%;
             margin-left: 2.5%;
         }
     
         .check-validation-code-wrapper {
-            height: 60%;
+            height: 75%;
             width: 25%;
         }
     
         .end-message-wrapper {
-            height: 60%;
+            height: 75%;
             width: 25%;
         }
     }
@@ -67,33 +67,32 @@
 
 @media screen and (min-width: 200px) and (max-width: 480px) {
     .download-wrapper {
-        height: 100%;
+        height: calc(100% - 90px);
         width: 100%;
+        margin-top: 90px;
         display: flex;
-        flex-direction: row;
+        flex-direction: column-reverse;
         justify-content: center;
         align-items: center;
     
         .list-elements-wrapper {
-            height: 60%;
-            width: 25%;
-            margin-right: 2.5%;
+            margin-top: 30px;
+            width: 100%;
         }
     
         .download-elements-wrapper {
-            height: 60%;
-            width: 25%;
-            margin-left: 2.5%;
+            height: 100%;
+            width: 100%;
         }
     
         .check-validation-code-wrapper {
-            height: 60%;
-            width: 25%;
+            width: 100%;
+            height: 100%;
         }
     
         .end-message-wrapper {
-            height: 60%;
-            width: 25%;
+            height: 100%;
+            width: 100%;
         }
     }
 }
