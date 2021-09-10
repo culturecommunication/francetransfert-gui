@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FlowDirective, Transfer } from '@flowjs/ngx-flow';
 import { Subscription } from 'rxjs';
 import { FileManagerService } from 'src/app/services';
@@ -13,9 +13,12 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() component: 'upload' | 'download';
   @Input() transfers: Array<any>;
   @Input() flow: FlowDirective;
+  @Input() screenWidth: string;
+  @Output() listExpanded: EventEmitter<boolean> = new EventEmitter();
   filesSize: number = 0;
   filesSizeLimit: number = 1024 * 1024 * 1024 * 20;
   errorMessage: string = '';
+  expanded: boolean = false;
 
   uploadSubscription: Subscription;
 
@@ -77,5 +80,10 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.flow.cancelFile(event);
       this.errorMessage = 'Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale autorisée';
     }
+  }
+
+  expandList() {
+    this.expanded = !this.expanded;
+    this.listExpanded.emit(this.expanded);
   }
 }

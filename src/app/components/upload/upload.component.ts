@@ -21,12 +21,15 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   uploadValidated: boolean = false;
   uploadManagerSubscription: Subscription;
   responsiveSubscription: Subscription = new Subscription;
+  fileManagerSubscription: Subscription = new Subscription;
   senderEmail: string;
   availabilityDate: Date;
   availabilityDays: number;
   @ViewChild('flow')
   flow: FlowDirective;
   flowConfig: any;
+  hasFiles: boolean = false;
+  listExpanded: boolean = false;
 
   constructor(private responsiveService: ResponsiveService,
     private uploadManagerService: UploadManagerService,
@@ -43,6 +46,9 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         this.senderEmail = _envelopeInfos.from;
         this.availabilityDays = _envelopeInfos.parameters.expiryDays
       }
+    });
+    this.fileManagerSubscription = this.fileManagerService.hasFiles.subscribe(_hasFiles => {
+      this.hasFiles = _hasFiles;
     });
   }
 
@@ -84,12 +90,12 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         .subscribe(() => {
 
         });
-      this.uploadStarted = false;
-      this.uploadValidated = false;
-      this.uploadFinished = false;
+      window.location.reload();
     }
-    this.uploadManagerService.envelopeInfos.next(null);
-    this.fileManagerService.transfers.next(null);
+  }
+
+  onListExpanded(event) {
+    this.listExpanded = event;
   }
 
   async upload(): Promise<any> {
@@ -136,7 +142,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   beginUpload(result) {
     this.flow.flowJs.opts.query = { enclosureId: result.enclosureId };
     this.flow.upload();
-    this.uploadFinished = true;
   }
 
   ngOnDestroy() {
@@ -144,5 +149,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.onDestroy$.complete();
     this.responsiveSubscription.unsubscribe();
     this.uploadManagerSubscription.unsubscribe();
+    this.fileManagerSubscription.unsubscribe();
   }
 }

@@ -17,6 +17,7 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   mailFormValid: boolean = false;
   linkFormValid: boolean = false;
   fileManagerServiceSubscription: Subscription;
+  uploadManagerSubscription: Subscription;
   showParameters: boolean = false;
   mailFormValues: MailInfosModel;
   linkFormValues: LinkInfosModel;
@@ -26,7 +27,17 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
     private uploadManagerService: UploadManagerService) { }
 
   ngOnInit(): void {
-
+    this.uploadManagerSubscription = this.uploadManagerService.envelopeInfos.subscribe(_infos => {
+      if(_infos) {
+        if (_infos.type === 'mail') {
+          this.mailFormValues = _infos
+        }
+        if (_infos.type === 'link') {
+          this.linkFormValues = _infos
+        }
+        this.parametersFormValues = _infos.parameters;
+      }      
+    });
   }
 
   onSelectedTabChange(event) {
@@ -38,17 +49,21 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
     this.mailFormValues = event.values;
     this.mailFormValues.to = event.destinataires;
     this.mailFormValid = event.isValid && this.selectedTab === 'Mail';
+    this.uploadManagerService.envelopeInfos.next(event.values);
     this.checkCanSend();
   }
 
   onLinkFormGroupChangeEvent(event) {
     this.linkFormValues = event.values;
     this.linkFormValid = event.isValid && this.selectedTab === 'Lien';
+    this.uploadManagerService.envelopeInfos.next(event.values);
     this.checkCanSend();
   }
 
   onParametersFormGroupChangeEvent(event) {
+    console.log(event)
     this.parametersFormValues = event.values;
+    this.uploadManagerService.envelopeInfos.next({ ...this.mailFormValues, parameters: event.values });
   }
 
   checkCanSend() {
@@ -86,6 +101,9 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.fileManagerServiceSubscription) {
       this.fileManagerServiceSubscription.unsubscribe();
+    }
+    if (this.uploadManagerSubscription) {
+      this.uploadManagerSubscription.unsubscribe();
     }
   }
 }

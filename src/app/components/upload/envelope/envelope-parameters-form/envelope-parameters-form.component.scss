@@ -7,6 +7,9 @@
         .mat-form-field {
             width: 100%;        
         }
+        .mat-icon {
+            cursor: pointer;
+        }
         ::ng-deep .mat-slide-toggle-content {
             white-space: pre-wrap;
             width: 500px;

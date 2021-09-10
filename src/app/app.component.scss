@@ -15,7 +15,49 @@
     }
 }
 
+::ng-deep .mat-tooltip {
+    color: var(--ft-mention) !important;
+    background-color: var(--ft-white) !important;
+    border: solid 1px var(--ft-mention) !important;
+    border-radius: 50%;
+    font-size: 12px !important;
+    line-height: 20px !important;
+}
 
+::ng-deep .mat-form-field.mat-focused {
+    .mat-form-field-label {
+        color: var(--ft-blue-france);
+    }
+    .mat-form-field-ripple {
+        background-color: var(--ft-blue-france);
+    }
+    .mat-form-field-required-marker {
+        color: var(--ft-blue-france);
+    }
+    .mat-input-element {
+        color: var(--ft-blue-france);
+    }
+}
+
+::ng-deep .mat-form-field.mat-form-field-invalid {
+    .mat-input-element {
+        color: var(--ft-error);
+    }
+    .mat-form-field-label {
+        color: var(--ft-error);
+        .mat-form-field-required-marker {
+            color: var(--ft-error);
+        }
+    }
+    .mat-form-field-ripple {
+        background-color: var(--ft-error);
+    }
+}
+
+::ng-deep .tootlip-ml.mat-tooltip{
+    max-width:max-content !important;
+    white-space: pre-wrap;
+}
 
 @media screen and (min-width: 812px) {
     ::ng-deep .mat-sidenav-container {
@@ -39,7 +81,7 @@
         // background-image: url('../assets/images/image_fond.png');
         background-size: cover;
         width: 100%;
-        height: 100%;
+        height: 100%;        
     }
     ::ng-deep .mat-drawer-content {
         position: unset;
@@ -50,5 +92,9 @@
 }
 
 @media screen and (min-width: 200px) and (max-width: 480px) {
-
+    ::ng-deep .mat-sidenav {
+        width: 100%;
+        height: 100%;
+        top: 0 !important;
+    }
 }

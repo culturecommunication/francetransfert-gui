@@ -6,10 +6,8 @@
     align-items: center;
     .download-elements-card-content {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-direction: column;
-        height: 80%;
+        align-items: center;        
+        flex-direction: column;        
         width: 100%;
         padding: 0px 8px;
         &-icon {
@@ -21,8 +19,7 @@
         &-text {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            margin-bottom: 50%;
+            justify-content: space-between;            
             text-align: center;
             &-title {
                 font-weight: bold;
@@ -41,5 +38,42 @@
             background-color: var(--ft-blue-france);
             color: var(--ft-white);
         }        
+    }
+}
+
+
+@media screen and (min-width: 812px) {
+    .download-elements-card {
+        .download-elements-card-content {
+            height: 80%;
+            justify-content: space-between;
+            &-text {
+                margin-bottom: 50%;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 812px) {
+    .download-elements-card {
+        .download-elements-card-content {
+            height: 80%;
+            justify-content: space-around;
+            &-text {
+
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width: 200px) and (max-width: 480px) {
+    .download-elements-card {
+        .download-elements-card-content {
+            height: 100%;
+            &-text {
+
+            }
+        }
     }
 }

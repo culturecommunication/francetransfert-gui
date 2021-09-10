@@ -1,7 +1,7 @@
 {
   "name": "francetransfert-updown-gui",
   "short_name": "francetransfert-updown-gui",
-  "theme_color": "#1976d2",
+  "theme_color": "#0a0a0a",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
