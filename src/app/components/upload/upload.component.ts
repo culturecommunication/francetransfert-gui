@@ -41,7 +41,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.flowConfig = FLOW_CONFIG;
     this.responsiveService.checkWidth();
     this.uploadManagerSubscription = this.uploadManagerService.envelopeInfos.subscribe(_envelopeInfos => {
-      console.log(_envelopeInfos);
       if (_envelopeInfos && _envelopeInfos.from) {
         this.senderEmail = _envelopeInfos.from;
         this.availabilityDays = _envelopeInfos.parameters.expiryDays

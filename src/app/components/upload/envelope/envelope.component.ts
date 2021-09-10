@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LinkInfosModel, MailInfosModel, ParametersModel } from 'src/app/models';
 import { FileManagerService, UploadManagerService } from 'src/app/services';
@@ -24,7 +24,8 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   parametersFormValues: ParametersModel;
 
   constructor(private fileManagerService: FileManagerService,
-    private uploadManagerService: UploadManagerService) { }
+    private uploadManagerService: UploadManagerService,
+    private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.uploadManagerSubscription = this.uploadManagerService.envelopeInfos.subscribe(_infos => {
@@ -36,6 +37,7 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
           this.linkFormValues = _infos
         }
         this.parametersFormValues = _infos.parameters;
+        this.cdr.detectChanges();
       }      
     });
   }
@@ -49,21 +51,23 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
     this.mailFormValues = event.values;
     this.mailFormValues.to = event.destinataires;
     this.mailFormValid = event.isValid && this.selectedTab === 'Mail';
-    this.uploadManagerService.envelopeInfos.next(event.values);
     this.checkCanSend();
   }
 
   onLinkFormGroupChangeEvent(event) {
     this.linkFormValues = event.values;
     this.linkFormValid = event.isValid && this.selectedTab === 'Lien';
-    this.uploadManagerService.envelopeInfos.next(event.values);
     this.checkCanSend();
   }
 
   onParametersFormGroupChangeEvent(event) {
-    console.log(event)
     this.parametersFormValues = event.values;
-    this.uploadManagerService.envelopeInfos.next({ ...this.mailFormValues, parameters: event.values });
+    if (this.selectedTab === 'Mail') {
+      this.uploadManagerService.envelopeInfos.next({...this.mailFormValues, parameters: event.values});
+    }
+    if (this.selectedTab === 'Lien') {
+      this.uploadManagerService.envelopeInfos.next({...this.linkFormValues, parameters: event.values});
+    }
   }
 
   checkCanSend() {
