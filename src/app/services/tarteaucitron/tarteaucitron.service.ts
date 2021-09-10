@@ -15,14 +15,14 @@ export class TarteaucitronService {
       "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
       "cookieName": "tarteaucitron", /* Cookie name */
 
-      "orientation": "middle", /* Banner position (top - bottom - middle - popup) */
+      "orientation": "bottom", /* Banner position (top - bottom - middle - popup) */
 
       "groupServices": false, /* Group services by category */
 
       "showAlertSmall": false, /* Show the small banner on bottom right */
       "cookieslist": false, /* Show the cookie list */
 
-      "showIcon": true, /* Show cookie icon to manage cookies */
+      "showIcon": false, /* Show cookie icon to manage cookies */
       // "iconSrc": "", /* Optionnal: URL or base64 encoded image */
       "iconPosition": "BottomRight", /* Position of the icon between BottomRight, BottomLeft, TopRight and TopLeft */
 
@@ -46,5 +46,9 @@ export class TarteaucitronService {
 
       "tarteaucitronForceCDN": "https://cdn.jsdelivr.net/gh/AmauriC/tarteaucitron.js/"
     });
+  }
+
+  showPanel() {
+    tarteaucitron.userInterface.openPanel();
   }
 }
