@@ -17,6 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('topRoot') private topRoot: ElementRef;
   fixedTopGap = 114;
   backgroundPath: string;
+  screenWidth: string;
 
   constructor(private responsiveService: ResponsiveService,
     private pwaService: PwaService,
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.tarteaucitronService.initTarteaucitron();
     this.responsiveSubscription = this.responsiveService.getMobileStatus().subscribe(isMobile => {
       this.isMobile = isMobile;
+      this.screenWidth = this.responsiveService.screenWidth;
       if (isMobile) {
         this.opened = false;
         this.sideNavMode = 'over';
@@ -53,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onRoutingCalled(_event) {
     if (_event && this.topRoot) {
-      this.topRoot.nativeElement.scrollIntoView({ behavior: "smooth", block: "center" });
+      this.topRoot.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }
 }

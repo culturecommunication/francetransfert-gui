@@ -1,10 +1,7 @@
 .mentions-legales-wrapper {
     width: 100%;
-    height: 100%;
     background-color: var(--ft-white);
     .mentions-legales-card {
-        height: 100%;
-        overflow-y: auto;
         &-header {
         }
         &-content {
@@ -12,6 +9,38 @@
             font-weight: normal;
             font-size: 16px;
             line-height: 24px;
+        }
+    }
+}
+
+@media screen and (min-width: 812px) {
+    .mentions-legales-wrapper {
+        .mentions-legales-card {
+            height: 100%;
+        }
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 812px) {
+    .mentions-legales-wrapper {
+        height: 100vh;
+        overflow-y: auto;
+        .mentions-legales-card {
+            margin-top: 90px;
+        }
+    }
+}
+
+
+@media screen and (min-width: 200px) and (max-width: 480px) {
+    .mentions-legales-wrapper {
+        height: 100vh;
+        overflow-y: auto;
+        .mentions-legales-card {
+            margin-top: 90px;
+            ::ng-deep .mat-card-header-text {
+                margin: 0 0 !important;
+            }
         }
     }
 }
