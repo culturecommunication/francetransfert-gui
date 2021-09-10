@@ -9,7 +9,7 @@
         (transferValidated)="onTransferValidated($event)" [component]="'upload'" [email]="senderEmail"
         class="check-validation-code-wrapper">
     </ft-check-validation-code>
-    <ft-list-elements *ngIf="!uploadStarted" [component]="'upload'" [flow]="flow" [screenWidth]="screenWidth" (listExpanded)="onListExpanded($event)" class="list-elements-wrapper" [ngClass]="{'expanded': listExpanded}"></ft-list-elements>
+    <ft-list-elements *ngIf="!uploadStarted" [component]="'upload'" [flow]="flow" [screenWidth]="screenWidth" (listExpanded)="onListExpanded($event)" class="list-elements-wrapper" [ngClass]="{'expanded': listExpanded, 'reduced' : !listExpanded && hasFiles}"></ft-list-elements>
     <ft-envelope *ngIf="!uploadStarted && (screenWidth !== 'sm' || (screenWidth === 'sm' && hasFiles && !listExpanded))" (uploadStarted)="onUploadStarted($event)" class="envelope-wrapper" [ngClass]="{'reduced': listExpanded}">
     </ft-envelope>
     <ft-end-message [component]="'upload'" [availabilityDate]="availabilityDate" *ngIf="uploadFinished && uploadStarted" class="end-message-wrapper">

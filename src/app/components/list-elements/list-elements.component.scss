@@ -132,7 +132,7 @@
             }
             .list-elements-add-elements-wrapper {
                 width: 100%;
-                justify-content: center;
+                justify-content: center;                
                 .list-elements-card-content-first-line {
                 }
             }
@@ -147,7 +147,7 @@
 
 @media screen and (min-width: 200px) and (max-width: 480px) {
     .list-elements-card {
-        min-height: 90%;
+        min-height: 80%;
         .list-elements-card-header {
             .mat-card-title {
                 font-size: 14px;
@@ -158,11 +158,11 @@
             }
         }
         .list-elements-card-content.empty {
-            height: 100%;
+            height: 50%;
         }
         .list-elements-card-content {
-            max-height: 180px;    
-            .file-item {       }
+            .file-item {       
+            }
             .list-elements-card-content-icon {
             }
             .list-elements-card-content-first-line {
@@ -170,8 +170,11 @@
             .list-elements-card-content-second-line {
             }
             .list-elements-add-elements-wrapper {
-                width: 100%;
+                width: 90%;
                 justify-content: center;
+                margin-bottom: 15px;
+                position: inherit;
+                bottom: 0;
                 .list-elements-card-content-first-line {
                 }
             }
