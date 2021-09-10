@@ -112,7 +112,7 @@
 
 @media screen and (min-width: 480px) and (max-width: 812px) {
     .list-elements-card {
-        min-height: 90%;
+        min-height: 100%;
         .list-elements-card-header {
             .mat-card-title {
                 font-size: 16px;
@@ -182,6 +182,7 @@
     }
     
     .list-elements-card.empty {
+        margin-top: 90px;
         height: calc(100vh - 122px);
     }
 }

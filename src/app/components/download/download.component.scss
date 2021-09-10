@@ -1,6 +1,6 @@
 @media screen and (min-width: 812px) {
     .download-wrapper {
-        height: 100%;
+        height: 70vh;
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -33,7 +33,7 @@
 
 @media screen and (min-width: 480px) and (max-width: 812px) {
     .download-wrapper {
-        height: 100%;
+        height: 100vh;
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -67,9 +67,8 @@
 
 @media screen and (min-width: 200px) and (max-width: 480px) {
     .download-wrapper {
-        height: calc(100% - 90px);
+        height: 100vh;
         width: 100%;
-        margin-top: 90px;
         display: flex;
         flex-direction: column-reverse;
         justify-content: center;
@@ -83,16 +82,19 @@
         .download-elements-wrapper {
             height: 100%;
             width: 100%;
+            margin-top: 90px;
         }
     
         .check-validation-code-wrapper {
+            height: 85%;
             width: 100%;
-            height: 100%;
+            margin-top: 90px;
         }
     
         .end-message-wrapper {
             height: 100%;
             width: 100%;
+            margin-top: 90px;
         }
     }
 }
