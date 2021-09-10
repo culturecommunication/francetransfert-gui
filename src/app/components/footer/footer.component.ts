@@ -16,8 +16,8 @@ export class FooterComponent implements OnInit, OnDestroy {
   @Output() routingCalled: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private responsiveService: ResponsiveService,
-              private router: Router,
-              private tarteaucitronService: TarteaucitronService) { 
+    private router: Router,
+    private tarteaucitronService: TarteaucitronService) {
     this.version = environment.version;
   }
 
@@ -39,6 +39,10 @@ export class FooterComponent implements OnInit, OnDestroy {
   routeTo(_route) {
     this.router.navigate([_route]);
     this.routingCalled.emit(true);
+  }
+
+  goToLink(url: string) {
+    window.open(url, "_blank");
   }
 
   showTarteaucitronManager() {
