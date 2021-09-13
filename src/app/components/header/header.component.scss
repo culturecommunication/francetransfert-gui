@@ -22,6 +22,9 @@
                 display: flex;
                 justify-content: space-around;
                 align-items: center;
+                display: -webkit-flex;
+                -webkit-justify-content: space-around;
+                -webkit-align-items: center;
             }     
             .header-toolbar-right {
                 width: 33%;
@@ -46,6 +49,10 @@
                     flex-direction: row;
                     justify-content: space-between;
                     align-items: center;
+                    display: -webkit-flex;
+                    -webkit-flex-direction: row;
+                    -webkit-justify-content: space-between;
+                    -webkit-align-items: center;
                     color: var(--ft-blue-france);
                     font-size: 14px;
                     line-height: 24px;

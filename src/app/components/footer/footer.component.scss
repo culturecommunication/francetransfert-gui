@@ -8,6 +8,9 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        display: -webkit-flex;
+        -webkit-flex-direction: row;
+        -webkit-justify-content: space-between;
         &-left {
             width: 50%;
             margin-left: 100px;
@@ -20,6 +23,8 @@
             width: 50%;
             display: flex;
             flex-direction: column;
+            display: -webkit-flex;
+            -webkit-flex-direction: column;
             margin-right: 120px;
             &-text {
                 p {
@@ -31,6 +36,9 @@
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
+                display: -webkit-flex;
+                -webkit-flex-direction: row;
+                -webkit-justify-content: space-between;
                 font-size: 14px;
 
                 .link {
@@ -47,6 +55,10 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: flex-start;
+        display: -webkit-flex;
+        -webkit-flex-direction: column;
+        -webkit-justify-content: space-between;
+        -webkit-align-items: flex-start;
         font-size: 12px;
         &-links {       
             width: 685px; 
@@ -55,6 +67,9 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            display: -webkit-flex;
+            -webkit-flex-direction: row;
+            -webkit-justify-content: space-between;
             line-height: 20px;
             .col-separator {
                 border-left: 1px solid var(--ft-asset);
@@ -66,6 +81,8 @@
         &-text {
             display: flex;
             flex-direction: column;
+            display: -webkit-flex;
+            -webkit-flex-direction: column;
             line-height: 24px;
             margin-left: 120px;
         }

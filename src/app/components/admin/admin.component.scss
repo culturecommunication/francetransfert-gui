@@ -2,17 +2,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    display: -webkit-flex;
+    -webkit-justify-content: center;
+    -webkit-align-items: center;
     height: 100vh;
     width: 100%;
-    .admin-card {        
+    .admin-card {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        display: -webkit-flex;
+        -webkit-flex-direction: column;
+        -webkit-justify-content: flex-start;
         .admin-card-header {
             width: 100%;
             align-self: flex-start;
             display: flex;
             flex-direction: column;
+            -webkit-align-self: flex-start;
+            display: -webkit-flex;
+            -webkit-flex-direction: column;
             border-bottom: 1px solid var(--ft-asset);        
             .mat-card-title {
                 font-size: 16px;
@@ -25,6 +34,8 @@
             margin-top: 10px;
             display: flex;
             flex-direction: column;
+            display: -webkit-flex;
+            -webkit-flex-direction: column;
             &-error {
                 color: var(--ft-error);
             }
@@ -34,6 +45,9 @@
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
+                    display: -webkit-flex;
+                    -webkit-flex-direction: row;
+                    -webkit-justify-content: space-between;
 
                     .mat-icon {
                         cursor: pointer;
@@ -46,7 +60,9 @@
                 overflow-y: auto;
                 width: 100%;       
                 display: flex;
-                flex-direction: column;    
+                flex-direction: column;
+                display: -webkit-flex;
+                -webkit-flex-direction: column;    
                 .file-item {
                     width: 100%;
                 }

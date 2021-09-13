@@ -6,6 +6,10 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        display: -webkit-flex;
+        -webkit-flex-direction: row;
+        -webkit-justify-content: center;
+        -webkit-align-items: center;
     
         .list-elements-wrapper {
             height: 75%;
@@ -51,6 +55,10 @@
         flex-direction: column-reverse;
         align-items: center;
         justify-content: center;
+        display: -webkit-flex;
+        -webkit-flex-direction: column-reverse;
+        -webkit-align-items: center;
+        -webkit-justify-content: center;
 
         .list-elements-wrapper {
             height: 50%;
@@ -92,6 +100,9 @@
         display: flex;
         flex-direction: column-reverse;
         align-self: center;
+        display: -webkit-flex;
+        -webkit-flex-direction: column-reverse;
+        -webkit-align-self: center;
 
         .list-elements-wrapper {
             width: 100%;

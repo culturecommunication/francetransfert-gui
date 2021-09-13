@@ -66,20 +66,20 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   styleObject(): Object {
     if (this.screenWidth === 'lg') {
-      return { 'flex-direction': 'row' }
+      return { '-webkit-flex-direction': 'row' }
     }
     if (this.screenWidth === 'md') {
       if (!this.uploadFinished && !this.uploadStarted){
-        return { 'flex-direction': 'column-reverse' }
+        return { '-webkit-flex-direction': 'column-reverse' }
       } else {
-        return { 'flex-direction': 'row' }
+        return { '-webkit-flex-direction': 'row' }
       }
     }
     if (this.screenWidth === 'sm') {
       if (this.uploadFinished && this.uploadStarted){
-        return { 'flex-direction': 'column' }
+        return { '-webkit-flex-direction': 'column' }
       } else {
-        return { 'flex-direction': 'column-reverse' }
+        return { '-webkit-flex-direction': 'column-reverse' }
       }      
     }
     return {}
