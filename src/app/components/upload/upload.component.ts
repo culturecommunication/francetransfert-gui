@@ -43,7 +43,9 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadManagerSubscription = this.uploadManagerService.envelopeInfos.subscribe(_envelopeInfos => {
       if (_envelopeInfos && _envelopeInfos.from) {
         this.senderEmail = _envelopeInfos.from;
-        this.availabilityDays = _envelopeInfos.parameters.expiryDays
+        if (_envelopeInfos.parameters) {
+          this.availabilityDays = _envelopeInfos.parameters.expiryDays;
+        }        
       }
     });
     this.fileManagerSubscription = this.fileManagerService.hasFiles.subscribe(_hasFiles => {
