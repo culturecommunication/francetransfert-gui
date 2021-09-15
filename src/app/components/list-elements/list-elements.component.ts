@@ -16,6 +16,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() screenWidth: string;
   @Output() listExpanded: EventEmitter<boolean> = new EventEmitter();
   filesSize: number = 0;
+  fileSizeLimit: number = 1024 * 1024 * 1024 * 2;
   filesSizeLimit: number = 1024 * 1024 * 1024 * 20;
   errorMessage: string = '';
   expanded: boolean = false;
@@ -68,17 +69,22 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.errorMessage = '';
     }
   }
-  
+
   onItemAdded(event) {
-    this.filesSize += event.size;
-    if (this.filesSize <= this.filesSizeLimit) {
-      this.fileManagerService.hasFiles.next(this.filesSize > 0);
-      this.cdr.detectChanges();
-      this.errorMessage = '';
-    } else {
-      this.filesSize -= event.size;
+    if (event.size > this.fileSizeLimit) {
       this.flow.cancelFile(event);
-      this.errorMessage = 'Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale autorisée';
+      this.errorMessage = 'Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale autorisée (2 Go)';
+    } else {
+      this.filesSize += event.size;
+      if (this.filesSize <= this.filesSizeLimit) {
+        this.fileManagerService.hasFiles.next(this.filesSize > 0);
+        this.cdr.detectChanges();
+        this.errorMessage = '';
+      } else {
+        this.filesSize -= event.size;
+        this.flow.cancelFile(event);
+        this.errorMessage = 'Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale du pli autorisée (20 Go)';
+      }
     }
   }
 

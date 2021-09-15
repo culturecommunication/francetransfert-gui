@@ -4,7 +4,9 @@
         <mat-form-field>
             <mat-label>Nom de votre transfert</mat-label>
             <input matInput placeholder="(Facultatif)" formControlName="subject">
-            <mat-icon matSuffix matTooltip="Personnalisez le nom de votre transfert afin de le rendre plus facilement identifiable. Cela personnalisera aussi le lien de votre transfert.">info_outline</mat-icon>
+            <mat-icon matSuffix
+                matTooltip="Personnalisez le nom de votre transfert afin de le rendre plus facilement identifiable. Cela personnalisera aussi le lien de votre transfert.">
+                info_outline</mat-icon>
         </mat-form-field>
     </div>
 
@@ -15,9 +17,9 @@
             <mat-error *ngIf="f.from.errors?.required">Un émetteur est requis.</mat-error>
             <mat-error *ngIf="f.from.errors?.email">Une adresse mail valide est requise.</mat-error>
             <mat-error *ngIf="f.from.errors?.pattern">FranceTransfert est réservé aux échanges entre et
-                avec le personnel de l’État.</mat-error>            
+                avec le personnel de l’État.</mat-error>
         </mat-form-field>
-    </div>    
+    </div>
 
     <div class="envelope-link-form-group">
         <mat-form-field>
@@ -25,5 +27,9 @@
             <textarea cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10" matInput
                 placeholder="(Facultatif)" formControlName="message"></textarea>
         </mat-form-field>
+    </div>
+
+    <div class="envelope-link-form-group">
+        <mat-checkbox formControlName="cguCheck">J'accepte les <span class="link" (click)="routeToInNewWindow('/cgu')">CGU</span></mat-checkbox>
     </div>
 </form>

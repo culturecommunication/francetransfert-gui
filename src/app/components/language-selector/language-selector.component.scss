@@ -3,7 +3,11 @@
     font-size: 14px;
 
     .language-selected {
-      display: webkit-flex;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      display: -webkit-flex;
       -webkit-flex-direction: row;
       width: 50%;
       -webkit-justify-content: space-around;
@@ -16,7 +20,11 @@
 }
 
 ::ng-deep .mat-option-text {
-    display: webkit-flex !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    display: -webkit-flex !important;
     -webkit-flex-direction: row !important;
     -webkit-justify-content: space-around !important;
     -webkit-align-items: center !important;

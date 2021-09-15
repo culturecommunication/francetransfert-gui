@@ -1,10 +1,16 @@
 .envelope-link-form-container {
     height: 100%;
-    .mat-form-field {
-        width: 100%;
-        margin-top: 20px;
-        .mat-icon {
-            cursor: pointer;
+    .envelope-link-form-group {
+        .mat-form-field {
+            width: 100%;
+            margin-top: 20px;
+            .mat-icon {
+                cursor: pointer;
+            }
         }
-    }
+        .link {
+            color: var(--ft-blue-france);
+            text-decoration: underline;
+        }
+    }    
 }

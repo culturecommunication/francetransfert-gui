@@ -15,7 +15,7 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
   @Output() public onFormGroupChange = new EventEmitter<any>();
   envelopeParametersFormChangeSubscription: Subscription;
   hide = true;
-  passwordHelp = 'Le mot de passe doit respecter les contraintes suivantes: \n - 10 caractères minimum \n - 20 caractères maximum \n - Au moins 3 lettres minuscules \n - Au moins 3 lettre majuscules \n - Au moins 3 chiffres \n - Au moins 3 caractères spéciaux (!@#$%^&*()_+)';
+  passwordHelp = 'Le mot de passe doit respecter les contraintes suivantes: \n - 10 caractères minimum \n - 20 caractères maximum \n - Au moins 3 lettres minuscules \n - Au moins 3 lettres majuscules \n - Au moins 3 chiffres \n - Au moins 3 caractères spéciaux (!@#$%^&*()_+)';
 
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService) { }

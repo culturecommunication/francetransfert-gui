@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MailInfosModel } from 'src/app/models';
 import { UploadManagerService } from 'src/app/services';
@@ -28,7 +29,8 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   regexDomain = new RegExp('^[a-z0-9](\.?[a-z0-9]){3,}@culture\.gouv\.fr$');
 
   constructor(private fb: FormBuilder,
-    private uploadManagerService: UploadManagerService) { }
+    private uploadManagerService: UploadManagerService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -40,7 +42,8 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
       from: [this.mailFormValues?.from, [Validators.required, Validators.email]],
       to: [this.mailFormValues?.to, [Validators.email]],
       subject: [this.mailFormValues?.subject],
-      message: [this.mailFormValues?.message]
+      message: [this.mailFormValues?.message],
+      cguCheck: [this.mailFormValues?.cguCheck, [Validators.requiredTrue]]
     }, { validator: this.checkEmails });
     this.envelopeMailFormChangeSubscription = this.envelopeMailForm.valueChanges
       .subscribe(() => {
@@ -57,7 +60,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
       let found = this.destinatairesList.find(o => o === this.envelopeMailForm.get('to').value);
       if (!found) {
         if (this.destinatairesList.length < 100) {
-          this.destinatairesList.push(this.envelopeMailForm.get('to').value);
+          this.destinatairesList.push(this.envelopeMailForm.get('to').value.toLowerCase());
           this.envelopeMailForm.get('to').setValue('');
           this.envelopeMailForm.controls['to'].setErrors(null);
         }
@@ -96,6 +99,16 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     if (this.destinatairesList.length === 0) {
       this.envelopeMailForm.controls['to'].setErrors({ 'required': true });
     }
+  }
+
+  routeToInNewWindow(_route) {
+    // Converts the route into a string that can be used 
+    // with the window.open() function
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/${_route}`])
+    );
+
+    window.open(url, '_blank');
   }
 
 }

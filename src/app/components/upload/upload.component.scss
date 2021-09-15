@@ -1,50 +1,68 @@
 @media screen and (min-width: 812px) {
-    .upload-wrapper {
-        height: 70vh;
-        width: 100%;
+    .upload-root-wrapper {
+        height: 90vh;        
         display: flex;
-        flex-direction: row;
-        justify-content: center;
+        flex-direction: column;
+        justify-content: space-around;
         align-items: center;
         display: -webkit-flex;
         -webkit-flex-direction: row;
-        -webkit-justify-content: center;
+        -webkit-justify-content: space-around;
         -webkit-align-items: center;
-    
-        .list-elements-wrapper {
-            height: 75%;
-            width: 25%;
-            margin-right: 2.5%;
+        .upload-title-card {
+            margin-top: 20px;
+            .upload-title-card-content {
+                font-size: 16px;
+                font-weight: bold;
+                line-height: 24px;
+            }
         }
-    
-        .envelope-wrapper {
-            height: 75%;
-            width: 25%;
-            margin-left: 2.5%;
+        .upload-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            display: -webkit-flex;
+            -webkit-flex-direction: row;
+            -webkit-justify-content: center;
+            -webkit-align-items: center;
+        
+            .list-elements-wrapper {
+                height: 75%;
+                width: 35%;
+                margin-right: 2.5%;
+            }
+        
+            .envelope-wrapper {
+                height: 75%;
+                width: 35%;
+                margin-left: 2.5%;
+            }
+        
+            .loader-wrapper {
+                height: 75%;
+                width: 35%;
+            }
+        
+            .check-validation-code-wrapper {
+                height: 75%;
+                width: 35%;
+            }
+        
+            .end-message-wrapper {
+                height: 75%;
+                width: 35%;
+                margin-right: 2.5%;
+            }
+        
+            .satisfaction-check-wrapper {
+                height: 75%;
+                width: 35%;
+                margin-left: 2.5%;
+            }
         }
-    
-        .loader-wrapper {
-            height: 75%;
-            width: 25%;
-        }
-    
-        .check-validation-code-wrapper {
-            height: 75%;
-            width: 25%;
-        }
-    
-        .end-message-wrapper {
-            height: 75%;
-            width: 25%;
-            margin-right: 2.5%;
-        }
-    
-        .satisfaction-check-wrapper {
-            height: 75%;
-            width: 25%;
-            margin-left: 2.5%;
-        }
-    }
+    }    
 }
 
 @media screen and (min-width: 480px) and (max-width: 812px) {
@@ -103,6 +121,7 @@
         display: -webkit-flex;
         -webkit-flex-direction: column-reverse;
         -webkit-align-self: center;
+        margin-top: 90px;
 
         .list-elements-wrapper {
             width: 100%;
@@ -111,7 +130,7 @@
 
         .list-elements-wrapper.reduced {
             width: 100%;
-            height: 23%;
+            height: 28%;
         }
 
         .list-elements-wrapper.expanded {
@@ -136,7 +155,6 @@
         .end-message-wrapper {
             width: 100%;
             height: 50%;
-            margin-top: 90px;
         }
     
         .satisfaction-check-wrapper {
