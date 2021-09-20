@@ -10,6 +10,8 @@
         min-height:100vh;
         display: flex;
         flex-direction: column;
+        display: -webkit-flex;
+        -webkit-flex-direction: column;
         .app-content {
             flex-grow:1;
             height: 100%;
@@ -72,6 +74,17 @@
         margin-top: 114px;
         max-height: calc(100% - 114px);        
     }
+}
+
+// overwrite the checkbox background
+::ng-deep .mat-checkbox-checked .mat-checkbox-background, 
+.mat-checkbox-indeterminate .mat-checkbox-background {
+    background-color: var(--ft-blue-france) !important;
+}
+
+// overwrite the ripple overlay on hover and click
+::ng-deep .mat-checkbox:not(.mat-checkbox-disabled) .mat-checkbox-ripple .mat-ripple-element {
+    background-color: var(--ft-blue-france) !important;
 }
 
 @media screen and (min-width: 480px) and (max-width: 812px) {

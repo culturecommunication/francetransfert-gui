@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LinkInfosModel } from 'src/app/models';
 import { UploadManagerService } from 'src/app/services';
@@ -16,7 +17,8 @@ export class EnvelopeLinkFormComponent implements OnInit {
   envelopeLinkFormChangeSubscription: Subscription;
 
   constructor(private fb: FormBuilder,
-    private uploadManagerService: UploadManagerService) { }
+    private uploadManagerService: UploadManagerService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -26,7 +28,8 @@ export class EnvelopeLinkFormComponent implements OnInit {
     this.envelopeLinkForm = this.fb.group({
       subject: [this.linkFormValues?.subject],
       from: [this.linkFormValues?.from, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9](\.?[a-z0-9]){3,}@culture\.gouv\.fr$')]],
-      message: [this.linkFormValues?.message]
+      message: [this.linkFormValues?.message],
+      cguCheck: [this.linkFormValues?.cguCheck, [Validators.requiredTrue]]
     });
     this.envelopeLinkFormChangeSubscription = this.envelopeLinkForm.valueChanges
       .subscribe(() => {
@@ -40,6 +43,16 @@ export class EnvelopeLinkFormComponent implements OnInit {
 
   ngOnDestroy() {
     this.envelopeLinkFormChangeSubscription.unsubscribe();
+  }
+
+  routeToInNewWindow(_route) {
+    // Converts the route into a string that can be used 
+    // with the window.open() function
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/${_route}`])
+    );
+
+    window.open(url, '_blank');
   }
 
 }

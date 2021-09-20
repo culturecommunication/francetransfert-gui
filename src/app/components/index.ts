@@ -16,3 +16,4 @@ export { SatisfactionCheckComponent } from "./satisfaction-check/satisfaction-ch
 export { LanguageSelectorComponent } from "./language-selector/language-selector.component";
 export { AdminComponent } from "./admin/admin.component";
 export { AdminAlertDialogComponent } from "./admin/admin-alert-dialog/admin-alert-dialog.component";
+export { CguComponent } from "./cgu/cgu.component";

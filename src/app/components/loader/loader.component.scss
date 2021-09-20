@@ -1,14 +1,22 @@
-.loader-card {   
+.loader-card {  
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; 
+    display: -webkit-flex;
+    -webkit-flex-direction: column;
+    -webkit-justify-content: space-between;
+    -webkit-align-items: center;
     .loader-card-content {
         width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;  
+        align-items: center; 
+        display: -webkit-flex;
+        -webkit-flex-direction: column;
+        -webkit-justify-content: center;
+        -webkit-align-items: center;  
 
         .progress-spinner-wrapper {
 
@@ -30,6 +38,9 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            display: -webkit-flex;
+            -webkit-flex-direction: column;
+            -webkit-justify-content: space-between;
             text-align: center;
             &-title {
                 font-weight: bold;

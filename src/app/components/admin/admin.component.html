@@ -28,11 +28,15 @@
                         <mat-icon matTooltip="Modifier la date de fin de validité" (click)="picker.open()">edit
                         </mat-icon>
                     </mat-list-item>
+                    <mat-list-item role="listitem" class="delete">Supprimer le pli :
+                        <mat-icon matTooltip="Supprimer le pli" (click)="deleteFile()">delete
+                        </mat-icon>
+                    </mat-list-item>
                 </mat-list>
             </div>
-            <div class="admin-card-content-files"  *ngIf="fileInfos">
+            <div class="admin-card-content-files" *ngIf="fileInfos">
                 <div class="subheader">
-                    <span>Eléments du pli</span>
+                    <span>Éléments du pli</span>
                 </div>
                 <ft-file-item class="file-item" *ngFor="let transfer of transfers" [transfer]="transfer"
                     [readOnly]="true">
@@ -40,7 +44,7 @@
             </div>
         </mat-card-content>
         <mat-card-actions align="end" *ngIf="fileInfos">
-            <button class="admin-card-actions-btn" mat-button (click)="deleteFile()">Supprimer le pli</button>
+            <button class="admin-card-actions-btn" mat-button [routerLink]="'/upload'">Retour</button>
         </mat-card-actions>
     </mat-card>
 </div>

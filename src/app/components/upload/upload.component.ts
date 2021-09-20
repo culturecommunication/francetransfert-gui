@@ -3,7 +3,7 @@ import { FlowDirective, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs/internal/Subject';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { take, takeUntil } from 'rxjs/operators';
-import { FileManagerService, ResponsiveService, UploadManagerService, UploadService } from 'src/app/services';
+import { DownloadManagerService, FileManagerService, ResponsiveService, UploadManagerService, UploadService } from 'src/app/services';
 import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
 
 @Component({
@@ -33,17 +33,24 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private responsiveService: ResponsiveService,
     private uploadManagerService: UploadManagerService,
+    private downloadManagerService: DownloadManagerService,
     private fileManagerService: FileManagerService,
     private uploadService: UploadService) { }
 
   ngOnInit(): void {
+    this.uploadManagerService.envelopeInfos.next(null);
+    this.uploadManagerService.uploadError$.next(null);
+    this.downloadManagerService.downloadError$.next(null);
+    this.uploadManagerService.uploadInfos.next(null);
     this.onResize();
     this.flowConfig = FLOW_CONFIG;
     this.responsiveService.checkWidth();
     this.uploadManagerSubscription = this.uploadManagerService.envelopeInfos.subscribe(_envelopeInfos => {
       if (_envelopeInfos && _envelopeInfos.from) {
         this.senderEmail = _envelopeInfos.from;
-        this.availabilityDays = _envelopeInfos.parameters.expiryDays
+        if (_envelopeInfos.parameters) {
+          this.availabilityDays = _envelopeInfos.parameters.expiryDays;
+        }        
       }
     });
     this.fileManagerSubscription = this.fileManagerService.hasFiles.subscribe(_hasFiles => {
@@ -64,21 +71,21 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   styleObject(): Object {
     if (this.screenWidth === 'lg') {
-      return { 'flex-direction': 'row' }
+      return { '-webkit-flex-direction': 'row' }
     }
     if (this.screenWidth === 'md') {
-      if (!this.uploadFinished && !this.uploadStarted) {
-        return { 'flex-direction': 'column-reverse' }
+      if (!this.uploadFinished && !this.uploadStarted){
+        return { '-webkit-flex-direction': 'column-reverse' }
       } else {
-        return { 'flex-direction': 'row' }
+        return { '-webkit-flex-direction': 'row' }
       }
     }
     if (this.screenWidth === 'sm') {
-      if (this.uploadFinished && this.uploadStarted) {
-        return { 'flex-direction': 'column' }
+      if (this.uploadFinished && this.uploadStarted){
+        return { '-webkit-flex-direction': 'column' }
       } else {
-        return { 'flex-direction': 'column-reverse' }
-      }
+        return { '-webkit-flex-direction': 'column-reverse' }
+      }      
     }
     return {}
   }
@@ -135,22 +142,17 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
-        if (result && result.canUpload) {
-          this.uploadManagerService.uploadInfos.next(result);
-          this.uploadValidated = true;
-          this.availabilityDate = result.expireDate;
-          this.beginUpload(result);
-        } else {
-          this.uploadValidated = false;
+        if (this.uploadManagerService.uploadInfos.getValue().senderId && this.uploadManagerService.uploadInfos.getValue().senderToken) {
+          this.validateCode();
         }
       });
   }
 
-  async validateCode(code: string): Promise<any> {
+  async validateCode(code?: string): Promise<any> {
     let transfers: UploadState = await this.uploadManagerService.getRxValue(this.fileManagerService.transfers.getValue());
     this.uploadService
       .validateCode({
-        code: code,
+        ...code ? { code: code }: {},
         transfers: transfers.transfers,
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,

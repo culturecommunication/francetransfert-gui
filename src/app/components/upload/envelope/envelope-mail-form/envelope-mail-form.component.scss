@@ -3,6 +3,10 @@
     .mat-form-field {
         width: 100%;
     }
+    .link {
+        color: var(--ft-blue-france);
+        text-decoration: underline;
+    }
     .destinataires-chip-list {
         ::ng-deep .mat-chip-list-wrapper {
             margin-top: 20px;
@@ -12,6 +16,7 @@
             background-color: #DBDBEA;
             color: var(--ft-blue-france);
             cursor: pointer;
+            height: auto !important;
         }
     }
 }

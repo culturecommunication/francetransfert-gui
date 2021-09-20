@@ -1,11 +1,15 @@
 @media screen and (min-width: 812px) {
     .download-wrapper {
-        height: 70vh;
+        height: 80vh;
         width: 100%;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        display: -webkit-flex;
+        -webkit-flex-direction: row;
+        -webkit-justify-content: center;
+        -webkit-align-items: center;
     
         .list-elements-wrapper {
             height: 75%;
@@ -39,6 +43,10 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        display: -webkit-flex;
+        -webkit-flex-direction: row;
+        -webkit-justify-content: center;
+        -webkit-align-items: center;
     
         .list-elements-wrapper {
             height: 60%;
@@ -73,6 +81,10 @@
         flex-direction: column-reverse;
         justify-content: center;
         align-items: center;
+        display: -webkit-flex;
+        -webkit-flex-direction: column-reverse;
+        -webkit-justify-content: center;
+        -webkit-align-items: center;
     
         .list-elements-wrapper {
             margin-top: 30px;

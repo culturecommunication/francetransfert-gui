@@ -3,4 +3,5 @@ export interface UploadInfosModel {
     enclosureId: string;
     expireDate: string;
     senderId: string;
+    senderToken?: string;
 }

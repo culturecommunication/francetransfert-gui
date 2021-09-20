@@ -17,6 +17,7 @@ export class DownloadService {
     return this._httpClient.get(
       `${environment.host}${environment.apis.download.download}?enclosure=${params['enclosure']}&recipient=${params['recipient']}&token=${params['token']}`
     ).pipe(map(response => {
+      this.downloadManagerService.downloadError$.next(null);
       return response;
     }),
       catchError(this.handleError('download-info'))
@@ -32,9 +33,27 @@ export class DownloadService {
       `${environment.host}${environment.apis.download.downloadUrl}?enclosure=${params['enclosure']}&recipient=${params['recipient']}&token=${params['token']
       }&password=${withPassword ? escapedPassword : ''}`
     ).pipe(map(response => {
+      this.downloadManagerService.downloadError$.next(null);
       return response;
     }),
       catchError(this.handleError('generate-download-url'))
+    );
+  }
+
+  validatePassword(_body: any): any {
+    const body = {
+      enclosureId: _body.enclosureId,
+      password: _body.password,
+      recipientId: _body.recipientId
+    };
+    return this._httpClient.post(
+      `${environment.host}${environment.apis.download.validatePassword}`,
+      body
+    ).pipe(map(response => {
+      this.downloadManagerService.downloadError$.next(null);
+      return response;
+    }),
+      catchError(this.handleError('validateCode'))
     );
   }
 
@@ -42,6 +61,7 @@ export class DownloadService {
     return this._httpClient.get(
       `${environment.host}${environment.apis.download.downloadInfosPublic}?enclosure=${params['enclosure']}`
     ).pipe(map(response => {
+      this.downloadManagerService.downloadError$.next(null);
       return response;
     }),
       catchError(this.handleError('download-info-public'))
@@ -53,6 +73,7 @@ export class DownloadService {
     return this._httpClient.get(
       `${environment.host}${environment.apis.download.downloadUrlPublic}?enclosure=${params['enclosure']}&password=${escapedPassword}`
     ).pipe(map(response => {
+      this.downloadManagerService.downloadError$.next(null);
       return response;
     }),
       catchError(this.handleError('generate-download-url-public'))
@@ -65,6 +86,7 @@ export class DownloadService {
       message: body.message,
       satisfaction: body.satisfaction
     }).pipe(map(response => {
+      this.downloadManagerService.downloadError$.next(null);
       return response;
     }),
       catchError(this.handleError('rate'))
@@ -76,7 +98,7 @@ export class DownloadService {
       const errMsg = `error in ${operation}()`;
       console.log(`${errMsg}:`, err);
       if (err instanceof HttpErrorResponse) {
-        this.downloadManagerService.downloadError$.next(err.status);
+        this.downloadManagerService.downloadError$.next({statusCode: err.status, ...(err.message && !err.error.type) ? { message: err.message } : { message: err.error.type }, ...err.error.codeTryCount ? {codeTryCount : err.error.codeTryCount } : {}});
         console.log(`status: ${err.status}, ${err.statusText}`);
       }
       throw (errMsg);

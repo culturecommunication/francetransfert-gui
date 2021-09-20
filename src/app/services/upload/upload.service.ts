@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Transfer } from '@flowjs/ngx-flow/lib/transfer';
 import { catchError, map } from 'rxjs/operators';
+import { UploadInfosModel } from 'src/app/models';
 import { environment } from 'src/environments/environment';
 import { UploadManagerService } from '../upload-manager/upload-manager.service';
 
@@ -29,6 +30,7 @@ export class UploadService {
     };
     return this._httpClient.post(`${environment.host}${environment.apis.upload.tree}`, treeBody).pipe(
       map((response: any) => {
+        this.uploadManagerService.uploadError$.next(null);
         return response;
       }),
       catchError(this.handleError('sendTree'))
@@ -51,7 +53,15 @@ export class UploadService {
     return this._httpClient.post(
       `${environment.host}${environment.apis.upload.confirmationCode}?code=${body.code}&senderMail=${body.senderMail}`,
       treeBody
-    ).pipe(map(response => {
+    ).pipe(map((response: UploadInfosModel) => {
+      this.uploadManagerService.uploadError$.next(null);
+      this.uploadManagerService.uploadInfos.next({
+        canUpload: response.canUpload,
+        enclosureId: response.enclosureId,
+        expireDate: response.expireDate,
+        senderId: response.senderId,
+        senderToken: response.senderToken
+      });
       return response;
     }),
       catchError(this.handleError('validateCode'))
@@ -64,6 +74,7 @@ export class UploadService {
       message: body.message,
       satisfaction: body.satisfaction
     }).pipe(map(response => {
+      this.uploadManagerService.uploadError$.next(null);
       return response;
     }),
       catchError(this.handleError('rate'))
@@ -121,7 +132,7 @@ export class UploadService {
       const errMsg = `error in ${operation}()`;
       console.log(`${errMsg}:`, err);
       if (err instanceof HttpErrorResponse) {
-        this.uploadManagerService.uploadError$.next(err.status);
+        this.uploadManagerService.uploadError$.next({statusCode: err.status, ...(err.message && !err.error.type) ? { message: err.message } : { message: err.error.type }, ...err.error.codeTryCount ? {codeTryCount : err.error.codeTryCount } : {}});
         console.log(`status: ${err.status}, ${err.statusText}`);
       }
       throw (errMsg);

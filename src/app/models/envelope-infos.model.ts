@@ -2,6 +2,7 @@ export interface EnvelopeInfosModel {
     type: 'mail' | 'link';
     from: string;
     message: string;
+    cguCheck: boolean;
 }
 
 export interface MailInfosModel extends EnvelopeInfosModel {
