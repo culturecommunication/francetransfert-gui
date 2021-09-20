@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MailingListManagerComponent } from 'src/app/components';
 import { MailInfosModel } from 'src/app/models';
-import { UploadManagerService } from 'src/app/services';
+import { MailingListService, UploadManagerService } from 'src/app/services';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -30,7 +32,9 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
-    private router: Router) { }
+    private mailingListService: MailingListService,
+    private router: Router,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -48,7 +52,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     this.envelopeMailFormChangeSubscription = this.envelopeMailForm.valueChanges
       .subscribe(() => {
         this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
-        this.uploadManagerService.envelopeInfos.next({type: 'mail', ...this.envelopeMailForm.value});
+        this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value });
       });
   }
 
@@ -109,6 +113,23 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     );
 
     window.open(url, '_blank');
+  }
+
+  openMailingListManager() {
+    const dialogRef = this.dialog.open(MailingListManagerComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        if (result.event === 'loadMailingListFromLocalStorage') {
+          this.destinatairesList = result.data;
+          this.checkDestinatairesList();
+        }
+        if (result.event === 'loadMailingListFromFile') {
+          this.destinatairesList = result.data;
+          this.checkDestinatairesList();
+        }
+      }
+    });
   }
 
 }

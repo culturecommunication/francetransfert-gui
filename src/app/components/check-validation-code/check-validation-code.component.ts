@@ -14,6 +14,7 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
   @Input() component: 'upload' | 'download';
   @Input() email: string;
   verificationCodeForm: FormGroup;
+  @Output() transferCancelled: EventEmitter<boolean> = new EventEmitter();
   @Output() transferValidated: EventEmitter<string> = new EventEmitter();
   @Output() dowloadValidated: EventEmitter<string> = new EventEmitter();
   errorSubscription: Subscription = new Subscription();
@@ -62,6 +63,10 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
     if (this.component === 'download') {
       this.dowloadValidated.emit(this.verificationCodeForm.get('verificationCode').value);
     }
+  }
+
+  cancel() {
+    this.transferCancelled.emit(true);
   }
 
 }

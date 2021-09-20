@@ -111,6 +111,12 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  onCheckTransferCancelled(event) {
+    if (event) {
+      this.uploadStarted = false;
+    }
+  }
+
   onSatisfactionCheckDone(event) {
     if (event) {
       this.uploadService.rate({ mail: this.uploadManagerService.envelopeInfos.getValue().from, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
@@ -141,9 +147,11 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
-        if (this.uploadManagerService.uploadInfos.getValue().senderId && this.uploadManagerService.uploadInfos.getValue().senderToken) {
-          this.validateCode();
-        }
+        if (this.uploadManagerService.uploadInfos.getValue()) {
+          if (this.uploadManagerService.uploadInfos.getValue().senderId && this.uploadManagerService.uploadInfos.getValue().senderToken) {
+            this.validateCode();
+          }
+        }        
       });
   }
 

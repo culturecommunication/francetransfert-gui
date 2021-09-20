@@ -17,3 +17,4 @@ export { LanguageSelectorComponent } from "./language-selector/language-selector
 export { AdminComponent } from "./admin/admin.component";
 export { AdminAlertDialogComponent } from "./admin/admin-alert-dialog/admin-alert-dialog.component";
 export { CguComponent } from "./cgu/cgu.component";
+export { MailingListManagerComponent } from "./mailing-list-manager/mailing-list-manager.component";

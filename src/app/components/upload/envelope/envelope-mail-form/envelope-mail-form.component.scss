@@ -2,6 +2,10 @@
     height: 100%;
     .mat-form-field {
         width: 100%;
+
+        .icon-btn {
+            cursor: pointer;
+        }
     }
     .link {
         color: var(--ft-blue-france);
