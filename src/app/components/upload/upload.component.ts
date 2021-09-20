@@ -41,7 +41,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadManagerService.envelopeInfos.next(null);
     this.uploadManagerService.uploadError$.next(null);
     this.downloadManagerService.downloadError$.next(null);
-    this.uploadManagerService.uploadInfos.next(null);
+    //this.uploadManagerService.uploadInfos.next(null);
     this.onResize();
     this.flowConfig = FLOW_CONFIG;
     this.responsiveService.checkWidth();
@@ -56,6 +56,16 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.fileManagerSubscription = this.fileManagerService.hasFiles.subscribe(_hasFiles => {
       this.hasFiles = _hasFiles;
     });
+  }
+
+  reset() {
+    this.uploadStarted = false;
+    this.uploadFinished = false;
+    this.uploadValidated = false;
+    this.uploadManagerService.envelopeInfos.next(null);
+    this.uploadManagerService.uploadError$.next(null);
+    this.downloadManagerService.downloadError$.next(null);
+    this.flow.cancel();
   }
 
   ngAfterViewInit() {
@@ -121,9 +131,8 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     if (event) {
       this.uploadService.rate({ mail: this.uploadManagerService.envelopeInfos.getValue().from, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
         .subscribe(() => {
-
+          this.reset();
         });
-      window.location.reload();
     }
   }
 
@@ -143,13 +152,22 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
         password: this.uploadManagerService.envelopeInfos.getValue().parameters.password,
         expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays,
-        ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false }
+        ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false },
+        ...this.uploadManagerService.uploadInfos.getValue()?.senderId ? { senderId: this.uploadManagerService.uploadInfos.getValue().senderId } : {},
+        ...this.uploadManagerService.uploadInfos.getValue()?.senderToken ? { senderToken: this.uploadManagerService.uploadInfos.getValue().senderToken } : {}
       })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
-        if (this.uploadManagerService.uploadInfos.getValue()) {
-          if (this.uploadManagerService.uploadInfos.getValue().senderId && this.uploadManagerService.uploadInfos.getValue().senderToken) {
-            this.validateCode();
+        if (result && result?.canUpload == true) {
+          this.uploadManagerService.uploadInfos.next(result);
+          this.uploadValidated = true;
+          this.availabilityDate = result.expireDate;
+          this.beginUpload(result);
+        } else {
+          if (this.uploadManagerService.uploadInfos.getValue()) {
+            if (this.uploadManagerService.uploadInfos.getValue().senderId && this.uploadManagerService.uploadInfos.getValue().senderToken) {
+              this.validateCode();
+            }
           }
         }        
       });
