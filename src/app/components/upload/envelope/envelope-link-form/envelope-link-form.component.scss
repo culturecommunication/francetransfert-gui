@@ -1,5 +1,4 @@
 .envelope-link-form-container {
-    height: 100%;
     .envelope-link-form-group {
         .mat-form-field {
             width: 100%;
@@ -13,4 +12,22 @@
             text-decoration: underline;
         }
     }    
+}
+
+@media screen and (min-width: 812px) {
+    .envelope-link-form-container {
+        height: 100%;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 812px) {
+    .envelope-link-form-container {
+        height: 100%;
+    }
+}
+
+@media screen and (min-width: 200px) and (max-width: 480px) {
+    .envelope-link-form-container {
+        overflow: hidden;
+    }
 }

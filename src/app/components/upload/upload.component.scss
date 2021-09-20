@@ -113,7 +113,6 @@
 @media screen and (min-width: 200px) and (max-width: 480px) {
     .upload-wrapper {
         width: 100%;
-        height: 100vh;
         display: flex;
         flex-direction: column-reverse;
         align-self: center;
@@ -129,7 +128,7 @@
 
         .list-elements-wrapper.reduced {
             width: 100%;
-            height: 28%;
+            height: 20%;
         }
 
         .list-elements-wrapper.expanded {

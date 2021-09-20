@@ -39,7 +39,8 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
         }
         this.parametersFormValues = _infos.parameters;
         this.cdr.detectChanges();
-      }      
+        this.checkCanSend();
+      }
     });
   }
 
@@ -73,7 +74,6 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   checkCanSend() {
     this.fileManagerServiceSubscription = this.fileManagerService.hasFiles.subscribe(hasFiles => {
-      // console.log(`hasFiles: ${hasFiles} ; mailFormValid: ${this.mailFormValid} ; linkFormValid: ${this.linkFormValid}`)
       this.canSend = hasFiles && (this.mailFormValid || this.linkFormValid);
     });
   }

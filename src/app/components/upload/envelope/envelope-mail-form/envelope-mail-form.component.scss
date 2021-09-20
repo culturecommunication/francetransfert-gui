@@ -1,5 +1,4 @@
-.envelope-mail-form-container {
-    height: 100%;
+.envelope-mail-form-container {    
     .mat-form-field {
         width: 100%;
 
@@ -22,5 +21,24 @@
             cursor: pointer;
             height: auto !important;
         }
+    }
+}
+
+
+@media screen and (min-width: 812px) {
+    .envelope-mail-form-container {
+        height: 100%;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 812px) {
+    .envelope-mail-form-container {
+        height: 100%;
+    }
+}
+
+@media screen and (min-width: 200px) and (max-width: 480px) {
+    .envelope-mail-form-container {
+        overflow: hidden;
     }
 }

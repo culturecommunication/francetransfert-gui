@@ -6,3 +6,10 @@
 .error {
     color: var(--ft-error);
 }
+
+@media screen and (min-width: 200px) and (max-width: 480px) {
+    .btn {
+        margin-bottom: 5px;
+        min-width: 80%;
+    }
+}

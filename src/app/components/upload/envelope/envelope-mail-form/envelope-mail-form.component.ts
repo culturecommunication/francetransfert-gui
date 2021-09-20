@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MailingListManagerComponent } from 'src/app/components';
 import { MailInfosModel } from 'src/app/models';
-import { MailingListService, UploadManagerService } from 'src/app/services';
+import { UploadManagerService } from 'src/app/services';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -32,7 +32,6 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
-    private mailingListService: MailingListService,
     private router: Router,
     private dialog: MatDialog) { }
 
@@ -54,10 +53,26 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
         this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
         this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value });
       });
+    this.reloadDestinataires();
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.envelopeMailForm.controls; }
+
+  reloadDestinataires() {
+    if (this.envelopeMailForm.get('to').value) {
+      let tmp = this.envelopeMailForm.get('to').value.toString().split(',');
+      if (tmp[0] !== '') {
+        this.destinatairesList = tmp;
+        this.envelopeMailForm.get('to').setValue('');
+        this.envelopeMailForm.markAllAsTouched();
+        this.envelopeMailForm.markAsDirty();
+        this.checkDestinatairesList();
+        this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
+        this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value });
+      }
+    }
+  }
 
   onBlurDestinataires() {
     if (this.envelopeMailForm.get('to').value && !this.envelopeMailForm.get('to').hasError('email')) {
@@ -123,10 +138,14 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
         if (result.event === 'loadMailingListFromLocalStorage') {
           this.destinatairesList = result.data;
           this.checkDestinatairesList();
+          this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
+          this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value });
         }
         if (result.event === 'loadMailingListFromFile') {
           this.destinatairesList = result.data;
           this.checkDestinatairesList();
+          this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
+          this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value });
         }
       }
     });

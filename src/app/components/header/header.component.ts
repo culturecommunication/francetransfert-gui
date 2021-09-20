@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ResponsiveService } from 'src/app/services';
 
@@ -13,7 +14,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   responsiveSubscription: Subscription = new Subscription;
   screenWidth: string;
 
-  constructor(private responsiveService: ResponsiveService) { }
+  constructor(private responsiveService: ResponsiveService,
+    private _router: Router) { }
 
   ngOnInit(): void {
     this.onResize();
@@ -36,6 +38,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   backToHome() { 
-    window.location.reload()
+    if (this._router.url.includes('upload')) {
+      window.location.reload();
+    } else {
+      this._router.navigate(['/upload']);
+    }
   }
 }
