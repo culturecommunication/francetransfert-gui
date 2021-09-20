@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Liste de diffusion</h2>
+<mat-dialog-content class="mat-typography">
+  <!-- <h3>Cette action supprimera définitivement votre pli et le rendra inaccessible.</h3> -->
+  <p>Importer une liste de diffusion ?</p><br/>
+  <p>Vous pouvez importer une liste de diffusion depuis un fichier contenant les adresses mail que vous souhaitez utiliser séparées par un caractère ";"</p><br/>
+  <span *ngIf="errorMessage !== ''" class="error">{{errorMessage}}</span>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn" mat-button (click)="fileInput.click()">
+    <span>Depuis un fichier</span>
+    <input #fileInput type="file" (change)="loadMailingListFromFile($event)" style="display:none;" />
+  </button>
+  <button class="btn" mat-button cdkFocusInitial (click)="loadMailingListFromLocalStorage()">Données stockées</button>
+</mat-dialog-actions>

@@ -41,6 +41,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminAlertDialogComponent } from './components/admin/admin-alert-dialog/admin-alert-dialog.component';
 import { CguComponent } from './components/cgu/cgu.component';
+import { MailingListManagerComponent } from './components/mailing-list-manager/mailing-list-manager.component';
 
 registerLocaleData(localeFr);
 const initializer = (pwaService: PwaService) => () =>
@@ -80,7 +81,8 @@ const initializer = (pwaService: PwaService) => () =>
     LanguageSelectorComponent,
     AdminComponent,
     AdminAlertDialogComponent,
-    CguComponent
+    CguComponent,
+    MailingListManagerComponent
   ],
   imports: [
     HttpClientModule,

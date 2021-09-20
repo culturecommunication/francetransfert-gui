@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FlowDirective, Transfer } from '@flowjs/ngx-flow';
 import { Subscription } from 'rxjs';
-import { FileManagerService } from 'src/app/services';
+import { FileManagerService, MailingListService } from 'src/app/services';
 
 @Component({
   selector: 'ft-list-elements',

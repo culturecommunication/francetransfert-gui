@@ -1,11 +1,11 @@
 <mat-toolbar class="header-toolbar">
     <mat-toolbar-row class="header-toolbar-row">
         <div class="header-toolbar-row-title">
-            <div class="header-toolbar-logos-wrapper" [routerLink]="['/upload']" *ngIf="!isMobile">
+            <div class="header-toolbar-logos-wrapper" (click)="backToHome()" *ngIf="!isMobile">
                 <img class="header-toolbar-logo rep-fr" src="assets/logos/republique_francaise_logo.svg" />
                 <img class="header-toolbar-logo ft" src="assets/logos/france_transfert_logo.svg" />
             </div>
-            <div class="header-toolbar-logos-wrapper" [routerLink]="['/upload']" *ngIf="isMobile">
+            <div class="header-toolbar-logos-wrapper" (click)="backToHome()" *ngIf="isMobile">
                 <img class="header-toolbar-logo rep-fr" src="assets/logos/republique_francaise_logo.svg" />
                 <img class="header-toolbar-logo ft" src="assets/logos/monogramme_ft.png" />
             </div>

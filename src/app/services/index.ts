@@ -9,3 +9,4 @@ export { UploadService } from './upload/upload.service';
 export { DownloadService } from './download/download.service';
 export { DownloadManagerService } from './download-manager/download-manager.service';
 export { AdminService } from './admin/admin.service';
+export { MailingListService } from './mailing-list/mailing-list.service';

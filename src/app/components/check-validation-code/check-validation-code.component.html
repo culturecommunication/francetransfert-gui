@@ -9,9 +9,9 @@
                     (vérifiez votre dossier spam).</span>
             </div>
             <div class="check-validation-code-card-content-error" *ngIf="error && error.statusCode === 401">
-                <span>Le code de vérification est invalide.</span><br/>
+                <span>Le code de vérification est invalide.</span><br />
                 <span *ngIf="error.codeTryCount > 0">Nombre d'échecs : {{error.codeTryCount}}</span>
-                <span *ngIf="!error.codeTryCount && error.message">{{error.message}}</span>
+                <span *ngIf="!error.codeTryCount">Suite à 5 erreurs de validation du code votre pli est annulé</span>
             </div>
             <div class="check-validation-code-card-content-error" *ngIf="error && error.statusCode === 400">
                 <span>Une erreur technique s'est produite.</span>
@@ -26,6 +26,8 @@
             </div>
         </mat-card-content>
         <mat-card-actions class="check-validation-code-card-actions">
+            <button mat-raised-button
+                class="check-validation-code-card-actions-btn" (click)="cancel()">Annuler</button>
             <button type="submit" [disabled]="!verificationCodeForm.valid" mat-raised-button
                 class="check-validation-code-card-actions-btn" (click)="validateForm()">Valider</button>
         </mat-card-actions>
@@ -41,7 +43,7 @@
                     pour télécharger ce transfert.</span>
             </div>
             <div class="check-validation-code-card-content-error" *ngIf="error && error.statusCode === 401">
-                <span>Le mot de passe est invalide.</span><br/>
+                <span>Le mot de passe est invalide.</span><br />
                 <span *ngIf="error.codeTryCount > 0">Nombre d'échecs : {{error.codeTryCount}}</span>
                 <span *ngIf="!error.codeTryCount && error.message">{{error.message}}</span>
             </div>
