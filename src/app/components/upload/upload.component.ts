@@ -50,7 +50,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         this.senderEmail = _envelopeInfos.from;
         if (_envelopeInfos.parameters) {
           this.availabilityDays = _envelopeInfos.parameters.expiryDays;
-        }        
+        }
       }
     });
     this.fileManagerSubscription = this.fileManagerService.hasFiles.subscribe(_hasFiles => {
@@ -74,18 +74,18 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       return { '-webkit-flex-direction': 'row' }
     }
     if (this.screenWidth === 'md') {
-      if (!this.uploadFinished && !this.uploadStarted){
+      if (!this.uploadFinished && !this.uploadStarted) {
         return { '-webkit-flex-direction': 'column-reverse' }
       } else {
         return { '-webkit-flex-direction': 'row' }
       }
     }
     if (this.screenWidth === 'sm') {
-      if (this.uploadFinished && this.uploadStarted){
+      if (this.uploadFinished && this.uploadStarted) {
         return { '-webkit-flex-direction': 'column' }
       } else {
         return { '-webkit-flex-direction': 'column-reverse' }
-      }      
+      }
     }
     return {}
   }
@@ -135,7 +135,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     let transfers: UploadState = await this.uploadManagerService.getRxValue(this.fileManagerService.transfers.getValue());
     console.log(transfers);
     console.log(this.uploadManagerService.envelopeInfos.getValue());
-    this.uploadValidated = true;
     this.uploadService
       .sendTree({
         transfers: transfers.transfers,
@@ -152,7 +151,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
           if (this.uploadManagerService.uploadInfos.getValue().senderId && this.uploadManagerService.uploadInfos.getValue().senderToken) {
             this.validateCode();
           }
-        }        
+        }
       });
   }
 
@@ -160,7 +159,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     let transfers: UploadState = await this.uploadManagerService.getRxValue(this.fileManagerService.transfers.getValue());
     this.uploadService
       .validateCode({
-        ...code ? { code: code }: {},
+        ...code ? { code: code } : {},
         transfers: transfers.transfers,
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
