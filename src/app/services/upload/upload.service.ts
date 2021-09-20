@@ -26,7 +26,9 @@ export class UploadService {
       rootFiles: trMapping.files,
       rootDirs: trMapping.dirs,
       publicLink: body.publicLink,
-      expireDelay: body.expiryDays
+      expireDelay: body.expiryDays,
+      senderId: body.senderId,
+      senderToken: body.senderToken
     };
     return this._httpClient.post(`${environment.host}${environment.apis.upload.tree}`, treeBody).pipe(
       map((response: any) => {
