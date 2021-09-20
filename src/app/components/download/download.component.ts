@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlowDirective, Transfer } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs/internal/Subject';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { FTTransferModel } from 'src/app/models';
-import { DownloadService } from 'src/app/services';
+import { DownloadManagerService, DownloadService, UploadManagerService } from 'src/app/services';
 import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
 
 @Component({
@@ -42,9 +42,13 @@ export class DownloadComponent implements OnInit, OnDestroy {
 
   constructor(private _downloadService: DownloadService,
     private _activatedRoute: ActivatedRoute,
+    private uploadManagerService: UploadManagerService,
+    private downloadManagerService: DownloadManagerService,
     private _router: Router) { }
 
   ngOnInit(): void {
+    this.uploadManagerService.uploadError$.next(null);
+    this.downloadManagerService.downloadError$.next(null);
     this.flowConfig = FLOW_CONFIG;
     this._activatedRoute.queryParams.pipe(takeUntil(this.onDestroy$)).subscribe((params: Array<{ string: string }>) => {
       this.params = params;
@@ -134,7 +138,13 @@ export class DownloadComponent implements OnInit, OnDestroy {
 
   onDownloadValidated(event) {
     this.password = event;
-    this.downloadValidated = true;
+    this._downloadService.validatePassword({ enclosureId: this.params['enclosure'], password: this.password, recipientId: this.params['recipient'] }).pipe(take(1))
+      .subscribe((response) => {
+        console.log(response);
+        if (response.valid) {
+          this.downloadValidated = true;
+        }
+      });
   }
 
   ngOnDestroy() {

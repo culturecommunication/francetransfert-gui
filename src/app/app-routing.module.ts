@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DownloadComponent, UploadComponent, AccessibiliteComponent, ContactComponent, FaqComponent, MentionsLegalesComponent, AdminComponent } from './components';
+import { CguComponent } from './components/cgu/cgu.component';
 import { DownloadGuard } from './shared/guards';
 
 const routes: Routes = [
@@ -30,6 +31,9 @@ const routes: Routes = [
   },
   {
     path: 'mentions-legales', component: MentionsLegalesComponent
+  },
+  {
+    path: 'cgu', component: CguComponent
   },
   { path: '', redirectTo: 'upload', pathMatch: 'full' },
   { path: '**', redirectTo: 'upload' }

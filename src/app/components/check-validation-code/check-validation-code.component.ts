@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { UploadManagerService } from 'src/app/services';
+import { FTErrorModel } from 'src/app/models';
+import { DownloadManagerService, UploadManagerService } from 'src/app/services';
 
 @Component({
   selector: 'ft-check-validation-code',
@@ -16,21 +17,29 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
   @Output() transferValidated: EventEmitter<string> = new EventEmitter();
   @Output() dowloadValidated: EventEmitter<string> = new EventEmitter();
   errorSubscription: Subscription = new Subscription();
-  errorCode: number;
+  errorDLSubscription: Subscription = new Subscription();
+  error: FTErrorModel;
 
-  constructor(private fb: FormBuilder, private uploadManagerService: UploadManagerService) { }
+  constructor(private fb: FormBuilder, private uploadManagerService: UploadManagerService, 
+    private downloadManagerService: DownloadManagerService) { }
 
   ngOnInit(): void {
     this.initForm();
     this.errorSubscription = this.uploadManagerService.uploadError$.subscribe(error => {
       if (error) {
-        this.errorCode = error;
+        this.error = { statusCode: error.statusCode, message: error.message, codeTryCount: error.codeTryCount };
+      }
+    });
+    this.errorDLSubscription = this.downloadManagerService.downloadError$.subscribe(error => {
+      if (error) {
+        this.error = { statusCode: error.statusCode, message: error.message, codeTryCount: error.codeTryCount };
       }
     });
   }
 
   ngOnDestroy(): void {
     this.errorSubscription.unsubscribe();
+    this.errorDLSubscription.unsubscribe();
   }
 
   initForm() {

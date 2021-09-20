@@ -3,7 +3,7 @@ import { FlowDirective, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs/internal/Subject';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { take, takeUntil } from 'rxjs/operators';
-import { FileManagerService, ResponsiveService, UploadManagerService, UploadService } from 'src/app/services';
+import { DownloadManagerService, FileManagerService, ResponsiveService, UploadManagerService, UploadService } from 'src/app/services';
 import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
 
 @Component({
@@ -33,10 +33,15 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private responsiveService: ResponsiveService,
     private uploadManagerService: UploadManagerService,
+    private downloadManagerService: DownloadManagerService,
     private fileManagerService: FileManagerService,
     private uploadService: UploadService) { }
 
   ngOnInit(): void {
+    this.uploadManagerService.envelopeInfos.next(null);
+    this.uploadManagerService.uploadError$.next(null);
+    this.downloadManagerService.downloadError$.next(null);
+    this.uploadManagerService.uploadInfos.next(null);
     this.onResize();
     this.flowConfig = FLOW_CONFIG;
     this.responsiveService.checkWidth();
@@ -136,14 +141,17 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
+        if (this.uploadManagerService.uploadInfos.getValue().senderId && this.uploadManagerService.uploadInfos.getValue().senderToken) {
+          this.validateCode();
+        }
       });
   }
 
-  async validateCode(code: string): Promise<any> {
+  async validateCode(code?: string): Promise<any> {
     let transfers: UploadState = await this.uploadManagerService.getRxValue(this.fileManagerService.transfers.getValue());
     this.uploadService
       .validateCode({
-        code: code,
+        ...code ? { code: code }: {},
         transfers: transfers.transfers,
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,

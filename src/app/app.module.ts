@@ -40,6 +40,7 @@ import { LanguageSelectorComponent } from './components/language-selector/langua
 import { HttpClientModule } from '@angular/common/http';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminAlertDialogComponent } from './components/admin/admin-alert-dialog/admin-alert-dialog.component';
+import { CguComponent } from './components/cgu/cgu.component';
 
 registerLocaleData(localeFr);
 const initializer = (pwaService: PwaService) => () =>
@@ -78,7 +79,8 @@ const initializer = (pwaService: PwaService) => () =>
     SatisfactionCheckComponent,
     LanguageSelectorComponent,
     AdminComponent,
-    AdminAlertDialogComponent
+    AdminAlertDialogComponent,
+    CguComponent
   ],
   imports: [
     HttpClientModule,

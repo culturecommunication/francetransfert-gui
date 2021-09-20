@@ -18,6 +18,7 @@ export class AdminService {
     return this._httpClient.get(
       `${environment.host}${environment.apis.admin.fileInfos}?enclosure=${params['enclosure']}&token=${params['token']}`
     ).pipe(map(response => {
+      this.adminError$.next(null);
       return response;
     }),
       catchError(this.handleError('file-info'))
@@ -28,6 +29,7 @@ export class AdminService {
     return this._httpClient.get(
       `${environment.host}${environment.apis.admin.deleteFile}?enclosure=${params['enclosure']}&token=${params['token']}`
     ).pipe(map(response => {
+      this.adminError$.next(null);
       return response;
     }),
       catchError(this.handleError('delete-file'))
@@ -40,6 +42,7 @@ export class AdminService {
       newDate: body.newDate,
       token: body.token
     }).pipe(map(response => {
+      this.adminError$.next(null);
       return response;
     }),
       catchError(this.handleError('update-expired-date'))

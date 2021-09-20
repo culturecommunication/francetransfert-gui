@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ParametersModel } from 'src/app/models';
-import { UploadManagerService } from 'src/app/services';
+import * as moment from 'moment';
 
 @Component({
   selector: 'ft-envelope-parameters-form',
@@ -16,22 +16,32 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
   envelopeParametersFormChangeSubscription: Subscription;
   hide = true;
   passwordHelp = 'Le mot de passe doit respecter les contraintes suivantes: \n - 10 caractères minimum \n - 20 caractères maximum \n - Au moins 3 lettres minuscules \n - Au moins 3 lettres majuscules \n - Au moins 3 chiffres \n - Au moins 3 caractères spéciaux (!@#$%^&*()_+)';
+  minDate = new Date();
+  maxDate = new Date();
 
-  constructor(private fb: FormBuilder,
-    private uploadManagerService: UploadManagerService) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.initForm();
   }
 
   initForm() {
+    let expireDate;
+    if (this.parametersFormValues?.expiryDays) {
+      expireDate = moment().add(this.parametersFormValues.expiryDays, 'days').toDate();
+    } else {
+      expireDate = moment().add(30, 'days').toDate();
+    }
+    this.maxDate = moment().add(90, 'days').toDate();
+    
     this.envelopeParametersForm = this.fb.group({
-      expiryDays: [this.parametersFormValues?.expiryDays ? this.parametersFormValues?.expiryDays : '30', [Validators.max(90), Validators.min(1)]],
+      expiryDays: [expireDate],
       password: [this.parametersFormValues?.password, [Validators.minLength(10), Validators.maxLength(20), Validators.pattern('^(?=.{10,})((?=.*[0-9]){3,})((?=.*[a-z]){3,})((?=.*[A-Z]){3,})((?=.*[!@#$%^&*()_+]){3,}).*$')]]
     });
     this.envelopeParametersFormChangeSubscription = this.envelopeParametersForm.valueChanges
       .subscribe(() => {
-        this.onFormGroupChange.emit({ isValid: this.envelopeParametersForm.valid, values: this.envelopeParametersForm.value })
+        const _expiryDays = moment().diff(this.envelopeParametersForm.get('expiryDays').value, 'days') - 1;
+        this.onFormGroupChange.emit({ isValid: this.envelopeParametersForm.valid, values: { expiryDays: -_expiryDays, password: this.envelopeParametersForm.get('password').value } })
       });
   }
 
