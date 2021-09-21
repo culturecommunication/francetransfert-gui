@@ -23,7 +23,7 @@
             *ngIf="!uploadStarted && (screenWidth !== 'sm' || (screenWidth === 'sm' && hasFiles && !listExpanded))"
             (uploadStarted)="onUploadStarted($event)" class="envelope-wrapper" [ngClass]="{'reduced': listExpanded}">
         </ft-envelope>
-        <ft-end-message [component]="'upload'" [availabilityDate]="availabilityDate"
+        <ft-end-message (backToHomeEvent)="reset()" [component]="'upload'" [availabilityDate]="availabilityDate"
             *ngIf="uploadFinished && uploadStarted" class="end-message-wrapper">
         </ft-end-message>
         <ft-satisfaction-check (satisfactionCheckDone)="onSatisfactionCheckDone($event)"
