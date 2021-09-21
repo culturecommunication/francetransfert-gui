@@ -11,6 +11,7 @@ import { ResponsiveService } from 'src/app/services';
 export class HeaderComponent implements OnInit, OnDestroy {
   isMobile: boolean = false;
   @Output() sidenavToggle = new EventEmitter();
+  @Output() routingCalled: EventEmitter<boolean> = new EventEmitter();
   responsiveSubscription: Subscription = new Subscription;
   screenWidth: string;
 
@@ -43,5 +44,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     } else {
       this._router.navigate(['/upload']);
     }
+  }
+
+  routeTo(_route) {
+    this._router.navigate([_route]);
+    this.routingCalled.emit(true);
   }
 }

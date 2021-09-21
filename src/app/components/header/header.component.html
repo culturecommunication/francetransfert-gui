@@ -15,12 +15,12 @@
             <div class="header-toolbar-right" *ngIf="screenWidth === 'lg'">
                 <ft-language-selector class="language-selector-wrapper"></ft-language-selector>
                 <span class="column-divider"></span>
-                <div class="header-toolbar-link" [routerLink]="['/faq']">
+                <div class="header-toolbar-link" (click)="routeTo('/faq')">
                     <mat-icon>help_outline</mat-icon>
                     <span>FAQ</span>
                 </div>
                 <span class="column-divider"></span>
-                <div class="header-toolbar-link" [routerLink]="['/contact']">
+                <div class="header-toolbar-link"(click)="routeTo('/contact')">
                     <mat-icon>mail_outline</mat-icon>
                     <span>Contact</span>
                 </div>
