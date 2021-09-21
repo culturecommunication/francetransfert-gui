@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,19 +9,20 @@ import { Router } from '@angular/router';
 export class EndMessageComponent implements OnInit {
 
   @Input() component: 'upload' | 'download';
-  @Input() availabilityDate: Date;
+  @Input() availabilityDate: Date
+  @Output() backToHomeEvent: EventEmitter<any> = new EventEmitter();
 
   constructor(private _router: Router) { }
 
   ngOnInit(): void {
   }
 
-  backToHome(from: string) { 
+  backToHome(from: string) {
     if (from === 'upload') {
-      window.location.reload()
+      this.backToHomeEvent.emit();
     } else {
       this._router.navigate(['/upload']);
-    }    
+    }
   }
 
 }

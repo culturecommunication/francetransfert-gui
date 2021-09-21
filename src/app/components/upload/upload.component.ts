@@ -38,10 +38,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     private uploadService: UploadService) { }
 
   ngOnInit(): void {
-    this.uploadManagerService.envelopeInfos.next(null);
-    this.uploadManagerService.uploadError$.next(null);
-    this.downloadManagerService.downloadError$.next(null);
-    //this.uploadManagerService.uploadInfos.next(null);
     this.onResize();
     this.flowConfig = FLOW_CONFIG;
     this.responsiveService.checkWidth();
@@ -50,22 +46,26 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         this.senderEmail = _envelopeInfos.from;
         if (_envelopeInfos.parameters) {
           this.availabilityDays = _envelopeInfos.parameters.expiryDays;
-        }        
+        }
       }
     });
     this.fileManagerSubscription = this.fileManagerService.hasFiles.subscribe(_hasFiles => {
       this.hasFiles = _hasFiles;
     });
+    this.reset();
   }
 
   reset() {
+    console.log('Reset form');
     this.uploadStarted = false;
     this.uploadFinished = false;
     this.uploadValidated = false;
     this.uploadManagerService.envelopeInfos.next(null);
     this.uploadManagerService.uploadError$.next(null);
     this.downloadManagerService.downloadError$.next(null);
-    this.flow.cancel();
+    if(this.flow){
+      this.flow.cancel();
+    }
   }
 
   ngAfterViewInit() {
@@ -84,18 +84,18 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       return { '-webkit-flex-direction': 'row' }
     }
     if (this.screenWidth === 'md') {
-      if (!this.uploadFinished && !this.uploadStarted){
+      if (!this.uploadFinished && !this.uploadStarted) {
         return { '-webkit-flex-direction': 'column-reverse' }
       } else {
         return { '-webkit-flex-direction': 'row' }
       }
     }
     if (this.screenWidth === 'sm') {
-      if (this.uploadFinished && this.uploadStarted){
+      if (this.uploadFinished && this.uploadStarted) {
         return { '-webkit-flex-direction': 'column' }
       } else {
         return { '-webkit-flex-direction': 'column-reverse' }
-      }      
+      }
     }
     return {}
   }
@@ -169,7 +169,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
               this.validateCode();
             }
           }
-        }        
+        }
       });
   }
 
@@ -177,7 +177,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     let transfers: UploadState = await this.uploadManagerService.getRxValue(this.fileManagerService.transfers.getValue());
     this.uploadService
       .validateCode({
-        ...code ? { code: code }: {},
+        ...code ? { code: code } : {},
         transfers: transfers.transfers,
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
