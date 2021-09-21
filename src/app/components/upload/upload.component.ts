@@ -63,6 +63,8 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadManagerService.envelopeInfos.next(null);
     this.uploadManagerService.uploadError$.next(null);
     this.downloadManagerService.downloadError$.next(null);
+    //Reset token
+    this.uploadManagerService.uploadInfos.next(null);
     if(this.flow){
       this.flow.cancel();
     }
