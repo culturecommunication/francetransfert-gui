@@ -28,35 +28,35 @@
             -webkit-align-items: center;
         
             .list-elements-wrapper {
-                height: 75%;
+                height: 80%;
                 width: 35%;
                 margin-right: 2.5%;
             }
         
             .envelope-wrapper {
-                height: 75%;
+                height: 80%;
                 width: 35%;
                 margin-left: 2.5%;
             }
         
             .loader-wrapper {
-                height: 75%;
+                height: 80%;
                 width: 35%;
             }
         
             .check-validation-code-wrapper {
-                height: 75%;
+                height: 80%;
                 width: 35%;
             }
         
             .end-message-wrapper {
-                height: 75%;
+                height: 80%;
                 width: 35%;
                 margin-right: 2.5%;
             }
         
             .satisfaction-check-wrapper {
-                height: 75%;
+                height: 80%;
                 width: 35%;
                 margin-left: 2.5%;
             }
@@ -141,12 +141,12 @@
         }
 
         .check-validation-code-wrapper {
-            height: 85%;
+            height: calc(100vh - 100px);
             width: 100%;
         }
 
         .loader-wrapper {
-            height: 85%;
+            height: calc(100vh - 100px);
             width: 100%;
         }
     
