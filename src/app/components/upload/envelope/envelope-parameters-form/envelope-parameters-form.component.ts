@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ParametersModel } from 'src/app/models';
 import * as moment from 'moment';
+import { UploadManagerService } from 'src/app/services';
 
 @Component({
   selector: 'ft-envelope-parameters-form',
@@ -19,7 +20,8 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
   minDate = new Date();
   maxDate = new Date();
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private uploadManagerService: UploadManagerService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -41,7 +43,8 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
     this.envelopeParametersFormChangeSubscription = this.envelopeParametersForm.valueChanges
       .subscribe(() => {
         const _expiryDays = moment().diff(this.envelopeParametersForm.get('expiryDays').value, 'days') - 1;
-        this.onFormGroupChange.emit({ isValid: this.envelopeParametersForm.valid, values: { expiryDays: -_expiryDays, password: this.envelopeParametersForm.get('password').value } })
+        this.onFormGroupChange.emit({ isValid: this.envelopeParametersForm.valid, values: { expiryDays: -_expiryDays, ...this.envelopeParametersForm.get('password').value ? { password: this.envelopeParametersForm.get('password').value } : { password: '' } } })
+        this.uploadManagerService.envelopeInfos.next({parameters: { expiryDays: -_expiryDays, ...this.envelopeParametersForm.get('password').value ? { password: this.envelopeParametersForm.get('password').value } : { password: '' } }, ...this.uploadManagerService.envelopeInfos.getValue() });
       });
   }
 

@@ -51,7 +51,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     this.envelopeMailFormChangeSubscription = this.envelopeMailForm.valueChanges
       .subscribe(() => {
         this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
-        this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value });
+        this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value, ...this.uploadManagerService.envelopeInfos.getValue()?.parameters ? { parameters: this.uploadManagerService.envelopeInfos.getValue().parameters } : {} });
       });
     this.reloadDestinataires();
   }
@@ -68,8 +68,8 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
         this.envelopeMailForm.markAllAsTouched();
         this.envelopeMailForm.markAsDirty();
         this.checkDestinatairesList();
-        this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
-        this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value });
+        this.envelopeMailForm.updateValueAndValidity();
+        this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
       }
     }
   }
@@ -109,6 +109,12 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
         destListOk = false;
       }
     });
+    if (this.regexDomain.test(this.envelopeMailForm.get('from').value) || destListOk) {
+      this.envelopeMailForm.setErrors(null);
+    } else {
+      this.envelopeMailForm.markAsDirty();
+      this.envelopeMailForm.setErrors({ notValid: true });
+    }
     return destListOk;
   }
 
@@ -138,14 +144,12 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
         if (result.event === 'loadMailingListFromLocalStorage') {
           this.destinatairesList = result.data;
           this.checkDestinatairesList();
-          this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
-          this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value });
+          this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
         }
         if (result.event === 'loadMailingListFromFile') {
           this.destinatairesList = result.data;
           this.checkDestinatairesList();
-          this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
-          this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value });
+          this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
         }
       }
     });

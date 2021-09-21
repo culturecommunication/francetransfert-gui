@@ -68,6 +68,10 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
     }
   }
 
+  backToHome() {
+    window.location.reload();
+  }
+
   cancel() {
     const dialogRef = this.dialog.open(ConfirmAlertDialogComponent);
 

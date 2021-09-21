@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LinkInfosModel, MailInfosModel, ParametersModel } from 'src/app/models';
-import { FileManagerService, MailingListService, UploadManagerService } from 'src/app/services';
+import { FileManagerService, UploadManagerService } from 'src/app/services';
 
 @Component({
   selector: 'ft-envelope',
@@ -19,13 +19,12 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   fileManagerServiceSubscription: Subscription;
   uploadManagerSubscription: Subscription;
   showParameters: boolean = false;
-  mailFormValues: MailInfosModel;
-  linkFormValues: LinkInfosModel;
+  mailFormValues: MailInfosModel = {type: 'mail'};
+  linkFormValues: LinkInfosModel = {type: 'link'};
   parametersFormValues: ParametersModel;
 
   constructor(private fileManagerService: FileManagerService,
     private uploadManagerService: UploadManagerService,
-    private mailingListService: MailingListService,
     private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
@@ -64,12 +63,6 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   onParametersFormGroupChangeEvent(event) {
     this.parametersFormValues = event.values;
-    if (this.selectedTab === 'Mail') {
-      this.uploadManagerService.envelopeInfos.next({...this.mailFormValues, parameters: event.values});
-    }
-    if (this.selectedTab === 'Lien') {
-      this.uploadManagerService.envelopeInfos.next({...this.linkFormValues, parameters: event.values});
-    }
   }
 
   checkCanSend() {
@@ -83,24 +76,6 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   }
 
   startUpload() {
-    console.log('GO !')
-    if (this.selectedTab === 'Mail') {
-      if (this.parametersFormValues) {
-        this.mailFormValues.parameters = this.parametersFormValues;
-      } else {
-        this.mailFormValues.parameters = { expiryDays: 30,  password: ''}
-      }
-      this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.mailFormValues });
-      this.mailingListService.storeMailingList(this.mailFormValues.to);
-    }
-    if (this.selectedTab === 'Lien') {
-      if (this.parametersFormValues) {
-        this.linkFormValues.parameters = this.parametersFormValues;
-      } else {
-        this.linkFormValues.parameters = { expiryDays: 30,  password: ''}
-      }
-      this.uploadManagerService.envelopeInfos.next({ type: 'link', ...this.linkFormValues });
-    }
     this.uploadStarted.next(true);
   }
 

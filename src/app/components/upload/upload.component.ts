@@ -144,16 +144,14 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async upload(): Promise<any> {
     let transfers: UploadState = await this.uploadManagerService.getRxValue(this.fileManagerService.transfers.getValue());
-    console.log(transfers);
-    console.log(this.uploadManagerService.envelopeInfos.getValue());
     this.uploadService
       .sendTree({
         transfers: transfers.transfers,
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
         senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
-        password: this.uploadManagerService.envelopeInfos.getValue().parameters.password,
-        expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays,
+        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
+        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false },
         ...this.uploadManagerService.uploadInfos.getValue()?.senderId ? { senderId: this.uploadManagerService.uploadInfos.getValue().senderId } : {},
         ...this.uploadManagerService.uploadInfos.getValue()?.senderToken ? { senderToken: this.uploadManagerService.uploadInfos.getValue().senderToken } : {}
