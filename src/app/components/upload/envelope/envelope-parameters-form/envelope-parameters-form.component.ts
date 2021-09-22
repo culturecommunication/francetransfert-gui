@@ -16,7 +16,7 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
   @Output() public onFormGroupChange = new EventEmitter<any>();
   envelopeParametersFormChangeSubscription: Subscription;
   hide = true;
-  passwordHelp = 'Le mot de passe doit respecter les contraintes suivantes: \n - 10 caractères minimum \n - 20 caractères maximum \n - Au moins 3 lettres minuscules \n - Au moins 3 lettres majuscules \n - Au moins 3 chiffres \n - Au moins 3 caractères spéciaux (!@#$%^&*()_+)';
+  passwordHelp = 'Le mot de passe doit respecter les contraintes suivantes: \n - 12 caractères minimum \n - 20 caractères maximum \n - Au moins 3 lettres minuscules \n - Au moins 3 lettres majuscules \n - Au moins 3 chiffres \n - Au moins 3 caractères spéciaux (!@#$%^&*()_+)';
   minDate = new Date();
   maxDate = new Date();
 
@@ -38,7 +38,7 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
     
     this.envelopeParametersForm = this.fb.group({
       expiryDays: [expireDate],
-      password: [this.parametersFormValues?.password, [Validators.minLength(10), Validators.maxLength(20), Validators.pattern('^(?=.{10,})((?=.*[0-9]){3,})((?=.*[a-z]){3,})((?=.*[A-Z]){3,})((?=.*[!@#$%^&*()_+]){3,}).*$')]]
+      password: [this.parametersFormValues?.password, [Validators.minLength(12), Validators.maxLength(20), Validators.pattern('^(?=.{12,})((?=.*[0-9]){3,})((?=.*[a-z]){3,})((?=.*[A-Z]){3,})((?=.*[!@#$%^&*()_+]){3,}).*$')]]
     });
     this.envelopeParametersFormChangeSubscription = this.envelopeParametersForm.valueChanges
       .subscribe(() => {

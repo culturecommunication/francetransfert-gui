@@ -46,6 +46,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+  goToLink(url: string) {
+    window.open(url, "_blank");
+  }
+
   routeTo(_route) {
     this._router.navigate([_route]);
     this.routingCalled.emit(true);

@@ -23,9 +23,9 @@ const routes: Routes = [
   {
     path: 'accessibilite', component: AccessibiliteComponent
   },
-  {
-    path: 'contact', component: ContactComponent
-  },
+  // {
+  //   path: 'contact', component: ContactComponent
+  // },
   {
     path: 'faq', component: FaqComponent
   },
