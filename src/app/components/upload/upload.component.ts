@@ -56,7 +56,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   reset() {
-    console.log('Reset form');
     this.uploadStarted = false;
     this.uploadFinished = false;
     this.uploadValidated = false;
@@ -71,7 +70,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    // console.log(this.flow);
+    
   }
 
   onResize() {

@@ -105,7 +105,6 @@ export class DownloadComponent implements OnInit, OnDestroy {
         .getDownloadUrlPublic(this.params, this.password)
         .pipe(takeUntil(this.onDestroy$))
         .subscribe(result => {
-          console.log(result)
           if (result.type && result.type === 'WRONG_PASSWORD') {
             this.passwordError = true;
           } else {
@@ -118,7 +117,6 @@ export class DownloadComponent implements OnInit, OnDestroy {
         .getDownloadUrl(this.params, this.downloadInfos.withPassword, this.password)
         .pipe(takeUntil(this.onDestroy$))
         .subscribe(result => {
-          console.log(result)
           if (result.type && result.type === 'WRONG_PASSWORD') {
             this.passwordError = true;
           } else {
@@ -140,7 +138,6 @@ export class DownloadComponent implements OnInit, OnDestroy {
     this.password = event;
     this._downloadService.validatePassword({ enclosureId: this.params['enclosure'], password: this.password, recipientId: this.params['recipient'] }).pipe(take(1))
       .subscribe((response) => {
-        console.log(response);
         if (response.valid) {
           this.downloadValidated = true;
         }

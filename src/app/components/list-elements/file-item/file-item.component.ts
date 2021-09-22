@@ -19,7 +19,6 @@ export class FileItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.transfer);
     this.itemAdded.emit(this.transfer);
   }
 

@@ -52,10 +52,8 @@ export class AdminService {
   private handleError(operation: string) {
     return (err: any) => {
       const errMsg = `error in ${operation}()`;
-      console.log(`${errMsg}:`, err);
       if (err instanceof HttpErrorResponse) {
         this.adminError$.next(err.status);
-        console.log(`status: ${err.status}, ${err.statusText}`);
       }
       throw (errMsg);
     };

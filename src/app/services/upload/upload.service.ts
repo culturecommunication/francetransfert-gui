@@ -15,7 +15,6 @@ export class UploadService {
     private uploadManagerService: UploadManagerService) { }
 
   sendTree(body: any): any {
-    console.log(body)
     const trMapping = this._mappingTree(body.transfers);
     const treeBody = {
       confirmedSenderId: '',
@@ -132,10 +131,8 @@ export class UploadService {
   private handleError(operation: string) {
     return (err: any) => {
       const errMsg = `error in ${operation}()`;
-      console.log(`${errMsg}:`, err);
       if (err instanceof HttpErrorResponse) {
         this.uploadManagerService.uploadError$.next({statusCode: err.status, ...(err.message && !err.error.type) ? { message: err.message } : { message: err.error.type }, ...err.error.codeTryCount ? {codeTryCount : err.error.codeTryCount } : {}});
-        console.log(`status: ${err.status}, ${err.statusText}`);
       }
       throw (errMsg);
     };

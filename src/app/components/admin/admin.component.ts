@@ -63,7 +63,6 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   onPickerClose() {
-    console.log(this.validUntilDate.value);
     // call api + reload   
     let formattedDate = moment(this.validUntilDate.value).format('DD-MM-yyyy');
     const body = {
