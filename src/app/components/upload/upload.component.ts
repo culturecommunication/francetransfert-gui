@@ -64,13 +64,13 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.downloadManagerService.downloadError$.next(null);
     //Reset token
     this.uploadManagerService.uploadInfos.next(null);
-    if(this.flow){
+    if (this.flow) {
       this.flow.cancel();
     }
   }
 
   ngAfterViewInit() {
-    
+
   }
 
   onResize() {
@@ -143,6 +143,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async upload(): Promise<any> {
     let transfers: UploadState = await this.uploadManagerService.getRxValue(this.fileManagerService.transfers.getValue());
+    console.log(this.uploadManagerService.envelopeInfos.getValue().parameters?.password);
     this.uploadService
       .sendTree({
         transfers: transfers.transfers,
@@ -181,8 +182,8 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
         senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
-        password: this.uploadManagerService.envelopeInfos.getValue().parameters.password,
-        expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays,
+        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
+        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false }
       })
       .pipe(takeUntil(this.onDestroy$))
