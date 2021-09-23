@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MailingListManagerComponent } from 'src/app/components';
 import { MailInfosModel } from 'src/app/models';
-import { UploadManagerService } from 'src/app/services';
+import { UploadManagerService, UploadService } from 'src/app/services';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -32,6 +32,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
+    private uploadService: UploadService,
     private router: Router,
     private dialog: MatDialog) { }
 
@@ -94,13 +95,22 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   checkEmails: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
     let from = group.get('from').value;
-    let destListOk = true;
-    this.destinatairesList.forEach(dest => {
+    let destListOk = false;
+    let senderOk = false;
+
+    //Ex validateMail
+    this.uploadService.validateMail(this.destinatairesList).subscribe(isValid => {
+      destListOk = isValid;
+    });
+    this.uploadService.validateMail([from]).subscribe(isValid => {
+      senderOk = isValid;
+    });
+    /* this.destinatairesList.forEach(dest => {
       if (!this.regexDomain.test(dest)) {
         destListOk = false;
       }
-    });
-    return ((this.destinatairesList.length > 0 && (this.regexDomain.test(from) || destListOk)) ? null : { notValid: true })
+    }); */
+    return ((this.destinatairesList.length > 0 && (destListOk || senderOk)) ? null : { notValid: true })
   }
 
   ngOnDestroy() {

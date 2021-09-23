@@ -38,6 +38,16 @@ export class UploadService {
     );
   }
 
+  validateMail(mail: any): any {
+    return this._httpClient.post(`${environment.host}${environment.apis.upload.validateMail}`, mail).pipe(
+      map((response: any) => {
+        console.log(response);
+        return response;
+      }),
+      catchError(this.handleError('validateMail'))
+    );
+  }
+
   validateCode(body: any): any {
     const trMapping = this._mappingTree(body.transfers);
     const treeBody = {
@@ -132,7 +142,7 @@ export class UploadService {
     return (err: any) => {
       const errMsg = `error in ${operation}()`;
       if (err instanceof HttpErrorResponse) {
-        this.uploadManagerService.uploadError$.next({statusCode: err.status, ...(err.message && !err.error.type) ? { message: err.message } : { message: err.error.type }, ...err.error.codeTryCount ? {codeTryCount : err.error.codeTryCount } : {}});
+        this.uploadManagerService.uploadError$.next({ statusCode: err.status, ...(err.message && !err.error.type) ? { message: err.message } : { message: err.error.type }, ...err.error.codeTryCount ? { codeTryCount: err.error.codeTryCount } : {} });
       }
       throw (errMsg);
     };
