@@ -50,6 +50,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     }, { validator: this.checkEmails });
     this.envelopeMailFormChangeSubscription = this.envelopeMailForm.valueChanges
       .subscribe(() => {
+        this.checkDestinatairesList();
         this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
         this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value, ...this.uploadManagerService.envelopeInfos.getValue()?.parameters ? { parameters: this.uploadManagerService.envelopeInfos.getValue().parameters } : {} });
       });
@@ -83,8 +84,12 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
           this.envelopeMailForm.get('to').setValue('');
           this.envelopeMailForm.controls['to'].setErrors(null);
         }
-      }
+      }      
+    } else {
+      this.envelopeMailForm.get('to').setValue('');
+      this.envelopeMailForm.controls['to'].setErrors(null);
     }
+    this.checkDestinatairesList();
   }
 
   checkEmails: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
@@ -102,28 +107,31 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     this.envelopeMailFormChangeSubscription.unsubscribe();
   }
 
-  checkDestinatairesList(): boolean {
+  checkDestinatairesList() {
     let destListOk = true;
     this.destinatairesList.forEach(dest => {
       if (!this.regexDomain.test(dest)) {
         destListOk = false;
       }
     });
-    if (this.regexDomain.test(this.envelopeMailForm.get('from').value) || destListOk) {
-      this.envelopeMailForm.setErrors(null);
-    } else {
+    if (this.destinatairesList.length === 0) {
       this.envelopeMailForm.markAsDirty();
-      this.envelopeMailForm.setErrors({ notValid: true });
+      this.envelopeMailForm.controls['to'].setErrors({ required: true });
+    } else {
+      if (this.regexDomain.test(this.envelopeMailForm.get('from').value) || destListOk) {
+        this.envelopeMailForm.markAsPristine();
+        this.envelopeMailForm.controls['to'].setErrors(null);
+      } else {
+        this.envelopeMailForm.markAsDirty();
+        this.envelopeMailForm.controls['to'].setErrors({ notValid: true });
+      }
     }
-    return destListOk;
   }
 
   deleteDestinataire(index) {
     this.destinatairesList.splice(index, 1);
     this.envelopeMailForm.get('to').setValue('');
-    if (this.destinatairesList.length === 0) {
-      this.envelopeMailForm.controls['to'].setErrors({ 'required': true });
-    }
+    this.checkDestinatairesList();
   }
 
   routeToInNewWindow(_route) {
