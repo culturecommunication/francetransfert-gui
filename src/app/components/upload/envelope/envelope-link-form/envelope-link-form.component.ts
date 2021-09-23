@@ -34,7 +34,7 @@ export class EnvelopeLinkFormComponent implements OnInit {
     this.envelopeLinkFormChangeSubscription = this.envelopeLinkForm.valueChanges
       .subscribe(() => {
         this.onFormGroupChange.emit({ isValid: this.envelopeLinkForm.valid, values: this.envelopeLinkForm.value })
-        this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeLinkForm.value, ...this.uploadManagerService.envelopeInfos.getValue()?.parameters ? { parameters: this.uploadManagerService.envelopeInfos.getValue().parameters } : {} });
+        this.uploadManagerService.envelopeInfos.next({ type: 'link', ...this.envelopeLinkForm.value, ...this.uploadManagerService.envelopeInfos.getValue()?.parameters ? { parameters: this.uploadManagerService.envelopeInfos.getValue().parameters } : {} });
       });
   }
 
