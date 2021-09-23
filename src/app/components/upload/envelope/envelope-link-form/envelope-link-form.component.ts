@@ -27,7 +27,7 @@ export class EnvelopeLinkFormComponent implements OnInit {
   initForm() {
     this.envelopeLinkForm = this.fb.group({
       subject: [this.linkFormValues?.subject],
-      from: [this.linkFormValues?.from, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9](\.?[a-z0-9]){3,}@culture\.gouv\.fr$')]],
+      from: [this.linkFormValues?.from, [Validators.required, Validators.email, Validators.pattern(/[a-z0-9_.+-]+@culture.gouv.fr/i)]],
       message: [this.linkFormValues?.message],
       cguCheck: [this.linkFormValues?.cguCheck, [Validators.requiredTrue]]
     });
