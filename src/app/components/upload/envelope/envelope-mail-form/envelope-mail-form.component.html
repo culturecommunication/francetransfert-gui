@@ -13,7 +13,7 @@
             <mat-label>À *</mat-label>
             <input matInput placeholder="Mails des destinataires" formControlName="to" [errorStateMatcher]="matcher"
                 (blur)="onBlurDestinataires()">
-            <mat-icon class="icon-btn" matSuffix matTooltip="Utiliser une liste de diffusion" (click)="openMailingListManager()">list_alt
+            <mat-icon class="icon-btn" matSuffix matTooltip="Utiliser une liste de contacts" (click)="openMailingListManager()">list_alt
             </mat-icon>
             <mat-error *ngIf="f.to.errors?.required">Un destinataire est requis.</mat-error>
             <mat-error *ngIf="f.to.errors?.email">Une adresse mail valide est requise.</mat-error>

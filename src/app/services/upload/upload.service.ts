@@ -41,7 +41,6 @@ export class UploadService {
   validateMail(mail: any): any {
     return this._httpClient.post(`${environment.host}${environment.apis.upload.validateMail}`, mail).pipe(
       map((response: any) => {
-        console.log(response);
         return response;
       }),
       catchError(this.handleError('validateMail'))

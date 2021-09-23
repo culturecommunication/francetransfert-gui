@@ -29,9 +29,15 @@ export class DownloadService {
     if (withPassword) {
       escapedPassword = encodeURIComponent(password);
     }
-    return this._httpClient.get(
-      `${environment.host}${environment.apis.download.downloadUrl}?enclosure=${params['enclosure']}&recipient=${params['recipient']}&token=${params['token']
-      }&password=${withPassword ? escapedPassword : ''}`
+    const body = {
+      enclosure: params['enclosure'],
+      recipient: params['recipient'],
+      token: params['token'],
+      ...withPassword ? { password: escapedPassword } : { password: '' }
+    };
+    return this._httpClient.post(
+      `${environment.host}${environment.apis.download.downloadUrl}`,
+      body
     ).pipe(map(response => {
       this.downloadManagerService.downloadError$.next(null);
       return response;
@@ -70,8 +76,13 @@ export class DownloadService {
 
   getDownloadUrlPublic(params: Array<{ string: string }>, password: string): Observable<any> {
     let escapedPassword = encodeURIComponent(password);
-    return this._httpClient.get(
-      `${environment.host}${environment.apis.download.downloadUrlPublic}?enclosure=${params['enclosure']}&password=${escapedPassword}`
+    const body = {
+      enclosure: params['enclosure'],
+      password: escapedPassword
+    };
+    return this._httpClient.post(
+      `${environment.host}${environment.apis.download.downloadUrlPublic}`,
+      body
     ).pipe(map(response => {
       this.downloadManagerService.downloadError$.next(null);
       return response;
@@ -97,7 +108,7 @@ export class DownloadService {
     return (err: any) => {
       const errMsg = `error in ${operation}()`;
       if (err instanceof HttpErrorResponse) {
-        this.downloadManagerService.downloadError$.next({statusCode: err.status, ...(err.message && !err.error.type) ? { message: err.message } : { message: err.error.type }, ...err.error.codeTryCount ? {codeTryCount : err.error.codeTryCount } : {}});
+        this.downloadManagerService.downloadError$.next({ statusCode: err.status, ...(err.message && !err.error.type) ? { message: err.message } : { message: err.error.type }, ...err.error.codeTryCount ? { codeTryCount: err.error.codeTryCount } : {} });
       }
       throw (errMsg);
     };

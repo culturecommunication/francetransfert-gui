@@ -19,8 +19,8 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   fileManagerServiceSubscription: Subscription;
   uploadManagerSubscription: Subscription;
   showParameters: boolean = false;
-  mailFormValues: MailInfosModel = {type: 'mail'};
-  linkFormValues: LinkInfosModel = {type: 'link'};
+  mailFormValues: MailInfosModel = { type: 'mail' };
+  linkFormValues: LinkInfosModel = { type: 'link' };
   parametersFormValues: ParametersModel;
 
   constructor(private fileManagerService: FileManagerService,
@@ -29,7 +29,7 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.uploadManagerSubscription = this.uploadManagerService.envelopeInfos.subscribe(_infos => {
-      if(_infos) {
+      if (_infos) {
         if (_infos.type === 'mail') {
           this.mailFormValues = _infos
         }
@@ -46,6 +46,7 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   onSelectedTabChange(event) {
     this.selectedTab = event.tab.textLabel;
     this.selectedTabIndex = event.index;
+    this.checkCanSend();
   }
 
   onMailFormGroupChangeEvent(event) {
@@ -67,7 +68,13 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   checkCanSend() {
     this.fileManagerServiceSubscription = this.fileManagerService.hasFiles.subscribe(hasFiles => {
-      this.canSend = hasFiles && (this.mailFormValid || this.linkFormValid);
+      if (this.selectedTab === 'Mail') {
+        this.canSend = hasFiles && this.mailFormValid;
+      } else {
+        if (this.selectedTab === 'Lien') {
+          this.canSend = hasFiles && this.linkFormValid;
+        }
+      }
     });
   }
 
