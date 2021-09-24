@@ -108,20 +108,19 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
         this.uploadService.validateMail([this.envelopeMailForm.get('from').value]).pipe(
           take(1)).subscribe((isValid: boolean) => {
             senderOk = isValid;
+            if (this.destinatairesList.length > 0) {
+              if (destListOk || senderOk) {
+                this.envelopeMailForm.controls['to'].markAsUntouched();
+                this.envelopeMailForm.controls['to'].setErrors(null);
+              } else {
+                this.envelopeMailForm.controls['to'].markAsTouched();
+                this.envelopeMailForm.controls['to'].setErrors({ notValid: true });
+              }
+            } else {
+              this.envelopeMailForm.controls['to'].markAsTouched();
+              this.envelopeMailForm.controls['to'].setErrors({ required: true });
+            }
           });
-        if (this.destinatairesList.length > 0) {
-          if (destListOk || senderOk) {
-            this.envelopeMailForm.controls['to'].markAsUntouched();
-            this.envelopeMailForm.controls['to'].setErrors(null);
-          } else {
-            this.envelopeMailForm.controls['to'].markAsTouched();
-            this.envelopeMailForm.controls['to'].setErrors({notValid: true});
-          }
-        } else {
-          this.envelopeMailForm.controls['to'].markAsTouched();
-          this.envelopeMailForm.controls['to'].setErrors({required: true});
-          this.envelopeMailForm.updateValueAndValidity()
-        }
       });
   }
 
