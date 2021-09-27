@@ -55,7 +55,11 @@
             <div class="verification-code-form-group">
                 <mat-form-field>
                     <mat-label>Mot de passe</mat-label>
-                    <input matInput formControlName="verificationCode" required>
+                    <input matInput formControlName="verificationCode" required [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
                     <mat-error *ngIf="f.verificationCode.errors?.required">Veuillez entrer le mot de passe.</mat-error>
                 </mat-form-field>
             </div>
