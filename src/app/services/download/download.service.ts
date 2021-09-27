@@ -27,7 +27,7 @@ export class DownloadService {
   getDownloadUrl(params: Array<{ string: string }>, withPassword: boolean, password: string): Observable<any> {
     var escapedPassword = '';
     if (withPassword) {
-      escapedPassword = encodeURIComponent(password);
+      escapedPassword = password;
     }
     const body = {
       enclosure: params['enclosure'],
@@ -75,7 +75,7 @@ export class DownloadService {
   }
 
   getDownloadUrlPublic(params: Array<{ string: string }>, password: string): Observable<any> {
-    let escapedPassword = encodeURIComponent(password);
+    let escapedPassword = password;
     const body = {
       enclosure: params['enclosure'],
       password: escapedPassword
