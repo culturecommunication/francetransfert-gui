@@ -19,9 +19,11 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   uploadStarted: boolean = false;
   uploadFinished: boolean = false;
   uploadValidated: boolean = false;
+  uploadFailed: boolean = false;
   uploadManagerSubscription: Subscription;
   responsiveSubscription: Subscription = new Subscription;
   fileManagerSubscription: Subscription = new Subscription;
+  transfertSubscription: Subscription;
   senderEmail: string;
   availabilityDate: Date;
   availabilityDays: number;
@@ -30,6 +32,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   flowConfig: any;
   hasFiles: boolean = false;
   listExpanded: boolean = false;
+  enclosureId: string = '';
 
   constructor(private responsiveService: ResponsiveService,
     private uploadManagerService: UploadManagerService,
@@ -56,9 +59,11 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   reset() {
+    this.enclosureId = '';
     this.uploadStarted = false;
     this.uploadFinished = false;
     this.uploadValidated = false;
+    this.uploadFailed = false;
     this.uploadManagerService.envelopeInfos.next(null);
     this.uploadManagerService.uploadError$.next(null);
     this.downloadManagerService.downloadError$.next(null);
@@ -106,6 +111,11 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.upload();
   }
 
+  onTransferFailed(event) {
+    this.uploadFailed = true;
+    this.uploadFinished = true;
+  }
+
   onTransferCancelled(event) {
     this.uploadStarted = !event;
     this.uploadValidated = !event;
@@ -130,7 +140,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onSatisfactionCheckDone(event) {
     if (event) {
-      this.uploadService.rate({ mail: this.uploadManagerService.envelopeInfos.getValue().from, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
+      this.uploadService.rate({ plis: this.enclosureId, mail: this.uploadManagerService.envelopeInfos.getValue().from, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
         .subscribe(() => {
           this.reset();
         });
@@ -195,7 +205,18 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   beginUpload(result) {
-    this.flow.flowJs.opts.query = { enclosureId: result.enclosureId };
+    if (this.transfertSubscription) {
+      this.transfertSubscription.unsubscribe();
+    }
+    this.enclosureId = result.enclosureId;
+    this.flow.flowJs.opts.query = {
+      enclosureId: result.enclosureId,
+      senderId: this.uploadManagerService.envelopeInfos.getValue().from,
+      senderToken: result.senderToken,
+    };
+    this.transfertSubscription = this.flow.transfers$.subscribe((uploadState: UploadState) => {
+      this.fileManagerService.uploadProgress.next(uploadState);
+    });
     this.flow.upload();
   }
 
@@ -205,5 +226,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.responsiveSubscription.unsubscribe();
     this.uploadManagerSubscription.unsubscribe();
     this.fileManagerSubscription.unsubscribe();
+    this.transfertSubscription.unsubscribe();
   }
 }

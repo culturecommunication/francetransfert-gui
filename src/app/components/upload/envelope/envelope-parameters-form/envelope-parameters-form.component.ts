@@ -35,7 +35,7 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
       expireDate = moment().add(30, 'days').toDate();
     }
     this.maxDate = moment().add(90, 'days').toDate();
-    
+
     this.envelopeParametersForm = this.fb.group({
       expiryDays: [expireDate],
       password: [this.parametersFormValues?.password, [Validators.minLength(12), Validators.maxLength(20), Validators.pattern('^(?=.{12,})((?=.*[0-9]){3,})((?=.*[a-z]){3,})((?=.*[A-Z]){3,})((?=.*[!@#$%^&*()_+]){3,}).*$')]]
@@ -44,7 +44,14 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         const _expiryDays = moment().diff(this.envelopeParametersForm.get('expiryDays').value, 'days') - 1;
         this.onFormGroupChange.emit({ isValid: this.envelopeParametersForm.valid, values: { expiryDays: -_expiryDays, ...this.envelopeParametersForm.get('password').value ? { password: this.envelopeParametersForm.get('password').value } : { password: '' } } })
-        this.uploadManagerService.envelopeInfos.next({parameters: { expiryDays: -_expiryDays, ...this.envelopeParametersForm.get('password').value ? { password: this.envelopeParametersForm.get('password').value } : { password: '' } }, ...this.uploadManagerService.envelopeInfos.getValue() });
+        this.uploadManagerService.envelopeInfos.next(
+          {
+            ...this.uploadManagerService.envelopeInfos.getValue(),
+            parameters: {
+              expiryDays: -_expiryDays,
+              ...this.envelopeParametersForm.get('password').value ? { password: this.envelopeParametersForm.get('password').value } : { password: '' }
+            }
+          });
       });
   }
 
