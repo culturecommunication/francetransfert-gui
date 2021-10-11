@@ -32,6 +32,13 @@ node {
         }
     }
 
+    gitlabCommitStatus('dependencyCheck')
+    {
+    	stage('dependencyCheck') {
+		    dependencyCheck additionalArguments: '--out="target" --scan="." --format="HTML"', odcInstallation: 'DepCheck'
+	    }
+    }
+
     stage('SonarQube Analysis') {
     def scannerHome = tool 'SonarScanner';
         withSonarQubeEnv() {
