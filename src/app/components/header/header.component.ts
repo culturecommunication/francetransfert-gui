@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ResponsiveService } from 'src/app/services';
 
@@ -10,10 +11,12 @@ import { ResponsiveService } from 'src/app/services';
 export class HeaderComponent implements OnInit, OnDestroy {
   isMobile: boolean = false;
   @Output() sidenavToggle = new EventEmitter();
+  @Output() routingCalled: EventEmitter<boolean> = new EventEmitter();
   responsiveSubscription: Subscription = new Subscription;
   screenWidth: string;
 
-  constructor(private responsiveService: ResponsiveService) { }
+  constructor(private responsiveService: ResponsiveService,
+    private _router: Router) { }
 
   ngOnInit(): void {
     this.onResize();
@@ -36,6 +39,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   backToHome() { 
-    window.location.reload()
+    if (this._router.url.includes('upload')) {
+      window.location.reload();
+    } else {
+      this._router.navigate(['/upload']);
+    }
+  }
+
+  goToLink(url: string) {
+    window.open(url, "_blank");
+  }
+
+  routeTo(_route) {
+    this._router.navigate([_route]);
+    this.routingCalled.emit(true);
   }
 }

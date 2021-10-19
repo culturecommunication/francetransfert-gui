@@ -75,7 +75,6 @@
 
 @media screen and (min-width: 200px) and (max-width: 480px) {
     .download-wrapper {
-        height: 100vh;
         width: 100%;
         display: flex;
         flex-direction: column-reverse;
@@ -87,7 +86,6 @@
         -webkit-align-items: center;
     
         .list-elements-wrapper {
-            margin-top: 30px;
             width: 100%;
         }
     
@@ -98,13 +96,13 @@
         }
     
         .check-validation-code-wrapper {
-            height: 85%;
+            height: calc(100vh - 100px);
             width: 100%;
             margin-top: 90px;
         }
     
         .end-message-wrapper {
-            height: 100%;
+            height: calc(100vh - 100px);
             width: 100%;
             margin-top: 90px;
         }

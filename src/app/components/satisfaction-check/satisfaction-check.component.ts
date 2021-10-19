@@ -41,7 +41,7 @@ export class SatisfactionCheckComponent implements OnInit {
         faceValue = 2;
         break;
       case 'satisfied':
-        faceValue = 4;
+        faceValue = 3;
         break;
     }
     this.satisfactionCheckDone.emit({ satisfaction: faceValue, message: this.satisfactionCheckForm.get('message').value });

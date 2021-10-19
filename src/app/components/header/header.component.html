@@ -15,16 +15,18 @@
             <div class="header-toolbar-right" *ngIf="screenWidth === 'lg'">
                 <ft-language-selector class="language-selector-wrapper"></ft-language-selector>
                 <span class="column-divider"></span>
-                <div class="header-toolbar-link" [routerLink]="['/faq']">
+                <div class="header-toolbar-link" (click)="routeTo('/faq')">
                     <mat-icon>help_outline</mat-icon>
                     <span>FAQ</span>
                 </div>
                 <span class="column-divider"></span>
-                <div class="header-toolbar-link" [routerLink]="['/contact']">
+                <div class="header-toolbar-link"
+                    (click)="goToLink('https://www.culture.gouv.fr/Nous-contacter/#novaform')">
                     <mat-icon>mail_outline</mat-icon>
                     <span>Contact</span>
                 </div>
             </div>
+            <div class="corner-ribbon top-right sticky blue shadow"><span class="ribbon-text">BETA</span></div>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>

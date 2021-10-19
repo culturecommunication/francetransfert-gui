@@ -19,15 +19,13 @@
     </mat-toolbar-row>
     <mat-toolbar-row class="footer-toolbar-row-mentions">
         <div class="footer-toolbar-row-mentions-links">
-            <span (click)="routeTo('/contact')" class="link">Contact</span>
+            <span (click)="goToLink('https://www.culture.gouv.fr/Nous-contacter/#novaform')" class="link">Contact</span>
             <span class="col-separator"></span>
             <span (click)="routeTo('/accessibilite')" class="link">Accessibilité : non conforme</span>
             <span class="col-separator"></span>
             <span (click)="routeTo('/mentions-legales')" class="link">Mentions légales</span>
             <span class="col-separator"></span>
             <span (click)="showTarteaucitronManager()" class="link">Gestion des cookies</span>
-            <span class="col-separator"></span>
-            <span class="link">Données personnelles</span>
         </div>
         <div class="footer-toolbar-row-mentions-text">
             <span>Sauf mention contraire, tous les textes de ce site sont sous licence etatlab-2.0</span>

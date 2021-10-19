@@ -1,5 +1,5 @@
 <div class="app-root" (window:resize)="onResize()">
-  <ft-header class="app-header" (sidenavToggle)="toggleSideNav()" *ngIf="!opened"></ft-header>
+  <ft-header class="app-header" (sidenavToggle)="toggleSideNav()" (routingCalled)="onRoutingCalled($event)" *ngIf="!opened"></ft-header>
   <mat-sidenav-container id="container" fullscreen [ngStyle]="{'background-image': 'url(' + backgroundPath + ')'}">
     <mat-sidenav #sidenav [mode]="sideNavMode" role="navigation" [(opened)]="opened" [fixedInViewport]="true"
       [fixedTopGap]="fixedTopGap" class="menu-sidenav">

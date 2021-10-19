@@ -1,12 +1,14 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, of, Subject, Subscription } from 'rxjs';
+import { map } from 'rxjs/internal/operators/map';
+import { take, takeUntil } from 'rxjs/operators';
 import { MailingListManagerComponent } from 'src/app/components';
 import { MailInfosModel } from 'src/app/models';
-import { MailingListService, UploadManagerService } from 'src/app/services';
+import { UploadManagerService, UploadService } from 'src/app/services';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -28,11 +30,12 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   envelopeMailFormChangeSubscription: Subscription;
   matcher = new MyErrorStateMatcher();
   destinatairesList: string[] = [];
-  regexDomain = new RegExp('^[a-z0-9](\.?[a-z0-9]){3,}@culture\.gouv\.fr$');
+  destListOk = false;
+  senderOk = false;
 
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
-    private mailingListService: MailingListService,
+    private uploadService: UploadService,
     private router: Router,
     private dialog: MatDialog) { }
 
@@ -42,22 +45,38 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.envelopeMailForm = this.fb.group({
-      // from: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9](\.?[a-z0-9]){3,}@culture\.gouv\.fr$')]],
-      from: [this.mailFormValues?.from, [Validators.required, Validators.email]],
-      to: [this.mailFormValues?.to, [Validators.email]],
+      from: [this.mailFormValues?.from, { validators: [Validators.required, Validators.email], updateOn: 'blur' }],
+      to: [this.mailFormValues?.to, { validators: [Validators.email], updateOn: 'blur' }],
       subject: [this.mailFormValues?.subject],
       message: [this.mailFormValues?.message],
       cguCheck: [this.mailFormValues?.cguCheck, [Validators.requiredTrue]]
-    }, { validator: this.checkEmails });
+    });
     this.envelopeMailFormChangeSubscription = this.envelopeMailForm.valueChanges
       .subscribe(() => {
+        this.checkDestinatairesList();
         this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
-        this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value });
+        this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value, ...this.uploadManagerService.envelopeInfos.getValue()?.parameters ? { parameters: this.uploadManagerService.envelopeInfos.getValue().parameters } : {} });
       });
+    this.reloadDestinataires();
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.envelopeMailForm.controls; }
+
+  reloadDestinataires() {
+    if (this.envelopeMailForm.get('to').value) {
+      let tmp = this.envelopeMailForm.get('to').value.toString().split(',');
+      if (tmp[0] !== '') {
+        this.destinatairesList = tmp;
+        this.envelopeMailForm.get('to').setValue('');
+        this.envelopeMailForm.markAllAsTouched();
+        this.envelopeMailForm.markAsDirty();
+        this.checkDestinatairesList();
+        this.envelopeMailForm.updateValueAndValidity();
+        this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
+      }
+    }
+  }
 
   onBlurDestinataires() {
     if (this.envelopeMailForm.get('to').value && !this.envelopeMailForm.get('to').hasError('email')) {
@@ -69,40 +88,45 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
           this.envelopeMailForm.controls['to'].setErrors(null);
         }
       }
+    } else {
+      this.envelopeMailForm.get('to').setValue('');
+      this.envelopeMailForm.controls['to'].setErrors(null);
     }
-  }
-
-  checkEmails: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
-    let from = group.get('from').value;
-    let destListOk = true;
-    this.destinatairesList.forEach(dest => {
-      if (!this.regexDomain.test(dest)) {
-        destListOk = false;
-      }
-    });
-    return ((this.destinatairesList.length > 0 && (this.regexDomain.test(from) || destListOk)) ? null : { notValid: true })
+    this.checkDestinatairesList();
   }
 
   ngOnDestroy() {
     this.envelopeMailFormChangeSubscription.unsubscribe();
   }
 
-  checkDestinatairesList(): boolean {
-    let destListOk = true;
-    this.destinatairesList.forEach(dest => {
-      if (!this.regexDomain.test(dest)) {
-        destListOk = false;
-      }
-    });
-    return destListOk;
+  checkDestinatairesList() {
+    let destListOk = false;
+    let senderOk = false;
+    this.uploadService.validateMail(this.destinatairesList).pipe(
+      take(1)).subscribe((isValid: boolean) => {
+        destListOk = isValid;
+        this.uploadService.validateMail([this.envelopeMailForm.get('from').value]).pipe(
+          take(1)).subscribe((isValid: boolean) => {
+            senderOk = isValid;
+            if (this.destinatairesList.length > 0) {
+              if (destListOk || senderOk) {
+                this.envelopeMailForm.controls['to'].markAsUntouched();
+                this.envelopeMailForm.controls['to'].setErrors(null);
+              } else {
+                this.envelopeMailForm.controls['to'].markAsTouched();
+                this.envelopeMailForm.controls['to'].setErrors({ notValid: true });
+              }
+            } else {
+              this.envelopeMailForm.controls['to'].markAsTouched();
+              this.envelopeMailForm.controls['to'].setErrors({ required: true });
+            }
+          });
+      });
   }
 
   deleteDestinataire(index) {
     this.destinatairesList.splice(index, 1);
-    this.envelopeMailForm.get('to').setValue('');
-    if (this.destinatairesList.length === 0) {
-      this.envelopeMailForm.controls['to'].setErrors({ 'required': true });
-    }
+    this.checkDestinatairesList();
   }
 
   routeToInNewWindow(_route) {
@@ -123,10 +147,12 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
         if (result.event === 'loadMailingListFromLocalStorage') {
           this.destinatairesList = result.data;
           this.checkDestinatairesList();
+          this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
         }
         if (result.event === 'loadMailingListFromFile') {
           this.destinatairesList = result.data;
           this.checkDestinatairesList();
+          this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
         }
       }
     });

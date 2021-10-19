@@ -27,9 +27,11 @@
         </mat-card-content>
         <mat-card-actions class="check-validation-code-card-actions">
             <button mat-raised-button
-                class="check-validation-code-card-actions-btn" (click)="cancel()">Annuler</button>
+                    class="check-validation-code-card-actions-btn" *ngIf="error && error.statusCode === 401 && !error.codeTryCount" (click)="backToHome()">Accueil</button>
+            <button mat-raised-button
+                class="check-validation-code-card-actions-btn" *ngIf="!error || (error && error.statusCode === 401 && error.codeTryCount)" (click)="cancel()">Annuler</button>
             <button type="submit" [disabled]="!verificationCodeForm.valid" mat-raised-button
-                class="check-validation-code-card-actions-btn" (click)="validateForm()">Valider</button>
+                class="check-validation-code-card-actions-btn" *ngIf="!error || (error && error.statusCode === 401 && error.codeTryCount)" (click)="validateForm()">Valider</button>
         </mat-card-actions>
     </form>
 </mat-card>
@@ -53,11 +55,15 @@
             <div class="verification-code-form-group">
                 <mat-form-field>
                     <mat-label>Mot de passe</mat-label>
-                    <input matInput formControlName="verificationCode" required>
+                    <input matInput formControlName="verificationCode" required [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
                     <mat-error *ngIf="f.verificationCode.errors?.required">Veuillez entrer le mot de passe.</mat-error>
                 </mat-form-field>
             </div>
-        </mat-card-content>
+        </mat-card-content>        
         <mat-card-actions class="check-validation-code-card-actions">
             <button type="submit" [disabled]="!verificationCodeForm.valid" mat-raised-button
                 class="check-validation-code-card-actions-btn" (click)="validateForm()">Valider</button>

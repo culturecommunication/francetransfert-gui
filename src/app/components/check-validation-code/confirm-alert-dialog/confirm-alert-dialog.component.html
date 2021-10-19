@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Etes-vous sûr ?</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Cette action annulera votre pli.</h3>
+  <p>Poursuivre ?</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn" mat-button mat-dialog-close>Annuler</button>
+  <button class="btn" mat-button [mat-dialog-close]="true" cdkFocusInitial>Continuer</button>
+</mat-dialog-actions>

@@ -15,7 +15,6 @@ export class UploadService {
     private uploadManagerService: UploadManagerService) { }
 
   sendTree(body: any): any {
-    console.log(body)
     const trMapping = this._mappingTree(body.transfers);
     const treeBody = {
       confirmedSenderId: '',
@@ -27,6 +26,8 @@ export class UploadService {
       rootDirs: trMapping.dirs,
       publicLink: body.publicLink,
       expireDelay: body.expiryDays
+      //senderId: body.senderId,
+      //senderToken: body.senderToken
     };
     return this._httpClient.post(`${environment.host}${environment.apis.upload.tree}`, treeBody).pipe(
       map((response: any) => {
@@ -34,6 +35,15 @@ export class UploadService {
         return response;
       }),
       catchError(this.handleError('sendTree'))
+    );
+  }
+
+  validateMail(mail: any): any {
+    return this._httpClient.post(`${environment.host}${environment.apis.upload.validateMail}`, mail).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(this.handleError('validateMail'))
     );
   }
 
@@ -130,10 +140,8 @@ export class UploadService {
   private handleError(operation: string) {
     return (err: any) => {
       const errMsg = `error in ${operation}()`;
-      console.log(`${errMsg}:`, err);
       if (err instanceof HttpErrorResponse) {
-        this.uploadManagerService.uploadError$.next({statusCode: err.status, ...(err.message && !err.error.type) ? { message: err.message } : { message: err.error.type }, ...err.error.codeTryCount ? {codeTryCount : err.error.codeTryCount } : {}});
-        console.log(`status: ${err.status}, ${err.statusText}`);
+        this.uploadManagerService.uploadError$.next({ statusCode: err.status, ...(err.message && !err.error.type) ? { message: err.message } : { message: err.error.type }, ...err.error.codeTryCount ? { codeTryCount: err.error.codeTryCount } : {} });
       }
       throw (errMsg);
     };

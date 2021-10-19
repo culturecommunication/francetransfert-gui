@@ -35,7 +35,6 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.uploadSubscription = this.flow.events$.subscribe((event) => {
-      console.log(event);
       if (event.type === 'filesSubmitted') {
         this.fileManagerService.transfers.next(this.flow.transfers$);
         this.cdr.detectChanges();

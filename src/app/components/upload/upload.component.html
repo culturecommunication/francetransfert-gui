@@ -4,8 +4,7 @@
 <div class="upload-root-wrapper">
     <mat-card class="upload-title-card" *ngIf="screenWidth === 'lg'">
         <mat-card-content class="upload-title-card-content">
-            <span>France-Transfert permet d'envoyer des fichiers volumineux de manière sécurisée à un agent de l'Etat ou
-                entre agents.</span>
+            <span>France transfert permet d'envoyer des fichiers volumineux non sensibles de manière sécurisée à un agent de l'Etat ou entre agents.</span>
         </mat-card-content>
     </mat-card>
     <div class="upload-wrapper" [ngStyle]="styleObject()">
@@ -23,7 +22,7 @@
             *ngIf="!uploadStarted && (screenWidth !== 'sm' || (screenWidth === 'sm' && hasFiles && !listExpanded))"
             (uploadStarted)="onUploadStarted($event)" class="envelope-wrapper" [ngClass]="{'reduced': listExpanded}">
         </ft-envelope>
-        <ft-end-message [component]="'upload'" [availabilityDate]="availabilityDate"
+        <ft-end-message (backToHomeEvent)="reset()" [component]="'upload'" [availabilityDate]="availabilityDate"
             *ngIf="uploadFinished && uploadStarted" class="end-message-wrapper">
         </ft-end-message>
         <ft-satisfaction-check (satisfactionCheckDone)="onSatisfactionCheckDone($event)"

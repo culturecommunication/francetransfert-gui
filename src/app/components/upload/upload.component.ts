@@ -38,10 +38,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     private uploadService: UploadService) { }
 
   ngOnInit(): void {
-    this.uploadManagerService.envelopeInfos.next(null);
-    this.uploadManagerService.uploadError$.next(null);
-    this.downloadManagerService.downloadError$.next(null);
-    this.uploadManagerService.uploadInfos.next(null);
     this.onResize();
     this.flowConfig = FLOW_CONFIG;
     this.responsiveService.checkWidth();
@@ -56,10 +52,25 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.fileManagerSubscription = this.fileManagerService.hasFiles.subscribe(_hasFiles => {
       this.hasFiles = _hasFiles;
     });
+    this.reset();
+  }
+
+  reset() {
+    this.uploadStarted = false;
+    this.uploadFinished = false;
+    this.uploadValidated = false;
+    this.uploadManagerService.envelopeInfos.next(null);
+    this.uploadManagerService.uploadError$.next(null);
+    this.downloadManagerService.downloadError$.next(null);
+    //Reset token
+    this.uploadManagerService.uploadInfos.next(null);
+    if (this.flow) {
+      this.flow.cancel();
+    }
   }
 
   ngAfterViewInit() {
-    // console.log(this.flow);
+
   }
 
   onResize() {
@@ -121,9 +132,8 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     if (event) {
       this.uploadService.rate({ mail: this.uploadManagerService.envelopeInfos.getValue().from, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
         .subscribe(() => {
-
+          this.reset();
         });
-      window.location.reload();
     }
   }
 
@@ -133,23 +143,30 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async upload(): Promise<any> {
     let transfers: UploadState = await this.uploadManagerService.getRxValue(this.fileManagerService.transfers.getValue());
-    console.log(transfers);
-    console.log(this.uploadManagerService.envelopeInfos.getValue());
     this.uploadService
       .sendTree({
         transfers: transfers.transfers,
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
         senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
-        password: this.uploadManagerService.envelopeInfos.getValue().parameters.password,
-        expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays,
-        ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false }
+        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
+        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },
+        ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false },
+        ...this.uploadManagerService.uploadInfos.getValue()?.senderId ? { senderId: this.uploadManagerService.uploadInfos.getValue().senderId } : {},
+        ...this.uploadManagerService.uploadInfos.getValue()?.senderToken ? { senderToken: this.uploadManagerService.uploadInfos.getValue().senderToken } : {}
       })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
-        if (this.uploadManagerService.uploadInfos.getValue()) {
-          if (this.uploadManagerService.uploadInfos.getValue().senderId && this.uploadManagerService.uploadInfos.getValue().senderToken) {
-            this.validateCode();
+        if (result && result?.canUpload == true) {
+          this.uploadManagerService.uploadInfos.next(result);
+          this.uploadValidated = true;
+          this.availabilityDate = result.expireDate;
+          this.beginUpload(result);
+        } else {
+          if (this.uploadManagerService.uploadInfos.getValue()) {
+            if (this.uploadManagerService.uploadInfos.getValue().senderId && this.uploadManagerService.uploadInfos.getValue().senderToken) {
+              this.validateCode();
+            }
           }
         }
       });
@@ -164,8 +181,8 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
         senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
-        password: this.uploadManagerService.envelopeInfos.getValue().parameters.password,
-        expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays,
+        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
+        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false }
       })
       .pipe(takeUntil(this.onDestroy$))

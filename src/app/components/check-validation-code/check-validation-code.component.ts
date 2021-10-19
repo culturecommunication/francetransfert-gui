@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { FTErrorModel } from 'src/app/models';
 import { DownloadManagerService, UploadManagerService } from 'src/app/services';
+import { ConfirmAlertDialogComponent } from './confirm-alert-dialog/confirm-alert-dialog.component';
 
 @Component({
   selector: 'ft-check-validation-code',
@@ -20,9 +22,11 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
   errorSubscription: Subscription = new Subscription();
   errorDLSubscription: Subscription = new Subscription();
   error: FTErrorModel;
+  hide = true;
 
-  constructor(private fb: FormBuilder, private uploadManagerService: UploadManagerService, 
-    private downloadManagerService: DownloadManagerService) { }
+  constructor(private fb: FormBuilder, private uploadManagerService: UploadManagerService,
+    private downloadManagerService: DownloadManagerService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -65,8 +69,17 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
     }
   }
 
-  cancel() {
-    this.transferCancelled.emit(true);
+  backToHome() {
+    window.location.reload();
   }
 
+  cancel() {
+    const dialogRef = this.dialog.open(ConfirmAlertDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.transferCancelled.emit(true);
+      }
+    });
+  }
 }
