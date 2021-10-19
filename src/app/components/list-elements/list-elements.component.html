@@ -29,16 +29,18 @@
             [transfer]="transfer" (itemAdded)="onItemAdded($event)" (deletedTransfer)="deleteTransfer($event)">
         </ft-file-item>
         <div class="list-elements-add-elements-wrapper">
-            <mat-icon flowButton [flowAttributes]="{ accept: '*/*' }" [flow]="flow.flowJs"
-                class="list-elements-card-content-icon">add_circle</mat-icon>
+            <mat-icon *ngIf="flowAttributes" flowButton
+                [flowAttributes]="{ accept: '*/*' }"
+                [flow]="flow.flowJs" class="list-elements-card-content-icon">add_circle</mat-icon>
             <span class="list-elements-card-content-first-line">Ajoutez-vos fichiers et dossiers ou déposez-les
                 ici</span>
         </div>
     </mat-card-content>
     <ng-template #emptyList>
         <mat-card-content class="list-elements-card-content empty">
-            <mat-icon flowButton [flowAttributes]="{ accept: '*/*' }" [flow]="flow.flowJs"
-                class="list-elements-card-content-icon">add_circle</mat-icon>
+            <mat-icon *ngIf="flowAttributes" flowButton
+                [flowAttributes]="{ accept: '*/*' }"
+                [flow]="flow.flowJs" class="list-elements-card-content-icon">add_circle</mat-icon>
             <span class="list-elements-card-content-first-line">Ajoutez-vos fichiers et dossiers</span>
             <span class="list-elements-card-content-second-line">ou déposez-les ici</span>
         </mat-card-content>

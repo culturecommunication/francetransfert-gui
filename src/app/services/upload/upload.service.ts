@@ -80,6 +80,7 @@ export class UploadService {
 
   rate(body: any): any {
     return this._httpClient.post(`${environment.host}${environment.apis.upload.rate}`, {
+      plis: body.plis,
       mailAdress: body.mail,
       message: body.message,
       satisfaction: body.satisfaction

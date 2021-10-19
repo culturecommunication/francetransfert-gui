@@ -7,7 +7,8 @@ export const environment = {
       tree: 'api-private/upload-module/sender-info',
       confirmationCode: 'api-private/upload-module/validate-code',
       rate: 'api-private/upload-module/satisfaction',
-      validateMail: 'api-private/upload-module/validate-mail'
+      validateMail: 'api-private/upload-module/validate-mail',
+      config: 'api-private/upload-module/config'
     },
     download: {
       download: 'api-private/download-module/download-info',
