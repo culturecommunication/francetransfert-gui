@@ -1,4 +1,12 @@
 .envelope-mail-form-container {    
+
+    .envelope-mail-form-info {
+        display: flex;
+        justify-content: flex-end;
+        color: var(--ft-mention);
+        font-size: 12px;
+    }
+
     .mat-form-field {
         width: 100%;
 

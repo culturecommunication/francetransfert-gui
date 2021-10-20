@@ -2,12 +2,12 @@
     <mat-toolbar-row class="header-toolbar-row">
         <div class="header-toolbar-row-title">
             <div class="header-toolbar-logos-wrapper" (click)="backToHome()" *ngIf="!isMobile">
-                <img class="header-toolbar-logo rep-fr" src="assets/logos/republique_francaise_logo.svg" />
-                <img class="header-toolbar-logo ft" src="assets/logos/france_transfert_logo.svg" />
+                <img class="header-toolbar-logo rep-fr" alt="Logo République française" aria-hidden="true" src="assets/logos/republique_francaise_logo.svg" />
+                <img class="header-toolbar-logo ft"  alt="Logo France transfert" aria-hidden="true" src="assets/logos/france_transfert_logo.svg" />
             </div>
             <div class="header-toolbar-logos-wrapper" (click)="backToHome()" *ngIf="isMobile">
-                <img class="header-toolbar-logo rep-fr" src="assets/logos/republique_francaise_logo.svg" />
-                <img class="header-toolbar-logo ft" src="assets/logos/monogramme_ft.png" />
+                <img class="header-toolbar-logo rep-fr" alt="Logo République française" aria-hidden="true" src="assets/logos/republique_francaise_logo.svg" />
+                <img class="header-toolbar-logo ft" alt="Logo France transfert" aria-hidden="true" src="assets/logos/monogramme_ft.png" />
             </div>
             <button mat-icon-button (click)="onToggleSidenav()" class="menu-icon" *ngIf="screenWidth !== 'lg'">
                 <mat-icon>menu</mat-icon>
