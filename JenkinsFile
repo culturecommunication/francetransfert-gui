@@ -31,6 +31,20 @@ node {
             //sh 'npm run test'
         }
     }
+
+    gitlabCommitStatus('dependencyCheck')
+    {
+    	stage('dependencyCheck') {
+		    dependencyCheck additionalArguments: '--out="target" --scan="./src" --format="HTML"', odcInstallation: 'DepCheck'
+	    }
+    }
+
+    stage('SonarQube Analysis') {
+    def scannerHome = tool 'SonarScanner';
+        withSonarQubeEnv() {
+        sh "${scannerHome}/bin/sonar-scanner"
+        }
+    }
     
     // = Package
     gitlabCommitStatus('package')

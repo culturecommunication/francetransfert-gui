@@ -24,7 +24,7 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
   error: FTErrorModel;
   hide = true;
 
-  constructor(private fb: FormBuilder, private uploadManagerService: UploadManagerService, 
+  constructor(private fb: FormBuilder, private uploadManagerService: UploadManagerService,
     private downloadManagerService: DownloadManagerService,
     private dialog: MatDialog) { }
 
@@ -80,6 +80,6 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
       if (result) {
         this.transferCancelled.emit(true);
       }
-    });    
+    });
   }
 }

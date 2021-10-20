@@ -1,7 +1,9 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FlowDirective, Transfer } from '@flowjs/ngx-flow';
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { FileManagerService, MailingListService } from 'src/app/services';
+import { ConfigService } from 'src/app/services/config/config.service';
 
 @Component({
   selector: 'ft-list-elements',
@@ -20,10 +22,24 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   filesSizeLimit: number = 1024 * 1024 * 1024 * 20;
   errorMessage: string = '';
   expanded: boolean = false;
+  mimetype: string[] = [];
+  extension: string[] = [];
+  flowAttributes: any;
 
   uploadSubscription: Subscription;
 
-  constructor(private cdr: ChangeDetectorRef, private fileManagerService: FileManagerService) { }
+  constructor(private cdr: ChangeDetectorRef,
+    private fileManagerService: FileManagerService,
+    private configService: ConfigService) {
+
+    this.configService.getConfig().pipe(take(1)).subscribe((config: any) => {
+      this.mimetype = config.mimeType;
+      this.extension = config.extension;
+      //Not used yet to limit file selection
+      this.flowAttributes = { accept: this.mimetype };
+    })
+
+  }
 
   ngOnInit(): void {
     if (this.component === 'download') {
@@ -73,7 +89,10 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onItemAdded(event) {
-    if (event.size > this.fileSizeLimit) {
+    if (!this.checkExtentionValid(event)) {
+      this.flow.cancelFile(event);
+      this.errorMessage = 'Le type de fichier que vous avez essayé d\'ajouter n\'est pas autorisé';
+    } else if (event.size > this.fileSizeLimit) {
       if (event.folder) {
         // c'est un dossier
         for (let child of event.childs) {
@@ -105,4 +124,18 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.expanded = !this.expanded;
     this.listExpanded.emit(this.expanded);
   }
+
+
+  checkExtentionValid(event: any) {
+    let valid = false;
+    if (event?.name) {
+      const fileExt = event.name.split('.').pop();
+      // BlackList
+      if (!this.extension.includes(fileExt)) {
+        valid = true;
+      }
+    }
+    return valid;
+  }
 }
+
