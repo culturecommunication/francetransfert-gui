@@ -1,4 +1,12 @@
 .envelope-link-form-container {
+
+    .envelope-link-form-info {
+        display: flex;
+        justify-content: flex-end;
+        color: var(--ft-mention);
+        font-size: 12px;
+    }
+
     .envelope-link-form-group {
         .mat-form-field {
             width: 100%;

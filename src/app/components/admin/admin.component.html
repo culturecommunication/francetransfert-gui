@@ -14,22 +14,25 @@
                     <span>Informations du pli</span>
                 </div>
                 <mat-list role="list">
-                    <mat-list-item role="listitem">Nombre de téléchargements : {{fileInfos.downloadCount}}</mat-list-item>
-                    <mat-list-item role="listitem">Emetteur : {{fileInfos.senderEmail}}</mat-list-item>
-                    <mat-list-item role="listitem">Message : {{fileInfos.message}}</mat-list-item>
-                    <mat-list-item role="listitem">Date d'émission : {{fileInfos.timestamp | date: 'medium'}}
+                    <mat-list-item role="listitem"><span>Nombre de téléchargements : {{fileInfos.downloadCount}}</span>
                     </mat-list-item>
-                    <mat-list-item role="listitem">Date de fin de validité : {{fileInfos.validUntilDate | date:
-                        'medium'}}
+                    <mat-list-item role="listitem"><span>Emetteur : {{fileInfos.senderEmail}}</span></mat-list-item>
+                    <mat-list-item role="listitem"><span>Message : {{fileInfos.message}}</span></mat-list-item>
+                    <mat-list-item role="listitem"><span>Date d'émission : {{fileInfos.timestamp | date:
+                            'medium'}}</span>
+                    </mat-list-item>
+                    <mat-list-item role="listitem"><span>Date de fin de validité : {{fileInfos.validUntilDate | date:
+                            'medium'}}</span>
                         <mat-form-field style="width:1px;visibility:hidden;">
-                            <input matInput [matDatepicker]="picker" [formControl]="validUntilDate" [min]="minDate" [max]="maxDate">
+                            <input matInput [matDatepicker]="picker" [formControl]="validUntilDate" [min]="minDate"
+                                [max]="maxDate">
                             <mat-datepicker #picker (closed)="onPickerClose()"></mat-datepicker>
                         </mat-form-field>
-                        <mat-icon matTooltip="Modifier la date de fin de validité" (click)="picker.open()">edit
+                        <mat-icon matTooltip="Modifier la date de fin de validité" (click)="picker.open()" aria-label="Modifier la date de fin de validité">edit
                         </mat-icon>
                     </mat-list-item>
-                    <mat-list-item role="listitem" class="delete">Supprimer le pli :
-                        <mat-icon matTooltip="Supprimer le pli" (click)="deleteFile()">delete
+                    <mat-list-item role="listitem" class="delete"><span>Supprimer le pli :</span>
+                        <mat-icon matTooltip="Supprimer le pli" (click)="deleteFile()" aria-label="Supprimer le pli">delete
                         </mat-icon>
                     </mat-list-item>
                 </mat-list>

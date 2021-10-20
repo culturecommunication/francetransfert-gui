@@ -1,9 +1,9 @@
 <h2 mat-dialog-title>Liste de contacts</h2>
 <mat-dialog-content class="mat-typography">
   <!-- <h3>Cette action supprimera définitivement votre pli et le rendra inaccessible.</h3> -->
-  <p>Importer une liste de contacts ?</p><br/>
-  <p>Vous pouvez importer une liste de contacts depuis un fichier contenant les adresses mail que vous souhaitez utiliser séparées par un caractère ";"</p><br/>
-  <span *ngIf="errorMessage !== ''" class="error">{{errorMessage}}</span>
+  <span>Importer une liste de contacts ?</span>
+  <span>Vous pouvez importer une liste de contacts depuis un fichier contenant les adresses mail que vous souhaitez utiliser séparées par un caractère ";"</span>
+  <span *ngIf="errorMessage !== ''" class="error" role="alert">{{errorMessage}}</span>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button class="btn" mat-button (click)="fileInput.click()">

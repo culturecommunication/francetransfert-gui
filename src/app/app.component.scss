@@ -57,6 +57,11 @@
     .mat-form-field-ripple {
         background-color: var(--ft-error);
     }
+
+    .mat-error {
+        font-size: 18.5px;
+        font-weight: bold;
+    }
 }
 
 ::ng-deep .tootlip-ml.mat-tooltip{

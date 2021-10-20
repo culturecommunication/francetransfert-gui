@@ -32,6 +32,14 @@
         -webkit-flex-direction: column;
         text-align: center; 
         width: 100%;
+
+        mat-label {
+            span {
+                display: inline-block !important;
+                line-height: 24px;
+                margin: 5px;
+            }
+        }
     }
     .list-elements-card-content {
         overflow-x: hidden;
