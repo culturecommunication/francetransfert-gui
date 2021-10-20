@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { FlowDirective, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs/internal/Subject';
 import { Subscription } from 'rxjs/internal/Subscription';
@@ -35,9 +36,11 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     private uploadManagerService: UploadManagerService,
     private downloadManagerService: DownloadManagerService,
     private fileManagerService: FileManagerService,
-    private uploadService: UploadService) { }
+    private uploadService: UploadService,
+    private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('France transfert - Téléversement');
     this.onResize();
     this.flowConfig = FLOW_CONFIG;
     this.responsiveService.checkWidth();

@@ -1,7 +1,7 @@
 <mat-card class="check-validation-code-card" *ngIf="component === 'upload'">
     <form [formGroup]="verificationCodeForm" class="verification-code-form-container">
         <mat-card-content class="check-validation-code-card-content">
-            <mat-icon class="check-validation-code-card-content-icon">lock_outline</mat-icon>
+            <mat-icon class="check-validation-code-card-content-icon" aria-hidden="true">lock_outline</mat-icon>
             <div class="check-validation-code-card-content-text">
                 <span class="check-validation-code-card-content-text-title">Vérifiez votre adresse mail</span>
                 <span class="check-validation-code-card-content-text-sub">Saisissez le code qui vous a été envoyé à
@@ -19,7 +19,7 @@
             <div class="verification-code-form-group">
                 <mat-form-field>
                     <mat-label>Code de vérification</mat-label>
-                    <input matInput formControlName="verificationCode" required>
+                    <input matInput formControlName="verificationCode" required autocomplete="off">
                     <mat-error role="alert" *ngIf="f.verificationCode.errors?.required">Veuillez entrer votre code de
                         vérification.</mat-error>
                 </mat-form-field>
@@ -38,7 +38,7 @@
 <mat-card class="check-validation-code-card" *ngIf="component === 'download'">
     <form [formGroup]="verificationCodeForm" class="verification-code-form-container">
         <mat-card-content class="check-validation-code-card-content">
-            <mat-icon class="check-validation-code-card-content-icon">lock_outline</mat-icon>
+            <mat-icon class="check-validation-code-card-content-icon" aria-hidden="true">lock_outline</mat-icon>
             <div class="check-validation-code-card-content-text">
                 <span class="check-validation-code-card-content-text-title">Halte-là !</span>
                 <span class="check-validation-code-card-content-text-sub">La saisie d’un mot de passe est nécessaire
@@ -55,10 +55,10 @@
             <div class="verification-code-form-group">
                 <mat-form-field>
                     <mat-label>Mot de passe</mat-label>
-                    <input matInput formControlName="verificationCode" required [type]="hide ? 'password' : 'text'">
-                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                        [attr.aria-pressed]="hide">
-                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <input matInput formControlName="verificationCode" required [type]="hide ? 'password' : 'text'" autocomplete="off">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Masquer le mot de passe'"
+                        [attr.aria-pressed]="'Masquer le mot de passe'">
+                        <mat-icon aria-hidden="true">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                     <mat-error role="alert" *ngIf="f.verificationCode.errors?.required">Veuillez entrer le mot de passe.</mat-error>
                 </mat-form-field>

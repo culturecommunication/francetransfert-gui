@@ -9,6 +9,16 @@
             font-weight: normal;
             font-size: 16px;
             line-height: 24px;
+
+            h2 {
+                margin-top: 30px;
+                margin-bottom: 30px;
+            }
+
+            p span {
+                display: block;
+                margin: 5px;
+            }
         }
     }
 }

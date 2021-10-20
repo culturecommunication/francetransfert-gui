@@ -7,7 +7,7 @@
     <div class="envelope-mail-form-group">
         <mat-form-field>
             <mat-label>Expéditeur</mat-label>
-            <input matInput placeholder="Votre adresse mail" formControlName="from" required>
+            <input matInput placeholder="Votre adresse mail" formControlName="from" autocomplete="email" required>
             <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
             <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse mail valide est requise.</mat-error>
         </mat-form-field>
@@ -16,7 +16,7 @@
     <div class="envelope-mail-form-group">
         <mat-form-field>
             <mat-label>Destinataire(s) *</mat-label>
-            <input matInput placeholder="Mails des destinataires" formControlName="to" [errorStateMatcher]="matcher"
+            <input matInput placeholder="Mails des destinataires" formControlName="to" autocomplete="email" [errorStateMatcher]="matcher"
                 (blur)="onBlurDestinataires()">
             <mat-icon class="icon-btn" matSuffix matTooltip="Utiliser une liste de contacts"
                 (click)="openMailingListManager()">list_alt
@@ -38,7 +38,7 @@
     <div class="envelope-mail-form-group">
         <mat-form-field>
             <mat-label>Objet</mat-label>
-            <input matInput placeholder="(Facultatif)" formControlName="subject">
+            <input matInput placeholder="(Facultatif)" formControlName="subject" autocomplete="off">
         </mat-form-field>
     </div>
 
@@ -46,7 +46,7 @@
         <mat-form-field>
             <mat-label>Message</mat-label>
             <textarea cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10" matInput
-                placeholder="(Facultatif)" formControlName="message"></textarea>
+                placeholder="(Facultatif)" formControlName="message" autocomplete="off"></textarea>
         </mat-form-field>
     </div>
 

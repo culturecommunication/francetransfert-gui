@@ -69,7 +69,7 @@ const initializer = (pwaService: PwaService) => () =>
     AccessibiliteComponent,
     DownloadElementsComponent,
     DragDropFileUploadDirective,
-    FileItemComponent,    
+    FileItemComponent,
     FileMultipleSizePipe,
     FileNamePipe,
     FileSizePipe,
@@ -105,7 +105,7 @@ const initializer = (pwaService: PwaService) => () =>
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR' },
-    DatePipe,    
+    DatePipe,
     FileMultipleSizePipe,
     FileNamePipe,
     FileSizePipe,

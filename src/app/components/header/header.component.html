@@ -1,30 +1,40 @@
 <mat-toolbar class="header-toolbar">
     <mat-toolbar-row class="header-toolbar-row">
         <div class="header-toolbar-row-title">
-            <div class="header-toolbar-logos-wrapper" (click)="backToHome()" *ngIf="!isMobile">
-                <img class="header-toolbar-logo rep-fr" alt="Logo République française" aria-hidden="true" src="assets/logos/republique_francaise_logo.svg" />
-                <img class="header-toolbar-logo ft"  alt="Logo France transfert" aria-hidden="true" src="assets/logos/france_transfert_logo.svg" />
+            <div class="header-toolbar-logos-wrapper" *ngIf="!isMobile">
+                <button mat-button aria-label="Retour à l'accueil" (click)="backToHome()">
+                    <img class="header-toolbar-logo rep-fr" alt="Logo République française" aria-hidden="true"
+                        src="assets/logos/republique_francaise_logo.svg" />
+                    <img class="header-toolbar-logo ft" alt="Logo France transfert" aria-hidden="true"
+                        src="assets/logos/france_transfert_logo.svg" />
+                </button>
             </div>
-            <div class="header-toolbar-logos-wrapper" (click)="backToHome()" *ngIf="isMobile">
-                <img class="header-toolbar-logo rep-fr" alt="Logo République française" aria-hidden="true" src="assets/logos/republique_francaise_logo.svg" />
-                <img class="header-toolbar-logo ft" alt="Logo France transfert" aria-hidden="true" src="assets/logos/monogramme_ft.png" />
+            <div class="header-toolbar-logos-wrapper" *ngIf="isMobile">
+                <button mat-button aria-label="Retour à l'accueil" (click)="backToHome()">
+                    <img class="header-toolbar-logo rep-fr" alt="Logo République française" aria-hidden="true"
+                        src="assets/logos/republique_francaise_logo.svg" />
+                    <img class="header-toolbar-logo ft" alt="Logo France transfert" aria-hidden="true"
+                        src="assets/logos/monogramme_ft.png" />
+                </button>
             </div>
-            <button mat-icon-button (click)="onToggleSidenav()" class="menu-icon" *ngIf="screenWidth !== 'lg'">
+            <button mat-icon-button (click)="onToggleSidenav()" class="menu-icon" *ngIf="screenWidth !== 'lg'"
+                aria-label="Ouvrir le menu">
                 <mat-icon>menu</mat-icon>
             </button>
             <div class="header-toolbar-right" *ngIf="screenWidth === 'lg'">
                 <ft-language-selector class="language-selector-wrapper"></ft-language-selector>
                 <span class="column-divider"></span>
-                <div class="header-toolbar-link" (click)="routeTo('/faq')">
+                <button mat-icon-button class="header-toolbar-link" aria-label="Lien vers la FAQ"
+                    (click)="routeTo('/faq')">
                     <mat-icon>help_outline</mat-icon>
                     <span>FAQ</span>
-                </div>
+                </button>
                 <span class="column-divider"></span>
-                <div class="header-toolbar-link"
+                <button mat-icon-button class="header-toolbar-link" aria-label="Lien vers la page de contact"
                     (click)="goToLink('https://www.culture.gouv.fr/Nous-contacter/#novaform')">
                     <mat-icon>mail_outline</mat-icon>
                     <span>Contact</span>
-                </div>
+                </button>
             </div>
             <div class="corner-ribbon top-right sticky blue shadow"><span class="ribbon-text">BETA</span></div>
         </div>

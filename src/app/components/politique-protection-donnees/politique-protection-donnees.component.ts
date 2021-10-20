@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'ft-politique-protection-donnees',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PolitiqueProtectionDonneesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('France transfert - Politique de protection des données');
   }
 
 }

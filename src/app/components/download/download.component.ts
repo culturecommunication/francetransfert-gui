@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlowDirective, Transfer } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs/internal/Subject';
@@ -44,9 +45,11 @@ export class DownloadComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private uploadManagerService: UploadManagerService,
     private downloadManagerService: DownloadManagerService,
-    private _router: Router) { }
+    private _router: Router,
+    private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('France transfert - Téléchargement');
     this.uploadManagerService.uploadError$.next(null);
     this.downloadManagerService.downloadError$.next(null);
     this.flowConfig = FLOW_CONFIG;

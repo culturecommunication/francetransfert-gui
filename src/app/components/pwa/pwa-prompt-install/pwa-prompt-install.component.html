@@ -1,19 +1,20 @@
 <mat-toolbar *ngIf="data.mobileType === 'android'" class="android-prompt">
-  <img src="./assets/icons/icon-72x72.png">
+  <img alt="Logo France transfert" src="./assets/icons/icon-72x72.png">
   <button mat-button (click)="installPwa()">
     Ajouter à l'écran d'accueil
   </button>
-  <button mat-icon-button (click)="close()">
+  <button mat-icon-button (click)="close()" aria-label="Fermer">
     <mat-icon>close</mat-icon>
   </button>
 </mat-toolbar>
 
 <div *ngIf="data.mobileType === 'ios'" class="ios-prompt">
-  <button class="close-ios-inv" mat-button color="primary" (click)="close()">
+  <button class="close-ios-inv" mat-button color="primary" (click)="close()" aria-label="Fermer">
     <mat-icon>close</mat-icon>
   </button>
-  <div>Pour installer cette application Web sur votre appareil, appuyez sur le bouton Menu, puis sur le bouton « Ajouter
-    à l'écran d'accueil »</div>
+  <div><span>Pour installer cette application Web sur votre appareil, appuyez sur le bouton Menu, puis sur le bouton «
+      Ajouter
+      à l'écran d'accueil »</span></div>
   <div class="icons"><img alt="icône menu ios" src="./assets/icons/ios-menu-btn.png">
     <mat-icon>navigate_next</mat-icon> <img alt="icône bouton ajouter ios" src="./assets/icons/ios-add-btn.png">
   </div>

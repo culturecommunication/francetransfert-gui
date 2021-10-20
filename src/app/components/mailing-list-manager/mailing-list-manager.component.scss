@@ -1,3 +1,11 @@
+.mat-typography {
+    span {
+        display: inline-block !important;
+        line-height: 24px;
+        margin: 5px;
+    }
+}
+
 .btn {
     background-color: var(--ft-blue-france);
     color: var(--ft-white);

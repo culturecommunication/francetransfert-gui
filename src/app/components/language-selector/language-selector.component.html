@@ -1,10 +1,10 @@
 <div class="lang-selection">
-    <mat-select [(value)]="defaultLanguage">
-        <mat-select-trigger class="language-selected">
-            <img [src]="defaultLanguage.flagUrl" alt="" aria-hidden="true" class="flag-icon" />
-            <span>{{ defaultLanguage.label }}</span>
-        </mat-select-trigger>
-        <mat-option [value]="lang" *ngFor="let lang of languageList" class="language-option"><img [src]="lang.flagUrl"
-                class="flag-icon" alt="" aria-hidden="true" /><span>{{ lang.label }}</span></mat-option>
-    </mat-select>
+    <mat-form-field>
+        <mat-label>Choix de la langue</mat-label>
+        <select matNativeControl class="language-select">
+            <option *ngFor="let lang of languageList" [ngClass]="lang.code" [value]="lang">
+                <span>{{ lang.label }}</span>
+            </option>
+        </select>
+    </mat-form-field>
 </div>

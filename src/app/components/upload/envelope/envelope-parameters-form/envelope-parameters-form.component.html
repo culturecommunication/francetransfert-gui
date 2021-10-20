@@ -17,7 +17,7 @@
     <div class="envelope-parameters-form-group">
         <mat-form-field>
             <mat-label>Mot de passe</mat-label>
-            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" autocomplete="off">
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
