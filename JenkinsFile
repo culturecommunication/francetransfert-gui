@@ -35,14 +35,16 @@ node {
     gitlabCommitStatus('dependencyCheck')
     {
     	stage('dependencyCheck') {
-		    dependencyCheck additionalArguments: '--out="target" --scan="./src" --format="HTML"', odcInstallation: 'DepCheck'
+            if (env.BRANCH_NAME == 'demo') {
+		        dependencyCheck additionalArguments: '--out="target" --scan="./package-lock.json" --format="HTML"', odcInstallation: 'DepCheck'
+            }
 	    }
     }
 
     stage('SonarQube Analysis') {
     def scannerHome = tool 'SonarScanner';
         withSonarQubeEnv() {
-        sh "${scannerHome}/bin/sonar-scanner"
+            sh "${scannerHome}/bin/sonar-scanner -Dsonar.branch.name=${env.BRANCH_NAME}"
         }
     }
     
