@@ -22,6 +22,7 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
   errorSubscription: Subscription = new Subscription();
   errorDLSubscription: Subscription = new Subscription();
   error: FTErrorModel;
+  hide = true;
 
   constructor(private fb: FormBuilder, private uploadManagerService: UploadManagerService, 
     private downloadManagerService: DownloadManagerService,
