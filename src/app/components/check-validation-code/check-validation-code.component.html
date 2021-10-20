@@ -9,12 +9,12 @@
                     (vérifiez votre dossier spam).</span>
             </div>
             <div class="check-validation-code-card-content-error" *ngIf="error && error.statusCode === 401">
-                <span>Le code de vérification est invalide.</span><br />
-                <span *ngIf="error.codeTryCount > 0">Nombre d'échecs : {{error.codeTryCount}}</span>
-                <span *ngIf="!error.codeTryCount">Suite à 5 erreurs de validation du code votre pli est annulé</span>
+                <span role="alert">Le code de vérification est invalide.</span><br />
+                <span *ngIf="error.codeTryCount > 0" role="alert">Nombre d'échecs : {{error.codeTryCount}}</span>
+                <span *ngIf="!error.codeTryCount" role="alert">Suite à 5 erreurs de validation du code votre pli est annulé</span>
             </div>
             <div class="check-validation-code-card-content-error" *ngIf="error && error.statusCode === 400">
-                <span>Une erreur technique s'est produite.</span>
+                <span role="alert">Une erreur technique s'est produite.</span>
             </div>
             <div class="verification-code-form-group">
                 <mat-form-field>
@@ -45,9 +45,9 @@
                     pour télécharger ce transfert.</span>
             </div>
             <div class="check-validation-code-card-content-error" *ngIf="error && error.statusCode === 401">
-                <span>Le mot de passe est invalide.</span><br />
-                <span *ngIf="error.codeTryCount > 0">Nombre d'échecs : {{error.codeTryCount}}</span>
-                <span *ngIf="!error.codeTryCount && error.message">{{error.message}}</span>
+                <span role="alert">Le mot de passe est invalide.</span><br />
+                <span *ngIf="error.codeTryCount > 0" role="alert">Nombre d'échecs : {{error.codeTryCount}}</span>
+                <span *ngIf="!error.codeTryCount && error.message" role="alert">{{error.message}}</span>
             </div>
             <div class="check-validation-code-card-content-error" *ngIf="error && error.statusCode === 400">
                 <span>Une erreur technique s'est produite.</span>
