@@ -25,6 +25,9 @@
                 display: -webkit-flex;
                 -webkit-justify-content: space-around;
                 -webkit-align-items: center;
+                .header-toolbar-logo.ft {
+                    margin-left: 30px;
+                }
             }     
             .header-toolbar-right {
                 width: 40%;
@@ -41,21 +44,16 @@
 
                 .column-divider {
                     border-left: 1px solid var(--ft-asset);
-                    height: 16px;
+                    height: 24px;
                 }
             }
-            .header-toolbar-link {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                display: -webkit-flex;
-                -webkit-flex-direction: row;
-                -webkit-justify-content: space-between;
-                -webkit-align-items: center;
+            .header-toolbar-link.mat-icon-button {
                 color: var(--ft-blue-france);
                 font-size: 14px;
                 line-height: 24px;
+                width: unset;
+                padding: unset;
+                min-width: unset;
                 span {
                     margin-left: 5px;
                 }

@@ -1,7 +1,7 @@
-.faq-wrapper {
-    width: 100%;    
+.politique-protection-donnees-wrapper {
+    width: 100%;
     background-color: var(--ft-white);
-    .faq-card {
+    .politique-protection-donnees-card {        
         &-header {
         }
         &-content {
@@ -19,23 +19,28 @@
                 display: block;
                 margin: 5px;
             }
+
+            li {
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
         }
     }
 }
 
 @media screen and (min-width: 812px) {
-    .faq-wrapper {
-        .faq-card {
+    .politique-protection-donnees-wrapper {        
+        .politique-protection-donnees-card {
             height: 100%;
         }
     }
 }
 
 @media screen and (min-width: 480px) and (max-width: 812px) {
-    .faq-wrapper {
+    .politique-protection-donnees-wrapper {
         height: 100vh;
         overflow-y: auto;
-        .faq-card {
+        .politique-protection-donnees-card {
             margin-top: 90px;
         }
     }
@@ -43,10 +48,10 @@
 
 
 @media screen and (min-width: 200px) and (max-width: 480px) {
-    .faq-wrapper {
+    .politique-protection-donnees-wrapper {
         height: 100vh;
         overflow-y: auto;
-        .faq-card {
+        .politique-protection-donnees-card {
             margin-top: 90px;
             ::ng-deep .mat-card-header-text {
                 margin: 0 0 !important;

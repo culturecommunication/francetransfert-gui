@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Transfer } from '@flowjs/ngx-flow';
 import * as moment from 'moment';
@@ -30,9 +31,11 @@ export class AdminComponent implements OnInit, OnDestroy {
   constructor(private _adminService: AdminService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('France transfert - Administration d\'un pli');
     this._activatedRoute.queryParams.pipe(takeUntil(this.onDestroy$)).subscribe((params: Array<{ string: string }>) => {
       this.params = params;
       if (this.params['enclosure'] && this.params['token']) {

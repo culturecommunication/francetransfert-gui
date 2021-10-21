@@ -1,7 +1,7 @@
 <div class="menu-list-wrapper">
     <mat-list class="menu-list">
         <mat-list-item class="menu-list-item end" (click)="onToggleSidenav()">
-            <mat-icon mat-list-icon>close</mat-icon>
+            <mat-icon mat-list-icon aria-label="Fermer le menu">close</mat-icon>
             <div mat-line>Fermer</div>
         </mat-list-item>
         <mat-list-item (click)="onToggleSidenav()">
@@ -9,12 +9,12 @@
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item class="menu-list-item" (click)="goToLink('/faq')">
-            <mat-icon>help_outline</mat-icon>
+            <mat-icon aria-hidden="true">help_outline</mat-icon>
             <span>FAQ</span>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item class="menu-list-item" (click)="goToLink('https://www.culture.gouv.fr/Nous-contacter/#novaform')">
-            <mat-icon>mail_outline</mat-icon>
+            <mat-icon aria-hidden="true">mail_outline</mat-icon>
             <span>Contact</span>
         </mat-list-item>
         <mat-divider></mat-divider>
