@@ -38,7 +38,7 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
 
     this.envelopeParametersForm = this.fb.group({
       expiryDays: [expireDate],
-      password: [this.parametersFormValues?.password, [Validators.minLength(12), Validators.maxLength(20), Validators.pattern('^(?=.{12,})((?=.*[0-9]){3,})((?=.*[a-z]){3,})((?=.*[A-Z]){3,})((?=.*[!@#$%^&*()_-:+]){3,}).*$')]]
+      password: [this.parametersFormValues?.password, [Validators.minLength(12), Validators.maxLength(20), Validators.pattern('^(?=.{12,})((?=.*[0-9]){3,})((?=.*[a-z]){3,})((?=.*[A-Z]){3,})((?=.*[!@#$%^&*()_:+-]){3,}).*$')]]
     });
     this.envelopeParametersFormChangeSubscription = this.envelopeParametersForm.valueChanges
       .subscribe(() => {
