@@ -21,10 +21,10 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   uploadFinished: boolean = false;
   uploadValidated: boolean = false;
   uploadFailed: boolean = false;
-  uploadManagerSubscription: Subscription;
+  uploadManagerSubscription: Subscription = new Subscription;
   responsiveSubscription: Subscription = new Subscription;
   fileManagerSubscription: Subscription = new Subscription;
-  transfertSubscription: Subscription;
+  transfertSubscription: Subscription = new Subscription;
   senderEmail: string;
   availabilityDate: Date;
   availabilityDays: number;
