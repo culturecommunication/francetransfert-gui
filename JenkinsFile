@@ -52,22 +52,22 @@ node {
     gitlabCommitStatus('package')
     {
         stage('Package') {
-            if(env.BRANCH_NAME.startsWith('develop')){
-                sh 'cp package.json dist'
+            sh 'cp package.json dist'
+            jsonObject =  readJSON file: 'package.json'
+
+            if(jsonObject["version"].contains('-')){
                 sh 'npm publish dist --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture/'
-                jsonObject =  readJSON file: 'package.json'
+            } else {
+                sh 'npm publish dist --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture-release/'
+            }            
+
+            if(env.BRANCH_NAME.startsWith('develop')){
                 version.updateVersionGit('app_upload_version',jsonObject["version"],'recette')
             }
             if(env.BRANCH_NAME.startsWith('demo')){
-                sh 'cp package.json dist'
-                sh 'npm publish dist --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture/'
-                jsonObject =  readJSON file: 'package.json'
                 version.updateVersionGit('app_upload_version',jsonObject["version"],'test')
             }
             if(env.BRANCH_NAME.startsWith('master')){
-                sh 'cp package.json dist'
-                sh 'npm publish dist --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture/'
-                jsonObject =  readJSON file: 'package.json'
                 version.updateVersionGit('app_upload_version',jsonObject["version"],'production')
             }
         }
