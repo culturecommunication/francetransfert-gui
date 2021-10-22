@@ -95,13 +95,13 @@ node {
                 ]
             }
 
-            if(env.BRANCH_NAME.startsWith('master')){
-                build job: 'deployement',wait:false, parameters: [
-                booleanParam(name: 'INFRA', value: false),
-                string(name: 'ENVIRONNEMENT', value: "production"),
-                string(name: 'GROUP', value: "front"),
-                ]
-            }
+            //if(env.BRANCH_NAME.startsWith('master')){
+            //    build job: 'deployement',wait:false, parameters: [
+            //    booleanParam(name: 'INFRA', value: false),
+            //    string(name: 'ENVIRONNEMENT', value: "production"),
+            //    string(name: 'GROUP', value: "front"),
+            //    ]
+            //}
         }
     }
     
