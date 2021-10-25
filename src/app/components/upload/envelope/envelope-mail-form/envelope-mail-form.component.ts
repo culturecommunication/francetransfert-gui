@@ -102,7 +102,6 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   checkDestinatairesList() {
     let destListOk = false;
     let senderOk = false;
-    console.log(this.destinatairesList);
     this.uploadService.validateMail(this.destinatairesList).pipe(
       take(1)).subscribe((isValid: boolean) => {
         destListOk = isValid;
