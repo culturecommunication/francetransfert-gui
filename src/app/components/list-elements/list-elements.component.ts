@@ -76,12 +76,8 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
    * @returns {void}
    */
   deleteTransfer(transfer: Transfer): void {
-    this.flow.cancelFile(transfer);
-    this.filesSize -= transfer.size;
-    if (this.filesSize < 0) {
-      this.filesSize = 0;
-    }
-    this.fileManagerService.hasFiles.next(this.filesSize > 0);
+    this.flow.cancelFile(transfer); 
+    this.filesSize -= transfer.size;    
     this.cdr.detectChanges();
     if (this.filesSize <= this.filesSizeLimit) {
       this.errorMessage = '';
@@ -96,8 +92,13 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
       if (event.folder) {
         // c'est un dossier
         for (let child of event.childs) {
+          this.filesSize += child.size
           this.deleteTransfer(child);
+        }        
+        if (this.filesSize < 0) {
+          this.filesSize = 0;
         }
+        this.fileManagerService.hasFiles.next(this.filesSize > 0);
         this.errorMessage = 'Le dossier que vous avez essayé d\'ajouter a dépassé la taille maximale autorisée (2 Go)';
         this.cdr.detectChanges();
       } else {
