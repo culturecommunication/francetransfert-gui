@@ -1,10 +1,10 @@
 <div class="cgu-wrapper">
     <mat-card class="cgu-card">
         <mat-card-header class="cgu-card-header">
-            <h1>CGU</h1>
+            <h1 #cgu>CGU</h1>
         </mat-card-header>
         <mat-card-content class="cgu-card-content">
-            <h2>1. Présentation du service</h2>
+            <h2 #presentationduservice>1. Présentation du service</h2>
             <p>
                 <span>France transfert est un service (<b>le Service</b>) en bêta test, créé par le ministère de la
                     culture (<b>le Ministère</b>) pour aider ses usagers (citoyens, professionnels, entreprises,
@@ -31,7 +31,7 @@
                 <span>Le Service n’est pas conçu pour les démarches qui pourraient être effectuées par des
                     mineurs</span>
             </p>
-            <h2>2. Modalités d’utilisation du Service</h2>
+            <h2 #modalites>2. Modalités d’utilisation du Service</h2>
             <p>
                 <span>L’utilisation du Service est libre et facultative.</span>
                 <span>Lors de la connexion sur la page du Service, l’usager du Service fournit l’adresse électronique du
@@ -54,7 +54,7 @@
                 <span>La plateforme technique est basée sur une technologie Angular en front Node js , Spring boot 2 et
                     REDIS en back end.</span>
             </p>
-            <h2>3. Traitement des données à caractère personnel</h2>
+            <h2 #traitementdesdonnees>3. Traitement des données à caractère personnel</h2>
             <p>
                 <span>Le Ministère est responsable des traitements opérés sur les données reçues dans le cadre du
                     Service et, à ce titre, respecte les obligations inhérentes à ce traitement, notamment celles
@@ -71,7 +71,7 @@
                     des tiers en dehors des cas prévus par la loi et à effectuer toutes formalités préalables
                     obligatoires auprès de la Commission Nationale de l’Informatique et des Libertés.</span>
             </p>
-            <h2>4. Lieu de stockage et durée de conservation des données des démarches publiées sur le Service</h2>
+            <h2 #conservationdesdonnees>4. Lieu de stockage et durée de conservation des données des démarches publiées sur le Service</h2>
             <p>
                 <span>Le service est hébergé sur un cloud souverain (Outscale). Les fichiers ou dossiers sont donc
                     stockés sur des serveurs français le temps qu’ils soient téléchargés par leur destinataire. </span>
@@ -81,7 +81,7 @@
                     l’expéditeur du transfert.</span>
                 <span>Les fichiers ou dossiers sont détruits automatiquement au bout de 30 jours.</span>
             </p>
-            <h2>5. Engagements et responsabilité</h2>
+            <h2 #engagementsetresponsabilite>5. Engagements et responsabilité</h2>
             <h3>5. 1. Engagements du Ministère</h3>
             <p>
                 <span>Le Ministère s'engage à prendre toutes les mesures nécessaires permettant de garantir la sécurité
@@ -115,7 +115,7 @@
                     s'expose, notamment, aux sanctions prévues à l'article 441-1 du Code Pénal, prévoyant des peines
                     pouvant aller jusqu'à trois ans d'emprisonnement et 45 000 euros d'amende.</span>
             </p>
-            <h2>6. Modification, évolution et qualité du service</h2>
+            <h2 #qualiteduservice>6. Modification, évolution et qualité du service</h2>
             <p>
                 <span>Le Ministère se réserve la liberté de faire évoluer, de modifier ou de suspendre, sans préavis, le
                     service pour des raisons de maintenance ou pour tout autre motif jugé nécessaire. Une page
@@ -125,7 +125,7 @@
                     préavis, en fonction des modifications apportées au Service, de l'évolution de la législation ou
                     pour tout autre motif jugé nécessaire.</span>
             </p>
-            <h2>7. Sécurité</h2>
+            <h2 #securite>7. Sécurité</h2>
             <p>
                 <span>Le Service est hébergé sur une plateforme de confiance dite SecNumcloud (l’ANSSI a élaboré le
                     référentiel SecNumCloud pour la qualification de prestataires de services d’informatique Cloud).
@@ -145,7 +145,7 @@
                 <span>Le service contact est le service du numérique du Ministère de la culture.</span>
                 <span>Adresse mail générique</span>
             </p>
-            <h2>8. Validité des CGU </h2>
+            <h2 #validite>8. Validité des CGU </h2>
             <p>
                 <span>Les présentes CGU sont valables pour une durée indéterminée.</span>
                 <span>Une nouvelle acceptation des CGU sera demandée en cas d’extension des services proposés par le
