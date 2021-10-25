@@ -77,8 +77,9 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   deleteTransfer(transfer: Transfer): void {
     this.flow.cancelFile(transfer); 
-    this.filesSize -= transfer.size;    
-    this.cdr.detectChanges();
+    this.filesSize -= transfer.size;
+    this.fileManagerService.hasFiles.next(this.filesSize > 0);
+    this.cdr.detectChanges();    
     if (this.filesSize <= this.filesSizeLimit) {
       this.errorMessage = '';
     }
