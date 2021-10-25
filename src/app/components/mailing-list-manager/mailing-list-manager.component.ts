@@ -25,16 +25,16 @@ export class MailingListManagerComponent implements OnInit {
 
   loadMailingListFromFile(e) {
     this.file = e.target.files[0];
-    let fileReader = new FileReader();    
+    let fileReader = new FileReader();
     fileReader.readAsText(this.file);
     fileReader.onload = (e) => {
       this.parseMailingListFile(fileReader.result);
     }
   }
 
-  private parseMailingListFile(_data) {    
+  private parseMailingListFile(_data) {
     if (_data.includes(';')) {
-      let splittedData = _data.split(';');
+      let splittedData = _data.replace(/\s/g, '').split(';');
       this.dialogRef.close({ event: 'loadMailingListFromFile', data: splittedData });
     } else {
       this.errorMessage = 'Le fichier importé est invalide.'
