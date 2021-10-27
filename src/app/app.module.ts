@@ -43,6 +43,7 @@ import { AdminAlertDialogComponent } from './components/admin/admin-alert-dialog
 import { CguComponent } from './components/cgu/cgu.component';
 import { MailingListManagerComponent } from './components/mailing-list-manager/mailing-list-manager.component';
 import { ConfirmAlertDialogComponent } from './components/check-validation-code/confirm-alert-dialog/confirm-alert-dialog.component';
+import { PolitiqueProtectionDonneesComponent } from './components/politique-protection-donnees/politique-protection-donnees.component';
 
 registerLocaleData(localeFr);
 const initializer = (pwaService: PwaService) => () =>
@@ -68,7 +69,7 @@ const initializer = (pwaService: PwaService) => () =>
     AccessibiliteComponent,
     DownloadElementsComponent,
     DragDropFileUploadDirective,
-    FileItemComponent,    
+    FileItemComponent,
     FileMultipleSizePipe,
     FileNamePipe,
     FileSizePipe,
@@ -84,7 +85,8 @@ const initializer = (pwaService: PwaService) => () =>
     AdminAlertDialogComponent,
     CguComponent,
     MailingListManagerComponent,
-    ConfirmAlertDialogComponent
+    ConfirmAlertDialogComponent,
+    PolitiqueProtectionDonneesComponent
   ],
   imports: [
     HttpClientModule,
@@ -103,7 +105,7 @@ const initializer = (pwaService: PwaService) => () =>
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR' },
-    DatePipe,    
+    DatePipe,
     FileMultipleSizePipe,
     FileNamePipe,
     FileSizePipe,

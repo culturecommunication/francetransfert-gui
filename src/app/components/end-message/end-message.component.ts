@@ -10,6 +10,7 @@ export class EndMessageComponent implements OnInit {
 
   @Input() component: 'upload' | 'download';
   @Input() availabilityDate: Date
+  @Input() uploadFailed: boolean = false;
   @Output() backToHomeEvent: EventEmitter<any> = new EventEmitter();
 
   constructor(private _router: Router) { }

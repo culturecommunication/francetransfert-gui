@@ -1,23 +1,29 @@
 <form [formGroup]="envelopeMailForm" class="envelope-mail-form-container">
+
+    <div class="envelope-mail-form-info">
+        <span>Les champs marqués d'une * sont obligatoires</span>
+    </div>
+
     <div class="envelope-mail-form-group">
         <mat-form-field>
-            <mat-label>De</mat-label>
-            <input matInput placeholder="Votre adresse mail" formControlName="from" required>
-            <mat-error *ngIf="f.from.errors?.required">Un émetteur est requis.</mat-error>
-            <mat-error *ngIf="f.from.errors?.email">Une adresse mail valide est requise.</mat-error>
+            <mat-label>Expéditeur</mat-label>
+            <input matInput placeholder="Votre adresse mail" formControlName="from" autocomplete="email" required>
+            <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
+            <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse mail valide est requise.</mat-error>
         </mat-form-field>
     </div>
 
     <div class="envelope-mail-form-group">
         <mat-form-field>
-            <mat-label>À *</mat-label>
-            <input matInput placeholder="Mails des destinataires" formControlName="to" [errorStateMatcher]="matcher"
+            <mat-label>Destinataire(s) *</mat-label>
+            <input matInput placeholder="Mails des destinataires" formControlName="to" autocomplete="email" [errorStateMatcher]="matcher"
                 (blur)="onBlurDestinataires()">
-            <mat-icon class="icon-btn" matSuffix matTooltip="Utiliser une liste de contacts" (click)="openMailingListManager()">list_alt
+            <mat-icon class="icon-btn" matSuffix matTooltip="Utiliser une liste de contacts"
+                (click)="openMailingListManager()">list_alt
             </mat-icon>
-            <mat-error *ngIf="f.to.errors?.required">Un destinataire est requis.</mat-error>
-            <mat-error *ngIf="f.to.errors?.email">Une adresse mail valide est requise.</mat-error>
-            <mat-error *ngIf="f.to.errors?.notValid">France transfert est réservé aux échanges entre et
+            <mat-error role="alert" *ngIf="f.to.errors?.required">Un destinataire est requis.</mat-error>
+            <mat-error role="alert" *ngIf="f.to.errors?.email">Une adresse mail valide est requise.</mat-error>
+            <mat-error role="alert" *ngIf="f.to.errors?.notValid">France transfert est réservé aux échanges entre et
                 avec le personnel de l’État.</mat-error>
         </mat-form-field>
     </div>
@@ -32,7 +38,7 @@
     <div class="envelope-mail-form-group">
         <mat-form-field>
             <mat-label>Objet</mat-label>
-            <input matInput placeholder="(Facultatif)" formControlName="subject">
+            <input matInput placeholder="(Facultatif)" formControlName="subject" autocomplete="off">
         </mat-form-field>
     </div>
 
@@ -40,7 +46,7 @@
         <mat-form-field>
             <mat-label>Message</mat-label>
             <textarea cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10" matInput
-                placeholder="(Facultatif)" formControlName="message"></textarea>
+                placeholder="(Facultatif)" formControlName="message" autocomplete="off"></textarea>
         </mat-form-field>
     </div>
 

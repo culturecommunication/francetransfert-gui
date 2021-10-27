@@ -2,12 +2,14 @@ export const environment = {
   production: true,
   host: '/',
   apis: {
+    config: 'api-private/upload-module/config',
     upload: {
       upload: 'api-private/upload-module/upload',
       tree: 'api-private/upload-module/sender-info',
       confirmationCode: 'api-private/upload-module/validate-code',
       rate: 'api-private/upload-module/satisfaction',
-      validateMail: 'api-private/upload-module/validate-mail'
+      validateMail: 'api-private/upload-module/validate-mail',
+      config: 'api-private/upload-module/config'
     },
     download: {
       download: 'api-private/download-module/download-info',
@@ -23,5 +25,5 @@ export const environment = {
       fileInfos: 'api-private/upload-module/file-info'
     }
   },
-  version: '1.0.5'
+  version: '2.0.0'
 };

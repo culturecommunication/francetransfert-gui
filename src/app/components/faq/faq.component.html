@@ -1,58 +1,48 @@
 <div class="faq-wrapper">
     <mat-card class="faq-card">
         <mat-card-header class="faq-card-header">
-            <h1>FAQ France transfert</h1>
+            <h1 #faq>FAQ France transfert</h1>
         </mat-card-header>
         <mat-card-content class="faq-card-content">
-            <h2>Pourquoi France transfert ?</h2>
+            <h2 #pourquoift>Pourquoi France transfert ?</h2>
             <p>
-                France transfert est un service en bêta test, créé par le ministère de la culture pour aider ses usagers (citoyens, professionnels, entreprises, associations…) à envoyer (aux services du ministère de la culture) ou recevoir (des services du ministère de la culture), des fichiers et dossiers volumineux qui ne peuvent pas transiter par les messageries électroniques.
-                <br /><br />
-                C’est un service hébergé sur un cloud souverain (Outscale). Les données sont donc stockées sur des serveurs français le temps qu’elles soient téléchargées par leur destinataire. 
-                <br /><br />
+                <span>France transfert est un service en bêta test, créé par le ministère de la culture pour aider ses usagers (citoyens, professionnels, entreprises, associations…) à envoyer (aux services du ministère de la culture) ou recevoir (des services du ministère de la culture), des fichiers et dossiers volumineux qui ne peuvent pas transiter par les messageries électroniques.</span>
+                <span>C’est un service hébergé sur un cloud souverain (Outscale). Les données sont donc stockées sur des serveurs français le temps qu’elles soient téléchargées par leur destinataire.</span>
             </p>
-            <h2>Puis-je me servir de France transfert pour mon usage personnel ?</h2>
+            <h2 #usagepersonnel>Puis-je me servir de France transfert pour mon usage personnel ?</h2>
             <p>
-                France transfert est réservé aux échanges de fichiers volumineux entre services de l’administration (pour le moment, les services du ministère de la culture) et ses usagers.<br />
-                Il n’est pas possible d’échanger des fichiers entre usagers.
-                <br /><br />
+                <span>France transfert est réservé aux échanges de fichiers volumineux entre services de l’administration (pour le moment, les services du ministère de la culture) et ses usagers.</span>
+                <span>Il n’est pas possible d’échanger des fichiers entre usagers.</span>
             </p>
-            <h2>Que deviennent les fichiers que j’ai transmis une fois qu’ils ont été téléchargés par le destinataire que j’ai indiqué ? </h2>
+            <h2 #quedeviennentlesfichiers>Que deviennent les fichiers que j’ai transmis une fois qu’ils ont été téléchargés par le destinataire que j’ai indiqué ? </h2>
             <p>
-                Les fichiers sont tous supprimés après le téléchargement par l’ensemble des destinataires indiqués, dans la limite de 30 jours maximum.
-                <br /><br />
+                <span>Les fichiers sont tous supprimés après le téléchargement par l’ensemble des destinataires indiqués, dans la limite de 30 jours maximum.</span>
             </p>
-            <h2>Où vont les fichiers téléchargés ? </h2>
+            <h2 #ouvontlesfichiers>Où vont les fichiers téléchargés ? </h2>
             <p>
-                Les fichiers sont téléchargés par votre navigateur. En fonction de son paramétrage, il se peut qu’ils aillent directement dans le dossier « téléchargements » ou bien que la question de l’emplacement vous soit posée. 
-                <br /><br />
+                <span>Les fichiers sont téléchargés par votre navigateur. En fonction de son paramétrage, il se peut qu’ils aillent directement dans le dossier « téléchargements » ou bien que la question de l’emplacement vous soit posée.</span>
             </p>
-            <h2>Pourquoi me demande-t-on un code de confirmation ? </h2>
+            <h2 #codedeconfirmation>Pourquoi me demande-t-on un code de confirmation ? </h2>
             <p>
-                Des personnes pourraient utiliser France transfert à des fins personnelles en « empruntant » l’adresse courriel d’un agent du ministère de la culture. Pour éviter cela, un courriel contenant un code de confirmation est envoyé aux personnes indiquant que leur adresse courriel est ---@culture.gouv.fr.<br/>
-                Au moment de l’ajout des fichiers à transférer, il est alors demandé de saisir ce code de confirmation, dont la durée de validité est de 5 mn. 
-                <br /><br />
+                <span>Des personnes pourraient utiliser France transfert à des fins personnelles en « empruntant » l’adresse courriel d’un agent du ministère de la culture. Pour éviter cela, un courriel contenant un code de confirmation est envoyé aux personnes indiquant que leur adresse courriel est ---@culture.gouv.fr.</span>
+                <span>Au moment de l’ajout des fichiers à transférer, il est alors demandé de saisir ce code de confirmation, dont la durée de validité est de 5 mn. </span>
             </p>
-            <h2>Existe-il une limite de taille de transfert de fichiers sur France transfert ? </h2>
+            <h2 #limitedetaille>Existe-il une limite de taille de transfert de fichiers sur France transfert ? </h2>
             <p>
-                France transfert permet d’envoyer jusqu’à 20 Go de fichiers et dossiers par transfert.
-                <br /><br />
+                <span>France transfert permet d’envoyer jusqu’à 20 Go de fichiers et dossiers par transfert.</span>
             </p>
-            <h2>Quelles extensions de fichiers puis-je envoyer sur France transfert ? </h2>
+            <h2 #extensionsdefichiers>Quelles extensions de fichiers puis-je envoyer sur France transfert ? </h2>
             <p>
-                Toutes les extensions communes de fichiers sont téléchargeables sur France transfert, sauf, pour des raisons de sécurité, certains fichiers exécutables ou de scripts qui pourraient contenir des virus. Lorsque vous envoyez un fichier, assurez-vous néanmoins que votre destinataire puisse lire vos documents. 
-                <br /><br />
+                <span>Toutes les extensions communes de fichiers sont téléchargeables sur France transfert, sauf, pour des raisons de sécurité, certains fichiers exécutables ou de scripts qui pourraient contenir des virus. Lorsque vous envoyez un fichier, assurez-vous néanmoins que votre destinataire puisse lire vos documents. </span>
             </p>
-            <h2>Puis-je utiliser une liste de distribution ? </h2>
+            <h2 #listededistribution>Puis-je utiliser une liste de distribution ? </h2>
             <p>
-                Pour envoyer vos fichiers à plusieurs destinataires différents en une seule opération, il est possible de copier/coller la liste des adresses courriels (séparés par un « ; » ou un « , » dans la zone « envoyer à »). 
-                <br /><br />
+                <span>Pour envoyer vos fichiers à plusieurs destinataires différents en une seule opération, il est possible de copier/coller la liste des adresses courriels (séparés par un « ; » ou un « , » dans la zone « envoyer à »). </span>
             </p>
-            <h2>À quoi sert le questionnaire de satisfaction ? </h2>
+            <h2 #questionnairedesatisfaction>À quoi sert le questionnaire de satisfaction ? </h2>
             <p>
-                Si vous remplissez le questionnaire de satisfaction, la note que vous laissez est enregistrée à des fins exclusives de statistiques.<br />
-                Les commentaires éventuellement laissés vous permettent de vous exprimer de manière libre sur le service. Le ministère de la culture examinera les commentaires mais ne peut s’engager, ni à y répondre individuellement, ni à mettre en œuvre les suggestions proposées. 
-                <br /><br />
+                <span>Si vous remplissez le questionnaire de satisfaction, la note que vous laissez est enregistrée à des fins exclusives de statistiques.</span>
+                <span>Les commentaires éventuellement laissés vous permettent de vous exprimer de manière libre sur le service. Le ministère de la culture examinera les commentaires mais ne peut s’engager, ni à y répondre individuellement, ni à mettre en œuvre les suggestions proposées. </span>
             </p>
         </mat-card-content>
     </mat-card>

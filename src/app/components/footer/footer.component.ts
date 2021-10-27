@@ -37,12 +37,7 @@ export class FooterComponent implements OnInit, OnDestroy {
   }
 
   routeTo(_route) {
-    this.router.navigate([_route]);
     this.routingCalled.emit(true);
-  }
-
-  goToLink(url: string) {
-    window.open(url, "_blank");
   }
 
   showTarteaucitronManager() {

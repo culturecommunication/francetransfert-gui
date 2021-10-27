@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DownloadComponent, UploadComponent, AccessibiliteComponent, ContactComponent, FaqComponent, MentionsLegalesComponent, AdminComponent } from './components';
+import { DownloadComponent, UploadComponent, AccessibiliteComponent, ContactComponent, FaqComponent, MentionsLegalesComponent, AdminComponent, PolitiqueProtectionDonneesComponent } from './components';
 import { CguComponent } from './components/cgu/cgu.component';
 import { DownloadGuard } from './shared/guards';
 
@@ -31,6 +31,9 @@ const routes: Routes = [
   },
   {
     path: 'mentions-legales', component: MentionsLegalesComponent
+  },
+  {
+    path: 'politique-de-protection-des-donnees', component: PolitiqueProtectionDonneesComponent
   },
   {
     path: 'cgu', component: CguComponent
