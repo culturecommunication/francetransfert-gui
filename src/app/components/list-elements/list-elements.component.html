@@ -1,0 +1,63 @@
+<!-- <div>
+    <ng-container #flow="flow" [flowConfig]="flowConfig"></ng-container>
+</div> -->
+<mat-card class="list-elements-card" [ngClass]="(flow.transfers$ | async).transfers.length > 0 ? '' : 'empty'"
+    *ngIf="component === 'upload'" ftDragDropFileUpload flowDrop [flow]="flow.flowJs">
+    <mat-card-header class="list-elements-card-header" *ngIf="(flow.transfers$ | async).transfers.length > 0">
+        <mat-card-title *ngIf="(flow.transfers$ | async).transfers.length === 1">
+            <span>{{(flow.transfers$ |
+                async).transfers.length}} élément {{filesSize | filesize}} / {{filesSizeLimit | filesize}}</span>
+            <mat-icon *ngIf="screenWidth === 'sm' && !expanded" (click)="expandList()" aria-label="Afficher la liste">expand_less</mat-icon>
+            <mat-icon *ngIf="screenWidth === 'sm' && expanded" (click)="expandList()" aria-label="Masquer la liste">expand_more</mat-icon>
+        </mat-card-title>
+        <mat-card-title *ngIf="(flow.transfers$ | async).transfers.length > 1">
+            <span>{{(flow.transfers$ |
+                async).transfers.length}} éléments {{filesSize | filesize}} / {{filesSizeLimit | filesize}}</span>
+            <mat-icon *ngIf="screenWidth === 'sm'  && !expanded" (click)="expandList()" aria-label="Afficher la liste">expand_less</mat-icon>
+            <mat-icon *ngIf="screenWidth === 'sm' && expanded" (click)="expandList()" aria-label="Masquer la liste">expand_more</mat-icon>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-header class="list-elements-card-header" *ngIf="errorMessage !== ''">
+        <mat-card-title>
+            <span class="mat-error" role="alert">{{errorMessage}}</span>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="list-elements-card-content"
+        *ngIf="(flow.transfers$ | async).transfers.length > 0 ; else emptyList">
+        <ft-file-item class="file-item"
+            *ngFor="let transfer of (flow.transfers$ | async).transfers | tm; trackBy: trackTransfer"
+            [transfer]="transfer" (itemAdded)="onItemAdded($event)" (deletedTransfer)="deleteTransfer($event)">
+        </ft-file-item>
+        <div class="list-elements-add-elements-wrapper">
+            <mat-icon *ngIf="flowAttributes" flowButton [flowAttributes]="{ accept: '*/*' }" [flow]="flow.flowJs"
+                class="list-elements-card-content-icon" aria-label="Ajoutez-vos fichiers">add_circle</mat-icon>
+            <mat-label>
+                <span class="list-elements-card-content-first-line">Ajoutez-vos fichiers et dossiers ou déposez-les
+                    ici</span>
+            </mat-label>
+        </div>
+    </mat-card-content>
+    <ng-template #emptyList>
+        <mat-card-content class="list-elements-card-content empty">
+            <mat-icon *ngIf="flowAttributes" flowButton [flowAttributes]="{ accept: '*/*' }" [flow]="flow.flowJs"
+                class="list-elements-card-content-icon" aria-label="Ajoutez-vos fichiers">add_circle</mat-icon>
+            <mat-label>
+                <span class="list-elements-card-content-first-line">Ajoutez-vos fichiers et dossiers</span><br />
+                <span class="list-elements-card-content-second-line">ou déposez-les ici</span>
+            </mat-label>
+        </mat-card-content>
+    </ng-template>
+</mat-card>
+<mat-card class="list-elements-card" *ngIf="component === 'download'">
+    <mat-card-header class="list-elements-card-header" *ngIf="transfers">
+        <mat-card-title *ngIf="transfers.length === 1"><span>{{transfers.length}} élément {{filesSize |
+                filesize}}</span>
+        </mat-card-title>
+        <mat-card-title *ngIf="transfers.length > 1"><span>{{transfers.length}} éléments {{filesSize | filesize}}</span>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="list-elements-card-content">
+        <ft-file-item class="file-item" *ngFor="let transfer of transfers" [transfer]="transfer" [readOnly]="true">
+        </ft-file-item>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,13 @@
+<div mat-dialog-title class="prompt-update-title-wrapper">
+    <h1 class="prompt-update-title">Mise à jour disponible</h1>
+</div>
+<div class="prompt-update-content-wrapper" mat-dialog-content>
+    <div class="prompt-update-content-line">
+        <span>Une nouvelle version de l'application est disponible.</span><br/><br/>
+        <span>Mettre à jour ?</span>
+    </div>
+</div>
+<div class="prompt-update-actions-wrapper" mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Non</button>
+    <button class="btn-yes" mat-button [mat-dialog-close]="true" cdkFocusInitial>Oui</button>
+</div>

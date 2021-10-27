@@ -3,314 +3,166 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "upload": {
+    "francetransfert-updown-gui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
-      "root": "projects/upload",
-      "sourceRoot": "projects/upload/src",
-      "prefix": "app",
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "ft",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/upload",
-            "index": "projects/upload/src/index.html",
-            "main": "projects/upload/src/main.ts",
-            "polyfills": "projects/upload/src/polyfills.ts",
-            "tsConfig": "projects/upload/tsconfig.app.json",
-            "aot": false,
+            "outputPath": "dist/francetransfert-updown-gui",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
-              "projects/upload/src/favicon.ico",
-              {
-                "glob": "**/*",
-                "input": "projects/core/src/lib/assets/images",
-                "output": "assets/images"
-              },
-              "projects/upload/src/upload-config.js"
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
-            "styles": ["projects/core/src/lib/assets/styles.scss"],
-            "scripts": []
+            "styles": [
+              {
+                "input": "src/theme/variables.scss"
+              },
+              {
+                "input": "./node_modules/tarteaucitronjs/css/tarteaucitron.css"
+              }
+            ],
+            "scripts": [
+              "./node_modules/tarteaucitronjs/tarteaucitron.js",
+              "./node_modules/tarteaucitronjs/lang/tarteaucitron.fr.js"
+            ],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/upload/src/environments/environment.ts",
-                  "with": "projects/upload/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "2kb",
+                  "maximumError": "10mb"
                 }
-              ]
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
             },
-            "fr": {
-              "aot": true,
-              "outputPath": "dist/upload/fr/",
-              "i18nFile": "projects/core/src/lib/locale/messages.fr.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "fr",
-              "i18nMissingTranslation": "error",
-              "baseHref": "/upload/fr/"
+            "integration": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "10mb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.int.ts"
+                }
+              ],
+              "outputHashing": "all"
             },
-            "en": {
-              "aot": true,
-              "outputPath": "dist/upload/en/",
-              "i18nFile": "projects/core/src/lib/locale/messages.en.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "en",
-              "i18nMissingTranslation": "error",
-              "baseHref": "/upload/en/"
+            "test": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "10mb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "upload:build",
-            "port": 4111
-          },
           "configurations": {
             "production": {
-              "browserTarget": "upload:build:production"
+              "browserTarget": "francetransfert-updown-gui:build:production"
             },
-            "fr": {
-              "browserTarget": "upload:build:fr"
-            },
-            "en": {
-              "browserTarget": "upload:build:en"
+            "development": {
+              "browserTarget": "francetransfert-updown-gui:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "upload:build"
+            "browserTarget": "francetransfert-updown-gui:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/upload/src/test.ts",
-            "polyfills": "projects/upload/src/polyfills.ts",
-            "tsConfig": "projects/upload/tsconfig.spec.json",
-            "karmaConfig": "projects/upload/karma.conf.js",
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
             "assets": [
-              "projects/upload/src/favicon.ico",
-              {
-                "glob": "**/*",
-                "input": "projects/core/src/lib/assets/images",
-                "output": "assets/images"
-              },
-              "projects/upload/src/upload-config.js"
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
-            "styles": ["projects/core/src/lib/assets/styles.scss"],
-            "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/upload/tsconfig.app.json",
-              "projects/upload/tsconfig.spec.json",
-              "projects/upload/e2e/tsconfig.json"
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.scss"
             ],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/upload/e2e/protractor.conf.js",
-            "devServerTarget": "upload:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "upload:serve:production"
-            }
-          }
-        }
-      }
-    },
-    "download": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "projects/download",
-      "sourceRoot": "projects/download/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/download",
-            "index": "projects/download/src/index.html",
-            "main": "projects/download/src/main.ts",
-            "polyfills": "projects/download/src/polyfills.ts",
-            "tsConfig": "projects/download/tsconfig.app.json",
-            "aot": false,
-            "assets": [
-              "projects/download/src/favicon.ico",
-              {
-                "glob": "**/*",
-                "input": "projects/core/src/lib/assets/images",
-                "output": "assets/images"
-              },
-              "projects/download/src/download-config.js"
-            ],
-            "styles": ["projects/core/src/lib/assets/styles.scss"],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/download/src/environments/environment.ts",
-                  "with": "projects/download/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "download:build",
-            "port": 4222
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "download:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "download:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/download/src/test.ts",
-            "polyfills": "projects/download/src/polyfills.ts",
-            "tsConfig": "projects/download/tsconfig.spec.json",
-            "karmaConfig": "projects/download/karma.conf.js",
-            "assets": [
-              "projects/download/src/favicon.ico",
-              {
-                "glob": "**/*",
-                "input": "projects/core/src/lib/assets/images",
-                "output": "assets/images"
-              },
-              "projects/download/src/download-config.js"
-            ],
-            "styles": ["projects/core/src/lib/assets/styles.scss"],
-            "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/download/tsconfig.app.json",
-              "projects/download/tsconfig.spec.json",
-              "projects/download/e2e/tsconfig.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/download/e2e/protractor.conf.js",
-            "devServerTarget": "download:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "download:serve:production"
-            }
-          }
-        }
-      }
-    },
-    "core": {
-      "projectType": "library",
-      "root": "projects/core",
-      "sourceRoot": "projects/core/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/core/tsconfig.lib.json",
-            "project": "projects/core/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/core/src/test.ts",
-            "tsConfig": "projects/core/tsconfig.spec.json",
-            "karmaConfig": "projects/core/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["projects/core/tsconfig.lib.json", "projects/core/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "scripts": [
+              "tarteaucitronjs/tarteaucitron.js"
+            ]
           }
         }
       }
     }
   },
-  "defaultProject": "upload"
+  "defaultProject": "francetransfert-updown-gui"
 }

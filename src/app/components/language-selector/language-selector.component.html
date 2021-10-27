@@ -1,0 +1,10 @@
+<div class="lang-selection">
+    <mat-form-field>
+        <mat-label>Choix de la langue</mat-label>
+        <select matNativeControl class="language-select">
+            <option *ngFor="let lang of languageList" [ngClass]="lang.code" [value]="lang">
+                <span>{{ lang.label }}</span>
+            </option>
+        </select>
+    </mat-form-field>
+</div>

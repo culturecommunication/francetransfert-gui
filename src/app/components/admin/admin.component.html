@@ -1,0 +1,53 @@
+<div class="admin-wrapper">
+    <mat-card class="admin-card">
+        <mat-card-header class="admin-card-header" *ngIf="transfers">
+            <mat-card-title>
+                <h2>Administration du pli</h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="admin-card-content">
+            <div class="admin-card-content-error" *ngIf="errorMessage">
+                <span>{{errorMessage}}</span>
+            </div>
+            <div class="admin-card-content-infos" *ngIf="fileInfos">
+                <div class="subheader">
+                    <span>Informations du pli</span>
+                </div>
+                <mat-list role="list">
+                    <mat-list-item role="listitem"><span>Nombre de téléchargements : {{fileInfos.downloadCount}}</span>
+                    </mat-list-item>
+                    <mat-list-item role="listitem"><span>Emetteur : {{fileInfos.senderEmail}}</span></mat-list-item>
+                    <mat-list-item role="listitem"><span>Message : {{fileInfos.message}}</span></mat-list-item>
+                    <mat-list-item role="listitem"><span>Date d'émission : {{fileInfos.timestamp | date:
+                            'medium'}}</span>
+                    </mat-list-item>
+                    <mat-list-item role="listitem"><span>Date de fin de validité : {{fileInfos.validUntilDate | date:
+                            'medium'}}</span>
+                        <mat-form-field style="width:1px;visibility:hidden;">
+                            <input matInput [matDatepicker]="picker" [formControl]="validUntilDate" [min]="minDate"
+                                [max]="maxDate">
+                            <mat-datepicker #picker (closed)="onPickerClose()"></mat-datepicker>
+                        </mat-form-field>
+                        <mat-icon matTooltip="Modifier la date de fin de validité" (click)="picker.open()" aria-label="Modifier la date de fin de validité">edit
+                        </mat-icon>
+                    </mat-list-item>
+                    <mat-list-item role="listitem" class="delete"><span>Supprimer le pli :</span>
+                        <mat-icon matTooltip="Supprimer le pli" (click)="deleteFile()" aria-label="Supprimer le pli">delete
+                        </mat-icon>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+            <div class="admin-card-content-files" *ngIf="fileInfos">
+                <div class="subheader">
+                    <span>Éléments du pli</span>
+                </div>
+                <ft-file-item class="file-item" *ngFor="let transfer of transfers" [transfer]="transfer"
+                    [readOnly]="true">
+                </ft-file-item>
+            </div>
+        </mat-card-content>
+        <mat-card-actions align="end" *ngIf="fileInfos">
+            <button class="admin-card-actions-btn" mat-button [routerLink]="'/upload'">Retour</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

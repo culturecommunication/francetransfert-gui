@@ -1,0 +1,52 @@
+.envelope-mail-form-container {    
+
+    .envelope-mail-form-info {
+        display: flex;
+        justify-content: flex-end;
+        color: var(--ft-mention);
+        font-size: 12px;
+    }
+
+    .mat-form-field {
+        width: 100%;
+
+        .icon-btn {
+            cursor: pointer;
+        }
+    }
+    .link {
+        color: var(--ft-blue-france);
+        text-decoration: underline;
+    }
+    .destinataires-chip-list {
+        ::ng-deep .mat-chip-list-wrapper {
+            margin-top: 20px;
+            width: 100%;
+        }
+        .destinataires-chip {
+            background-color: #DBDBEA;
+            color: var(--ft-blue-france);
+            cursor: pointer;
+            height: auto !important;
+        }
+    }
+}
+
+
+@media screen and (min-width: 812px) {
+    .envelope-mail-form-container {
+        height: 100%;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 812px) {
+    .envelope-mail-form-container {
+        height: 100%;
+    }
+}
+
+@media screen and (min-width: 200px) and (max-width: 480px) {
+    .envelope-mail-form-container {
+        overflow: hidden;
+    }
+}

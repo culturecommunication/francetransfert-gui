@@ -1,0 +1,13 @@
+<mat-card class="download-elements-card">
+    <mat-card-content class="download-elements-card-content">
+        <mat-icon class="download-elements-card-content-icon" aria-hidden="true">file_download</mat-icon>
+        <div class="download-elements-card-content-text">
+            <span class="download-elements-card-content-text-title">Prêt ? Partez !</span>
+            <span class="download-elements-card-content-text-sub">Il vous reste {{ remainingDays }} jours pour télécharger le transfert.</span>
+        </div>
+    </mat-card-content>
+    <mat-card-actions class="download-elements-card-actions">
+        <button mat-raised-button class="download-elements-card-actions-btn" (click)="download()">Télécharger</button>
+    </mat-card-actions>
+</mat-card>
+

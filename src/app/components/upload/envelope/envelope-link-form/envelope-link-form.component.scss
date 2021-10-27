@@ -1,0 +1,41 @@
+.envelope-link-form-container {
+
+    .envelope-link-form-info {
+        display: flex;
+        justify-content: flex-end;
+        color: var(--ft-mention);
+        font-size: 12px;
+    }
+
+    .envelope-link-form-group {
+        .mat-form-field {
+            width: 100%;
+            margin-top: 20px;
+            .mat-icon {
+                cursor: pointer;
+            }
+        }
+        .link {
+            color: var(--ft-blue-france);
+            text-decoration: underline;
+        }
+    }    
+}
+
+@media screen and (min-width: 812px) {
+    .envelope-link-form-container {
+        height: 100%;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 812px) {
+    .envelope-link-form-container {
+        height: 100%;
+    }
+}
+
+@media screen and (min-width: 200px) and (max-width: 480px) {
+    .envelope-link-form-container {
+        overflow: hidden;
+    }
+}

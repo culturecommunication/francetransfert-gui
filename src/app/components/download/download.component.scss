@@ -1,0 +1,110 @@
+@media screen and (min-width: 812px) {
+    .download-wrapper {
+        height: 80vh;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        display: -webkit-flex;
+        -webkit-flex-direction: row;
+        -webkit-justify-content: center;
+        -webkit-align-items: center;
+    
+        .list-elements-wrapper {
+            height: 75%;
+            width: 25%;
+            margin-right: 2.5%;
+        }
+    
+        .download-elements-wrapper {
+            height: 75%;
+            width: 25%;
+            margin-left: 2.5%;
+        }
+    
+        .check-validation-code-wrapper {
+            height: 75%;
+            width: 25%;
+        }
+    
+        .end-message-wrapper {
+            height: 75%;
+            width: 25%;
+        }
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 812px) {
+    .download-wrapper {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        display: -webkit-flex;
+        -webkit-flex-direction: row;
+        -webkit-justify-content: center;
+        -webkit-align-items: center;
+    
+        .list-elements-wrapper {
+            height: 60%;
+            width: 45%;
+            margin-right: 2.5%;
+        }
+    
+        .download-elements-wrapper {
+            height: 60%;
+            width: 45%;
+            margin-left: 2.5%;
+        }
+    
+        .check-validation-code-wrapper {
+            height: 60%;
+            width: 60%;
+        }
+    
+        .end-message-wrapper {
+            height: 60%;
+            width: 60%;
+        }
+    }    
+}
+
+
+@media screen and (min-width: 200px) and (max-width: 480px) {
+    .download-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        display: -webkit-flex;
+        -webkit-flex-direction: column-reverse;
+        -webkit-justify-content: center;
+        -webkit-align-items: center;
+    
+        .list-elements-wrapper {
+            width: 100%;
+        }
+    
+        .download-elements-wrapper {
+            height: 100%;
+            width: 100%;
+            margin-top: 90px;
+        }
+    
+        .check-validation-code-wrapper {
+            height: calc(100vh - 100px);
+            width: 100%;
+            margin-top: 90px;
+        }
+    
+        .end-message-wrapper {
+            height: calc(100vh - 100px);
+            width: 100%;
+            margin-top: 90px;
+        }
+    }
+}

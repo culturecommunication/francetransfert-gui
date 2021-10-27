@@ -1,8 +1,0 @@
-{
-  "extends": ["tslint-plugin-prettier"],
-  "rules": {
-    "prettier": true,
-    "component-selector": false
-  },
-  "rulesDirectory": ["codelyzer"]
-}

@@ -1,0 +1,33 @@
+<mat-card class="end-message-card" *ngIf="component === 'upload'">
+    <mat-card-content class="end-message-card-content">
+        <img class="end-message-card-content-icon" alt="Logo France transfert" src="assets/logos/monogramme_ft.png" />
+        <div *ngIf="!uploadFailed" class="end-message-card-content-text">
+            <span class="end-message-card-content-text-title">Terminé !</span>
+            <span class="end-message-card-content-text-sub">Votre transfert vient d’être envoyé. Il sera disponible
+                jusqu’au {{ availabilityDate | date:'mediumDate' }}.
+                En réaliser un nouveau ?</span>
+        </div>
+        <div role="alert" *ngIf="uploadFailed" class="end-message-card-content-text mat-error">
+            <span class="mat-error end-message-card-content-text-title">Oups !</span>
+            <span class="mat-error end-message-card-content-text-sub">Une erreur est survenue pendant le transfert de votre pli.
+                Merci de réessayer.<br />Si le problème persiste n'hésitez pas à le remonter via le formulaire de
+                contact ou de satisfaction </span>
+        </div>
+    </mat-card-content>
+    <mat-card-actions class="end-message-card-actions">
+        <button mat-raised-button class="end-message-card-actions-btn" (click)="backToHome('upload')">Accueil</button>
+    </mat-card-actions>
+</mat-card>
+<mat-card class="end-message-card" *ngIf="component === 'download'">
+    <mat-card-content class="end-message-card-content">
+        <img class="end-message-card-content-icon" alt="Logo France transfert" src="assets/logos/monogramme_ft.png" />
+        <div class="end-message-card-content-text">
+            <span class="end-message-card-content-text-title">Votre téléchargement est lancé</span>
+            <span class="end-message-card-content-text-sub">Une fois téléchargés, les documents se trouveront
+                normalement dans votre dossier Téléchargements.</span>
+        </div>
+    </mat-card-content>
+    <mat-card-actions class="end-message-card-actions">
+        <button mat-raised-button class="end-message-card-actions-btn" (click)="backToHome('download')">Accueil</button>
+    </mat-card-actions>
+</mat-card>

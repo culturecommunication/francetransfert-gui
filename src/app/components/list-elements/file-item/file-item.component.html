@@ -1,0 +1,28 @@
+<div class="upload-item">
+    <div class="upload-item-details">
+        <div class="upload-item-details-head-wrapper">
+            <mat-icon class="upload-item-details-icon" *ngIf="!transfer.folder" aria-hidden="true">description</mat-icon>
+            <mat-icon class="upload-item-details-icon" *ngIf="transfer.folder" aria-hidden="true">folder_open</mat-icon>
+            <span class="upload-item-details-name">
+                {{ transfer.name | filename }}
+            </span>
+        </div>
+        <div class="upload-item-details-sub">
+            <span class="upload-item-details-size">
+                {{ transfer.size | filesize }}
+            </span>
+            <span>-</span>
+            <span *ngIf="!transfer.folder" class="upload-item-details-type">
+                {{ transfer.name | filetype }}
+            </span>
+            <span *ngIf="transfer.folder" class="upload-item-details-type">
+                Dossier
+            </span>
+        </div>
+    </div>
+    <div class="upload-item-actions" *ngIf="!readOnly">
+        <button mat-icon-button class="upload-item-actions-btn" aria-label="Supprimer le fichier">
+            <mat-icon (click)="deleteTransfer()">delete</mat-icon>
+        </button>        
+    </div>
+</div>
