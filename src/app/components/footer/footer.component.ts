@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { ResponsiveService } from 'src/app/services';
+import { ResponsiveService, TarteaucitronService } from 'src/app/services';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -17,8 +17,7 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   constructor(private responsiveService: ResponsiveService,
     private router: Router,
-    //private tarteaucitronService: TarteaucitronService
-    ) {
+    private tarteaucitronService: TarteaucitronService) {
     this.version = environment.version;
   }
 
@@ -42,7 +41,7 @@ export class FooterComponent implements OnInit, OnDestroy {
   }
 
   showTarteaucitronManager() {
-    //this.tarteaucitronService.showPanel();
+    this.tarteaucitronService.showPanel();
   }
 
 }

@@ -39,6 +39,10 @@
                 "input": "./node_modules/tarteaucitronjs/css/tarteaucitron.css"
               }
             ],
+            "scripts": [
+              "./node_modules/tarteaucitronjs/tarteaucitron.js",
+              "./node_modules/tarteaucitronjs/lang/tarteaucitron.fr.js"
+            ],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
           },
@@ -152,6 +156,9 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
+            "scripts": [
+              "tarteaucitronjs/tarteaucitron.js"
+            ]
           }
         }
       }

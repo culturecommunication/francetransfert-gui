@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { BackgroundSelectionService, PwaService, ResponsiveService } from './services';
+import { BackgroundSelectionService, PwaService, ResponsiveService, TarteaucitronService } from './services';
 import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
 
 @Component({
@@ -21,14 +21,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private responsiveService: ResponsiveService,
     private pwaService: PwaService,
-    //private tarteaucitronService: TarteaucitronService,
+    private tarteaucitronService: TarteaucitronService,
     private backgroundSelectionService: BackgroundSelectionService) {
     this.pwaService.checkForUpdates();
   }
 
   ngOnInit() {
     this.backgroundPath = this.backgroundSelectionService.getBackground();
-    //this.tarteaucitronService.initTarteaucitron();
+    this.tarteaucitronService.initTarteaucitron();
     this.responsiveSubscription = this.responsiveService.getMobileStatus().subscribe(isMobile => {
       this.isMobile = isMobile;
       this.screenWidth = this.responsiveService.screenWidth;
