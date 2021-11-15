@@ -76,10 +76,10 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
    * @returns {void}
    */
   deleteTransfer(transfer: Transfer): void {
-    this.flow.cancelFile(transfer); 
+    this.flow.cancelFile(transfer);
     this.filesSize -= transfer.size;
     this.fileManagerService.hasFiles.next(this.filesSize > 0);
-    this.cdr.detectChanges();    
+    this.cdr.detectChanges();
     if (this.filesSize <= this.filesSizeLimit) {
       this.errorMessage = '';
     }
@@ -89,28 +89,31 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.checkExtentionValid(event)) {
       this.flow.cancelFile(event);
       this.errorMessage = 'Le type de fichier que vous avez essayé d\'ajouter n\'est pas autorisé';
-    } else if (event.size > this.fileSizeLimit) {
-      if (event.folder) {
+    } else if (event.folder) {
+      try {
+        this.checkSize(event, this.filesSize);
+        this.filesSize += event.size;
+        this.fileManagerService.hasFiles.next(this.filesSize > 0);
+        this.errorMessage = '';
+        this.cdr.detectChanges();
+      } catch (error) {
         // c'est un dossier
         for (let child of event.childs) {
           this.filesSize += child.size
           this.deleteTransfer(child);
-        }        
+        }
         if (this.filesSize < 0) {
           this.filesSize = 0;
         }
         this.fileManagerService.hasFiles.next(this.filesSize > 0);
-        this.errorMessage = 'Le dossier que vous avez essayé d\'ajouter a dépassé la taille maximale autorisée (2 Go)';
+        this.errorMessage = error.message;
         this.cdr.detectChanges();
-      } else {
-        this.flow.cancelFile(event);
-        this.errorMessage = 'Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale autorisée (2 Go)';
-        this.cdr.detectChanges();
+        return;
       }
     } else {
       this.filesSize += event.size;
       if (this.filesSize <= this.filesSizeLimit) {
-        this.fileManagerService.hasFiles.next(this.filesSize > 0);        
+        this.fileManagerService.hasFiles.next(this.filesSize > 0);
         this.errorMessage = '';
         this.cdr.detectChanges();
       } else {
@@ -138,6 +141,28 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
     return valid;
+  }
+
+  checkSize(fileEvent, size) {
+    let tmpSize = size;
+    //Si c'est un dossier on recurse en faisant la somme des tailles des fichiers
+    if (fileEvent.folder) {
+      for (let child of fileEvent.childs) {
+        tmpSize += this.checkSize(child, tmpSize);
+        if (tmpSize > this.filesSizeLimit) {
+          throw new Error('Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale du pli autorisée (20 Go)');
+        }
+      }
+    } else {
+      // si le fichier est ok on return sa taille sinon on throw une erreur
+      if (fileEvent.size > this.fileSizeLimit) {
+        throw new Error('Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale autorisée (2 Go)');
+      } else {
+        return fileEvent.size;
+      }
+    }
+    // on return la taille du dossier pour gérer le recurse
+    return tmpSize;
   }
 }
 
