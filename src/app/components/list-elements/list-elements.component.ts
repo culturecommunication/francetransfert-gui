@@ -150,13 +150,13 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
       for (let child of fileEvent.childs) {
         tmpSize += this.checkSize(child, tmpSize);
         if (tmpSize > this.filesSizeLimit) {
-          throw new Error('Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale du pli autorisée (20 Go)');
+          throw new Error('Un fichier que vous avez essayé d\'ajouter a dépassé la taille maximale du pli autorisée (20 Go)');
         }
       }
     } else {
       // si le fichier est ok on return sa taille sinon on throw une erreur
       if (fileEvent.size > this.fileSizeLimit) {
-        throw new Error('Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale autorisée (2 Go)');
+        throw new Error('Un fichier que vous avez essayé d\'ajouter a dépassé la taille maximale autorisée (2 Go)');
       } else {
         return fileEvent.size;
       }
