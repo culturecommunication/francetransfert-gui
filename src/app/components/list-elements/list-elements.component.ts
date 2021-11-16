@@ -112,14 +112,14 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     } else {
       this.filesSize += event.size;
-      if (this.filesSize <= this.filesSizeLimit) {
+      if (this.filesSize <= this.filesSizeLimit && event.size <= this.fileSizeLimit) {
         this.fileManagerService.hasFiles.next(this.filesSize > 0);
         this.errorMessage = '';
         this.cdr.detectChanges();
       } else {
         this.filesSize -= event.size;
         this.flow.cancelFile(event);
-        this.errorMessage = 'Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale du pli autorisée (20 Go)';
+        this.errorMessage = 'Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale du pli autorisée (20 Go) ou la taille maximale autorisée par fichier (2 Go) ';
         this.cdr.detectChanges();
       }
     }
