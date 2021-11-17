@@ -65,6 +65,9 @@ export class EnvelopeLinkFormComponent implements OnInit {
           this.envelopeLinkForm.controls['from'].markAsTouched();
           this.envelopeLinkForm.controls['from'].setErrors({ required: true });
         }
+      }, error => {
+        this.envelopeLinkForm.controls['from'].markAsTouched();
+        this.envelopeLinkForm.controls['from'].setErrors({ notValid: true });
       });
   }
 
