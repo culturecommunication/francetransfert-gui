@@ -120,7 +120,13 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
               this.envelopeMailForm.controls['to'].markAsTouched();
               this.envelopeMailForm.controls['to'].setErrors({ required: true });
             }
+          }, error => {
+            this.envelopeMailForm.controls['to'].markAsTouched();
+            this.envelopeMailForm.controls['to'].setErrors({ notValid: true });
           });
+      }, error => {
+        this.envelopeMailForm.controls['to'].markAsTouched();
+        this.envelopeMailForm.controls['to'].setErrors({ notValid: true });
       });
   }
 
