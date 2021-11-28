@@ -2,7 +2,7 @@
     <mat-card-content class="envelope-card-content">
         <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedTabChange)="onSelectedTabChange($event)"
             class="envelope-card-tab-group" mat-align-tabs="start">
-            <mat-tab label="Mail">
+            <mat-tab label="Courriel">
                 <ft-envelope-mail-form [mailFormValues]="mailFormValues"
                     (onFormGroupChange)="onMailFormGroupChangeEvent($event)" class="envelope-mail-form-wrapper">
                 </ft-envelope-mail-form>
