@@ -152,4 +152,17 @@ export class DownloadComponent implements OnInit, OnDestroy {
     this.onDestroy$.complete();
   }
 
+  onSatisfactionCheckDone(event) {
+    if (event) {
+      this._downloadService.rate({ plis: this.params['enclosure'],mail: this.downloadInfos.recipientMail, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
+        .subscribe(() => {
+          this.reset();
+        });
+    }
+  }
+
+  private reset() {
+    this.downloadStarted = false;
+    this.downloadValidated = false;
+  }
 }

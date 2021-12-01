@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { FTErrorModel } from 'src/app/models';
+import {FTErrorModel, LinkInfosModel, MailInfosModel} from 'src/app/models';
 
 @Injectable({
   providedIn: 'root'
