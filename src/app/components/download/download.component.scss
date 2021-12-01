@@ -10,29 +10,36 @@
         -webkit-flex-direction: row;
         -webkit-justify-content: center;
         -webkit-align-items: center;
-    
+
         .list-elements-wrapper {
             height: 75%;
             width: 25%;
             margin-right: 2.5%;
         }
-    
+
         .download-elements-wrapper {
             height: 75%;
             width: 25%;
             margin-left: 2.5%;
         }
-    
+
         .check-validation-code-wrapper {
             height: 75%;
             width: 25%;
         }
-    
+
         .end-message-wrapper {
             height: 75%;
             width: 25%;
+            margin-right: 2.5%;
         }
-    }
+
+        .satisfaction-check-wrapper {
+          height: 75%;
+          width: 25%;
+          margin-left: 2.5%;
+        }
+      }
 }
 
 @media screen and (min-width: 480px) and (max-width: 812px) {
@@ -47,29 +54,36 @@
         -webkit-flex-direction: row;
         -webkit-justify-content: center;
         -webkit-align-items: center;
-    
+
         .list-elements-wrapper {
             height: 60%;
             width: 45%;
             margin-right: 2.5%;
         }
-    
+
         .download-elements-wrapper {
             height: 60%;
             width: 45%;
             margin-left: 2.5%;
         }
-    
+
         .check-validation-code-wrapper {
             height: 60%;
             width: 60%;
         }
-    
+
         .end-message-wrapper {
             height: 60%;
             width: 60%;
+           margin-right: 2.5%;
         }
-    }    
+
+        .satisfaction-check-wrapper {
+          height: 60%;
+          width: 60%;
+          margin-left: 2.5%;
+        }
+    }
 }
 
 
@@ -84,27 +98,33 @@
         -webkit-flex-direction: column-reverse;
         -webkit-justify-content: center;
         -webkit-align-items: center;
-    
+
         .list-elements-wrapper {
             width: 100%;
         }
-    
+
         .download-elements-wrapper {
             height: 100%;
             width: 100%;
             margin-top: 90px;
         }
-    
+
         .check-validation-code-wrapper {
             height: calc(100vh - 100px);
             width: 100%;
             margin-top: 90px;
         }
-    
+
         .end-message-wrapper {
-            height: calc(100vh - 100px);
-            width: 100%;
-            margin-top: 90px;
+          height: 100%;
+          width: 50%;
+          margin-right: 2.5%;
+        }
+
+        .satisfaction-check-wrapper {
+          height: 100%;
+          width: 100%;
+          margin-left: 2.5%;
         }
     }
 }
