@@ -1,10 +1,10 @@
-.envelope-card {    
+.envelope-card {
     display: flex;
     flex-direction: column;
     display: -webkit-flex;
     -webkit-flex-direction: column;
-    .envelope-card-content {        
-        .envelope-card-tab-group {            
+    .envelope-card-content {
+        .envelope-card-tab-group {
             ::ng-deep .mat-tab-label-content {
                 width: 100%;
                 justify-content: flex-start;
@@ -28,7 +28,7 @@
                 -webkit-flex-direction: row;
                 -webkit-justify-content: space-between;
                 .envelope-card-info-icon {
-            
+
                 }
             }
             .envelope-mail-form-wrapper {
@@ -49,6 +49,7 @@
         display: -webkit-flex;
         -webkit-flex-direction: row;
         -webkit-justify-content: space-between;
+      padding-top: 0.5rem;
         .envelope-card-actions-btn {
             background-color: var(--ft-blue-france);
             color: var(--ft-white);
@@ -115,5 +116,5 @@
 }
 
 @media screen and (min-width: 200px) and (max-width: 480px) {
-    
+
 }

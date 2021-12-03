@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'ft-download-elements',
@@ -9,12 +10,14 @@ export class DownloadElementsComponent implements OnInit {
 
   @Output() dowloadStarted: EventEmitter<boolean> = new EventEmitter();
   @Input() availabilityDate: Date;
-  remainingDays: number
+  remainingDays: number;
+  checkCGU: boolean;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.remainingDays = this.calculateDiff(this.availabilityDate)
+    this.checkCGU = false;
   }
 
   download() {
@@ -28,4 +31,18 @@ export class DownloadElementsComponent implements OnInit {
     return Math.floor((Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate()) - Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())) / (1000 * 60 * 60 * 24));
   }
 
+  routeToInNewWindow(_route) {
+      // Converts the route into a string that can be used
+      // with the window.open() function
+      const url = this.router.serializeUrl(
+        this.router.createUrlTree([`/${_route}`])
+      );
+
+      window.open(url, '_blank');
+  }
+
+
+  cguChecked() {
+    this.checkCGU = !this.checkCGU;
+  }
 }
