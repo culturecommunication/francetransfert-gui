@@ -7,6 +7,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import { FTTransferModel } from 'src/app/models';
 import { DownloadManagerService, DownloadService, UploadManagerService } from 'src/app/services';
 import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'ft-download',
@@ -28,6 +29,8 @@ export class DownloadComponent implements OnInit, OnDestroy {
   @ViewChild('flow')
   flow: FlowDirective;
   flowConfig: any;
+  errorMessage = '';
+  adminErrorsSubscription: Subscription;
 
   MOCK_RESPONSE_DOWNLOAD = {
     validUntilDate: '2021-08-23',
@@ -150,6 +153,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.onDestroy$.next();
     this.onDestroy$.complete();
+    this.adminErrorsSubscription.unsubscribe();
   }
 
   onSatisfactionCheckDone(event) {
