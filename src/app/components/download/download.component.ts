@@ -30,7 +30,6 @@ export class DownloadComponent implements OnInit, OnDestroy {
   flow: FlowDirective;
   flowConfig: any;
   errorMessage = '';
-  adminErrorsSubscription: Subscription;
 
   MOCK_RESPONSE_DOWNLOAD = {
     validUntilDate: '2021-08-23',
@@ -153,20 +152,14 @@ export class DownloadComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.onDestroy$.next();
     this.onDestroy$.complete();
-    this.adminErrorsSubscription.unsubscribe();
   }
 
   onSatisfactionCheckDone(event) {
     if (event) {
       this._downloadService.rate({ plis: this.params['enclosure'],mail: this.downloadInfos.recipientMail, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
         .subscribe(() => {
-          this.reset();
+          this._router.navigate(['/upload']);
         });
     }
-  }
-
-  private reset() {
-    this.downloadStarted = false;
-    this.downloadValidated = false;
   }
 }
