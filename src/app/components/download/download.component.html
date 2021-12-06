@@ -2,10 +2,15 @@
     <ng-container #flow="flow" [flowConfig]="flowConfig"></ng-container>
 </div>
 <div class="download-wrapper">
+<div class="download-wrapper" *ngIf="!downloadInfos.pliExiste">
+  <ft-download-error ></ft-download-error>
+</div>
+<div class="download-wrapper" *ngIf="downloadInfos.pliExiste">
     <ft-check-validation-code *ngIf="!downloadValidated" (dowloadValidated)="onDownloadValidated($event)" [component]="'download'" class="check-validation-code-wrapper"></ft-check-validation-code>
     <ft-list-elements *ngIf="downloadValidated && !downloadStarted" [component]="'download'" [transfers]="transfers" [flow]="flow" class="list-elements-wrapper"></ft-list-elements>
     <ft-download-elements *ngIf="downloadValidated && !downloadStarted" [availabilityDate]="downloadInfos.validUntilDate" class="download-elements-wrapper" (dowloadStarted)="onDowloadStarted($event)"></ft-download-elements>
     <ft-end-message *ngIf="downloadStarted" [component]="'download'" class="end-message-wrapper"></ft-end-message>
     <ft-satisfaction-check (satisfactionCheckDone)="onSatisfactionCheckDone($event)"
                          *ngIf="downloadValidated  && downloadStarted" class="satisfaction-check-wrapper"></ft-satisfaction-check>
+</div>
 </div>
