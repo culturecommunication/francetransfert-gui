@@ -54,6 +54,10 @@
         -webkit-flex-direction: row;
         -webkit-justify-content: center;
         -webkit-align-items: center;
+      .download-valide{
+        display: flex;
+        flex-direction: row;
+      }
 
         .list-elements-wrapper {
             height: 60%;
