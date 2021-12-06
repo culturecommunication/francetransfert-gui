@@ -17,8 +17,11 @@ export class DownloadErrorComponent implements OnInit {
     this.downloadManagerService.downloadError$.pipe(takeUntil(this.onDestroy$)).subscribe((error) => {
       if (error && error.message == 'DOWNLOAD_LIMIT') {
         this.errorMessage = 'Vous avez dépassé le nombre de téléchargements autorisé pour ce pli';
-      } else {
+      } else if (error && error.message == 'DELETED_ENCLOSURE') {
         this.errorMessage = 'Le pli demandé n\'existe pas.';
+      }
+      else {
+        this.errorMessage = 'Une erreur est survenue lors de la récupéartion de votre pli.';
       }
     });
   }
