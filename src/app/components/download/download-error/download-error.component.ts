@@ -21,7 +21,7 @@ export class DownloadErrorComponent implements OnInit {
         this.errorMessage = 'Le pli demandé n\'existe pas.';
       }
       else {
-        this.errorMessage = 'Une erreur est survenue lors de la récupéartion de votre pli.';
+        this.errorMessage = 'Une erreur est survenue lors de la récupération de votre pli.';
       }
     });
   }

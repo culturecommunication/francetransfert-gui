@@ -46,6 +46,7 @@
         }
     }
     .download-elements-card-actions {
+      padding-top: 1rem;
         .download-elements-card-actions-btn {
             background-color: var(--ft-blue-france);
             color: var(--ft-white);
@@ -57,9 +58,6 @@
 
     }
     .download-elements-div-CGU{
-          .checkbox{
-            padding-bottom: 1rem;
-          }
           .link {
             color: var(--ft-blue-france);
             text-decoration: underline;
