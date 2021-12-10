@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  host: 'https://test-francetransfert.aot.agency/',
+  host: 'http://localhost:8081/',
   apis: {
     config: 'api-private/upload-module/config',
     upload: {
@@ -29,7 +29,7 @@ export const environment = {
       fileInfos: 'api-private/upload-module/file-info'
     }
   },
-  version: '2.1.0'
+  version: '2.2.0'
 };
 
 /*

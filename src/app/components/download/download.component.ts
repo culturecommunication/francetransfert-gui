@@ -7,6 +7,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import { FTTransferModel } from 'src/app/models';
 import { DownloadManagerService, DownloadService, UploadManagerService } from 'src/app/services';
 import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'ft-download',
@@ -28,6 +29,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   @ViewChild('flow')
   flow: FlowDirective;
   flowConfig: any;
+  loading: boolean = true;
 
   MOCK_RESPONSE_DOWNLOAD = {
     validUntilDate: '2021-08-23',
@@ -55,18 +57,23 @@ export class DownloadComponent implements OnInit, OnDestroy {
     this.flowConfig = FLOW_CONFIG;
     this._activatedRoute.queryParams.pipe(takeUntil(this.onDestroy$)).subscribe((params: Array<{ string: string }>) => {
       this.params = params;
+      this.loading = true;
       if (this.params['enclosure'] && this.params['recipient'] && this.params['token']) {
         this._downloadService
           .getDownloadInfos(params)
           .pipe(takeUntil(this.onDestroy$))
-          .subscribe(downloadInfos => {
-            this.downloadInfos = downloadInfos;
-            this.downloadInfos.rootFiles.map(file => {
-              this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
-            });
-            this.downloadInfos.rootDirs.map(file => {
-              this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
-            });
+          .subscribe({
+            next: (downloadInfos) => {
+              this.downloadInfos = downloadInfos;
+              this.downloadInfos.rootFiles.map(file => {
+                this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
+              });
+              this.downloadInfos.rootDirs.map(file => {
+                this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
+              });
+            },
+            error: () => { this.loading = false },
+            complete: () => { this.loading = false; }
           });
       } else {
         if (this._router.url.includes('download/download-info-public')) {
@@ -74,14 +81,18 @@ export class DownloadComponent implements OnInit, OnDestroy {
             this._downloadService
               .getDownloadInfosPublic(params)
               .pipe(takeUntil(this.onDestroy$))
-              .subscribe(downloadInfosPublic => {
-                this.downloadInfos = downloadInfosPublic;
-                this.downloadInfos.rootFiles.map(file => {
-                  this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
-                });
-                this.downloadInfos.rootDirs.map(file => {
-                  this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
-                });
+              .subscribe({
+                next: (downloadInfosPublic) => {
+                  this.downloadInfos = downloadInfosPublic;
+                  this.downloadInfos.rootFiles.map(file => {
+                    this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
+                  });
+                  this.downloadInfos.rootDirs.map(file => {
+                    this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
+                  });
+                },
+                error: () => { this.loading = false },
+                complete: () => { this.loading = false; }
               });
             this.usingPublicLink = true;
           }
@@ -152,4 +163,12 @@ export class DownloadComponent implements OnInit, OnDestroy {
     this.onDestroy$.complete();
   }
 
+  onSatisfactionCheckDone(event) {
+    if (event) {
+      this._downloadService.rate({ plis: this.params['enclosure'], mail: this.downloadInfos.recipientMail, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
+        .subscribe(() => {
+          this._router.navigate(['/upload']);
+        });
+    }
+  }
 }
