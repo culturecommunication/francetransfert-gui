@@ -2,7 +2,7 @@
 
     <div  class="envelope-link-form-info">
         <span>Les champs marqués d'une * sont obligatoires</span>
-    </div> 
+    </div>
 
     <div class="envelope-link-form-group">
         <mat-form-field>
@@ -33,7 +33,9 @@
         </mat-form-field>
     </div>
 
-    <div class="envelope-link-form-group">
-        <mat-checkbox formControlName="cguCheck">J'accepte les <span class="link" (click)="routeToInNewWindow('/cgu')">CGU</span></mat-checkbox>
+    <div class="envelope-link-form-group mat-checkbox-layout">
+        <mat-checkbox formControlName="cguCheck">J'accepte les <span class="link" (click)="routeToInNewWindow('/cgu')">CGU</span>
+          et je n'envoie pas de données à caractère personnel ou sensibles non chiffrées au préalable</mat-checkbox>
     </div>
+
 </form>

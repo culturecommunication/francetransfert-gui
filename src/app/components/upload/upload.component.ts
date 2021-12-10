@@ -159,6 +159,8 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadService
       .sendTree({
         transfers: transfers.transfers,
+
+
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
         senderMail: this.uploadManagerService.envelopeInfos.getValue().from,

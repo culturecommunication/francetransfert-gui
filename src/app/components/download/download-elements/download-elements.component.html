@@ -6,8 +6,12 @@
             <span class="download-elements-card-content-text-sub">Il vous reste {{ remainingDays }} jours pour télécharger le transfert.</span>
         </div>
     </mat-card-content>
+    <div class="download-elements-div-CGU">
+      <mat-checkbox (click)="cguChecked()" formControlName="cguCheck" class="checkbox">J'accepte les <span class="link"
+       (click)="routeToInNewWindow('/cgu')">CGU</span></mat-checkbox>
+    </div>
     <mat-card-actions class="download-elements-card-actions">
-        <button mat-raised-button class="download-elements-card-actions-btn" (click)="download()">Télécharger</button>
+        <button mat-raised-button [disabled]="!checkCGU"  class="download-elements-card-actions-btn" (click)="download()">Télécharger</button>
     </mat-card-actions>
 </mat-card>
 

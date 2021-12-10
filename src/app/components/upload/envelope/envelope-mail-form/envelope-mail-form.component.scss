@@ -1,10 +1,14 @@
-.envelope-mail-form-container {    
+.envelope-mail-form-container {
 
     .envelope-mail-form-info {
         display: flex;
         justify-content: flex-end;
         color: var(--ft-mention);
         font-size: 12px;
+    }
+
+    ::ng-deep .mat-checkbox-layout {
+      white-space: normal!important;
     }
 
     .mat-form-field {
