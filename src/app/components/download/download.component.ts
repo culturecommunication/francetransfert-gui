@@ -5,7 +5,7 @@ import { FlowDirective, Transfer } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs/internal/Subject';
 import { take, takeUntil } from 'rxjs/operators';
 import { FTTransferModel } from 'src/app/models';
-import { DownloadManagerService, DownloadService, UploadManagerService } from 'src/app/services';
+import { DownloadManagerService, DownloadService, ResponsiveService, UploadManagerService } from 'src/app/services';
 import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
 import { Subscription } from "rxjs";
 
@@ -19,6 +19,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   downloadValidated: boolean = false;
   downloadStarted: boolean = false;
   usingPublicLink: boolean = false;
+  responsiveSubscription: Subscription = new Subscription;
   transfers: Array<any> = [];
   downloadInfos: any;
   emails: Array<string>;
@@ -30,6 +31,8 @@ export class DownloadComponent implements OnInit, OnDestroy {
   flow: FlowDirective;
   flowConfig: any;
   loading: boolean = true;
+  isMobile: boolean = false;
+  screenWidth: string;
 
   MOCK_RESPONSE_DOWNLOAD = {
     validUntilDate: '2021-08-23',
@@ -44,6 +47,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   };
 
   constructor(private _downloadService: DownloadService,
+    private responsiveService: ResponsiveService,
     private _activatedRoute: ActivatedRoute,
     private uploadManagerService: UploadManagerService,
     private downloadManagerService: DownloadManagerService,
@@ -52,6 +56,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.titleService.setTitle('France transfert - Téléchargement');
+    this.onResize();
     this.uploadManagerService.uploadError$.next(null);
     this.downloadManagerService.downloadError$.next(null);
     this.flowConfig = FLOW_CONFIG;
@@ -161,6 +166,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.onDestroy$.next();
     this.onDestroy$.complete();
+    this.responsiveSubscription.unsubscribe();
   }
 
   onSatisfactionCheckDone(event) {
@@ -171,4 +177,33 @@ export class DownloadComponent implements OnInit, OnDestroy {
         });
     }
   }
+
+  onResize() {
+    this.responsiveSubscription = this.responsiveService.getMobileStatus().subscribe(isMobile => {
+      this.isMobile = isMobile;
+      this.screenWidth = this.responsiveService.screenWidth;
+    });
+  }
+
+  styleObject(): Object {
+    if (this.screenWidth === 'lg') {
+      return { '-webkit-flex-direction': 'row' }
+    }
+    if (this.screenWidth === 'md') {
+      if (!this.downloadValidated && !this.downloadStarted) {
+        return { '-webkit-flex-direction': 'column-reverse' }
+      } else {
+        return { '-webkit-flex-direction': 'row' }
+      }
+    }
+    if (this.screenWidth === 'sm') {
+      if (this.downloadValidated && this.downloadStarted) {
+        return { '-webkit-flex-direction': 'column' }
+      } else {
+        return { '-webkit-flex-direction': 'column-reverse' }
+      }
+    }
+    return {}
+  }
+  
 }
