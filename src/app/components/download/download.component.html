@@ -1,11 +1,11 @@
 <div>
   <ng-container #flow="flow" [flowConfig]="flowConfig"></ng-container>
 </div>
-<div class="download-wrapper">
+<div class="download-root-wrapper">
   <div class="download-wrapper" *ngIf="!downloadInfos && !loading">
     <ft-download-error></ft-download-error>
   </div>
-  <div class="download-wrapper" *ngIf="downloadInfos && !loading">
+  <div class="download-wrapper" [ngStyle]="styleObject()" *ngIf="downloadInfos && !loading">
     <ft-check-validation-code *ngIf="!downloadValidated" (dowloadValidated)="onDownloadValidated($event)"
       [component]="'download'" class="check-validation-code-wrapper"></ft-check-validation-code>
     <ft-list-elements *ngIf="downloadValidated && !downloadStarted" [component]="'download'" [transfers]="transfers"
