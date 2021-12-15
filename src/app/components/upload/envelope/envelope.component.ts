@@ -11,7 +11,7 @@ import { FileManagerService, UploadManagerService } from 'src/app/services';
 export class EnvelopeComponent implements OnInit, OnDestroy {
 
   @Output() uploadStarted: EventEmitter<boolean> = new EventEmitter();
-  selectedTab: string = 'Mail';
+  selectedTab: string = 'Courriel';
   selectedTabIndex: number = 0;
   canSend: boolean = false;
   mailFormValid: boolean = false;
@@ -52,7 +52,7 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   onMailFormGroupChangeEvent(event) {
     this.mailFormValues = event.values;
     this.mailFormValues.to = event.destinataires;
-    this.mailFormValid = event.isValid && this.selectedTab === 'Mail';
+    this.mailFormValid = event.isValid && this.selectedTab === 'Courriel';
     this.checkCanSend();
   }
 
@@ -68,7 +68,7 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   checkCanSend() {
     this.fileManagerServiceSubscription = this.fileManagerService.hasFiles.subscribe(hasFiles => {
-      if (this.selectedTab === 'Mail') {
+      if (this.selectedTab === 'Courriel') {
         this.canSend = hasFiles && this.mailFormValid;
       } else {
         if (this.selectedTab === 'Lien') {
