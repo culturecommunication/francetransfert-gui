@@ -8,6 +8,8 @@ import { FTTransferModel } from 'src/app/models';
 import { DownloadManagerService, DownloadService, ResponsiveService, UploadManagerService } from 'src/app/services';
 import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
 import { Subscription } from "rxjs";
+import {SatisfactionMessageComponent} from "../satisfaction-message/satisfaction-message.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'ft-download',
@@ -52,7 +54,8 @@ export class DownloadComponent implements OnInit, OnDestroy {
     private uploadManagerService: UploadManagerService,
     private downloadManagerService: DownloadManagerService,
     private _router: Router,
-    private titleService: Title) { }
+    private titleService: Title,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('France transfert - Téléchargement');
@@ -172,10 +175,18 @@ export class DownloadComponent implements OnInit, OnDestroy {
   onSatisfactionCheckDone(event) {
     if (event) {
       this._downloadService.rate({ plis: this.params['enclosure'], mail: this.downloadInfos.recipientMail, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
-        .subscribe(() => {
+        .subscribe((result) => {
+          if(result){
+            this.openSnackBar(1000);
+          }
           this._router.navigate(['/upload']);
         });
     }
+  }
+  openSnackBar(duration: number) {
+    this._snackBar.openFromComponent(SatisfactionMessageComponent,{
+      duration:duration
+    });
   }
 
   onResize() {
@@ -205,5 +216,5 @@ export class DownloadComponent implements OnInit, OnDestroy {
     }
     return {}
   }
-  
+
 }
