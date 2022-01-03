@@ -24,7 +24,7 @@
     "@flowjs/flow.js": "2.14.1",
     "@flowjs/ngx-flow": "0.4.6",
     "moment": "2.29.1",
-    "rxjs": "7.4.0",
+    "rxjs": "7.5.1",
     "tarteaucitronjs": "1.9.5",
     "tslib": "2.3.1",
     "zone.js": "0.11.4"
