@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { take, takeUntil } from 'rxjs/operators';
 import { DownloadManagerService, FileManagerService, ResponsiveService, UploadManagerService, UploadService } from 'src/app/services';
 import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {SatisfactionMessageComponent} from "../satisfaction-message/satisfaction-message.component";
 
 @Component({
   selector: 'ft-upload',
@@ -40,7 +42,8 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     private downloadManagerService: DownloadManagerService,
     private fileManagerService: FileManagerService,
     private uploadService: UploadService,
-    private titleService: Title) { }
+    private titleService: Title,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('France transfert - Téléversement');
@@ -144,10 +147,19 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   onSatisfactionCheckDone(event) {
     if (event) {
       this.uploadService.rate({ plis: this.enclosureId, mail: this.uploadManagerService.envelopeInfos.getValue().from, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
-        .subscribe(() => {
+        .subscribe((result: any) => {
+          if(result){
+            this.openSnackBar(2000);
+          }
           this.reset();
         });
     }
+  }
+
+  openSnackBar(duration: number) {
+    this._snackBar.openFromComponent(SatisfactionMessageComponent,{
+      duration:duration
+    });
   }
 
   onListExpanded(event) {
@@ -163,6 +175,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
+        subject: this.uploadManagerService.envelopeInfos.getValue().subject,
         senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },
@@ -195,6 +208,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         transfers: transfers.transfers,
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
+        subject: this.uploadManagerService.envelopeInfos.getValue().subject,
         senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },

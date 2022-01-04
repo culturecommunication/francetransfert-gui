@@ -2,7 +2,8 @@ export interface EnvelopeInfosModel {
     type?: 'mail' | 'link';
     from?: string;
     message?: string;
-    cguCheck?: boolean;    
+    subject?: string;
+    cguCheck?: boolean;
     parameters?: ParametersModel;
 }
 

@@ -16,6 +16,7 @@ export class EnvelopeLinkFormComponent implements OnInit {
   envelopeLinkForm: FormGroup;
   @Output() public onFormGroupChange = new EventEmitter<any>();
   envelopeLinkFormChangeSubscription: Subscription;
+  senderAllowed: boolean;
 
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
@@ -69,10 +70,23 @@ export class EnvelopeLinkFormComponent implements OnInit {
         this.envelopeLinkForm.controls['from'].markAsTouched();
         this.envelopeLinkForm.controls['from'].setErrors({ notValid: true });
       });
+
+      this.uploadService.allowedSenderMail(this.envelopeLinkForm.get('from').value).pipe(take(1))
+        .subscribe((isAllowed: boolean) => {
+          if (!isAllowed) {
+            this.envelopeLinkForm.controls['from'].markAsTouched();
+            this.envelopeLinkForm.controls['from'].setErrors({ quota: true });
+          } else {
+            this.envelopeLinkForm.controls['from'].markAsUntouched();
+            this.envelopeLinkForm.controls['from'].setErrors(null);
+          }
+        })
+
+
   }
 
   routeToInNewWindow(_route) {
-    // Converts the route into a string that can be used 
+    // Converts the route into a string that can be used
     // with the window.open() function
     const url = this.router.serializeUrl(
       this.router.createUrlTree([`/${_route}`])
