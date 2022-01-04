@@ -71,7 +71,7 @@ export class EnvelopeLinkFormComponent implements OnInit {
         this.envelopeLinkForm.controls['from'].setErrors({ notValid: true });
       });
 
-      this.uploadService.allowedSenderMail(this.envelopeLinkForm.get('from').value)
+      this.uploadService.allowedSenderMail(this.envelopeLinkForm.get('from').value).pipe(take(1))
         .subscribe((isAllowed: boolean) => {
           if (!isAllowed) {
             this.envelopeLinkForm.controls['from'].markAsTouched();

@@ -169,7 +169,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   }
 
   checkSenderMail(){
-    this.uploadService.allowedSenderMail(this.envelopeMailForm.get('from').value)
+    this.uploadService.allowedSenderMail(this.envelopeMailForm.get('from').value).pipe(take(1))
      .subscribe((isAllowed: boolean) => {
        if (!isAllowed) {
          this.envelopeMailForm.controls['from'].markAsTouched();
