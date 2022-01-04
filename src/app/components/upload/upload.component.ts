@@ -149,7 +149,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       this.uploadService.rate({ plis: this.enclosureId, mail: this.uploadManagerService.envelopeInfos.getValue().from, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
         .subscribe((result: any) => {
           if(result){
-            this.openSnackBar(1000);
+            this.openSnackBar(2000);
           }
           this.reset();
         });
@@ -175,6 +175,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
+        subject: this.uploadManagerService.envelopeInfos.getValue().subject,
         senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },
@@ -207,6 +208,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         transfers: transfers.transfers,
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
+        subject: this.uploadManagerService.envelopeInfos.getValue().subject,
         senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },

@@ -41,6 +41,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForm();
+
   }
 
   initForm() {
@@ -51,6 +52,9 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
       message: [this.mailFormValues?.message],
       cguCheck: [this.mailFormValues?.cguCheck, [Validators.requiredTrue]]
     });
+    this.envelopeMailForm.get('from').valueChanges.subscribe(()=>{
+      this.checkSenderMail();
+    })
     this.envelopeMailFormChangeSubscription = this.envelopeMailForm.valueChanges
       .subscribe(() => {
         this.checkDestinatairesList();
@@ -136,7 +140,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   }
 
   routeToInNewWindow(_route) {
-    // Converts the route into a string that can be used 
+    // Converts the route into a string that can be used
     // with the window.open() function
     const url = this.router.serializeUrl(
       this.router.createUrlTree([`/${_route}`])
@@ -162,6 +166,19 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
         }
       }
     });
+  }
+
+  checkSenderMail(){
+    this.uploadService.allowedSenderMail(this.envelopeMailForm.get('from').value)
+     .subscribe((isAllowed: boolean) => {
+       if (!isAllowed) {
+         this.envelopeMailForm.controls['from'].markAsTouched();
+         this.envelopeMailForm.controls['from'].setErrors({ quota: true });
+       } else {
+         this.envelopeMailForm.controls['from'].markAsUntouched();
+         this.envelopeMailForm.controls['from'].setErrors(null);
+       }
+    })
   }
 
 }

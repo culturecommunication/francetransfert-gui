@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  host: 'http://localhost:8081/',
+  host: 'http://localhost:8080/',
   apis: {
     config: 'api-private/upload-module/config',
     upload: {
@@ -13,7 +13,8 @@ export const environment = {
       confirmationCode: 'api-private/upload-module/validate-code',
       rate: 'api-private/upload-module/satisfaction',
       validateMail: 'api-private/upload-module/validate-mail',
-      config: 'api-private/upload-module/config'
+      config: 'api-private/upload-module/config',
+      allowedSenderMail : 'api-private/upload-module/allowed-sender-mail'
     },
     download: {
       download: 'api-private/download-module/download-info',
