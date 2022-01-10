@@ -7,18 +7,19 @@
     <div class="envelope-mail-form-group">
         <mat-form-field>
             <mat-label>Expéditeur</mat-label>
-            <input matInput placeholder="Votre adresse mail" formControlName="from" autocomplete="email" required >
+            <input matInput placeholder="Votre adresse mail" formControlName="from" autocomplete="email" required>
             <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
             <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise.</mat-error>
-            <mat-error role="alert" *ngIf="f.from.errors?.quota">Le quota d’envoi de l'expéditeur est dépassé</mat-error>
+            <mat-error role="alert" *ngIf="f.from.errors?.quota">Le quota d’envoi de l'expéditeur est dépassé
+            </mat-error>
         </mat-form-field>
     </div>
 
     <div class="envelope-mail-form-group">
         <mat-form-field>
             <mat-label>Destinataire(s) *</mat-label>
-            <input matInput placeholder="Mails des destinataires" formControlName="to" autocomplete="email" [errorStateMatcher]="matcher"
-                (blur)="onBlurDestinataires()">
+            <input matInput placeholder="Mails des destinataires" formControlName="to" autocomplete="email"
+                [errorStateMatcher]="matcher" (blur)="onBlurDestinataires()">
             <mat-icon class="icon-btn" matSuffix matTooltip="Utiliser une liste de contacts"
                 (click)="openMailingListManager()">list_alt
             </mat-icon>
@@ -53,8 +54,8 @@
     </div>
 
     <div class="mat-checkbox-layout">
-        <mat-checkbox formControlName="cguCheck" >J'accepte les <span class="link"
+        <mat-checkbox formControlName="cguCheck">J'accepte les <span class="link"
                 (click)="routeToInNewWindow('/cgu')">CGU</span>
-          et je n'envoie pas de données à caractère personnel ou sensibles non chiffrées au préalable</mat-checkbox>
+            et je n'envoie pas de données à caractère personnel ou sensibles non chiffrées au préalable</mat-checkbox>
     </div>
 </form>

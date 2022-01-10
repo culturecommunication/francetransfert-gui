@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, of, Subject, Subscription } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
-import { take, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, take, takeUntil } from 'rxjs/operators';
 import { MailingListManagerComponent } from 'src/app/components';
 import { MailInfosModel } from 'src/app/models';
 import { UploadManagerService, UploadService } from 'src/app/services';
@@ -28,6 +28,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   envelopeMailForm: FormGroup;
   @Output() public onFormGroupChange = new EventEmitter<any>();
   envelopeMailFormChangeSubscription: Subscription;
+  senderSubscription: Subscription;
   matcher = new MyErrorStateMatcher();
   destinatairesList: string[] = [];
   destListOk = false;
@@ -52,7 +53,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
       message: [this.mailFormValues?.message],
       cguCheck: [this.mailFormValues?.cguCheck, [Validators.requiredTrue]]
     });
-    this.envelopeMailForm.get('from').valueChanges.subscribe(()=>{
+    this.senderSubscription = this.envelopeMailForm.get('from').valueChanges.pipe(debounceTime(400), distinctUntilChanged()).subscribe(() => {
       this.checkSenderMail();
     })
     this.envelopeMailFormChangeSubscription = this.envelopeMailForm.valueChanges
@@ -101,6 +102,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.envelopeMailFormChangeSubscription.unsubscribe();
+    this.senderSubscription.unsubscribe();
   }
 
   checkDestinatairesList() {
@@ -168,17 +170,20 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  checkSenderMail(){
+  checkSenderMail() {
     this.uploadService.allowedSenderMail(this.envelopeMailForm.get('from').value).pipe(take(1))
-     .subscribe((isAllowed: boolean) => {
-       if (!isAllowed) {
-         this.envelopeMailForm.controls['from'].markAsTouched();
-         this.envelopeMailForm.controls['from'].setErrors({ quota: true });
-       } else {
-         this.envelopeMailForm.controls['from'].markAsUntouched();
-         this.envelopeMailForm.controls['from'].setErrors(null);
-       }
-    })
+      .subscribe((isAllowed: boolean) => {
+        let error = this.envelopeMailForm.controls['from'].errors;
+        if (!isAllowed) {
+          error['quota'] = true;
+          this.envelopeMailForm.controls['from'].markAsTouched();
+          this.envelopeMailForm.controls['from'].setErrors(error);
+        } else {
+          error['quota'] = false;
+          this.envelopeMailForm.controls['from'].markAsTouched();
+          this.envelopeMailForm.controls['from'].setErrors(error);
+        }
+      })
   }
 
 }

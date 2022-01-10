@@ -59,8 +59,18 @@ export class EnvelopeLinkFormComponent implements OnInit {
             this.envelopeLinkForm.controls['from'].markAsTouched();
             this.envelopeLinkForm.controls['from'].setErrors({ notValid: true });
           } else {
-            this.envelopeLinkForm.controls['from'].markAsUntouched();
+            this.envelopeLinkForm.controls['from'].markAsTouched();
             this.envelopeLinkForm.controls['from'].setErrors(null);
+            this.uploadService.allowedSenderMail(this.envelopeLinkForm.get('from').value).pipe(take(1))
+              .subscribe((isAllowed: boolean) => {
+                if (!isAllowed) {
+                  this.envelopeLinkForm.controls['from'].markAsTouched();
+                  this.envelopeLinkForm.controls['from'].setErrors({ quota: true });
+                } else {
+                  this.envelopeLinkForm.controls['from'].markAsTouched();
+                  this.envelopeLinkForm.controls['from'].setErrors(null);
+                }
+              })
           }
         } else {
           this.envelopeLinkForm.controls['from'].markAsTouched();
@@ -70,18 +80,6 @@ export class EnvelopeLinkFormComponent implements OnInit {
         this.envelopeLinkForm.controls['from'].markAsTouched();
         this.envelopeLinkForm.controls['from'].setErrors({ notValid: true });
       });
-
-      this.uploadService.allowedSenderMail(this.envelopeLinkForm.get('from').value).pipe(take(1))
-        .subscribe((isAllowed: boolean) => {
-          if (!isAllowed) {
-            this.envelopeLinkForm.controls['from'].markAsTouched();
-            this.envelopeLinkForm.controls['from'].setErrors({ quota: true });
-          } else {
-            this.envelopeLinkForm.controls['from'].markAsUntouched();
-            this.envelopeLinkForm.controls['from'].setErrors(null);
-          }
-        })
-
 
   }
 
