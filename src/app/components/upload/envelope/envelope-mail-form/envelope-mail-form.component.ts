@@ -174,6 +174,9 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     this.uploadService.allowedSenderMail(this.envelopeMailForm.get('from').value).pipe(take(1))
       .subscribe((isAllowed: boolean) => {
         let error = this.envelopeMailForm.controls['from'].errors;
+        if (error == undefined) {
+          error = {};
+        }
         if (!isAllowed) {
           error['quota'] = true;
           this.envelopeMailForm.controls['from'].markAsTouched();
