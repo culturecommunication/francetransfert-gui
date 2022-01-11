@@ -25,10 +25,10 @@ export class LoaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // this.observableTimer();
     this.progressSubscription = this.fileManagerService.uploadProgress.subscribe(t => {
-      if (this.haveChunkError(t)) {
+      /* if (this.haveChunkError(t)) {
         this.cancelTransfer();
         console.log('Transfert Error');
-      }
+      } */
       this.progressValue = Math.round(t.totalProgress * 100);
       if (this.progressValue < 100) {
       } else if (this.isFinish(t) && !this.haveChunkError(t)) {
