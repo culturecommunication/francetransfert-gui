@@ -17,7 +17,7 @@
     <div class="envelope-link-form-group">
         <mat-form-field>
             <mat-label>Expéditeur</mat-label>
-            <input matInput placeholder="Votre adresse mail" formControlName="from" autocomplete="email" required>
+            <input id="sendermail" name="email" matInput placeholder="Votre adresse mail" formControlName="from" autocomplete="on" required>
             <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
             <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise.</mat-error>
             <mat-error role="alert" *ngIf="f.from.errors?.notValid">France transfert est réservé aux échanges entre et

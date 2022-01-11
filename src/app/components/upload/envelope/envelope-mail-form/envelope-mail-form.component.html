@@ -7,7 +7,7 @@
     <div class="envelope-mail-form-group">
         <mat-form-field>
             <mat-label>Expéditeur</mat-label>
-            <input matInput placeholder="Votre adresse mail" formControlName="from" autocomplete="email" required>
+            <input id="sendermail" name="email" matInput placeholder="Votre adresse mail" formControlName="from" required>
             <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
             <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise.</mat-error>
             <mat-error role="alert" *ngIf="f.from.errors?.quota">Le quota d’envoi de l'expéditeur est dépassé
@@ -18,7 +18,7 @@
     <div class="envelope-mail-form-group">
         <mat-form-field>
             <mat-label>Destinataire(s) *</mat-label>
-            <input matInput placeholder="Mails des destinataires" formControlName="to" autocomplete="email"
+            <input id="recipientmail" name="recipientmail" matInput placeholder="Mails des destinataires" formControlName="to"
                 [errorStateMatcher]="matcher" (blur)="onBlurDestinataires()">
             <mat-icon class="icon-btn" matSuffix matTooltip="Utiliser une liste de contacts"
                 (click)="openMailingListManager()">list_alt
