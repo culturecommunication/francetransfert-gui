@@ -126,13 +126,16 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
               this.envelopeMailForm.controls['to'].markAsTouched();
               this.envelopeMailForm.controls['to'].setErrors({ required: true });
             }
+            this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
           }, error => {
             this.envelopeMailForm.controls['to'].markAsTouched();
             this.envelopeMailForm.controls['to'].setErrors({ notValid: true });
+            this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
           });
       }, error => {
         this.envelopeMailForm.controls['to'].markAsTouched();
         this.envelopeMailForm.controls['to'].setErrors({ notValid: true });
+        this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
       });
   }
 
@@ -159,12 +162,10 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
         if (result.event === 'loadMailingListFromLocalStorage') {
           this.destinatairesList = result.data;
           this.checkDestinatairesList();
-          this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
         }
         if (result.event === 'loadMailingListFromFile') {
           this.destinatairesList = result.data;
           this.checkDestinatairesList();
-          this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
         }
       }
     });
@@ -177,6 +178,8 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
         if (!isAllowed) {
           if (error == undefined) {
             error = { quota: true };
+          } else {
+            error['quota'] = true;
           }
           this.envelopeMailForm.controls['from'].markAsTouched();
           this.envelopeMailForm.controls['from'].setErrors(error);
