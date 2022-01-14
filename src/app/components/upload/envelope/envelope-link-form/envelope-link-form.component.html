@@ -1,6 +1,6 @@
 <form [formGroup]="envelopeLinkForm" class="envelope-link-form-container">
 
-    <div  class="envelope-link-form-info">
+    <div class="envelope-link-form-info">
         <span>Les champs marqués d'une * sont obligatoires</span>
     </div>
 
@@ -17,12 +17,15 @@
     <div class="envelope-link-form-group">
         <mat-form-field>
             <mat-label>Expéditeur</mat-label>
-            <input id="sendermail" name="email" matInput placeholder="Votre adresse courriel" formControlName="from" autocomplete="email" required>
+            <input id="sendermail" name="email" matInput placeholder="Votre adresse courriel" formControlName="from"
+                autocomplete="email" required>
             <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
-            <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise (JEAN.DUPONT@EMAIL.COM).</mat-error>
+            <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise
+                (JEAN.DUPONT@EMAIL.COM).</mat-error>
             <mat-error role="alert" *ngIf="f.from.errors?.notValid">France transfert est réservé aux échanges entre et
                 avec le personnel de l’État.</mat-error>
-            <mat-error role="alert" *ngIf="f.from.errors?.quota">Le quota quotidien d’envoi de l'expéditeur est dépassé</mat-error>
+            <mat-error role="alert" *ngIf="f.from.errors?.quota">Le quota quotidien d’envoi de l'expéditeur est dépassé
+            </mat-error>
 
         </mat-form-field>
     </div>
@@ -36,9 +39,9 @@
     </div>
 
     <div class="envelope-link-form-group mat-checkbox-layout">
-      <mat-checkbox formControlName="cguCheck">J'accepte les
-        <a class="link" routerLink="/cgu" class="link" (click)="routeToInNewWindow('/cgu')">CGU</a>
-      </mat-checkbox>
+        <mat-checkbox formControlName="cguCheck">J'accepte les
+            <a class="link" rel="noopener noreferrer" href="cgu" target="_blank" class="link">CGU</a>
+        </mat-checkbox>
     </div>
 
 </form>
