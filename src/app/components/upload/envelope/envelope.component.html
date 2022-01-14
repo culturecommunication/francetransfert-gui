@@ -11,7 +11,7 @@
                 <ng-template mat-tab-label>
                     <div class="envelope-card-tab-link">
                         <span>Lien</span>
-                        <mat-icon class="envelope-card-info-icon"
+                        <mat-icon class="envelope-card-info-icon" aria-hidden="true"
                             matTooltip="Cette fonctionnalité permet de générer un lien à partager. Pratique quand vous n’avez pas toutes les adresses e-mails de vos contacts !">
                             info_outline</mat-icon>
                     </div>
@@ -25,7 +25,7 @@
     <mat-card-actions class="envelope-card-actions">
         <button mat-raised-button class="envelope-card-actions-btn" (click)="triggerShowParameters()"
             matTooltip="Cliquez ici pour modifier les options de votre transfert (changement du délai de validité, ajout d’un mot de passe, etc.)"
-            [matTooltipPosition]="'above'">
+            [matTooltipPosition]="'above'" aria-hidden="Paramètres">
             <mat-icon>settings</mat-icon>
         </button>
         <button mat-raised-button [disabled]="!canSend" class="envelope-card-actions-btn"

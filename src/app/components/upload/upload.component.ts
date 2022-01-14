@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FlowDirective, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs/internal/Subject';
@@ -8,6 +8,7 @@ import { DownloadManagerService, FileManagerService, ResponsiveService, UploadMa
 import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SatisfactionMessageComponent} from "../satisfaction-message/satisfaction-message.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'ft-upload',
@@ -30,6 +31,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   senderEmail: string;
   availabilityDate: Date;
   availabilityDays: number;
+  @ViewChild('upload') private uploadFragment: ElementRef;
   @ViewChild('flow')
   flow: FlowDirective;
   flowConfig: any;
@@ -43,7 +45,8 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     private fileManagerService: FileManagerService,
     private uploadService: UploadService,
     private titleService: Title,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('France transfert - Téléversement');
@@ -64,6 +67,23 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.reset();
   }
 
+  ngAfterViewInit() {
+    const tree = this.router.parseUrl(this.router.url);
+    if (tree.fragment) {
+      this.scrollTo(tree.fragment);
+    }
+
+  }
+
+  scrollTo(_anchor: string) {
+    switch (_anchor) {
+      case 'upload':
+        this.uploadFragment.nativeElement.scrollIntoView({behavior: "smooth", block: "start"});
+        break;
+    }
+  }
+
+
   reset() {
     this.enclosureId = '';
     this.uploadStarted = false;
@@ -78,10 +98,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.flow) {
       this.flow.cancel();
     }
-  }
-
-  ngAfterViewInit() {
-
   }
 
   onResize() {

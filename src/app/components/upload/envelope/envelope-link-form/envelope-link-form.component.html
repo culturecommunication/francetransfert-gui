@@ -8,7 +8,7 @@
         <mat-form-field>
             <mat-label>Nom de votre transfert</mat-label>
             <input matInput placeholder="(Facultatif)" formControlName="subject" autocomplete="off">
-            <mat-icon matSuffix
+            <mat-icon matSuffix aria-hidden="true"
                 matTooltip="Personnalisez le nom de votre transfert afin de le rendre plus facilement identifiable.">
                 info_outline</mat-icon>
         </mat-form-field>
@@ -17,12 +17,12 @@
     <div class="envelope-link-form-group">
         <mat-form-field>
             <mat-label>Expéditeur</mat-label>
-            <input id="sendermail" name="email" matInput placeholder="Votre adresse mail" formControlName="from" autocomplete="on" required>
+            <input id="sendermail" name="email" matInput placeholder="Votre adresse courriel" formControlName="from" autocomplete="email" required>
             <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
-            <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise.</mat-error>
+            <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise (JEAN.DUPONT@EMAIL.COM).</mat-error>
             <mat-error role="alert" *ngIf="f.from.errors?.notValid">France transfert est réservé aux échanges entre et
                 avec le personnel de l’État.</mat-error>
-            <mat-error role="alert" *ngIf="f.from.errors?.quota">Le quota d’envoi quotidien de l'expéditeur est dépassé</mat-error>
+            <mat-error role="alert" *ngIf="f.from.errors?.quota">Le quota d’envoi de l'expéditeur est dépassé</mat-error>
 
         </mat-form-field>
     </div>
@@ -36,8 +36,9 @@
     </div>
 
     <div class="envelope-link-form-group mat-checkbox-layout">
-        <mat-checkbox formControlName="cguCheck">J'accepte les <span class="link" (click)="routeToInNewWindow('/cgu')">CGU</span>
-          et je n'envoie pas de données à caractère personnel ou sensibles non chiffrées au préalable</mat-checkbox>
+      <mat-checkbox formControlName="cguCheck">J'accepte les
+        <a class="link" routerLink="/cgu" class="link" (click)="routeToInNewWindow('/cgu')">CGU</a>
+      </mat-checkbox>
     </div>
 
 </form>
