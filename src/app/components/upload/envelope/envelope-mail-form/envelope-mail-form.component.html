@@ -11,7 +11,7 @@
                 required  autocomplete="email">
             <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
             <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise (JEAN.DUPONT@EMAIL.COM).</mat-error>
-            <mat-error role="alert" *ngIf="f.from.errors?.quota">Le quota d’envoi de l'expéditeur est dépassé<br />
+            <mat-error role="alert" *ngIf="f.from.errors?.quota">Le quota quotidien d’envoi de l'expéditeur est dépassé<br />
             </mat-error>
         </mat-form-field>
     </div>
