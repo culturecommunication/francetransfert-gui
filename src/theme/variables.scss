@@ -44,9 +44,9 @@ $dark-theme: mat.define-dark-theme($dark-primary, $dark-accent, $dark-warn);
   --ft-white: #FFFFFF;
   --ft-black: #323C41;
   --ft-succes: #40a02b;
-  --ft-error: #e1001d;
+  --ft-error: #bb0b0b;
   --ft-alerte: #ed810a;
-  
+
 }
 
 /* Tarteaucitron */
@@ -58,7 +58,7 @@ $dark-theme: mat.define-dark-theme($dark-primary, $dark-accent, $dark-warn);
 }
 
 div, span, p, h1, h2, h3, h4, h5, a, li {
-  font-family: 'marianne', sans-serif !important; 
+  font-family: 'marianne', sans-serif !important;
 }
 
 h1 {

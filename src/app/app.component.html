@@ -1,5 +1,5 @@
 <div class="app-root" (window:resize)="onResize()">
-  <header>
+  <header role="heading">
     <ft-header class="app-header" (sidenavToggle)="toggleSideNav()" (routingCalled)="onRoutingCalled($event)"
       *ngIf="!opened"></ft-header>
   </header>
@@ -10,12 +10,12 @@
     </mat-sidenav>
     <mat-sidenav-content>
       <div class="sidenav-content" #topRoot>
-        <main>
+        <main role="main">
           <div class="app-content">
             <router-outlet #outlet="outlet" class="app-outlet"></router-outlet>
           </div>
         </main>
-        <footer>
+        <footer role="presentation">
           <ft-footer (routingCalled)="onRoutingCalled($event)" *ngIf="screenWidth === 'lg'" class="app-footer">
           </ft-footer>
         </footer>

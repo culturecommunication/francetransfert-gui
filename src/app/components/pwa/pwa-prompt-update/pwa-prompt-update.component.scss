@@ -4,7 +4,10 @@
 
 .prompt-update-content-wrapper {
     .prompt-update-content-line {
-
+      p span {
+        display: block;
+        margin: 5px;
+      }
     }
 }
 

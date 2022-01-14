@@ -22,19 +22,22 @@
                 <mat-icon>menu</mat-icon>
             </button>
             <div class="header-toolbar-right" *ngIf="screenWidth === 'lg'">
-                <ft-language-selector class="language-selector-wrapper"></ft-language-selector>
-                <span class="column-divider"></span>
-                <button mat-icon-button class="header-toolbar-link" aria-label="Lien vers la FAQ"
-                    (click)="routeTo('/faq')">
-                    <mat-icon>help_outline</mat-icon>
-                    <span>FAQ</span>
-                </button>
-                <span class="column-divider"></span>
-                <button mat-icon-button class="header-toolbar-link" aria-label="Lien vers la page de contact"
-                    (click)="goToLink('https://www.culture.gouv.fr/Nous-contacter/#novaform')">
-                    <mat-icon>mail_outline</mat-icon>
-                    <span>Contact</span>
-                </button>
+              <ft-language-selector class="language-selector-wrapper"></ft-language-selector>
+              <nav>
+                <ul class="header-toolbar-links">
+                  <span class="column-divider"></span>
+                  <li>
+                    <mat-icon aria-hidden="true">help_outline</mat-icon>
+                    <a routerLink="/faq" class="link" (click)="routeTo('/faq')">FAQ</a>
+                  </li>
+                  <span class="column-divider"></span>
+                  <li>
+                    <mat-icon aria-hidden="true">mail_outline</mat-icon>
+                    <a href="https://www.culture.gouv.fr/Nous-contacter/#novaform" target="_blank"
+                       class="link">Contact</a>
+                  </li>
+                </ul>
+              </nav>
             </div>
 
         </div>
