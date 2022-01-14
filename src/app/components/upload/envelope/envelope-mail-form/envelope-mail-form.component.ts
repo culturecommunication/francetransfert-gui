@@ -53,7 +53,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
       message: [this.mailFormValues?.message],
       cguCheck: [this.mailFormValues?.cguCheck, [Validators.requiredTrue]]
     });
-    this.senderSubscription = this.envelopeMailForm.get('from').valueChanges.pipe(debounceTime(400), distinctUntilChanged()).subscribe(() => {
+    this.senderSubscription = this.envelopeMailForm.get('from').valueChanges.pipe(debounceTime(300)).subscribe(() => {
       this.checkSenderMail();
     })
     this.envelopeMailFormChangeSubscription = this.envelopeMailForm.valueChanges
