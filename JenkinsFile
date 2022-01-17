@@ -36,7 +36,7 @@ node {
     {
     	stage('dependencyCheck') {
             if (env.BRANCH_NAME == 'demo') {
-		        dependencyCheck additionalArguments: '--out="target" --scan="./package-lock.json" --format="HTML"', odcInstallation: 'DepCheck'
+		        dependencyCheck additionalArguments: '--out="target" --scan="./" --format="HTML"', odcInstallation: 'DepCheck'
             }
 	    }
     }
