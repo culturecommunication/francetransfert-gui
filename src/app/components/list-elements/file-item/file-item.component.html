@@ -21,8 +21,8 @@
         </div>
     </div>
     <div class="upload-item-actions" *ngIf="!readOnly">
-        <button mat-icon-button class="upload-item-actions-btn" aria-label="Supprimer le fichier">
+        <button mat-icon-button class="upload-item-actions-btn" aria-label="Supprimer le fichier" (keydown.enter)="deleteTransfer()">
             <mat-icon (click)="deleteTransfer()">delete</mat-icon>
-        </button>        
+        </button>
     </div>
 </div>
