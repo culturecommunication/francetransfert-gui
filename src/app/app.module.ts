@@ -46,6 +46,7 @@ import { ConfirmAlertDialogComponent } from './components/check-validation-code/
 import { PolitiqueProtectionDonneesComponent } from './components/politique-protection-donnees/politique-protection-donnees.component';
 import { DownloadErrorComponent } from './components/download/download-error/download-error.component';
 import { SatisfactionMessageComponent } from './components/satisfaction-message/satisfaction-message.component';
+import { ContactEndMessageComponent } from './components/contact-end-message/contact-end-message.component';
 
 registerLocaleData(localeFr);
 const initializer = (pwaService: PwaService) => () =>
@@ -90,7 +91,8 @@ const initializer = (pwaService: PwaService) => () =>
     ConfirmAlertDialogComponent,
     PolitiqueProtectionDonneesComponent,
     DownloadErrorComponent,
-    SatisfactionMessageComponent
+    SatisfactionMessageComponent,
+    ContactEndMessageComponent
   ],
   imports: [
     HttpClientModule,

@@ -177,7 +177,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
       this._downloadService.rate({ plis: this.params['enclosure'], mail: this.downloadInfos.recipientMail, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
         .subscribe((result) => {
           if(result){
-            this.openSnackBar(2000);
+            this.openSnackBar(4000);
           }
           this._router.navigate(['/upload']);
         });

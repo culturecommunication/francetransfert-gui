@@ -30,6 +30,9 @@ const routes: Routes = [
     path: 'faq', component: FaqComponent
   },
   {
+    path:"contact", component: ContactComponent
+  },
+  {
     path: 'mentions-legales', component: MentionsLegalesComponent
   },
   {
