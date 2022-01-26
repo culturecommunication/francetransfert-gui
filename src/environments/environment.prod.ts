@@ -10,7 +10,8 @@ export const environment = {
       rate: 'api-private/upload-module/satisfaction',
       validateMail: 'api-private/upload-module/validate-mail',
       config: 'api-private/upload-module/config',
-      allowedSenderMail : 'api-private/upload-module/allowed-sender-mail'
+      allowedSenderMail : 'api-private/upload-module/allowed-sender-mail',
+      formulaireContact : 'api-private/upload-module/sender-contact'
     },
     download: {
       download: 'api-private/download-module/download-info',

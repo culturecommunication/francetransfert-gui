@@ -17,7 +17,8 @@ export const environment = {
       downloadUrlPublic: 'api-private/download-module/generate-download-url-public',
       validatePassword: 'api-private/download-module/validate-password',
       rate: 'api-private/download-module/satisfaction',
-      allowedSenderMail : 'api-private/upload-module/allowed-sender-mail'
+      allowedSenderMail : 'api-private/upload-module/allowed-sender-mail',
+      formulaireContact : 'api-private/upload-module/sender-contact'
     },
     admin: {
       deleteFile: 'api-private/upload-module/delete-file',
