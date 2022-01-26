@@ -24,6 +24,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   uploadFinished: boolean = false;
   uploadValidated: boolean = false;
   uploadFailed: boolean = false;
+  publicLink: boolean  = false;
   uploadManagerSubscription: Subscription = new Subscription;
   responsiveSubscription: Subscription = new Subscription;
   fileManagerSubscription: Subscription = new Subscription;
@@ -90,6 +91,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadFinished = false;
     this.uploadValidated = false;
     this.uploadFailed = false;
+    this.publicLink = false;
     this.uploadManagerService.envelopeInfos.next(null);
     this.uploadManagerService.uploadError$.next(null);
     this.downloadManagerService.downloadError$.next(null);
@@ -165,7 +167,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       this.uploadService.rate({ plis: this.enclosureId, mail: this.uploadManagerService.envelopeInfos.getValue().from, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
         .subscribe((result: any) => {
           if(result){
-            this.openSnackBar(2000);
+            this.openSnackBar(4000);
           }
           this.reset();
         });
@@ -180,6 +182,11 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onListExpanded(event) {
     this.listExpanded = event;
+  }
+
+  ispublicLink(val: any){
+    if(val === 'link')
+      this.publicLink = true;
   }
 
   async upload(): Promise<any> {
@@ -205,7 +212,9 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
           this.uploadManagerService.uploadInfos.next(result);
           this.uploadValidated = true;
           this.availabilityDate = result.expireDate;
+          this.ispublicLink(this.uploadManagerService.envelopeInfos.getValue().type);
           this.beginUpload(result);
+
         } else {
           if (this.uploadManagerService.uploadInfos.getValue()) {
             if (this.uploadManagerService.uploadInfos.getValue().senderId && this.uploadManagerService.uploadInfos.getValue().senderToken) {
@@ -235,6 +244,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         this.uploadManagerService.uploadInfos.next(result);
         this.uploadValidated = true;
         this.availabilityDate = result.expireDate;
+        this.ispublicLink(this.uploadManagerService.envelopeInfos.getValue().type);
         this.beginUpload(result);
       });
   }

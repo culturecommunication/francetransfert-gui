@@ -21,3 +21,13 @@ export interface ParametersModel {
     expiryDays: number;
     password: string;
 }
+
+export interface FormulaireContactModel{
+  nom?: string;
+  prenom?: string;
+  administration?: string;
+  from?: string;
+  message?: string;
+  subject?: string;
+  cguCheck?: boolean;
+}
