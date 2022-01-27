@@ -18,9 +18,9 @@
     .mat-divider {
       display: block;
       margin: 0;
-      border-top-width: 3px;
+      border-top-width: 3px !important;
       border-top-style: solid;
-      border-top-color: black;
+      border-top-color: black !important;
     }
 
     .contact-parameters {
@@ -83,7 +83,7 @@
       line-height: 28px;
       text-align: center;
       margin-bottom: 3%;
-      color:var(--ft-mention);
+      color:var(--ft-mention) !important;
 
       ::ng-deep .mat-tab-label-content {
         width: 100%;
