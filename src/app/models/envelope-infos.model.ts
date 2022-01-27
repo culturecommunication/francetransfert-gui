@@ -29,5 +29,4 @@ export interface FormulaireContactModel{
   from?: string;
   message?: string;
   subject?: string;
-  cguCheck?: boolean;
 }

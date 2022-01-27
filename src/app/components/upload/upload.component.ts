@@ -176,6 +176,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openSnackBar(duration: number) {
     this._snackBar.openFromComponent(SatisfactionMessageComponent,{
+      panelClass : 'panel-success',
       duration:duration
     });
   }
