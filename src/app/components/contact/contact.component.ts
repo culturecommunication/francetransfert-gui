@@ -19,6 +19,7 @@ export class ContactComponent implements OnInit {
   formulaireBody: any;
   contatactFormChangeSubscription: Subscription;
   canSend: boolean = false;
+  isSend: boolean = false;
 
   constructor(private fb: FormBuilder,private contactService: ContactService,
               private _snackBar: MatSnackBar,
@@ -64,6 +65,7 @@ export class ContactComponent implements OnInit {
     this.contactService.sendFormulaireContact(this.formulaireBody).subscribe((result: any) => {
       if(result){
         this.openSnackBar(4000);
+        //this.isSend = true;
         this._router.navigate(['/upload']);
       }
       this.reset();
@@ -76,7 +78,6 @@ export class ContactComponent implements OnInit {
 
   openSnackBar(duration: number) {
     this._snackBar.openFromComponent(ContactEndMessageComponent,{
-      panelClass : 'panel-success',
       duration:duration
     });
   }

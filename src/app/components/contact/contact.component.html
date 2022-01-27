@@ -11,17 +11,17 @@
 
     <mat-form-field class="field-contact">
       <mat-label>Votre nom</mat-label>
-      <input id="nom" name="nom" matInput placeholder="Jean" formControlName="nom">
+      <input id="nom" name="nom" matInput placeholder="dupont" formControlName="nom">
     </mat-form-field>
 
     <mat-form-field class="field-contact" >
       <mat-label>Votre prénom</mat-label>
-      <input id="prenom" name="prenom" matInput placeholder="dupont" formControlName="prenom">
+      <input id="prenom" name="prenom" matInput placeholder="Jean" formControlName="prenom">
     </mat-form-field>
 
     <div class="field-contact" >
       <mat-form-field>
-        <mat-label>Votre adresse courriel  </mat-label>
+        <mat-label>Votre courriel  </mat-label>
         <input id="sendercourriel" name="courriel" matInput placeholder="jean.dupont@domaine.fr" formControlName="from"
                required autocomplete="email">
         <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
@@ -32,24 +32,24 @@
 
     <div class="field-contact">
       <mat-form-field>
-        <mat-label>Votre société </mat-label>
+        <mat-label>Votre administration / société </mat-label>
         <input id="administration" name="administration" matInput
-               placeholder="Votre société" formControlName="administration">
+               placeholder="Votre administration / société" formControlName="administration">
       </mat-form-field>
     </div>
 
     <div class="field-contact">
       <mat-form-field>
-        <mat-label>Objet de la demande</mat-label>
+        <mat-label>Objet</mat-label>
         <input matInput placeholder="Objet" formControlName="subject" autocomplete="off" required>
       </mat-form-field>
     </div>
 
     <div class="field-contact">
       <mat-form-field>
-        <mat-label>Question</mat-label>
+        <mat-label>Message</mat-label>
         <textarea class="message"  matInput
-                  formControlName="message" placeholder="Question" autocomplete="off" required></textarea>
+                  formControlName="message" placeholder="Message" autocomplete="off" required></textarea>
         <mat-error role="alert" *ngIf="f.message.errors?.required">Un message est requis.</mat-error>
       </mat-form-field>
     </div>
@@ -60,5 +60,8 @@
             (click)="send()">Envoyer </button>
     </mat-card-actions>
   </div>
+
 </div>
+
 </form>
+
