@@ -37,7 +37,6 @@ export class ContactComponent implements OnInit {
       administration:[this.formulaireContact?.administration],
       subject: [this.formulaireContact?.subject],
       message: [this.formulaireContact?.message, { validators: [Validators.required]}],
-      cguCheck: [this.formulaireContact?.cguCheck, [Validators.requiredTrue]]
     });
     this.contatactFormChangeSubscription = this.formulaireContactForm.valueChanges
         .subscribe(() => {
@@ -54,12 +53,13 @@ export class ContactComponent implements OnInit {
 
   send() {
     this.formulaireBody = {
-      nom : this.formulaireContactForm.controls.nom.value,
-      prenom : this.formulaireContactForm.controls.prenom.value,
-      from : this.formulaireContactForm.controls.from.value,
-      administration : this.formulaireContactForm.controls.administration.value,
-      subject : this.formulaireContactForm.controls.subject.value,
-      message : this.formulaireContactForm.controls.message.value
+      ...this.formulaireContactForm.controls.nom.value  ? {nom : this.formulaireContactForm.controls.nom.value} : {nom : ""},
+      ...this.formulaireContactForm.controls.prenom.value  ? {prenom : this.formulaireContactForm.controls.prenom.value} : {prenom : ""},
+      ...this.formulaireContactForm.controls.from.value  ? {from : this.formulaireContactForm.controls.from.value} : {from : ""},
+      ...this.formulaireContactForm.controls.administration.value  ? {administration : this.formulaireContactForm.controls.administration.value} : {administration : ""},
+      ...this.formulaireContactForm.controls.subject.value  ? {subject : this.formulaireContactForm.controls.subject.value} : {subject : ""},
+      ...this.formulaireContactForm.controls.message.value  ? {message : this.formulaireContactForm.controls.message.value} : {message : ""},
+
     }
     this.contactService.sendFormulaireContact(this.formulaireBody).subscribe((result: any) => {
       if(result){
@@ -76,6 +76,7 @@ export class ContactComponent implements OnInit {
 
   openSnackBar(duration: number) {
     this._snackBar.openFromComponent(ContactEndMessageComponent,{
+      panelClass : 'panel-success',
       duration:duration
     });
   }
