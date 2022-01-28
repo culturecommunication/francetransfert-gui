@@ -31,7 +31,7 @@ export const environment = {
       fileInfos: 'api-private/upload-module/file-info'
     },
     captcha: {
-      url: 'https://semrecf2.culture.fr/captcha/captcha/'
+      url: 'https://sesame.culture.fr/captcha/captcha/'
     }
   },
   version: '3.2.0'
