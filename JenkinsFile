@@ -56,7 +56,7 @@ node {
             jsonObject =  readJSON file: 'package.json'
 
             if(jsonObject["version"].contains('-')){
-                if(env.BRANCH_NAME.startsWith('demo')){
+                if(env.BRANCH_NAME.startsWith('demo') || env.BRANCH_NAME.startsWith('develop')){
                     sh 'npm publish dist --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture/'
                 }
             } else {
