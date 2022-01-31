@@ -22,6 +22,7 @@ export class UploadService {
       recipientEmails: body.emails,
       password: body.password,
       message: body.message,
+      subject: body.subject,
       rootFiles: trMapping.files,
       rootDirs: trMapping.dirs,
       publicLink: body.publicLink,
@@ -47,6 +48,12 @@ export class UploadService {
     );
   }
 
+  allowedSenderMail(mail: any): any {
+    return this._httpClient.post(`${environment.host}${environment.apis.upload.allowedSenderMail}`, mail).pipe(
+      catchError(this.handleError('senderMailNotAllowed'))
+    );
+  }
+
   validateCode(body: any): any {
     const trMapping = this._mappingTree(body.transfers);
     const treeBody = {
@@ -55,6 +62,7 @@ export class UploadService {
       recipientEmails: body.emails,
       password: body.password,
       message: body.message,
+      subject: body.subject,
       rootFiles: trMapping.files,
       rootDirs: trMapping.dirs,
       publicLink: body.publicLink,

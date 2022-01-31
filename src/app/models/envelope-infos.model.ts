@@ -2,7 +2,8 @@ export interface EnvelopeInfosModel {
     type?: 'mail' | 'link';
     from?: string;
     message?: string;
-    cguCheck?: boolean;    
+    subject?: string;
+    cguCheck?: boolean;
     parameters?: ParametersModel;
 }
 
@@ -19,4 +20,13 @@ export interface LinkInfosModel extends EnvelopeInfosModel {
 export interface ParametersModel {
     expiryDays: number;
     password: string;
+}
+
+export interface FormulaireContactModel{
+  nom?: string;
+  prenom?: string;
+  administration?: string;
+  from?: string;
+  message?: string;
+  subject?: string;
 }

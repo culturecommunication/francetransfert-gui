@@ -4,27 +4,35 @@
         <span>Les champs marqués d'une * sont obligatoires</span>
     </div>
 
-    <div class="envelope-mail-form-group">
+    <div class="envelope-mail-form-group" [ngClass]="f.from.errors?.quota ? 'big-error' : ''">
         <mat-form-field>
             <mat-label>Expéditeur</mat-label>
-            <input matInput placeholder="Votre adresse mail" formControlName="from" autocomplete="email" required>
+            <input id="sendermail" name="email" matInput placeholder="Votre adresse courriel" formControlName="from"
+                required autocomplete="email">
             <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
-            <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise.</mat-error>
+            <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise
+                (JEAN.DUPONT@EMAIL.COM).</mat-error>
+            <mat-error role="alert" *ngIf="f.from.errors?.quota">Le quota quotidien d’envoi de l'expéditeur est
+                dépassé<br />
+            </mat-error>
         </mat-form-field>
     </div>
 
-    <div class="envelope-mail-form-group">
+    <div class="envelope-mail-form-group" [ngClass]="f.to.errors?.notValid ? 'big-error' : ''">
         <mat-form-field>
             <mat-label>Destinataire(s) *</mat-label>
-            <input matInput placeholder="Mails des destinataires" formControlName="to" autocomplete="email" [errorStateMatcher]="matcher"
-                (blur)="onBlurDestinataires()">
-            <mat-icon class="icon-btn" matSuffix matTooltip="Utiliser une liste de contacts"
+            <input id="recipientmail" name="recipientmail" matInput
+                placeholder="les adresses courriels des destinataires" formControlName="to"
+                [errorStateMatcher]="matcher" (blur)="onBlurDestinataires()">
+            <mat-icon class="icon-btn" aria-hidden="true" matSuffix matTooltip="Utiliser une liste de contacts"
                 (click)="openMailingListManager()">list_alt
             </mat-icon>
             <mat-error role="alert" *ngIf="f.to.errors?.required">Un destinataire est requis.</mat-error>
-            <mat-error role="alert" *ngIf="f.to.errors?.email">Une adresse courriel valide est requise.</mat-error>
-            <mat-error role="alert" *ngIf="f.to.errors?.notValid">France transfert est réservé aux échanges entre et
-                avec le personnel de l’État.</mat-error>
+            <mat-error role="alert" *ngIf="f.to.errors?.email">Une adresse courriel valide est requise
+                (JEAN.DUPONT@EMAIL.COM).</mat-error>
+            <mat-error role="alert" *ngIf="f.to.errors?.notValid">Il est nécessaire que l'expéditeur ou que l'ensemble
+              des destinataires soi(en)t un/des agent(s) de l'Etat</mat-error>
+
         </mat-form-field>
     </div>
 
@@ -51,8 +59,8 @@
     </div>
 
     <div class="mat-checkbox-layout">
-        <mat-checkbox formControlName="cguCheck" >J'accepte les <span class="link"
-                (click)="routeToInNewWindow('/cgu')">CGU</span>
-          et je n'envoie pas de données à caractère personnel ou sensibles non chiffrées au préalable</mat-checkbox>
+        <mat-checkbox formControlName="cguCheck">J'accepte les <a class="link" rel="noopener noreferrer" href="cgu"
+                target="_blank" class="link">CGU</a>
+            et je n'envoie pas de données à caractère personnel ou sensibles non chiffrées au préalable</mat-checkbox>
     </div>
 </form>

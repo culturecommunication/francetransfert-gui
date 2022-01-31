@@ -3,7 +3,7 @@
         <mat-card-content class="check-validation-code-card-content">
             <mat-icon class="check-validation-code-card-content-icon" aria-hidden="true">lock_outline</mat-icon>
             <div class="check-validation-code-card-content-text">
-                <span class="check-validation-code-card-content-text-title">Vérifiez votre adresse mail</span>
+                <span class="check-validation-code-card-content-text-title">Vérifiez votre adresse courriel</span>
                 <span class="check-validation-code-card-content-text-sub">Saisissez le code qui vous a été envoyé à
                     {{email}}
                     (vérifiez votre dossier spam).</span>
@@ -63,7 +63,7 @@
                     <mat-error role="alert" *ngIf="f.verificationCode.errors?.required">Veuillez entrer le mot de passe.</mat-error>
                 </mat-form-field>
             </div>
-        </mat-card-content>        
+        </mat-card-content>
         <mat-card-actions class="check-validation-code-card-actions">
             <button type="submit" [disabled]="!verificationCodeForm.valid" mat-raised-button
                 class="check-validation-code-card-actions-btn" (click)="validateForm()">Valider</button>

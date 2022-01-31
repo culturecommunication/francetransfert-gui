@@ -28,7 +28,7 @@
                 .header-toolbar-logo.ft {
                     margin-left: 30px;
                 }
-            }     
+            }
             .header-toolbar-right {
                 width: 40%;
                 display: flex;
@@ -43,11 +43,45 @@
                 }
 
                 .column-divider {
+                    margin-left: 15px;
                     border-left: 1px solid var(--ft-asset);
                     height: 24px;
                 }
-            }
-            .header-toolbar-link.mat-icon-button {
+
+                nav {
+                  display: flex;
+                  display: -webkit-flex;
+                  width: 100%;
+                }
+
+                .header-toolbar-links {
+                  flex-direction: row;
+                  justify-content: space-around;
+                  display: -webkit-flex;
+                  -webkit-flex-direction: row;
+                  -webkit-justify-content: space-around;
+                  width: 100%;
+                  list-style-type: none;
+                  color: var(--ft-blue-france);
+                  font-size: 14px;
+                  line-height: 24px;
+                  cursor: pointer;
+                  text-decoration: none;
+
+                  li {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+
+                    a {
+                      margin-left: 5px;
+                    }
+                  }
+                }
+              }
+
+      .header-toolbar-link.mat-icon-button {
                 color: var(--ft-blue-france);
                 font-size: 14px;
                 line-height: 24px;
@@ -57,7 +91,7 @@
                 span {
                     margin-left: 5px;
                 }
-            }            
+            }
         }
     }
 }
@@ -71,7 +105,7 @@
                 -webkit-justify-content: space-around;
                 .header-toolbar-logos-wrapper {
                     width: 40%;
-                }  
+                }
                 .header-toolbar-logo.rep-fr {
                     height: 88px;
                     width: 90px;
@@ -80,7 +114,7 @@
                     height: 24px;
                     width: 239px;
                 }
-                .header-toolbar-right {        
+                .header-toolbar-right {
                     .flag-icon {
                         height: 18px;
                         width: 18px;
@@ -101,7 +135,7 @@
                     transform: rotate(-45deg);
                     -webkit-transform: rotate(-45deg);
                     overflow: hidden;
-    
+
                     .ribbon-text {
                         margin-left: 20%;
                         color: var(--ft-white);
@@ -112,7 +146,7 @@
                 .corner-ribbon.shadow {
                     box-shadow: 0 0 3px rgba(0, 0, 0, .3);
                 }
-                  
+
                 .corner-ribbon.top-right {
                     top: 8px;
                     right: -70px;
@@ -125,7 +159,7 @@
                     background: var(--ft-blue-france);
                 }
             }
-        }        
+        }
     }
 }
 
@@ -141,7 +175,7 @@
                     width: 50%;
                 }
                 .header-toolbar-logo {
-                    height: 50%;        
+                    height: 50%;
                 }
                 .header-toolbar-right {
                     width: 50%;
@@ -167,18 +201,18 @@
                     transform: rotate(-45deg);
                     -webkit-transform: rotate(-45deg);
                     overflow: hidden;
-    
+
                     .ribbon-text {
                         margin-left: 30%;
                         color: var(--ft-white);
                         font-weight: bold;
                     }
                 }
-                
+
                 .corner-ribbon.shadow {
                     box-shadow: 0 0 3px rgba(0, 0, 0, .3);
                 }
-                  
+
                 .corner-ribbon.top-right {
                     top: -15px;
                     right: -70px;
@@ -191,7 +225,7 @@
                     background: var(--ft-blue-france);
                 }
             }
-        }        
+        }
     }
 }
 
@@ -207,10 +241,10 @@
                     width: 60%;
                 }
                 .header-toolbar-logo {
-                    height: 50%;        
+                    height: 50%;
                 }
                 .header-toolbar-logo.ft {
-                    height: 38px;        
+                    height: 38px;
                 }
                 .header-toolbar-right {
                     width: 50%;
@@ -237,18 +271,18 @@
                     transform: rotate(-45deg);
                     -webkit-transform: rotate(-45deg);
                     overflow: hidden;
-    
+
                     .ribbon-text {
                         margin-left: 33%;
                         color: var(--ft-white);
                         font-weight: bold;
                     }
                 }
-                
+
                 .corner-ribbon.shadow {
                     box-shadow: 0 0 3px rgba(0, 0, 0, .3);
                 }
-                  
+
                 .corner-ribbon.top-right {
                     top: -15px;
                     right: -70px;
@@ -261,6 +295,6 @@
                     background: var(--ft-blue-france);
                 }
             }
-        }        
+        }
     }
 }

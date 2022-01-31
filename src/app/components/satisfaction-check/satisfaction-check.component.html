@@ -32,7 +32,7 @@
             </div>
         </mat-card-content>
         <mat-card-actions class="satisfaction-check-card-actions">
-            <button type="submit" [disabled]="selectedFace === ''" mat-raised-button
+            <button type="submit" [disabled]="selectedFace === '' || !satisfactionCheckForm.valid" mat-raised-button
                 class="satisfaction-check-card-actions-btn" (click)="validateForm()">Envoyer</button>
         </mat-card-actions>
     </form>
