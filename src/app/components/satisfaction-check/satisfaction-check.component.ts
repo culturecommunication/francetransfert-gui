@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ft-satisfaction-check',
@@ -10,6 +10,7 @@ export class SatisfactionCheckComponent implements OnInit {
   satisfactionCheckForm: FormGroup;
   selectedFace: 'dissatisfied' | 'neutral' | 'satisfied' | '';
   @Output() satisfactionCheckDone: EventEmitter<any> = new EventEmitter();
+  messageControl: AbstractControl;
 
   constructor(private fb: FormBuilder) { }
 
@@ -22,6 +23,7 @@ export class SatisfactionCheckComponent implements OnInit {
     this.satisfactionCheckForm = this.fb.group({
       message: [''],
     });
+    this.messageControl = this.satisfactionCheckForm.get('message');
   }
 
   // convenience getter for easy access to form fields
@@ -33,7 +35,7 @@ export class SatisfactionCheckComponent implements OnInit {
       return;
     }
     let faceValue;
-    switch(this.selectedFace) {
+    switch (this.selectedFace) {
       case 'dissatisfied':
         faceValue = 1;
         break;
@@ -44,10 +46,18 @@ export class SatisfactionCheckComponent implements OnInit {
         faceValue = 3;
         break;
     }
-    this.satisfactionCheckDone.emit({ satisfaction: faceValue, message: this.satisfactionCheckForm.get('message').value });
+    this.satisfactionCheckDone.emit({ satisfaction: faceValue, message: this.messageControl.value });
   }
 
   selectFace(face) {
     this.selectedFace = face;
+    if (this.selectedFace == 'satisfied') {
+      this.messageControl.clearValidators();
+    } else {
+      this.messageControl.setValidators([Validators.required, Validators.minLength(2)]);
+    }
+    this.messageControl.markAsDirty();
+    this.messageControl.markAsTouched();
+    this.messageControl.updateValueAndValidity();
   }
 }

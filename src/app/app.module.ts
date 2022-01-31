@@ -45,6 +45,8 @@ import { MailingListManagerComponent } from './components/mailing-list-manager/m
 import { ConfirmAlertDialogComponent } from './components/check-validation-code/confirm-alert-dialog/confirm-alert-dialog.component';
 import { PolitiqueProtectionDonneesComponent } from './components/politique-protection-donnees/politique-protection-donnees.component';
 import { DownloadErrorComponent } from './components/download/download-error/download-error.component';
+import { SatisfactionMessageComponent } from './components/satisfaction-message/satisfaction-message.component';
+import { ContactEndMessageComponent } from './components/contact-end-message/contact-end-message.component';
 
 registerLocaleData(localeFr);
 const initializer = (pwaService: PwaService) => () =>
@@ -88,7 +90,9 @@ const initializer = (pwaService: PwaService) => () =>
     MailingListManagerComponent,
     ConfirmAlertDialogComponent,
     PolitiqueProtectionDonneesComponent,
-    DownloadErrorComponent
+    DownloadErrorComponent,
+    SatisfactionMessageComponent,
+    ContactEndMessageComponent
   ],
   imports: [
     HttpClientModule,

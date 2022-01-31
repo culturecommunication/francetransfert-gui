@@ -7,14 +7,18 @@
         <mat-card-title *ngIf="(flow.transfers$ | async).transfers.length === 1">
             <span>{{(flow.transfers$ |
                 async).transfers.length}} élément {{filesSize | filesize}} / {{filesSizeLimit | filesize}}</span>
-            <mat-icon *ngIf="screenWidth === 'sm' && !expanded" (click)="expandList()" aria-label="Afficher la liste">expand_less</mat-icon>
-            <mat-icon *ngIf="screenWidth === 'sm' && expanded" (click)="expandList()" aria-label="Masquer la liste">expand_more</mat-icon>
+            <mat-icon *ngIf="screenWidth === 'sm' && !expanded" (click)="expandList()" aria-label="Afficher la liste">
+                expand_less</mat-icon>
+            <mat-icon *ngIf="screenWidth === 'sm' && expanded" (click)="expandList()" aria-label="Masquer la liste">
+                expand_more</mat-icon>
         </mat-card-title>
         <mat-card-title *ngIf="(flow.transfers$ | async).transfers.length > 1">
             <span>{{(flow.transfers$ |
                 async).transfers.length}} éléments {{filesSize | filesize}} / {{filesSizeLimit | filesize}}</span>
-            <mat-icon *ngIf="screenWidth === 'sm'  && !expanded" (click)="expandList()" aria-label="Afficher la liste">expand_less</mat-icon>
-            <mat-icon *ngIf="screenWidth === 'sm' && expanded" (click)="expandList()" aria-label="Masquer la liste">expand_more</mat-icon>
+            <mat-icon *ngIf="screenWidth === 'sm'  && !expanded" (click)="expandList()" aria-label="Afficher la liste">
+                expand_less</mat-icon>
+            <mat-icon *ngIf="screenWidth === 'sm' && expanded" (click)="expandList()" aria-label="Masquer la liste">
+                expand_more</mat-icon>
         </mat-card-title>
     </mat-card-header>
     <mat-card-header class="list-elements-card-header" *ngIf="errorMessage !== ''">
@@ -29,22 +33,26 @@
             [transfer]="transfer" (itemAdded)="onItemAdded($event)" (deletedTransfer)="deleteTransfer($event)">
         </ft-file-item>
         <div class="list-elements-add-elements-wrapper">
-            <mat-icon *ngIf="flowAttributes" flowButton [flowAttributes]="{ accept: '*/*' }" [flow]="flow.flowJs"
-                class="list-elements-card-content-icon" aria-label="Ajoutez-vos fichiers">add_circle</mat-icon>
-            <mat-label>
+            <button mat-icon-button flowButton [flowAttributes]="{ accept: '*/*' }" [flow]="flow.flowJs">
+                <mat-icon class="list-elements-card-content-icon" aria-label="Ajoutez-vos fichiers">add_circle
+                </mat-icon>
+            </button>
+            <label>
                 <span class="list-elements-card-content-first-line">Ajoutez-vos fichiers et dossiers ou déposez-les
                     ici</span>
-            </mat-label>
+            </label>
         </div>
     </mat-card-content>
     <ng-template #emptyList>
         <mat-card-content class="list-elements-card-content empty">
-            <mat-icon *ngIf="flowAttributes" flowButton [flowAttributes]="{ accept: '*/*' }" [flow]="flow.flowJs"
-                class="list-elements-card-content-icon" aria-label="Ajoutez-vos fichiers">add_circle</mat-icon>
-            <mat-label>
+            <button mat-icon-button flowButton [flowAttributes]="{ accept: '*/*' }" [flow]="flow.flowJs">
+                <mat-icon class="list-elements-card-content-icon" aria-label="Ajoutez-vos fichiers">add_circle
+                </mat-icon>
+            </button>
+            <label>
                 <span class="list-elements-card-content-first-line">Ajoutez-vos fichiers et dossiers</span><br />
                 <span class="list-elements-card-content-second-line">ou déposez-les ici</span>
-            </mat-label>
+            </label>
         </mat-card-content>
     </ng-template>
 </mat-card>

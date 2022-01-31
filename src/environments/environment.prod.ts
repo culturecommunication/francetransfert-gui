@@ -9,7 +9,9 @@ export const environment = {
       confirmationCode: 'api-private/upload-module/validate-code',
       rate: 'api-private/upload-module/satisfaction',
       validateMail: 'api-private/upload-module/validate-mail',
-      config: 'api-private/upload-module/config'
+      config: 'api-private/upload-module/config',
+      allowedSenderMail : 'api-private/upload-module/allowed-sender-mail',
+      formulaireContact : 'api-private/upload-module/sender-contact'
     },
     download: {
       download: 'api-private/download-module/download-info',
@@ -25,5 +27,5 @@ export const environment = {
       fileInfos: 'api-private/upload-module/file-info'
     }
   },
-  version: '3.0.0'
+  version: '3.1.0'
 };

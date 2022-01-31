@@ -32,8 +32,7 @@
         <nav>
             <ul class="footer-toolbar-row-mentions-links">
                 <li>
-                    <a href="https://www.culture.gouv.fr/Nous-contacter/#novaform" target="_blank"
-                        class="link">Contact</a>
+                    <a routerLink="/contact" class="link" (click)="routeTo('/contact')">Contact</a>
                 </li>
                 <span class="col-separator"></span>
                 <li>
@@ -53,7 +52,7 @@
             </ul>
         </nav>
         <div class="footer-toolbar-row-mentions-text">
-            <span>Sauf mention contraire, tous les textes de ce site sont sous licence etatlab-2.0</span>
+            <span>Sauf mention contraire, tous les textes de ce site sont sous licence etalab-2.0</span>
             <span>Version : {{version}}</span>
         </div>
     </mat-toolbar-row>

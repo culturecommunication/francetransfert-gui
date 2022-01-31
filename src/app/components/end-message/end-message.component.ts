@@ -12,6 +12,7 @@ export class EndMessageComponent implements OnInit {
   @Input() availabilityDate: Date
   @Input() uploadFailed: boolean = false;
   @Output() backToHomeEvent: EventEmitter<any> = new EventEmitter();
+  @Input() publicLink: boolean = false;
 
   constructor(private _router: Router) { }
 
