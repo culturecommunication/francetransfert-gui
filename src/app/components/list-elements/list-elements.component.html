@@ -33,7 +33,7 @@
             [transfer]="transfer" (itemAdded)="onItemAdded($event)" (deletedTransfer)="deleteTransfer($event)">
         </ft-file-item>
         <div class="list-elements-add-elements-wrapper">
-            <button mat-icon-button flowButton [flowAttributes]="{ accept: '*/*' }" [flow]="flow.flowJs">
+            <button mat-icon-button flowButton [flow]="flow.flowJs">
                 <mat-icon class="list-elements-card-content-icon" aria-label="Ajoutez-vos fichiers">add_circle
                 </mat-icon>
             </button>
@@ -45,7 +45,7 @@
     </mat-card-content>
     <ng-template #emptyList>
         <mat-card-content class="list-elements-card-content empty">
-            <button mat-icon-button flowButton [flowAttributes]="{ accept: '*/*' }" [flow]="flow.flowJs">
+            <button mat-icon-button flowButton [flow]="flow.flowJs">
                 <mat-icon class="list-elements-card-content-icon" aria-label="Ajoutez-vos fichiers">add_circle
                 </mat-icon>
             </button>
