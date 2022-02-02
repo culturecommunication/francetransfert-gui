@@ -1,7 +1,7 @@
 .list-elements-card {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;   
+    justify-content: flex-start;
     display: -webkit-flex;
     -webkit-flex-direction: column;
     -webkit-justify-content: flex-start;
@@ -13,8 +13,8 @@
         -webkit-align-self: flex-start;
         display: -webkit-flex;
         -webkit-flex-direction: column;
-        border-bottom: 1px solid var(--ft-asset);  
-        
+        border-bottom: 1px solid var(--ft-asset);
+
         .error-message {
             color: var(--ft-error);
         }
@@ -30,7 +30,7 @@
         -webkit-align-items: center;
         -webkit-justify-content: space-around;
         -webkit-flex-direction: column;
-        text-align: center; 
+        text-align: center;
         width: 100%;
 
         mat-label {
@@ -44,7 +44,7 @@
     .list-elements-card-content {
         overflow-x: hidden;
         overflow-y: auto;
-        width: 100%;        
+        width: 100%;
         margin-top: 10px;
         display: flex;
         flex-direction: column;
@@ -83,10 +83,10 @@
             .list-elements-card-content-first-line {
                 font-size: 16px;
                 line-height: 24px;
-                margin-top: 10px;                
+                margin-top: 10px;
             }
         }
-    }    
+    }
 }
 
 .list-elements-card.empty {
@@ -123,11 +123,11 @@
                     max-width: 80%;
                 }
             }
-        }    
+        }
     }
-    
+
     .list-elements-card.empty {
-        height: 67vh;
+        height: 73vh;
     }
 }
 
@@ -149,7 +149,7 @@
             height: 100%;
         }
         .list-elements-card-content {
-            max-height: 280px;    
+            max-height: 280px;
             .file-item {       }
             .list-elements-card-content-icon {
             }
@@ -160,13 +160,13 @@
             .list-elements-add-elements-wrapper {
                 width: 100%;
                 justify-content: center;
-                -webkit-justify-content: center;                
+                -webkit-justify-content: center;
                 .list-elements-card-content-first-line {
                 }
             }
-        }    
+        }
     }
-    
+
     .list-elements-card.empty {
         height: 50%;
     }
@@ -193,7 +193,7 @@
             height: 50%;
         }
         .list-elements-card-content {
-            .file-item {       
+            .file-item {
             }
             .list-elements-card-content-icon {
             }
@@ -211,9 +211,9 @@
                 .list-elements-card-content-first-line {
                 }
             }
-        }    
+        }
     }
-    
+
     .list-elements-card.empty {
         height: calc(100vh - 122px);
     }
