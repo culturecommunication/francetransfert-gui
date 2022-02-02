@@ -14,6 +14,7 @@ export class FileItemComponent implements OnInit {
   @Output() itemAdded: EventEmitter<FTTransferModel<Transfer>> = new EventEmitter();
   @Output() deletedTransfer: EventEmitter<Transfer>;
 
+
   constructor() {
     this.deletedTransfer = new EventEmitter();
   }
