@@ -39,7 +39,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.mimetype = config.mimeType;
       this.extension = config.extension;
       //Not used yet to limit file selection
-      this.flowAttributes = { accept: this.mimetype };
+      //this.flowAttributes = { accept: this.mimetype };
     })
 
   }
