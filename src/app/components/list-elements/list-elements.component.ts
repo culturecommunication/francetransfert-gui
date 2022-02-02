@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { FileManagerService, MailingListService } from 'src/app/services';
 import { ConfigService } from 'src/app/services/config/config.service';
+import {SatisfactionMessageComponent} from "../satisfaction-message/satisfaction-message.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'ft-list-elements',
@@ -30,7 +32,8 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private cdr: ChangeDetectorRef,
     private fileManagerService: FileManagerService,
-    private configService: ConfigService) {
+    private configService: ConfigService,
+              private _snackBar: MatSnackBar) {
 
     this.configService.getConfig().pipe(take(1)).subscribe((config: any) => {
       this.mimetype = config.mimeType;
@@ -67,7 +70,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param {Transfer} transfer
    */
   trackTransfer(transfer: any): string {
-    return transfer.id;
+    return transfer;
   }
 
   /**
@@ -164,5 +167,13 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
     // on return la taille du dossier pour gérer le recurse
     return tmpSize;
   }
+
+  openSnackBar(duration: number, transfer : any) {
+    if(transfer === this.transfers.length){
+    this._snackBar.openFromComponent(SatisfactionMessageComponent,{
+      panelClass : 'panel-success',
+      duration:duration
+    });
+  }}
 }
 

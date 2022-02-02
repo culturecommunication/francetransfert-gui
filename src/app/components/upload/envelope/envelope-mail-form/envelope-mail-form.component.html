@@ -23,7 +23,7 @@
             <mat-label>Destinataire(s) *</mat-label>
             <input id="recipientmail" name="recipientmail" matInput
                 placeholder="les adresses courriels des destinataires" formControlName="to"
-                [errorStateMatcher]="matcher" (blur)="onBlurDestinataires()">
+                [errorStateMatcher]="matcher" #dest (blur)="onBlurDestinataires();" (keyup.enter)="dest.blur();">
             <mat-icon class="icon-btn" aria-hidden="true" matSuffix matTooltip="Utiliser une liste de contacts"
                 (click)="openMailingListManager()">list_alt
             </mat-icon>
