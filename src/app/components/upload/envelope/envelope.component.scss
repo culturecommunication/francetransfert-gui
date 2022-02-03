@@ -1,8 +1,10 @@
 .envelope-card {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     display: -webkit-flex;
     -webkit-flex-direction: column;
+    -webkit-justify-content: center;
     .envelope-card-content {
         .envelope-card-tab-group {
             ::ng-deep .mat-tab-label-content {
