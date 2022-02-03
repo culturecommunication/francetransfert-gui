@@ -59,7 +59,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     })
     this.envelopeMailFormChangeSubscription = this.envelopeMailForm.valueChanges
       .subscribe(() => {
-        //this.checkDestinatairesList();
+        this.checkDestinatairesList();
         this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
         this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value, ...this.uploadManagerService.envelopeInfos.getValue()?.parameters ? { parameters: this.uploadManagerService.envelopeInfos.getValue().parameters } : {} });
       });
