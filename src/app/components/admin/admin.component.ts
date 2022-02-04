@@ -1,15 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Transfer } from '@flowjs/ngx-flow';
 import * as moment from 'moment';
 import { Subject, Subscription } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import {take, takeUntil} from 'rxjs/operators';
 import { FTTransferModel } from 'src/app/models';
-import { AdminService } from 'src/app/services';
+import {AdminService, UploadService} from 'src/app/services';
 import { AdminAlertDialogComponent } from './admin-alert-dialog/admin-alert-dialog.component';
+import {MyErrorStateMatcher} from "../upload/envelope/envelope-mail-form/envelope-mail-form.component";
 
 @Component({
   selector: 'ft-admin',
@@ -27,14 +28,24 @@ export class AdminComponent implements OnInit, OnDestroy {
   maxDate = new Date();
   errorMessage = '';
   adminErrorsSubscription: Subscription;
+  add: boolean = false;
+  close: boolean = false;
+  emailFormControl: any;
+  matcher = new MyErrorStateMatcher();
+  envelopeMailFormChangeSubscription: Subscription;
+  errorEmail: boolean = false;
+  errorValidEmail: boolean = false;
+  senderOk: boolean = false;
 
   constructor(private _adminService: AdminService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private dialog: MatDialog,
-    private titleService: Title) { }
+    private titleService: Title,
+    private uploadService: UploadService,) { }
 
   ngOnInit(): void {
+    this.initForm();
     this.titleService.setTitle('France transfert - Administration d\'un pli');
     this._activatedRoute.queryParams.pipe(takeUntil(this.onDestroy$)).subscribe((params: Array<{ string: string }>) => {
       this.params = params;
@@ -66,7 +77,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   onPickerClose() {
-    // call api + reload   
+    // call api + reload
     let formattedDate = moment(this.validUntilDate.value).format('DD-MM-yyyy');
     const body = {
       "enclosureId": this.params['enclosure'],
@@ -104,6 +115,67 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.onDestroy$.next();
     this.onDestroy$.complete();
     this.adminErrorsSubscription.unsubscribe();
+  }
+
+  deleteRecipient(index, dest) {
+    this.fileInfos.recipientsMails.splice(index, 1);
+  }
+
+  addRecipient() {
+      this.add = !this.add;
+      this.close = !this.close;
+      this.initForm();
+  }
+
+  onBlurDestinataires() {
+      if(this.emailFormControl.errors == null){
+          this.errorEmail = false;
+          this.checkDestinataire(this.emailFormControl.value);
+      }else{
+        this.errorEmail = true;
+      }
+  }
+
+  initForm() {
+    this.emailFormControl = new FormControl('', [Validators.email]);
+    this.envelopeMailFormChangeSubscription = this.emailFormControl.valueChanges
+      .subscribe(() => {
+        this.checkDestinataire(this.emailFormControl.value);
+      });
+  }
+
+  checkDestinataire(email: any) {
+    let destOk = false;
+    if(this.emailFormControl.errors == null){
+      this.errorEmail = false;
+      this.uploadService.validateMail([this.fileInfos.senderEmail]).pipe(
+        take(1)).subscribe((isValid: boolean) => {
+          this.senderOk = isValid;
+          if(!this.senderOk && !this.errorEmail){
+            this.uploadService.validateMail([email]).pipe(
+              take(1)).subscribe((valid: boolean)=>{
+                destOk = valid;
+                if(destOk){
+                  //appeler le back
+                  this.fileInfos.recipientsMails.push(email);
+                  this.errorValidEmail= false;
+                }else{
+                  this.errorValidEmail= true;
+                }
+            })
+          }else{
+            if(!this.errorEmail){
+              //appeler le back
+              this.fileInfos.recipientsMails.push(email);
+            }
+          }
+      })}else{
+      this.errorEmail = true;}
+
+  }
+
+  checkEmail(email: any){
+
   }
 
 }
