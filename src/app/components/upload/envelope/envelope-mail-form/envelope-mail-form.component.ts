@@ -9,6 +9,7 @@ import { debounceTime, distinctUntilChanged, take, takeUntil } from 'rxjs/operat
 import { MailingListManagerComponent } from 'src/app/components';
 import { MailInfosModel } from 'src/app/models';
 import { UploadManagerService, UploadService } from 'src/app/services';
+import { saveAs } from 'file-saver';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -215,6 +216,13 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
           this.envelopeMailForm.controls['from'].setErrors(error);
         }
       })
+  }
+
+  exportDataCSV() {
+    let data = this.destinatairesList;
+    let csv = data.join(';');
+    var blob = new Blob([csv], {type: 'text/csv' })
+    saveAs(blob, "listeDestinataires.csv");
   }
 
 }
