@@ -23,7 +23,7 @@
     "@angular/service-worker": "13.2.0",
     "@flowjs/flow.js": "2.14.1",
     "@flowjs/ngx-flow": "0.4.6",
-    "file-saver": "^2.0.5",
+    "file-saver": "2.0.5",
     "moment": "2.29.1",
     "rxjs": "7.5.2",
     "tarteaucitronjs": "1.9.5",
