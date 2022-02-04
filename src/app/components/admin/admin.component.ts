@@ -140,7 +140,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.emailFormControl = new FormControl('', [Validators.email]);
     this.envelopeMailFormChangeSubscription = this.emailFormControl.valueChanges
       .subscribe(() => {
-        this.checkDestinataire(this.emailFormControl.value);
+        //this.checkDestinataire(this.emailFormControl.value);
       });
   }
 
@@ -156,8 +156,8 @@ export class AdminComponent implements OnInit, OnDestroy {
               take(1)).subscribe((valid: boolean)=>{
                 destOk = valid;
                 if(destOk){
-                  //appeler le back
-                  this.fileInfos.recipientsMails.push(email);
+                  //appeler le back;
+                  this.addNewRecipient(email);
                   this.errorValidEmail= false;
                 }else{
                   this.errorValidEmail= true;
@@ -166,7 +166,8 @@ export class AdminComponent implements OnInit, OnDestroy {
           }else{
             if(!this.errorEmail){
               //appeler le back
-              this.fileInfos.recipientsMails.push(email);
+              this.addNewRecipient(email);
+              //this.fileInfos.recipientsMails.push(email);
             }
           }
       })}else{
@@ -174,8 +175,20 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   }
 
-  checkEmail(email: any){
-
+  addNewRecipient(email: any){
+    const body = {
+      "enclosureId": this.params['enclosure'],
+      "token": this.params['token'],
+      "newRecipient": email,
+    }
+    this._adminService
+      .addNewRecipient(body)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(response => {
+        if (response) {
+          this.fileInfos.recipientsMails.push(email);
+        }
+      });
   }
 
 }

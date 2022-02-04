@@ -49,6 +49,19 @@ export class AdminService {
     );
   }
 
+  addNewRecipient(body) {
+    return this._httpClient.post(`${environment.host}${environment.apis.admin.addNewRecipient}`, {
+      enclosureId: body.enclosureId,
+      token: body.token,
+      newRecipient: body.newRecipient
+    }).pipe(map(response => {
+        this.adminError$.next(null);
+        return response;
+      }),
+      catchError(this.handleError('add-new-Recipient'))
+    );
+  }
+
   private handleError(operation: string) {
     return (err: any) => {
       const errMsg = `error in ${operation}()`;
