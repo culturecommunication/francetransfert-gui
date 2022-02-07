@@ -27,5 +27,5 @@ export const environment = {
       fileInfos: 'api-private/upload-module/file-info'
     }
   },
-  version: '3.1.0'
+  version: '3.1.1'
 };
