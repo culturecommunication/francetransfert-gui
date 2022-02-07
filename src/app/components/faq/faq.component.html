@@ -6,43 +6,89 @@
         <mat-card-content class="faq-card-content">
             <h2 #pourquoift>Pourquoi France transfert ?</h2>
             <p>
-                <span>France transfert est un service créé par le ministère de la culture pour aider ses usagers (citoyens, professionnels, entreprises, associations…) à envoyer (aux services du ministère de la culture) ou recevoir (des services du ministère de la culture), des fichiers et dossiers volumineux qui ne peuvent pas transiter par les messageries électroniques.</span>
-                <span>C’est un service hébergé en France (Outscale). Les données sont donc stockées sur des serveurs français le temps qu’elles soient téléchargées par leur destinataire.</span>
+                <span>France transfert est un service créé par le ministère de la culture pour aider ses usagers (citoyens, professionnels, entreprises, associations…) à envoyer (aux agents de
+                  l’Etat) ou recevoir (des agents de l’Etat), des fichiers et dossiers volumineux qui ne peuvent pas transiter par les messageries électroniques. </span>
+                <span>C’est un service hébergé en France (société Outscale). Les données sont donc stockées sur des serveurs français le temps qu’elles soient
+                  téléchargées par leur destinataire.</span>
             </p>
             <h2 #usagepersonnel>Puis-je me servir de France transfert pour mon usage personnel ?</h2>
             <p>
-                <span>France transfert est réservé aux échanges de fichiers volumineux entre services de l’administration (pour le moment, les services du ministère de la culture) et ses usagers.</span>
+                <span>France transfert est réservé aux échanges de fichiers volumineux entre services de l’administration et ses usagers. </span>
                 <span>Il n’est pas possible d’échanger des fichiers entre usagers.</span>
             </p>
-            <h2 #quedeviennentlesfichiers>Que deviennent les fichiers que j’ai transmis une fois qu’ils ont été téléchargés par le destinataire que j’ai indiqué ? </h2>
+            <h2 #deuxfaçondutiliserfrancetransfert>Deux façons d’utiliser France transfert ?</h2>
+            <p>
+                <span>France transfert peut être utiliser de deux façons différentes : </span>
+
+            </p>
+            <ul>
+              <li>
+                <span>Pour un envoi courriel, accessible aux agents de l’Etat tout comme aux usagers. Cette fonctionnalité permet à un expéditeur (agent de l’Etat ou usager) de transmettre des fichiers volumineux à un ou plusieurs destinataires connus. Attention toutefois, si l’expéditeur est un
+                  usager, le ou les destinataires doivent être obligatoirement des agents de l’Etat. Il n’y pas de transfert entre usagers. </span>
+              </li>
+              <li>
+                <span>Pour la fonctionnalité « lien », elle n’est autorisée que pour les agents de l’Etat. Elle permet de générer un lien public vers les fichiers. L’expéditeur devra transmettre ce lien avec le mot de passe aux personnes qu’il juge nécessaire. La différence réside dans le fait que
+                  les destinataires peuvent ensuite transmettre ce lien sans que l’expéditeur puisse en contrôler le téléchargement.</span>
+              </li>
+            </ul>
+            <h2 #utilisationsurmobile>Puis-je utiliser France transfert sur mobile ?</h2>
+            <p>
+              <span>
+                Oui le service a été conçu comme une Progressive Web App et peut donc être installé comme une application (le navigateur internet invite l'utilisateur à installer France transfert comme application).
+              </span>
+            </p>
+            <h2 #codedeconfirmation>Pourquoi me demande-t-on un code de confirmation avant de procéder à l’envoi ?</h2>
+            <p>
+                  <span>Des personnes pourraient utiliser France transfert à des fins personnelles en « empruntant » l’adresse courriel d’un agent de l’Etat ou d’un usager. Pour éviter cela, un courriel contenant
+                    un code de confirmation est envoyé à l’expéditeur.</span>
+              <span>Au moment de l’ajout des fichiers à transférer, il est alors demandé de saisir ce code de confirmation,
+                dont la durée de validité est de 10 min. </span>
+            </p>
+            <h2 #traitementapreslenvoiedesfichiers>Que se passe-t-il après l’envoi de mes fichiers ?</h2>
+            <p>
+              <span>Une fois les fichiers envoyés vers France transfert, ils subissent une analyse antivirale qui peut conduire à leur suppression. </span>
+              <span>Si l’analyse s’est bien passée, un courriel de confirmation d’envoi est transmis à l’expéditeur ainsi que le mot de passe associé à ce pli. Les destinataires reçoivent un courriel avec un
+                    lien de téléchargement et un mot de passe dans un courriel séparé. </span>
+              <span>Si l'analyse antivirale prend du temps (pli de grosse volumétrie) alors l'envoi du courriel de confirmation peut tarder à arriver. Dans tous les cas l'expéditeur reçoit un courriel soit d'erreur (si problème de sécurité), soit de confirmation
+                    (dans ce cas les destinataires reçoivent eux aussi chacun un courriel avec les instructions de téléchargement).</span>
+            </p>
+            <h2 #quedeviennentlesfichiers>Que deviennent les fichiers que j’ai transmis une fois qu’ils ont été téléchargés par le destinataire que j’ai indiqué ?</h2>
             <p>
                 <span>Les fichiers sont tous supprimés après le téléchargement par l’ensemble des destinataires indiqués, dans la limite de 30 jours maximum.</span>
             </p>
-            <h2 #ouvontlesfichiers>Où vont les fichiers téléchargés ? </h2>
+            <h2 #ouvontlesfichiers>Où vont les fichiers téléchargés ?</h2>
             <p>
-                <span>Les fichiers sont téléchargés par votre navigateur. En fonction de son paramétrage, il se peut qu’ils aillent directement dans le dossier « téléchargements » ou bien que la question de l’emplacement vous soit posée.</span>
+                <span>Les fichiers sont téléchargés par votre navigateur. En fonction de son paramétrage, il se peut qu’ils aillent directement dans le dossier
+                  « téléchargements » ou bien que la question de l’emplacement vous soit posée.</span>
             </p>
-            <h2 #codedeconfirmation>Pourquoi me demande-t-on un code de confirmation ? </h2>
-            <p>
-                <span>Des personnes pourraient utiliser France transfert à des fins personnelles en « empruntant » l’adresse courriel d’un agent du ministère de la culture. Pour éviter cela, un courriel contenant un code de confirmation est envoyé aux personnes indiquant que leur adresse courriel est ---@culture.gouv.fr.</span>
-                <span>Au moment de l’ajout des fichiers à transférer, il est alors demandé de saisir ce code de confirmation, dont la durée de validité est de 10 mn. </span>
-            </p>
+
             <h2 #limitedetaille>Existe-il une limite de taille de transfert de fichiers sur France transfert ? </h2>
             <p>
-                <span>France transfert permet d’envoyer jusqu’à 20 Go de fichiers et dossiers par transfert.</span>
+                <span>France transfert permet d’envoyer jusqu’à 20 Go de fichiers et dossiers par transfert en faisant attention
+                  que chacun des fichiers respecte la taille maximale de 2Go.</span>
             </p>
             <h2 #extensionsdefichiers>Quelles extensions de fichiers puis-je envoyer sur France transfert ? </h2>
             <p>
-                <span>Toutes les extensions communes de fichiers sont téléchargeables sur France transfert, sauf, pour des raisons de sécurité, certains fichiers exécutables ou scripts informatiques qui pourraient contenir des virus. Lorsque vous envoyez un fichier, assurez-vous néanmoins que votre destinataire puisse lire vos documents. </span>
+                <span>Toutes les extensions communes de fichiers sont téléchargeables sur France transfert, sauf, pour des raisons
+                  de sécurité, certains fichiers exécutables ou scripts informatiques qui pourraient contenir des virus. </span>
+                <span>Liste des extensions de fichiers interdites : </span>
+                <span>« ade,adp,app,asp,aspx,asx,bas,bat,cer,chm,cmd,cnt,com,cpl,crt,csh,der,diagcab,exe,fxp,gadget,grp,hlp,hpj,hta,htc,inf,ins,isp,its,jar,jnlp,js,jse,ksh,
+                      lnk,mad,maf,mag,mam,maq,mar,mas,mat,mau,mav,maw,mcf,mda,mdb,mde,mdt,mdw,mdz,msc,msh,msh1,msh2,mshxml,msh1xml,msh2xml,msi,
+                      msp,mst,msu,ops,osd,pcd,pif,pl,plg,prf,prg,printerexport,ps1,ps1xml,ps2,ps2xml,psc1,psc2,psd1,psdm1,pst,py,pyc,pyo,pyw,pyz,pyzw,reg,scf,scr,sct,
+                      shb,shs,theme,tmp,url,vb,vbe,vbp,vbs,vhd,vhdx,vsmacros,vsw,webpnp,website,ws,wsc,wsf,wsh,xbap,xll,xnk »</span>
+                <span>Lorsque vous envoyez un fichier, assurez-vous néanmoins que votre destinataire puisse lire vos documents.</span>
             </p>
             <h2 #listededistribution>Puis-je utiliser une liste de distribution ? </h2>
             <p>
-                <span>Pour envoyer vos fichiers à plusieurs destinataires différents en une seule opération, il est possible de copier/coller la liste des adresses courriels (séparés par un « ; » ou un « , » dans la zone « envoyer à »). </span>
+                <span>Pour envoyer vos fichiers à plusieurs destinataires différents en une seule opération, il est possible d’importer un fichier de type csv
+                  (en respectant le séparateur « ; » entre chaque courriel) comportant la liste des destinataires.  </span>
             </p>
             <h2 #questionnairedesatisfaction>À quoi sert le questionnaire de satisfaction ? </h2>
             <p>
-                <span>Si vous remplissez le questionnaire de satisfaction, la note que vous laissez est enregistrée à des fins exclusives de statistiques.</span>
-                <span>Les commentaires éventuellement laissés vous permettent de vous exprimer de manière libre sur le service. Le ministère de la culture examinera les commentaires mais ne peut s’engager, ni à y répondre individuellement, ni à mettre en œuvre les suggestions proposées. </span>
+                <span>Le questionnaire est anonyme. Il sera utilisé à des fins statistiques et d’améliorations. </span>
+                <span>Si vous remplissez le questionnaire de satisfaction, la note que vous laissez est enregistrée à des fins exclusives de statistiques.
+                  Les commentaires éventuellement laissés vous permettent de vous exprimer de manière libre sur le service.  </span>
+                <span>L’équipe produit examinera les commentaires mais ne peut s’engager, ni à y répondre individuellement, ni à mettre en œuvre les suggestions proposées.</span>
             </p>
         </mat-card-content>
     </mat-card>
