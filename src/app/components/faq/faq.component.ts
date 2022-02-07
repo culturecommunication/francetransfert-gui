@@ -19,8 +19,11 @@ export class FaqComponent implements OnInit, AfterViewInit {
   @ViewChild('extensionsdefichiers') private extensionsdefichiersFragment: ElementRef;
   @ViewChild('listededistribution') private listededistributionFragment: ElementRef;
   @ViewChild('questionnairedesatisfaction') private questionnairedesatisfactionFragment: ElementRef;
+  @ViewChild('traitementapreslenvoiedesfichiers') private traitementapreslenvoiedesfichiers: ElementRef;
+  @ViewChild('utilisationsurmobile') private utilisationsurmobile: ElementRef;
+  @ViewChild('deuxfaçondutiliserfrancetransfert') private deuxfaçondutiliserfrancetransfert: ElementRef;
 
-  constructor(private titleService: Title, 
+  constructor(private titleService: Title,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -45,14 +48,23 @@ export class FaqComponent implements OnInit, AfterViewInit {
       case 'usagepersonnel':
         this.usagepersonnelFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
         break;
+      case 'deuxfaçondutiliserfrancetransfert':
+        this.deuxfaçondutiliserfrancetransfert.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        break;
+      case 'utilisationsurmobile':
+        this.utilisationsurmobile.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        break;
+      case 'codedeconfirmation':
+        this.codedeconfirmationFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        break;
+      case 'traitementapreslenvoiedesfichiers':
+        this.traitementapreslenvoiedesfichiers.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        break;
       case 'quedeviennentlesfichiers':
         this.quedeviennentlesfichiersFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
         break;
       case 'ouvontlesfichiers':
         this.ouvontlesfichiersFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
-        break;
-      case 'codedeconfirmation':
-        this.codedeconfirmationFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
         break;
       case 'limitedetaille':
         this.limitedetailleFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
