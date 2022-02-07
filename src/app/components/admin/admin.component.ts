@@ -96,7 +96,6 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   deleteFile() {
     const dialogRef = this.dialog.open(AdminAlertDialogComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this._adminService
@@ -186,7 +185,8 @@ export class AdminComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(response => {
         if (response) {
-          this.fileInfos.recipientsMails.push(email);
+          //this.fileInfos.recipientsMails.push(email);
+          window.location.reload();
         }
       });
   }
