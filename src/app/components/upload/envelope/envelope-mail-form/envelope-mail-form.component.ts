@@ -221,7 +221,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   exportDataCSV() {
     let data = this.destinatairesList;
     let csv = data.join(';');
-    var blob = new Blob([csv], {type: 'text/csv' })
+    var blob = new Blob([csv], { type: 'text/csv' })
     saveAs(blob, "listeDestinataires.csv");
   }
 
