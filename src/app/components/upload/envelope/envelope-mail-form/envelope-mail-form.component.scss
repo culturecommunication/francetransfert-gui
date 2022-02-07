@@ -15,14 +15,16 @@
       white-space: normal!important;
     }
 
+    .icon-download{
+      margin-left: auto;
+      order: 2;
+    }
+    
     .mat-form-field {
         width: 100%;
 
         .icon-btn {
             cursor: pointer;
-            .icon-download{
-              margin-left: 92%;
-            }
         }
     }
     .link {

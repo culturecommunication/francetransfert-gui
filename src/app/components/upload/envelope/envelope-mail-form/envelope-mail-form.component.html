@@ -37,8 +37,8 @@
     </div>
 
     <div class="envelope-mail-form-group">
-        <mat-chip-list class="destinataires-chip-list">
-          <mat-icon class="icon-btn icon-download" style="margin-left: 95%; cursor: pointer" aria-hidden="true" matSuffix matTooltip="Exporter ma liste de destinataires au format CSV"
+        <mat-chip-list *ngIf="destinatairesList && destinatairesList.length > 0" class="destinataires-chip-list">
+          <mat-icon class="icon-btn icon-download" aria-hidden="true" matSuffix matTooltip="Exporter ma liste de destinataires au format CSV"
                     (click)="exportDataCSV() ">cloud_download</mat-icon>
             <mat-chip *ngFor="let dest of destinatairesList; let index = index" class="destinataires-chip"
                 (click)="deleteDestinataire(index)">{{dest}}</mat-chip>
