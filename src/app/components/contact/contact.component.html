@@ -65,8 +65,8 @@
           </figure>
         </div>
         <div class="captcha-button">
-          <button mat-icon-button color="primary" matTooltip="Changer l'image" (click)="resetUuid()"
-            aria-label="Changer l'image">
+          <button mat-icon-button color="primary" matTooltip="Changer le captcha" (click)="resetUuid()"
+            aria-label="Changer le captcha">
             <mat-icon>refresh
             </mat-icon>
           </button>
@@ -74,7 +74,7 @@
           <button mat-icon-button color="primary"
             [matTooltip]="captchaType == 'IMAGE' ? 'Passer à un captcha audio':'Passer à un captcha visuel'"
             (click)="switchType()"
-            [aria-label]="captchaType == 'IMAGE' ? 'Passer à un captcha audio':'Passer à un captcha visuel' ">
+            [attr.aria-label]="captchaType == 'IMAGE' ? 'Passer à un captcha audio':'Passer à un captcha visuel' ">
             <mat-icon *ngIf="captchaType == 'IMAGE'">volume_up
             </mat-icon>
             <mat-icon *ngIf="captchaType == 'AUDIO'">image
