@@ -58,8 +58,8 @@ export class PwaService {
     if (this.platform.ANDROID) {
       window.addEventListener('beforeinstallprompt', (event: any) => {
         console.log('event origin : ' + event.origin);
-        console.log('window href : ' + window.location.href);
-        if (event.origin !== window.location.origin) {
+        console.log('window href : ' + window.location.origin);
+        if (event.origin && event.origin !== window.location.origin) {
           return;
         }
         event.preventDefault();
