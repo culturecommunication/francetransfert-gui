@@ -23,7 +23,10 @@ export const environment = {
       deleteFile: 'api-private/upload-module/delete-file',
       updateExpiredDate: 'api-private/upload-module/update-expired-date',
       fileInfos: 'api-private/upload-module/file-info'
+    },
+    captcha: {
+      url: '/captcha/captcha/'
     }
   },
-  version: '3.1.1'
+  version: '3.2.0'
 };

@@ -1,67 +1,100 @@
 <form [formGroup]="formulaireContactForm" class="contact-container">
-<div class="card-formulaire">
-  <div class="contact-parameters">
-    <div class="contact-header ">
-      <span>Contact</span>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="befor-field">
-      <span>Les champs marqués d'une * sont obligatoires</span>
-    </div>
+  <div class="card-formulaire">
+    <div class="contact-parameters">
+      <div class="contact-header ">
+        <span>Contact</span>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="befor-field">
+        <span>Les champs marqués d'une * sont obligatoires</span>
+      </div>
 
-    <mat-form-field class="field-contact">
-      <mat-label>Votre nom</mat-label>
-      <input id="nom" name="nom" matInput placeholder="Dupont" formControlName="nom">
-    </mat-form-field>
-
-    <mat-form-field class="field-contact" >
-      <mat-label>Votre prénom</mat-label>
-      <input id="prenom" name="prenom" matInput placeholder="Jean" formControlName="prenom">
-    </mat-form-field>
-
-    <div class="field-contact" >
-      <mat-form-field>
-        <mat-label>Votre courriel  </mat-label>
-        <input id="sendercourriel" name="courriel" matInput placeholder="jean.dupont@domaine.fr" formControlName="from"
-               required autocomplete="email">
-        <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
-        <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise
-          (JEAN.DUPONT@EMAIL.COM).</mat-error>
+      <mat-form-field class="field-contact">
+        <mat-label>Votre nom</mat-label>
+        <input id="nom" name="nom" matInput placeholder="Dupont" formControlName="nom">
       </mat-form-field>
+
+      <mat-form-field class="field-contact">
+        <mat-label>Votre prénom</mat-label>
+        <input id="prenom" name="prenom" matInput placeholder="Jean" formControlName="prenom">
+      </mat-form-field>
+
+      <div class="field-contact">
+        <mat-form-field>
+          <mat-label>Votre courriel </mat-label>
+          <input id="sendercourriel" name="courriel" matInput placeholder="jean.dupont@domaine.fr"
+            formControlName="from" required autocomplete="email">
+          <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
+          <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise
+            (JEAN.DUPONT@EMAIL.COM).</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="field-contact">
+        <mat-form-field>
+          <mat-label>Votre administration / société </mat-label>
+          <input id="administration" name="administration" matInput placeholder="Votre administration / société"
+            formControlName="administration">
+        </mat-form-field>
+      </div>
+
+      <div class="field-contact">
+        <mat-form-field>
+          <mat-label>Objet</mat-label>
+          <input matInput placeholder="Objet" formControlName="subject" autocomplete="off" required>
+        </mat-form-field>
+      </div>
+
+      <div class="field-contact">
+        <mat-form-field>
+          <mat-label>Message</mat-label>
+          <textarea class="message" matInput formControlName="message" placeholder="Message" autocomplete="off"
+            required></textarea>
+          <mat-error role="alert" *ngIf="f.message.errors?.required">Un message est requis.</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="captcha-container">
+        <div class="captcha-text">
+          <img *ngIf="captchaType == 'IMAGE'" [src]="getImageUrl()" />
+          <figure *ngIf="captchaType == 'AUDIO'">
+            <audio controls [src]="getImageUrl()">
+              Your browser does not support the
+              <code>audio</code> element.
+            </audio>
+          </figure>
+        </div>
+        <div class="captcha-button">
+          <button mat-icon-button color="primary" matTooltip="Changer l'image" (click)="resetUuid()"
+            aria-label="Changer l'image">
+            <mat-icon>refresh
+            </mat-icon>
+          </button>
+
+          <button mat-icon-button color="primary" matTooltip="Passer à un captcha audio" (click)="switchType()"
+            aria-label="Passer à un captcha audio">
+            <mat-icon *ngIf="captchaType == 'IMAGE'">volume_up
+            </mat-icon>
+            <mat-icon *ngIf="captchaType == 'AUDIO'">image
+            </mat-icon>
+          </button>
+        </div>
+        <mat-form-field>
+          <mat-label>Captcha</mat-label>
+          <input class="captcha" matInput formControlName="userResponse" placeholder="captcha" autocomplete="off"
+            required />
+          <mat-error role="alert" *ngIf="f.userResponse.errors?.required">Un captcha est requis.</mat-error>
+          <mat-error role="alert" *ngIf="f.userResponse.errors?.wrong">Le captcha est incorrect</mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+    <div class="card-actions">
+      <mat-card-actions>
+        <button mat-raised-button [disabled]="!canSend" class="card-actions-btn" (click)="send()">Envoyer </button>
+      </mat-card-actions>
     </div>
 
-    <div class="field-contact">
-      <mat-form-field>
-        <mat-label>Votre administration / société </mat-label>
-        <input id="administration" name="administration" matInput
-               placeholder="Votre administration / société" formControlName="administration">
-      </mat-form-field>
-    </div>
-
-    <div class="field-contact">
-      <mat-form-field>
-        <mat-label>Objet</mat-label>
-        <input matInput placeholder="Objet" formControlName="subject" autocomplete="off" required>
-      </mat-form-field>
-    </div>
-
-    <div class="field-contact">
-      <mat-form-field>
-        <mat-label>Message</mat-label>
-        <textarea class="message"  matInput
-                  formControlName="message" placeholder="Message" autocomplete="off" required></textarea>
-        <mat-error role="alert" *ngIf="f.message.errors?.required">Un message est requis.</mat-error>
-      </mat-form-field>
-    </div>
   </div>
-  <div class="card-actions">
-    <mat-card-actions>
-    <button mat-raised-button [disabled]="!canSend" class="card-actions-btn"
-            (click)="send()">Envoyer </button>
-    </mat-card-actions>
-  </div>
-
-</div>
 
 </form>
-
