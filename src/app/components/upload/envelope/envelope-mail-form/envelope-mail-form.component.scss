@@ -45,6 +45,7 @@
     .destinataires-chip-list {
         ::ng-deep .mat-chip-list-wrapper {
             width: 100%;
+            margin: 0px;
         }
         .destinataires-chip {
             background-color: #DBDBEA;
