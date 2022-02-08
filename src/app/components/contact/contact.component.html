@@ -72,9 +72,9 @@
           </button>
 
           <button mat-icon-button color="primary"
-            [matTooltip]="captchaType == 'IMAGE ? 'Passer à un captcha audio':'Passer à un captcha visuel'"
+            [matTooltip]="captchaType == 'IMAGE' ? 'Passer à un captcha audio':'Passer à un captcha visuel'"
             (click)="switchType()"
-            [aria-label]="captchaType == 'IMAGE ? 'Passer à un captcha audio':'Passer à un captcha visuel' ">
+            [aria-label]="captchaType == 'IMAGE' ? 'Passer à un captcha audio':'Passer à un captcha visuel' ">
             <mat-icon *ngIf="captchaType == 'IMAGE'">volume_up
             </mat-icon>
             <mat-icon *ngIf="captchaType == 'AUDIO'">image
