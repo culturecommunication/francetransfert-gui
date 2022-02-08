@@ -31,7 +31,7 @@ export const environment = {
       fileInfos: 'api-private/upload-module/file-info'
     },
     captcha: {
-      url: 'https://sesame.culture.fr/captcha/captcha/'
+      url: 'https://test-francetransfert.aot.agency/captcha/captcha/'
     }
   },
   version: '3.2.0'
