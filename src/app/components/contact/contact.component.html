@@ -57,7 +57,7 @@
       <div class="captcha-container">
         <div class="captcha-text">
           <img *ngIf="captchaType == 'IMAGE'" [src]="getImageUrl()" />
-          <figure *ngIf="captchaType == 'AUDIO'">
+          <figure *ngIf="captchaType == 'SOUND'">
             <audio controls [src]="getImageUrl()">
               Your browser does not support the
               <code>audio</code> element.
@@ -77,7 +77,7 @@
             [attr.aria-label]="captchaType == 'IMAGE' ? 'Passer à un captcha audio':'Passer à un captcha visuel' ">
             <mat-icon *ngIf="captchaType == 'IMAGE'">volume_up
             </mat-icon>
-            <mat-icon *ngIf="captchaType == 'AUDIO'">image
+            <mat-icon *ngIf="captchaType == 'SOUND'">image
             </mat-icon>
           </button>
         </div>
