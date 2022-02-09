@@ -100,7 +100,7 @@ export class ContactComponent implements OnInit {
   }
 
   switchType() {
-    this.captchaType = this.captchaType === 'IMAGE' ? 'AUDIO' : 'IMAGE';
+    this.captchaType = this.captchaType === 'IMAGE' ? 'SOUND' : 'IMAGE';
   }
 
   getImageUrl() {
