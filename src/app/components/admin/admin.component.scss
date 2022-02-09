@@ -5,6 +5,9 @@
     display: -webkit-flex;
     -webkit-justify-content: center;
     -webkit-align-items: center;
+    .big-error{
+      margin-bottom: 2.2rem;
+    }
     .admin-card {
         display: flex;
         flex-direction: column;
@@ -106,6 +109,14 @@
             color: var(--ft-white);
         }
     }
+}
+
+::ng-deep .mat-snack-bar-container{
+  padding: 0px !important;
+  background-color: #FFFFFF;
+  color: #0a0a0a;
+  border-color: #40a02b;
+  border-style: solid;
 }
 
 @media screen and (min-width: 812px) {

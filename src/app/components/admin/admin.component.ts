@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,6 +11,8 @@ import { FTTransferModel } from 'src/app/models';
 import {AdminService, UploadService} from 'src/app/services';
 import { AdminAlertDialogComponent } from './admin-alert-dialog/admin-alert-dialog.component';
 import {MyErrorStateMatcher} from "../upload/envelope/envelope-mail-form/envelope-mail-form.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {AdminEndMsgComponent} from "./admin-end-msg/admin-end-msg.component";
 
 @Component({
   selector: 'ft-admin',
@@ -36,13 +38,14 @@ export class AdminComponent implements OnInit, OnDestroy {
   errorEmail: boolean = false;
   errorValidEmail: boolean = false;
   senderOk: boolean = false;
+  envelopeDestForm: FormGroup;
 
-  constructor(private _adminService: AdminService,
+  constructor(private _adminService: AdminService,private formBuilder: FormBuilder,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private dialog: MatDialog,
     private titleService: Title,
-    private uploadService: UploadService,) { }
+    private uploadService: UploadService, private _snackBar: MatSnackBar,) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -95,7 +98,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   deleteFile() {
-    const dialogRef = this.dialog.open(AdminAlertDialogComponent);
+    const dialogRef = this.dialog.open(AdminAlertDialogComponent,{data:'deletePli'});
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this._adminService
@@ -117,7 +120,26 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   deleteRecipient(index, dest) {
-    this.fileInfos.recipientsMails.splice(index, 1);
+    const dialogRef = this.dialog.open(AdminAlertDialogComponent,{data:'deleteDest'});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const body = {
+          "enclosureId": this.params['enclosure'],
+          "token": this.params['token'],
+          "newRecipient": dest,
+        }
+        this._adminService.deleteRecipient(body).
+        pipe(takeUntil(this.onDestroy$))
+          .subscribe(response => {
+            if (response) {
+              this.fileInfos.recipientsMails.splice(index, 1);
+              this.fileInfos.deletedRecipients.push(dest);
+            }
+          });;
+
+      }
+    });
+
   }
 
   addRecipient() {
@@ -127,19 +149,26 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   onBlurDestinataires() {
+
       if(this.emailFormControl.errors == null){
           this.errorEmail = false;
           this.checkDestinataire(this.emailFormControl.value);
       }else{
         this.errorEmail = true;
+        this.envelopeDestForm.controls['email'].markAsTouched();
+        this.envelopeDestForm.controls['email'].setErrors({ emailError: true });
       }
+
   }
 
   initForm() {
-    this.emailFormControl = new FormControl('', [Validators.email]);
+
+    this.envelopeDestForm = this.formBuilder.group({
+      email : ['', { validators: [Validators.required, Validators.email], updateOn: 'blur' }],
+    });
+    this.emailFormControl = this.envelopeDestForm.get('email');
     this.envelopeMailFormChangeSubscription = this.emailFormControl.valueChanges
       .subscribe(() => {
-        //this.checkDestinataire(this.emailFormControl.value);
       });
   }
 
@@ -158,7 +187,12 @@ export class AdminComponent implements OnInit, OnDestroy {
                   //appeler le back;
                   this.addNewRecipient(email);
                   this.errorValidEmail= false;
+                  this.envelopeDestForm.controls['email'].markAsUntouched();
+                  this.envelopeDestForm.controls['email'].setErrors({ emailNotValid: false });
+
                 }else{
+                  this.envelopeDestForm.controls['email'].markAsTouched();
+                  this.envelopeDestForm.controls['email'].setErrors({ emailNotValid: true });
                   this.errorValidEmail= true;
                 }
             })
@@ -166,11 +200,14 @@ export class AdminComponent implements OnInit, OnDestroy {
             if(!this.errorEmail){
               //appeler le back
               this.addNewRecipient(email);
-              //this.fileInfos.recipientsMails.push(email);
             }
           }
       })}else{
-      this.errorEmail = true;}
+      this.errorEmail = true;
+      this.envelopeDestForm.controls['email'].markAsUntouched();
+      this.envelopeDestForm.controls['email'].setErrors({ emailError: true });}
+
+    this.envelopeDestForm.updateValueAndValidity();
 
   }
 
@@ -185,10 +222,23 @@ export class AdminComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(response => {
         if (response) {
-          //this.fileInfos.recipientsMails.push(email);
-          window.location.reload();
+          this.fileInfos.recipientsMails.push(email);
+          for(let i = 0; i < this.fileInfos.deletedRecipients.length; i++){
+              if(this.fileInfos.deletedRecipients[i] === email){
+                this.fileInfos.deletedRecipients.splice(i,1);
+              }
+          }
+
+          this.envelopeDestForm.get('email').setValue('');
+          this.openSnackBar();
         }
       });
+  }
+
+  openSnackBar() {
+    this._snackBar.openFromComponent(AdminEndMsgComponent,{
+      duration:4000,
+    });
   }
 
 }

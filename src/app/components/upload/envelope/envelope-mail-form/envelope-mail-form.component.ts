@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -28,6 +28,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   @Input() mailFormValues: MailInfosModel;
   envelopeMailForm: FormGroup;
   @Output() public onFormGroupChange = new EventEmitter<any>();
+  @ViewChild('dest')  dest: ElementRef;
   envelopeMailFormChangeSubscription: Subscription;
   senderSubscription: Subscription;
   matcher = new MyErrorStateMatcher();
@@ -35,6 +36,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   destListOk = false;
   senderOk = false;
   errorEmail = false;
+  focusInput : boolean = false;
 
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
@@ -93,6 +95,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
       if (!found) {
         if (this.destinatairesList.length < 100) {
           this.destinatairesList.push(this.envelopeMailForm.get('to').value.toLowerCase());
+          this.dest.nativeElement.focus();
           this.envelopeMailForm.get('to').setValue('');
           this.envelopeMailForm.controls['to'].setErrors(null);
         }

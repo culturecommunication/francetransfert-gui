@@ -48,6 +48,7 @@ import { DownloadErrorComponent } from './components/download/download-error/dow
 import { SatisfactionMessageComponent } from './components/satisfaction-message/satisfaction-message.component';
 import { ContactEndMessageComponent } from './components/contact-end-message/contact-end-message.component';
 import { InfoMsgComponent } from './components/info-msg/info-msg.component';
+import { AdminEndMsgComponent } from './components/admin/admin-end-msg/admin-end-msg.component';
 
 registerLocaleData(localeFr);
 const initializer = (pwaService: PwaService) => () =>
@@ -94,7 +95,8 @@ const initializer = (pwaService: PwaService) => () =>
     DownloadErrorComponent,
     SatisfactionMessageComponent,
     ContactEndMessageComponent,
-    InfoMsgComponent
+    InfoMsgComponent,
+    AdminEndMsgComponent
   ],
   imports: [
     HttpClientModule,

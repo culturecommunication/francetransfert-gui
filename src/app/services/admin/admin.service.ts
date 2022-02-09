@@ -62,6 +62,19 @@ export class AdminService {
     );
   }
 
+  deleteRecipient(body) {
+    return this._httpClient.post(`${environment.host}${environment.apis.admin.deleteRecipient}`, {
+      enclosureId: body.enclosureId,
+      token: body.token,
+      newRecipient: body.newRecipient
+    }).pipe(map(response => {
+        this.adminError$.next(null);
+        return response;
+      }),
+      catchError(this.handleError('delete-Recipient'))
+    );
+  }
+
   private handleError(operation: string) {
     return (err: any) => {
       const errMsg = `error in ${operation}()`;
