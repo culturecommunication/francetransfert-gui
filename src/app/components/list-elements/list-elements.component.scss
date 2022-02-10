@@ -131,6 +131,14 @@
     }
 }
 
+::ng-deep .mat-snack-bar-container{
+  padding: 0px !important;
+  background-color: #FFFFFF;
+  color: #0a0a0a;
+  border-color: blue;
+  border-style: solid;
+}
+
 @media screen and (min-width: 812px) {
     .list-elements-card {
 

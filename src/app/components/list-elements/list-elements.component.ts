@@ -4,8 +4,8 @@ import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { FileManagerService, MailingListService } from 'src/app/services';
 import { ConfigService } from 'src/app/services/config/config.service';
-import {SatisfactionMessageComponent} from "../satisfaction-message/satisfaction-message.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {InfoMsgComponent} from "../info-msg/info-msg.component";
 
 @Component({
   selector: 'ft-list-elements',
@@ -27,6 +27,9 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   mimetype: string[] = [];
   extension: string[] = [];
   flowAttributes: any;
+  firstFile: boolean = true;
+  oldLength: number = 0;
+
 
   uploadSubscription: Subscription;
 
@@ -86,9 +89,15 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.filesSize <= this.filesSizeLimit) {
       this.errorMessage = '';
     }
+    this.oldLength = this.flow.flowJs.files.length;
+    if(this.flow.flowJs.files.length === 0){
+      this.firstFile = true;
+    }
   }
 
-  onItemAdded(event) {
+  onItemAdded(event, index) {
+
+    if(!this.checkExisteFile()){
     if (!this.checkExtentionValid(event)) {
       this.flow.cancelFile(event);
       this.errorMessage = 'Le type de fichier que vous avez essayé d\'ajouter n\'est pas autorisé';
@@ -125,12 +134,38 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.errorMessage = 'Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale du pli autorisée (20 Go) ou la taille maximale autorisée par fichier (2 Go) ';
         this.cdr.detectChanges();
       }
+    }}else {
+      this.openSnackBar(4000);
+
+    }
+    // oldLenght prend length du tableau des fichiers avant l'ajout d'un nouveau
+    if(index == 0){
+      this.oldLength = this.flow.flowJs.files.length;
     }
   }
 
   expandList() {
     this.expanded = !this.expanded;
     this.listExpanded.emit(this.expanded);
+  }
+
+  checkExisteFile(){
+    let existe = false;
+    //si c'est le premier fichier length egal à 1
+    if(this.firstFile){
+      this.oldLength = 1;
+    }
+    // comparer length avec le tableau des fichiers
+    //si c'est different alors le fichier n'existe pas
+    if(this.oldLength == this.flow.flowJs.files.length){
+      if(this.firstFile == false){
+        existe= true;
+      }
+    }else {
+      existe = false;
+    }
+    this.firstFile = false;
+    return existe;
   }
 
 
@@ -168,12 +203,11 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
     return tmpSize;
   }
 
-  openSnackBar(duration: number, transfer : any) {
-    if(transfer === this.transfers.length){
-    this._snackBar.openFromComponent(SatisfactionMessageComponent,{
+  openSnackBar(duration: number) {
+    this._snackBar.openFromComponent(InfoMsgComponent,{
       panelClass : 'panel-success',
       duration:duration
     });
-  }}
+  }
 }
 

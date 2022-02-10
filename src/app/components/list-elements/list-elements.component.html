@@ -29,8 +29,8 @@
     <mat-card-content class="list-elements-card-content"
         *ngIf="(flow.transfers$ | async).transfers.length > 0 ; else emptyList">
         <ft-file-item class="file-item"
-            *ngFor="let transfer of (flow.transfers$ | async).transfers | tm; trackBy: trackTransfer"
-            [transfer]="transfer" (itemAdded)="onItemAdded($event)" (deletedTransfer)="deleteTransfer($event)">
+            *ngFor="let transfer of (flow.transfers$ | async).transfers | tm; let index = index"
+            [transfer]="transfer" (itemAdded)="onItemAdded($event, index)" (deletedTransfer)="deleteTransfer($event)" >
         </ft-file-item>
         <div class="list-elements-add-elements-wrapper">
             <button mat-icon-button flowButton [flow]="flow.flowJs">
