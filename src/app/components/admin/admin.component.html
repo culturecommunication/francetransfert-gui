@@ -38,8 +38,8 @@
                     <div class="admin-card-content-files">
                       <div class="subheader respientHeader">
                         <span>Les destinataires : </span>
-                        <mat-icon *ngIf=" !add" matTooltip="Ajouter un destinataire" style="color: black" (click)="addRecipient()" aria-label="Ajouter un destinataire">add_box</mat-icon>
-                        <mat-icon *ngIf="close" matTooltip="terminer" style="color: black" (click)="addRecipient()" aria-label="terminer">close</mat-icon>
+                        <mat-icon *ngIf=" !add" matTooltip="Ajouter un destinataire" style="color: black;cursor: pointer;" (click)="addRecipient()" aria-label="Ajouter un destinataire">add_box</mat-icon>
+                        <mat-icon *ngIf="close" matTooltip="Terminer" style="color: black;cursor: pointer;" (click)="addRecipient()" aria-label="terminer">close</mat-icon>
                       </div>
                     </div>
                     <div *ngIf = "add" class="addDestinataire" [ngClass]="errorValidEmail || errorEmail ? 'big-error' : ''">
