@@ -29,6 +29,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   flowAttributes: any;
   firstFile: boolean = true;
   oldLength: number = 0;
+  isFolder: boolean = false;
 
 
   uploadSubscription: Subscription;
@@ -59,6 +60,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadSubscription = this.flow.events$.subscribe((event) => {
       if (event.type === 'filesSubmitted') {
         this.fileManagerService.transfers.next(this.flow.transfers$);
+        this.fileManagerService.oldTransfers.next(this.flow.transfers$);
         this.cdr.detectChanges();
       }
     });
@@ -97,11 +99,13 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onItemAdded(event, index) {
 
-    if(!this.checkExisteFile()){
+
     if (!this.checkExtentionValid(event)) {
       this.flow.cancelFile(event);
       this.errorMessage = 'Le type de fichier que vous avez essayé d\'ajouter n\'est pas autorisé';
     } else if (event.folder) {
+      this.isFolder = event.folder;
+      if(!this.checkExisteFile()){
       try {
         this.checkSize(event, this.filesSize);
         this.filesSize += event.size;
@@ -121,7 +125,9 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.errorMessage = error.message;
         this.cdr.detectChanges();
         return;
-      }
+      }}else {
+      this.openSnackBar(4000);
+    }
     } else {
       this.filesSize += event.size;
       if (this.filesSize <= this.filesSizeLimit && event.size <= this.fileSizeLimit) {
@@ -134,14 +140,17 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.errorMessage = 'Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale du pli autorisée (20 Go) ou la taille maximale autorisée par fichier (2 Go) ';
         this.cdr.detectChanges();
       }
-    }}else {
-      this.openSnackBar(4000,event.folder);
+      if(!this.isFolder){
+        if(!this.checkExisteFile()){}
+        else
+        {this.openSnackBar(4000);}}
 
     }
     // oldLenght prend length du tableau des fichiers avant l'ajout d'un nouveau
     if(index == 0){
       this.oldLength = this.flow.flowJs.files.length;
     }
+    //this.isFolder = false;
   }
 
   expandList() {
@@ -203,7 +212,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
     return tmpSize;
   }
 
-  openSnackBar(duration: number, value) {
+  openSnackBar(duration: number) {
     this._snackBar.openFromComponent(InfoMsgComponent,{
       panelClass : 'panel-success',
       duration:duration,

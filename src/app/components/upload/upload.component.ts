@@ -39,6 +39,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   hasFiles: boolean = false;
   listExpanded: boolean = false;
   enclosureId: string = '';
+  canReset: boolean = false;
 
   constructor(private responsiveService: ResponsiveService,
     private uploadManagerService: UploadManagerService,
@@ -96,9 +97,17 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadManagerService.uploadError$.next(null);
     this.downloadManagerService.downloadError$.next(null);
     //Reset token
+    if(this.canReset){
     this.uploadManagerService.uploadInfos.next(null);
     if (this.flow) {
       this.flow.cancel();
+    }}else{
+      this.transfertSubscription = this.flow.transfers$.pipe(take(1)).subscribe((uploadState: UploadState) => {
+        let t = this.fileManagerService.transfers.getValue();
+        uploadState.totalProgress = 0;
+        this.fileManagerService.uploadProgress.next(uploadState);
+        console.log(uploadState);
+      });
     }
   }
 

@@ -10,6 +10,7 @@ export class FileManagerService {
 
   hasFiles: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   transfers: BehaviorSubject<Observable<UploadState>> = new BehaviorSubject<Observable<UploadState>>(null);
+  oldTransfers:BehaviorSubject<Observable<UploadState>> = new BehaviorSubject<Observable<UploadState>>(null);
   uploadProgress: BehaviorSubject<UploadState> = new BehaviorSubject<UploadState>(null);
 
   constructor() { }
