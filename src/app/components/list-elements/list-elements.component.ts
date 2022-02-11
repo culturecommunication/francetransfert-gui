@@ -135,7 +135,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.cdr.detectChanges();
       }
     }}else {
-      this.openSnackBar(4000);
+      this.openSnackBar(4000,event.folder);
 
     }
     // oldLenght prend length du tableau des fichiers avant l'ajout d'un nouveau
@@ -203,10 +203,10 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
     return tmpSize;
   }
 
-  openSnackBar(duration: number) {
+  openSnackBar(duration: number, value) {
     this._snackBar.openFromComponent(InfoMsgComponent,{
       panelClass : 'panel-success',
-      duration:duration
+      duration:duration,
     });
   }
 }
