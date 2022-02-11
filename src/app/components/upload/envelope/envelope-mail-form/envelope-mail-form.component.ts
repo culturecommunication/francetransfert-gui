@@ -100,7 +100,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
           this.focus();
         }
       }
-    } else {
+    } else if (this.envelopeMailForm.get('to').value != '') {
       //this.envelopeMailForm.get('to').setValue('');
       this.envelopeMailForm.controls['to'].setErrors(error);
       if (error) {
