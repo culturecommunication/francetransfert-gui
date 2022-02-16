@@ -35,7 +35,8 @@
                         <mat-icon matTooltip="Supprimer le pli" (click)="deleteFile()" aria-label="Supprimer le pli">delete
                         </mat-icon>
                     </mat-list-item>
-                    <div class="admin-card-content-files">
+                  <div *ngIf="fileInfos?.recipientsMails.length != 0 || fileInfos?.deletedRecipients.length != 0">
+                    <div class="admin-card-content-files" >
                       <div class="subheader respientHeader">
                         <span>Les destinataires : </span>
                         <mat-icon *ngIf=" !add" matTooltip="Ajouter un destinataire" style="color: black;cursor: pointer;" (click)="addRecipient()" aria-label="Ajouter un destinataire">add_box</mat-icon>
@@ -57,6 +58,7 @@
                       </mat-form-field>
                       </form>
                     </div>
+                  </div>
                     <mat-list-item role="listitem" class="delete" *ngFor="let dest of fileInfos?.recipientsMails; let index = index">
                         <span>{{dest}}</span>
                         <mat-icon matTooltip="Supprimer le destinataire"  (click)="deleteRecipient(index, dest)" aria-label="Supprimer le destinataire">delete

@@ -9,6 +9,8 @@ import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SatisfactionMessageComponent} from "../satisfaction-message/satisfaction-message.component";
 import {Router} from "@angular/router";
+import * as cloneDeep from 'lodash/cloneDeep';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'ft-upload',
@@ -39,6 +41,9 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   hasFiles: boolean = false;
   listExpanded: boolean = false;
   enclosureId: string = '';
+  canReset: boolean = false;
+
+
 
   constructor(private responsiveService: ResponsiveService,
     private uploadManagerService: UploadManagerService,
@@ -92,13 +97,20 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadValidated = false;
     this.uploadFailed = false;
     this.publicLink = false;
-    this.uploadManagerService.envelopeInfos.next(null);
+    this.uploadManagerService.uploadInfos.next(null);
     this.uploadManagerService.uploadError$.next(null);
     this.downloadManagerService.downloadError$.next(null);
     //Reset token
-    this.uploadManagerService.uploadInfos.next(null);
+    if(!this.canReset){
+      this.uploadManagerService.envelopeInfos.next(null);
     if (this.flow) {
       this.flow.cancel();
+    }}else{
+      this.flow.transfers$.pipe(take(1)).subscribe(transfer => {
+        transfer.transfers.forEach(t => {
+          t.flowFile.bootstrap();
+        });
+      });
     }
   }
 
@@ -138,6 +150,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   onTransferFailed(event) {
     this.uploadFailed = true;
     this.uploadFinished = true;
+    this.canReset = true;
   }
 
   onTransferCancelled(event) {
@@ -251,6 +264,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   beginUpload(result) {
+
     if (this.transfertSubscription) {
       this.transfertSubscription.unsubscribe();
     }
@@ -260,10 +274,10 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       senderId: this.uploadManagerService.envelopeInfos.getValue().from,
       senderToken: result.senderToken,
     };
-    this.transfertSubscription = this.flow.transfers$.subscribe((uploadState: UploadState) => {
-      this.fileManagerService.uploadProgress.next(uploadState);
-    });
-    this.flow.upload();
+
+  this.transfertSubscription = this.flow.transfers$.subscribe((uploadState: UploadState) => {
+    this.fileManagerService.uploadProgress.next(uploadState);});
+      this.flow.upload();
   }
 
   ngOnDestroy() {
