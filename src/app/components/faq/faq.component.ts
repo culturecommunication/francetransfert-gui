@@ -20,6 +20,9 @@ export class FaqComponent implements OnInit, AfterViewInit {
   @ViewChild('listededistribution') private listededistributionFragment: ElementRef;
   @ViewChild('questionnairedesatisfaction') private questionnairedesatisfactionFragment: ElementRef;
   @ViewChild('traitementapreslenvoiedesfichiers') private traitementapreslenvoiedesfichiers: ElementRef;
+  @ViewChild('tromperDansListDestinataires') private tromperDansListDestinataires: ElementRef;
+  @ViewChild('nombreDeTelechargement') private nombreDeTelechargement: ElementRef;
+  @ViewChild('ouTrouverDesInfoSurFT') private ouTrouverDesInfoSurFT: ElementRef;
   @ViewChild('utilisationsurmobile') private utilisationsurmobile: ElementRef;
   @ViewChild('deuxfaçondutiliserfrancetransfert') private deuxfaçondutiliserfrancetransfert: ElementRef;
 
@@ -60,6 +63,12 @@ export class FaqComponent implements OnInit, AfterViewInit {
       case 'traitementapreslenvoiedesfichiers':
         this.traitementapreslenvoiedesfichiers.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
         break;
+      case 'tromperDansListDestinataires':
+        this.tromperDansListDestinataires.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        break;
+      case 'nombreDeTelechargement':
+        this.nombreDeTelechargement.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        break;
       case 'quedeviennentlesfichiers':
         this.quedeviennentlesfichiersFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
         break;
@@ -77,6 +86,9 @@ export class FaqComponent implements OnInit, AfterViewInit {
         break;
       case 'questionnairedesatisfaction':
         this.questionnairedesatisfactionFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        break;
+      case 'ouTrouverDesInfoSurFT' :
+        this.ouTrouverDesInfoSurFT.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
         break;
     }
   }

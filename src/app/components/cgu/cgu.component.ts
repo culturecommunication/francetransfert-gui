@@ -17,7 +17,9 @@ export class CguComponent implements OnInit, AfterViewInit {
   @ViewChild('engagementsetresponsabilite') private engagementsetresponsabiliteFragment: ElementRef;
   @ViewChild('qualiteduservice') private qualiteduserviceFragment: ElementRef;
   @ViewChild('securite') private securiteFragment: ElementRef;
+  @ViewChild('contact') private  contact: ElementRef;
   @ViewChild('validite') private validiteFragment: ElementRef;
+
 
   constructor(private titleService: Title,
     private router: Router) { }
@@ -58,6 +60,9 @@ export class CguComponent implements OnInit, AfterViewInit {
         break;
       case 'securite':
         this.securiteFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        break;
+      case 'contact':
+        this.contact.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
         break;
       case 'validite':
         this.validiteFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });

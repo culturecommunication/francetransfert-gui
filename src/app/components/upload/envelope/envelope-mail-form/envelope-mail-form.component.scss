@@ -1,4 +1,7 @@
 .envelope-mail-form-container {
+     /* ::ng-deep .mat-form-field-infix {
+        display: flex;
+      }*/
 
     .envelope-mail-form-info {
         display: flex;
@@ -25,7 +28,7 @@
       display: flex;
       align-items: center;
     }
-    
+
     .mat-form-field {
         width: 100%;
         .icon-btn {
@@ -55,6 +58,13 @@
         }
         width: 100%;
     }
+}
+
+::ng-deep .cdk-overlay-pane{
+  position: absolute;
+}
+::ng-deep .cdk-global-overlay-wrapper{
+
 }
 @media screen and  (min-width: 1000px) {
   .envelope-mail-form-container {
