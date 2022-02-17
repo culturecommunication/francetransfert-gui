@@ -14,7 +14,6 @@ export class FileItemComponent implements OnInit {
   @Output() itemAdded: EventEmitter<FTTransferModel<Transfer>> = new EventEmitter();
   @Output() deletedTransfer: EventEmitter<Transfer>;
 
-
   constructor() {
     this.deletedTransfer = new EventEmitter();
   }
@@ -28,13 +27,7 @@ export class FileItemComponent implements OnInit {
    * @returns {void}
    */
   deleteTransfer(): void {
-    if (this.transfer.folder) {
-      for (let transfer of this.transfer.childs) {
-        this.deletedTransfer.emit(transfer);
-      }
-    } else {
       this.deletedTransfer.emit(this.transfer);
-    }
   }
 
 }

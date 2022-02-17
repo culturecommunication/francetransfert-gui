@@ -46,6 +46,7 @@
                     <div *ngIf = "add" class="addDestinataire" [ngClass]="errorValidEmail || errorEmail ? 'big-error' : ''">
                       <form [formGroup]="envelopeDestForm" class="addForm">
                       <mat-form-field class="example-full-width">
+                        <mat-label>Courriel du destinataire</mat-label>
                         <input id="recipientmail" name="recipientmail" formControlName="email" type="email" matInput
                                placeholder="JEAN.DUPONT@EMAIL.COM"
                                 #dest (blur)="onBlurDestinataires();" (keyup.enter)="dest.blur();">

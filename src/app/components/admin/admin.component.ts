@@ -164,7 +164,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   initForm() {
 
     this.envelopeDestForm = this.formBuilder.group({
-      email : ['', { validators: [Validators.required, Validators.email], updateOn: 'blur' }],
+      email : ['', { validators: [Validators.email], updateOn: 'blur' }],
     });
     this.emailFormControl = this.envelopeDestForm.get('email');
     this.envelopeMailFormChangeSubscription = this.emailFormControl.valueChanges

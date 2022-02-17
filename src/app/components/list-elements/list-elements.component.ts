@@ -6,6 +6,7 @@ import { FileManagerService, MailingListService } from 'src/app/services';
 import { ConfigService } from 'src/app/services/config/config.service';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {InfoMsgComponent} from "../info-msg/info-msg.component";
+import {FTTransferModel} from "../../models";
 
 @Component({
   selector: 'ft-list-elements',
@@ -29,7 +30,6 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   flowAttributes: any;
   firstFile: boolean = true;
   oldLength: number = 0;
-  isFolder: boolean = false;
 
 
   uploadSubscription: Subscription;
@@ -82,13 +82,20 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param {Transfer} transfer
    * @returns {void}
    */
-  deleteTransfer(transfer: Transfer): void {
+  deleteTransfer(transfer: any): void {
+    if(!transfer.folder){
     this.flow.cancelFile(transfer);
     this.filesSize -= transfer.size;
     this.fileManagerService.hasFiles.next(this.filesSize > 0);
     this.cdr.detectChanges();
     if (this.filesSize <= this.filesSizeLimit) {
       this.errorMessage = '';
+    }
+    //
+    }else{
+      for (let tr of transfer.childs) {
+        this.deleteTransfer(tr);
+      }
     }
     this.oldLength = this.flow.flowJs.files.length;
     if(this.flow.flowJs.files.length === 0){
@@ -98,13 +105,11 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onItemAdded(event, index) {
 
-
+    if(!this.checkExisteFile()){
     if (!this.checkExtentionValid(event)) {
       this.flow.cancelFile(event);
       this.errorMessage = 'Le type de fichier que vous avez essayé d\'ajouter n\'est pas autorisé';
     } else if (event.folder) {
-      this.isFolder = event.folder;
-      if(!this.checkExisteFile()){
       try {
         this.checkSize(event, this.filesSize);
         this.filesSize += event.size;
@@ -124,9 +129,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.errorMessage = error.message;
         this.cdr.detectChanges();
         return;
-      }}else {
-      this.openSnackBar(4000);
-    }
+      }
     } else {
       this.filesSize += event.size;
       if (this.filesSize <= this.filesSizeLimit && event.size <= this.fileSizeLimit) {
@@ -139,17 +142,14 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.errorMessage = 'Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale du pli autorisée (20 Go) ou la taille maximale autorisée par fichier (2 Go) ';
         this.cdr.detectChanges();
       }
-      if(!this.isFolder){
-        if(!this.checkExisteFile()){}
-        else
-        {this.openSnackBar(4000);}}
+    }}else {
+      this.openSnackBar(4000);
 
     }
     // oldLenght prend length du tableau des fichiers avant l'ajout d'un nouveau
     if(index == 0){
       this.oldLength = this.flow.flowJs.files.length;
     }
-    //this.isFolder = false;
   }
 
   expandList() {

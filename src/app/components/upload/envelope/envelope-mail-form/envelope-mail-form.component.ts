@@ -37,6 +37,8 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   senderOk = false;
   errorEmail = false;
   focusInput: boolean = false;
+  listDest: any;
+  list:any;
 
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
@@ -62,6 +64,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     })
     this.envelopeMailFormChangeSubscription = this.envelopeMailForm.valueChanges
       .subscribe(() => {
+       // this.copyListDestinataires(this.envelopeMailForm.get('to').value);
         this.checkDestinatairesList();
         this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
         this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value, ...this.uploadManagerService.envelopeInfos.getValue()?.parameters ? { parameters: this.uploadManagerService.envelopeInfos.getValue().parameters } : {} });
@@ -116,53 +119,55 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   }
 
   checkDestinatairesList() {
-    let destListOk = false;
-    let senderOk = false;
-    this.uploadService.validateMail(this.destinatairesList).pipe(
-      take(1)).subscribe((isValid: boolean) => {
-        destListOk = isValid;
-        this.uploadService.validateMail([this.envelopeMailForm.get('from').value]).pipe(
-          take(1)).subscribe((isValid: boolean) => {
-            senderOk = isValid;
-            if (this.destinatairesList.length > 0) {
-              if (destListOk || senderOk) {
-                if (this.errorEmail) {
-                  this.envelopeMailForm.controls['to'].markAsTouched();
-                  this.envelopeMailForm.controls['to'].setErrors({ email: this.errorEmail });
+
+        let destListOk = false;
+        let senderOk = false;
+
+      this.uploadService.validateMail(this.destinatairesList).pipe(
+        take(1)).subscribe((isValid: boolean) => {
+          destListOk = isValid;
+          this.uploadService.validateMail([this.envelopeMailForm.get('from').value]).pipe(
+            take(1)).subscribe((isValid: boolean) => {
+              senderOk = isValid;
+              if (this.destinatairesList.length > 0) {
+                if (destListOk || senderOk) {
+                  if (this.errorEmail) {
+                    this.envelopeMailForm.controls['to'].markAsTouched();
+                    this.envelopeMailForm.controls['to'].setErrors({ email: this.errorEmail });
+                  } else {
+                    this.envelopeMailForm.controls['to'].markAsUntouched();
+                    this.envelopeMailForm.controls['to'].setErrors(null);
+                  }
                 } else {
-                  this.envelopeMailForm.controls['to'].markAsUntouched();
-                  this.envelopeMailForm.controls['to'].setErrors(null);
+                  this.envelopeMailForm.controls['to'].markAsTouched();
+                  this.envelopeMailForm.controls['to'].setErrors({ notValid: true });
                 }
               } else {
                 this.envelopeMailForm.controls['to'].markAsTouched();
+                if (!this.errorEmail) {
+                  this.envelopeMailForm.controls['to'].setErrors({ required: true });
+                } else {
+                  this.envelopeMailForm.controls['to'].setErrors({ email: this.errorEmail });
+                }
+              }
+              this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
+            }, error => {
+              this.envelopeMailForm.controls['to'].markAsTouched();
+              if (this.envelopeMailForm.get('to').hasError('email')) {
+                this.envelopeMailForm.controls['to'].setErrors({ email: true });
+              } else {
                 this.envelopeMailForm.controls['to'].setErrors({ notValid: true });
               }
-            } else {
-              this.envelopeMailForm.controls['to'].markAsTouched();
-              if (!this.errorEmail) {
-                this.envelopeMailForm.controls['to'].setErrors({ required: true });
-              } else {
-                this.envelopeMailForm.controls['to'].setErrors({ email: this.errorEmail });
-              }
-            }
-            this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
-          }, error => {
-            this.envelopeMailForm.controls['to'].markAsTouched();
-            if (this.envelopeMailForm.get('to').hasError('email')) {
-              this.envelopeMailForm.controls['to'].setErrors({ email: true });
-            } else {
-              this.envelopeMailForm.controls['to'].setErrors({ notValid: true });
-            }
-            this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
-          });
-      }, error => {
-        this.envelopeMailForm.controls['to'].markAsTouched();
-        if (this.envelopeMailForm.get('to').hasError('email')) {
-          this.envelopeMailForm.controls['to'].setErrors({ email: true });
-        } else {
-          this.envelopeMailForm.controls['to'].setErrors({ notValid: true });
-        }
-        this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
+              this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
+            });
+        }, error => {
+          this.envelopeMailForm.controls['to'].markAsTouched();
+          if (this.envelopeMailForm.get('to').hasError('email')) {
+            this.envelopeMailForm.controls['to'].setErrors({ email: true });
+          } else {
+            this.envelopeMailForm.controls['to'].setErrors({ notValid: true });
+          }
+          this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList });
       });
 
   }
@@ -232,4 +237,14 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     this.dest.nativeElement.focus();
   }
 
+
+  copyListDestinataires(val : any) {
+    if(val.contains("<") && val.contains(">")){
+    this.list = this.envelopeMailForm.get('to').value.split(/</);
+    this.list.forEach(d => {
+      if (d.contains(">")) {
+        this.listDest.push(d.split(/>/)[0]);
+      }
+    })
+  }}
 }

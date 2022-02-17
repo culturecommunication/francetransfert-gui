@@ -160,6 +160,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onTransferFinished(event) {
     this.uploadFinished = event;
+    this.canReset = !event;
   }
 
   onTransferValidated(event) {
