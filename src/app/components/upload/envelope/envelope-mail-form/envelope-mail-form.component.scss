@@ -59,6 +59,13 @@
         width: 100%;
     }
 }
+
+::ng-deep .cdk-overlay-pane{
+  position: absolute;
+}
+::ng-deep .cdk-global-overlay-wrapper{
+
+}
 @media screen and  (min-width: 1000px) {
   .envelope-mail-form-container {
     height: 100%;
