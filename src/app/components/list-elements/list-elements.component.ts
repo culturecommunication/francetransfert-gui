@@ -1,12 +1,12 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import {FlowDirective, Transfer, UploadState} from '@flowjs/ngx-flow';
+import { FlowDirective, Transfer, UploadState } from '@flowjs/ngx-flow';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { FileManagerService, MailingListService } from 'src/app/services';
 import { ConfigService } from 'src/app/services/config/config.service';
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {InfoMsgComponent} from "../info-msg/info-msg.component";
-import {FTTransferModel} from "../../models";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { InfoMsgComponent } from "../info-msg/info-msg.component";
+import { FTTransferModel } from "../../models";
 
 @Component({
   selector: 'ft-list-elements',
@@ -37,7 +37,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private cdr: ChangeDetectorRef,
     private fileManagerService: FileManagerService,
     private configService: ConfigService,
-              private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar) {
 
     this.configService.getConfig().pipe(take(1)).subscribe((config: any) => {
       this.mimetype = config.mimeType;
@@ -83,71 +83,72 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
    * @returns {void}
    */
   deleteTransfer(transfer: any): void {
-    if(!transfer.folder){
-    this.flow.cancelFile(transfer);
-    this.filesSize -= transfer.size;
-    this.fileManagerService.hasFiles.next(this.filesSize > 0);
-    this.cdr.detectChanges();
-    if (this.filesSize <= this.filesSizeLimit) {
-      this.errorMessage = '';
-    }
-    //
-    }else{
+    if (!transfer.folder) {
+      this.flow.cancelFile(transfer);
+      this.filesSize -= transfer.size;
+      this.fileManagerService.hasFiles.next(this.filesSize > 0);
+      this.cdr.detectChanges();
+      if (this.filesSize <= this.filesSizeLimit) {
+        this.errorMessage = '';
+      }
+      //
+    } else {
       for (let tr of transfer.childs) {
         this.deleteTransfer(tr);
       }
     }
     this.oldLength = this.flow.flowJs.files.length;
-    if(this.flow.flowJs.files.length === 0){
+    if (this.flow.flowJs.files.length === 0) {
       this.firstFile = true;
     }
   }
 
   onItemAdded(event, index) {
 
-    if(!this.checkExisteFile()){
-    if (!this.checkExtentionValid(event)) {
-      this.flow.cancelFile(event);
-      this.errorMessage = 'Le type de fichier que vous avez essayé d\'ajouter n\'est pas autorisé';
-    } else if (event.folder) {
-      try {
-        this.checkSize(event, this.filesSize);
+    if (!this.checkExisteFile()) {
+      if (!this.checkExtentionValid(event)) {
+        this.flow.cancelFile(event);
+        this.errorMessage = 'Le type de fichier que vous avez essayé d\'ajouter n\'est pas autorisé';
+      } else if (event.folder) {
+        try {
+          this.checkSize(event, this.filesSize);
+          this.filesSize += event.size;
+          this.fileManagerService.hasFiles.next(this.filesSize > 0);
+          this.errorMessage = '';
+          this.cdr.detectChanges();
+        } catch (error) {
+          // c'est un dossier
+          for (let child of event.childs) {
+            this.filesSize += child.size
+            this.deleteTransfer(child);
+          }
+          if (this.filesSize < 0) {
+            this.filesSize = 0;
+          }
+          this.fileManagerService.hasFiles.next(this.filesSize > 0);
+          this.errorMessage = error.message;
+          this.cdr.detectChanges();
+          return;
+        }
+      } else {
         this.filesSize += event.size;
-        this.fileManagerService.hasFiles.next(this.filesSize > 0);
-        this.errorMessage = '';
-        this.cdr.detectChanges();
-      } catch (error) {
-        // c'est un dossier
-        for (let child of event.childs) {
-          this.filesSize += child.size
-          this.deleteTransfer(child);
+        if (this.filesSize <= this.filesSizeLimit && event.size <= this.fileSizeLimit) {
+          this.fileManagerService.hasFiles.next(this.filesSize > 0);
+          this.errorMessage = '';
+          this.cdr.detectChanges();
+        } else {
+          this.filesSize -= event.size;
+          this.flow.cancelFile(event);
+          this.errorMessage = 'Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale du pli autorisée (20 Go) ou la taille maximale autorisée par fichier (2 Go) ';
+          this.cdr.detectChanges();
         }
-        if (this.filesSize < 0) {
-          this.filesSize = 0;
-        }
-        this.fileManagerService.hasFiles.next(this.filesSize > 0);
-        this.errorMessage = error.message;
-        this.cdr.detectChanges();
-        return;
       }
     } else {
-      this.filesSize += event.size;
-      if (this.filesSize <= this.filesSizeLimit && event.size <= this.fileSizeLimit) {
-        this.fileManagerService.hasFiles.next(this.filesSize > 0);
-        this.errorMessage = '';
-        this.cdr.detectChanges();
-      } else {
-        this.filesSize -= event.size;
-        this.flow.cancelFile(event);
-        this.errorMessage = 'Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale du pli autorisée (20 Go) ou la taille maximale autorisée par fichier (2 Go) ';
-        this.cdr.detectChanges();
-      }
-    }}else {
       this.openSnackBar(4000);
 
     }
     // oldLenght prend length du tableau des fichiers avant l'ajout d'un nouveau
-    if(index == 0){
+    if (index == 0) {
       this.oldLength = this.flow.flowJs.files.length;
     }
   }
@@ -157,19 +158,19 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.listExpanded.emit(this.expanded);
   }
 
-  checkExisteFile(){
+  checkExisteFile() {
     let existe = false;
     //si c'est le premier fichier length egal à 1
-    if(this.firstFile){
+    if (this.firstFile) {
       this.oldLength = 1;
     }
     // comparer length avec le tableau des fichiers
     //si c'est different alors le fichier n'existe pas
-    if(this.oldLength == this.flow.flowJs.files.length){
-      if(this.firstFile == false){
-        existe= true;
+    if (this.oldLength == this.flow.flowJs.files.length) {
+      if (this.firstFile == false) {
+        existe = true;
       }
-    }else {
+    } else {
       existe = false;
     }
     this.firstFile = false;
@@ -212,9 +213,9 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openSnackBar(duration: number) {
-    this._snackBar.openFromComponent(InfoMsgComponent,{
-      panelClass : 'panel-success',
-      duration:duration,
+    this._snackBar.openFromComponent(InfoMsgComponent, {
+      panelClass: 'panel-success',
+      duration: duration,
     });
   }
 }

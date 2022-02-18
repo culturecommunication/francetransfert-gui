@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FlowDirective, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs/internal/Subject';
@@ -6,11 +6,11 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { take, takeUntil } from 'rxjs/operators';
 import { DownloadManagerService, FileManagerService, ResponsiveService, UploadManagerService, UploadService } from 'src/app/services';
 import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {SatisfactionMessageComponent} from "../satisfaction-message/satisfaction-message.component";
-import {Router} from "@angular/router";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { SatisfactionMessageComponent } from "../satisfaction-message/satisfaction-message.component";
+import { Router } from "@angular/router";
 import * as cloneDeep from 'lodash/cloneDeep';
-import {Observable} from "rxjs";
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'ft-upload',
@@ -26,7 +26,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   uploadFinished: boolean = false;
   uploadValidated: boolean = false;
   uploadFailed: boolean = false;
-  publicLink: boolean  = false;
+  publicLink: boolean = false;
   uploadManagerSubscription: Subscription = new Subscription;
   responsiveSubscription: Subscription = new Subscription;
   fileManagerSubscription: Subscription = new Subscription;
@@ -84,13 +84,16 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   scrollTo(_anchor: string) {
     switch (_anchor) {
       case 'upload':
-        this.uploadFragment.nativeElement.scrollIntoView({behavior: "smooth", block: "start"});
+        this.uploadFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
         break;
     }
   }
 
 
   reset() {
+    if (this.transfertSubscription) {
+      this.transfertSubscription.unsubscribe();
+    }
     this.enclosureId = '';
     this.uploadStarted = false;
     this.uploadFinished = false;
@@ -101,11 +104,12 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadManagerService.uploadError$.next(null);
     this.downloadManagerService.downloadError$.next(null);
     //Reset token
-    if(!this.canReset){
+    if (!this.canReset) {
       this.uploadManagerService.envelopeInfos.next(null);
-    if (this.flow) {
-      this.flow.cancel();
-    }}else{
+      if (this.flow) {
+        this.flow.cancel();
+      }
+    } else {
       this.flow.transfers$.pipe(take(1)).subscribe(transfer => {
         transfer.transfers.forEach(t => {
           t.flowFile.bootstrap();
@@ -180,7 +184,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     if (event) {
       this.uploadService.rate({ plis: this.enclosureId, mail: this.uploadManagerService.envelopeInfos.getValue().from, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
         .subscribe((result: any) => {
-          if(result){
+          if (result) {
             this.openSnackBar(4000);
           }
           this.reset();
@@ -189,9 +193,9 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openSnackBar(duration: number) {
-    this._snackBar.openFromComponent(SatisfactionMessageComponent,{
-      panelClass : 'panel-success',
-      duration:duration
+    this._snackBar.openFromComponent(SatisfactionMessageComponent, {
+      panelClass: 'panel-success',
+      duration: duration
     });
   }
 
@@ -199,8 +203,8 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.listExpanded = event;
   }
 
-  ispublicLink(val: any){
-    if(val === 'link')
+  ispublicLink(val: any) {
+    if (val === 'link')
       this.publicLink = true;
   }
 
@@ -276,9 +280,10 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       senderToken: result.senderToken,
     };
 
-  this.transfertSubscription = this.flow.transfers$.subscribe((uploadState: UploadState) => {
-    this.fileManagerService.uploadProgress.next(uploadState);});
-      this.flow.upload();
+    this.transfertSubscription = this.flow.transfers$.subscribe((uploadState: UploadState) => {
+      this.fileManagerService.uploadProgress.next(uploadState);
+    });
+    this.flow.upload();
   }
 
   ngOnDestroy() {
