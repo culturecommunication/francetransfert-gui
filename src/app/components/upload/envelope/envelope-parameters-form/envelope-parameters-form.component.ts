@@ -38,10 +38,12 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
 
     this.envelopeParametersForm = this.fb.group({
       expiryDays: [expireDate],
-      password: [this.parametersFormValues?.password, [Validators.minLength(12), Validators.maxLength(20), Validators.pattern('^(?=.{12,})((?=.*[0-9]){3,})((?=.*[a-z]){3,})((?=.*[A-Z]){3,})((?=.*[!@#$%^&*()_:+-]){3,}).*$')]]
+      password: [this.parametersFormValues?.password, [Validators.minLength(12), Validators.maxLength(20)]]
     });
     this.envelopeParametersFormChangeSubscription = this.envelopeParametersForm.valueChanges
       .subscribe(() => {
+        let errorPattern = this.regexPassword(this.envelopeParametersForm.get('password').value);
+        this.checkErros(errorPattern,this.envelopeParametersForm.get('password').value);
         const _expiryDays = moment().diff(this.envelopeParametersForm.get('expiryDays').value, 'days') - 1;
         this.onFormGroupChange.emit({ isValid: this.envelopeParametersForm.valid, values: { expiryDays: -_expiryDays, ...this.envelopeParametersForm.get('password').value ? { password: this.envelopeParametersForm.get('password').value } : { password: '' } } })
         this.uploadManagerService.envelopeInfos.next(
@@ -62,4 +64,37 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
     this.envelopeParametersFormChangeSubscription.unsubscribe();
   }
 
+  regexPassword(password){
+    let valid = false;
+    if(password.match(/[a-z]/g)?.reduce((p, c) => p + c)?.length >=3 && password.match(/[A-Z]/g)?.reduce((p, c) => p + c)?.length >=3
+        && password.match(/\d+/g)?.reduce((p, c) => p + c)?.length >= 3 && password.match(/\W/g)?.reduce((p, c) => p + c)?.length >= 3 ){
+      valid = true;
+    }
+    return valid;
+  }
+
+  checkErros(errorPattern, passWord){
+    let error;
+    if(passWord.length <12){
+      error = {minLength : true};
+    }
+    if(passWord.length > 20){
+      error = {maxLength : true};
+    }
+    if(errorPattern){
+      this.envelopeParametersForm.controls['password'].markAsTouched();
+      this.envelopeParametersForm.controls['password'].setErrors(error);}
+    else{
+      if (error == undefined) {
+        error = { pattern: true };
+      } else {
+        error['pattern'] = true;
+      }
+      this.envelopeParametersForm.controls['password'].markAsTouched();
+      this.envelopeParametersForm.controls['password'].setErrors(error);
+    }
+  }
+
 }
+
+
