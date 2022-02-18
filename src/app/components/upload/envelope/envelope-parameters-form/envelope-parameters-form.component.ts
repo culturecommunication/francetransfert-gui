@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { ParametersModel } from 'src/app/models';
 import * as moment from 'moment';
 import { UploadManagerService } from 'src/app/services';
+import { passwordValidator } from 'src/app/shared/validators/forms-validator';
 
 @Component({
   selector: 'ft-envelope-parameters-form',
@@ -21,13 +22,15 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
   maxDate = new Date();
 
   constructor(private fb: FormBuilder,
-    private uploadManagerService: UploadManagerService) { }
+    private uploadManagerService: UploadManagerService) {
+  }
 
   ngOnInit(): void {
     this.initForm();
   }
 
   initForm() {
+
     let expireDate;
     if (this.parametersFormValues?.expiryDays) {
       expireDate = moment().add(this.parametersFormValues.expiryDays, 'days').toDate();
@@ -38,12 +41,11 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
 
     this.envelopeParametersForm = this.fb.group({
       expiryDays: [expireDate],
-      password: [this.parametersFormValues?.password, [Validators.minLength(12), Validators.maxLength(20)]]
+      password: [this.parametersFormValues?.password, [Validators.minLength(12), Validators.maxLength(20), passwordValidator]]
     });
+
     this.envelopeParametersFormChangeSubscription = this.envelopeParametersForm.valueChanges
       .subscribe(() => {
-        let errorPattern = this.regexPassword(this.envelopeParametersForm.get('password').value);
-        this.checkErros(errorPattern,this.envelopeParametersForm.get('password').value);
         const _expiryDays = moment().diff(this.envelopeParametersForm.get('expiryDays').value, 'days') - 1;
         this.onFormGroupChange.emit({ isValid: this.envelopeParametersForm.valid, values: { expiryDays: -_expiryDays, ...this.envelopeParametersForm.get('password').value ? { password: this.envelopeParametersForm.get('password').value } : { password: '' } } })
         this.uploadManagerService.envelopeInfos.next(
@@ -62,37 +64,6 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.envelopeParametersFormChangeSubscription.unsubscribe();
-  }
-
-  regexPassword(password){
-    let valid = false;
-    if(password.match(/[a-z]/g)?.reduce((p, c) => p + c)?.length >=3 && password.match(/[A-Z]/g)?.reduce((p, c) => p + c)?.length >=3
-        && password.match(/\d+/g)?.reduce((p, c) => p + c)?.length >= 3 && password.match(/\W/g)?.reduce((p, c) => p + c)?.length >= 3 ){
-      valid = true;
-    }
-    return valid;
-  }
-
-  checkErros(errorPattern, passWord){
-    let error;
-    if(passWord.length <12){
-      error = {minLength : true};
-    }
-    if(passWord.length > 20){
-      error = {maxLength : true};
-    }
-    if(errorPattern){
-      this.envelopeParametersForm.controls['password'].markAsTouched();
-      this.envelopeParametersForm.controls['password'].setErrors(error);}
-    else{
-      if (error == undefined) {
-        error = { pattern: true };
-      } else {
-        error['pattern'] = true;
-      }
-      this.envelopeParametersForm.controls['password'].markAsTouched();
-      this.envelopeParametersForm.controls['password'].setErrors(error);
-    }
   }
 
 }

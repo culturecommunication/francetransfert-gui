@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  host: 'http://localhost:8080/',
+  host: 'http://192.168.0.13:8080/',
   apis: {
     config: 'api-private/upload-module/config',
     upload: {

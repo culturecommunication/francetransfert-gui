@@ -107,6 +107,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.canReset) {
       this.uploadManagerService.envelopeInfos.next(null);
       if (this.flow) {
+        this.fileManagerService.hasFiles.next(false);
         this.flow.cancel();
       }
     } else {
@@ -213,8 +214,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadService
       .sendTree({
         transfers: transfers.transfers,
-
-
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
         subject: this.uploadManagerService.envelopeInfos.getValue().subject,
@@ -233,7 +232,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
           this.availabilityDate = result.expireDate;
           this.ispublicLink(this.uploadManagerService.envelopeInfos.getValue().type);
           this.beginUpload(result);
-
         } else {
           if (this.uploadManagerService.uploadInfos.getValue()) {
             if (this.uploadManagerService.uploadInfos.getValue().senderId && this.uploadManagerService.uploadInfos.getValue().senderToken) {
