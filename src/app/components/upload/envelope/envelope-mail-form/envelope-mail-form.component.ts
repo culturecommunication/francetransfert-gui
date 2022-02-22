@@ -75,15 +75,14 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   get f() { return this.envelopeMailForm.controls; }
 
   reloadDestinataires() {
-      if (this.mailFormValues?.to && this.mailFormValues?.to.length > 0) {
-        Array.prototype.push.apply(this.destinatairesList, this.mailFormValues?.to);
-        console.log(this.destinatairesList);
-        this.envelopeMailForm.get('to').setValue('');
-        this.envelopeMailForm.markAllAsTouched();
-        this.envelopeMailForm.markAsDirty();
-        this.checkDestinatairesList();
-        this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
-      }
+    if (this.mailFormValues?.to && this.mailFormValues?.to.length > 0) {
+      Array.prototype.push.apply(this.destinatairesList, this.mailFormValues?.to);
+      this.envelopeMailForm.get('to').setValue('');
+      this.envelopeMailForm.markAllAsTouched();
+      this.envelopeMailForm.markAsDirty();
+      this.checkDestinatairesList();
+      this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
+    }
   }
 
   onBlurDestinataires() {
@@ -165,11 +164,9 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
 
   copyListDestinataires(val: any) {
-    console.log("CopyList");
     if (val.indexOf("<") > 0 && val.indexOf(">") > 0) {
       this.list = this.envelopeMailForm.get('to').value.split(/</);
       this.list.forEach(d => {
-        console.log("Copy Loop");
         if (d.indexOf(">") > 0) {
           this.destinatairesList.push(d.split(/>/)[0]);
         }
