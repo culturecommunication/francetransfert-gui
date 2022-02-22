@@ -112,7 +112,6 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.envelopeMailFormChangeSubscription.unsubscribe();
-    console.log("test");
   }
 
   checkDestinatairesList() {
