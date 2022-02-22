@@ -56,7 +56,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   initForm() {
     this.envelopeMailForm = this.fb.group({
       from: [this.mailFormValues?.from, { validators: [Validators.required, Validators.email], asyncValidators: [QuotaAsyncValidator.createValidator(this.uploadService)], updateOn: 'blur' }],
-      to: [this.mailFormValues?.to, { validators: [Validators.email], updateOn: 'blur' }],
+      to: ['', { validators: [Validators.email], updateOn: 'blur' }],
       subject: [this.mailFormValues?.subject],
       message: [this.mailFormValues?.message],
       cguCheck: [this.mailFormValues?.cguCheck, [Validators.requiredTrue]]
@@ -75,17 +75,15 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   get f() { return this.envelopeMailForm.controls; }
 
   reloadDestinataires() {
-    if (this.envelopeMailForm.get('to').value) {
-      let tmp = this.envelopeMailForm.get('to').value.toString().split(',');
-      if (tmp[0] !== '') {
-        this.destinatairesList = tmp;
+      if (this.mailFormValues?.to && this.mailFormValues?.to.length > 0) {
+        Array.prototype.push.apply(this.destinatairesList, this.mailFormValues?.to);
+        console.log(this.destinatairesList);
         this.envelopeMailForm.get('to').setValue('');
         this.envelopeMailForm.markAllAsTouched();
         this.envelopeMailForm.markAsDirty();
         this.checkDestinatairesList();
         this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
       }
-    }
   }
 
   onBlurDestinataires() {
@@ -100,18 +98,21 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
           this.focus();
         }
       }
-      this.checkDestinatairesList();
+    } else if (this.envelopeMailForm.get('to').value && this.envelopeMailForm.get('to').hasError('email') && this.envelopeMailForm.get('to').value.indexOf('<') >= 0) {
+      this.copyListDestinataires(this.envelopeMailForm.get('to').value);
+      this.envelopeMailForm.get('to').setValue('');
     } else if (this.envelopeMailForm.get('to').value != '') {
-      //this.envelopeMailForm.get('to').setValue('');
       this.envelopeMailForm.controls['to'].setErrors(error);
       if (error) {
         this.errorEmail = true;
       }
     }
+    this.checkDestinatairesList();
   }
 
   ngOnDestroy() {
     this.envelopeMailFormChangeSubscription.unsubscribe();
+    console.log("test");
   }
 
   checkDestinatairesList() {
@@ -165,11 +166,13 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
 
   copyListDestinataires(val: any) {
-    if (val.contains("<") && val.contains(">")) {
+    console.log("CopyList");
+    if (val.indexOf("<") > 0 && val.indexOf(">") > 0) {
       this.list = this.envelopeMailForm.get('to').value.split(/</);
       this.list.forEach(d => {
-        if (d.contains(">")) {
-          this.listDest.push(d.split(/>/)[0]);
+        console.log("Copy Loop");
+        if (d.indexOf(">") > 0) {
+          this.destinatairesList.push(d.split(/>/)[0]);
         }
       })
     }

@@ -64,6 +64,7 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   onParametersFormGroupChangeEvent(event) {
     this.parametersFormValues = event.values;
+
   }
 
   checkCanSend() {
@@ -80,6 +81,7 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   triggerShowParameters() {
     this.showParameters = !this.showParameters;
+
   }
 
   startUpload() {

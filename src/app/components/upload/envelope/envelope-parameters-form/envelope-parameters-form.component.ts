@@ -43,7 +43,7 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
       expiryDays: [expireDate],
       password: [this.parametersFormValues?.password, [Validators.minLength(12), Validators.maxLength(20), passwordValidator]]
     });
-
+    this.checkErrors();
     this.envelopeParametersFormChangeSubscription = this.envelopeParametersForm.valueChanges
       .subscribe(() => {
         const _expiryDays = moment().diff(this.envelopeParametersForm.get('expiryDays').value, 'days') - 1;
@@ -64,6 +64,12 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.envelopeParametersFormChangeSubscription.unsubscribe();
+  }
+
+  checkErrors(){
+    if(this.f.password.errors != null){
+      this.envelopeParametersForm.get('password').setValue('');
+    }
   }
 
 }
