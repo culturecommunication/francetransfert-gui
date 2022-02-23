@@ -59,6 +59,26 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
       });
   }
 
+  sizeControl() {
+    return this.envelopeParametersForm.get('password').value?.length >= 12 && this.envelopeParametersForm.get('password').value.length <= 20;
+  }
+
+  minChar() {
+    return this.envelopeParametersForm.get('password').value?.match(/[a-z]/g)?.reduce((p, c) => p + c)?.length >= 3;
+  }
+
+  majChar() {
+    return this.envelopeParametersForm.get('password').value?.match(/[A-Z]/g)?.reduce((p, c) => p + c)?.length >= 3;
+  }
+
+  numChar() {
+    return this.envelopeParametersForm.get('password').value?.match(/\d/g)?.reduce((p, c) => p + c)?.length >= 3;
+  }
+
+  specialChar() {
+    return this.envelopeParametersForm.get('password').value?.match(/\W/g)?.reduce((p, c) => p + c)?.length >= 3;
+  }
+
   // convenience getter for easy access to form fields
   get f() { return this.envelopeParametersForm.controls; }
 
@@ -66,8 +86,8 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
     this.envelopeParametersFormChangeSubscription.unsubscribe();
   }
 
-  checkErrors(){
-    if(this.f.password.errors != null){
+  checkErrors() {
+    if (this.f.password.errors != null) {
       this.envelopeParametersForm.get('password').setValue('');
     }
   }
