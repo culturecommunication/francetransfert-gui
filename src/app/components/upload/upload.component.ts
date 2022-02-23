@@ -61,7 +61,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.responsiveService.checkWidth();
     this.uploadManagerSubscription = this.uploadManagerService.envelopeInfos.subscribe(_envelopeInfos => {
       if (_envelopeInfos && _envelopeInfos.from) {
-        this.senderEmail = _envelopeInfos.from;
+        this.senderEmail = _envelopeInfos.from.toLowerCase();
         if (_envelopeInfos.parameters) {
           this.availabilityDays = _envelopeInfos.parameters.expiryDays;
         }
@@ -217,7 +217,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
         subject: this.uploadManagerService.envelopeInfos.getValue().subject,
-        senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
+        senderMail: this.uploadManagerService.envelopeInfos.getValue().from.toLowerCase(),
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false },
@@ -251,7 +251,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
         subject: this.uploadManagerService.envelopeInfos.getValue().subject,
-        senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
+        senderMail: this.uploadManagerService.envelopeInfos.getValue().from.toLowerCase(),
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false }
@@ -274,7 +274,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.enclosureId = result.enclosureId;
     this.flow.flowJs.opts.query = {
       enclosureId: result.enclosureId,
-      senderId: this.uploadManagerService.envelopeInfos.getValue().from,
+      senderId: this.uploadManagerService.envelopeInfos.getValue().from.toLowerCase(),
       senderToken: result.senderToken,
     };
 
