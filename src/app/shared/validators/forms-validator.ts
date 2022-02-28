@@ -1,11 +1,15 @@
 import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 
+const specialCharList = "!@#$%^&*()_-:+";
+const specialCharRegexEscape = specialCharList.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+const regex = new RegExp(`[${specialCharRegexEscape}]`, "g");
+
 // Custom Validators
 export function passwordValidator(formControl: FormControl) {
   const password = formControl.value;
   if (password) {
     if (password.match(/[a-z]/g)?.reduce((p, c) => p + c)?.length >= 3 && password.match(/[A-Z]/g)?.reduce((p, c) => p + c)?.length >= 3
-      && password.match(/\d+/g)?.reduce((p, c) => p + c)?.length >= 3 && password.match(/\W/g)?.reduce((p, c) => p + c)?.length >= 3) {
+      && password.match(/\d+/g)?.reduce((p, c) => p + c)?.length >= 3 && password.match(regex)?.reduce((p, c) => p + c)?.length >= 3) {
       return null;
     }
     return { pattern: true }
@@ -31,5 +35,5 @@ export function numChar(value: string) {
 }
 
 export function specialChar(value: string) {
-  return value?.match(/\W/g)?.reduce((p, c) => p + c)?.length >= 3;
+  return value?.match(regex)?.reduce((p, c) => p + c)?.length >= 3;
 }
