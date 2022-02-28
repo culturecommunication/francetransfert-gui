@@ -30,6 +30,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   flowAttributes: any;
   firstFile: boolean = true;
   oldLength: number = 0;
+  hasError: boolean = false;
 
 
   uploadSubscription: Subscription;
@@ -102,24 +103,23 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  calcSize() {
-    this.filesSize = this.flow.flowJs.files.reduce((sum, current) => sum + current.size, 0);
-  }
-
   onItemAdded(event, index) {
-    //this.errorMessage = '';
     if (!this.checkExisteFile(event)) {
       if (!this.checkExtentionValid(event)) {
         this.flow.cancelFile(event);
-        this.calcSize();
+        this.filesSize -= event.size;
         this.errorMessage = 'Le type de fichier que vous avez essayé d\'ajouter n\'est pas autorisé';
+        this.hasError = true;
       } else if (event.folder) {
         try {
           this.checkSize(event, this.filesSize);
-          //this.filesSize += event.size;
-          this.calcSize();
+          if (index == 0) {
+            this.filesSize = 0;
+          }
+          this.filesSize += event.size;
           this.fileManagerService.hasFiles.next(this.filesSize > 0);
           this.errorMessage = '';
+          this.hasError = false;
           this.cdr.detectChanges();
         } catch (error) {
           // c'est un dossier
@@ -127,31 +127,39 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
             this.filesSize += child.size
             this.deleteTransfer(child);
           }
-          this.calcSize();
           if (this.filesSize < 0) {
             this.filesSize = 0;
           }
           this.fileManagerService.hasFiles.next(this.filesSize > 0);
           this.errorMessage = error.message;
+          this.hasError = true;
           this.cdr.detectChanges();
           return;
         }
       } else {
         if (this.filesSize <= this.filesSizeLimit && event.size <= this.fileSizeLimit) {
-          this.calcSize();
+          if (index == 0) {
+            this.filesSize = 0;
+          }
+          this.filesSize += event.size;
           this.fileManagerService.hasFiles.next(this.filesSize > 0);
           this.errorMessage = '';
+          this.hasError = false;
           this.cdr.detectChanges();
         } else {
-          this.filesSize -= event.size;
           this.flow.cancelFile(event);
-          this.calcSize();
           this.errorMessage = 'Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale du pli autorisée (20 Go) ou la taille maximale autorisée par fichier (2 Go) ';
+          this.hasError = true;
           this.cdr.detectChanges();
         }
       }
     } else {
-      this.openSnackBar(4000);
+      if (!this.hasError) {
+        this.openSnackBar(4000);
+      }
+    }
+    if (index == this.flow.flowJs.files.length - 1) {
+      this.hasError = false;
     }
     this.oldLength = this.flow.flowJs.files.length;
   }
@@ -172,12 +180,6 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.oldLength == this.flow.flowJs.files.length) {
       if (this.firstFile == false) {
         existe = true;
-        /* const extOb = this.flow.flowJs.files.find(x => {
-          return x.uniqueIdentifier == file.flowFile.uniqueIdentifier;
-        });
-        if (extOb) {
-          existe = true;
-        } */
       }
     } else {
       existe = false;
