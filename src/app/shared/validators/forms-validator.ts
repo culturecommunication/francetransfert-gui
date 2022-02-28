@@ -13,3 +13,23 @@ export function passwordValidator(formControl: FormControl) {
     return null;
   }
 }
+
+export function sizeControl(value: string) {
+  return value?.length >= 12 && value.length <= 20;
+}
+
+export function minChar(value: string) {
+  return value?.match(/[a-z]/g)?.reduce((p, c) => p + c)?.length >= 3;
+}
+
+export function majChar(value: string) {
+  return value?.match(/[A-Z]/g)?.reduce((p, c) => p + c)?.length >= 3;
+}
+
+export function numChar(value: string) {
+  return value?.match(/\d/g)?.reduce((p, c) => p + c)?.length >= 3;
+}
+
+export function specialChar(value: string) {
+  return value?.match(/\W/g)?.reduce((p, c) => p + c)?.length >= 3;
+}

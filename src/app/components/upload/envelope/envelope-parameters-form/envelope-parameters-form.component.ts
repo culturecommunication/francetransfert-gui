@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { ParametersModel } from 'src/app/models';
 import * as moment from 'moment';
 import { UploadManagerService } from 'src/app/services';
-import { passwordValidator } from 'src/app/shared/validators/forms-validator';
+import { majChar, minChar, numChar, passwordValidator, sizeControl, specialChar } from 'src/app/shared/validators/forms-validator';
 
 @Component({
   selector: 'ft-envelope-parameters-form',
@@ -60,23 +60,23 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
   }
 
   sizeControl() {
-    return this.envelopeParametersForm.get('password').value?.length >= 12 && this.envelopeParametersForm.get('password').value.length <= 20;
+    return sizeControl(this.envelopeParametersForm.get('password').value);
   }
 
   minChar() {
-    return this.envelopeParametersForm.get('password').value?.match(/[a-z]/g)?.reduce((p, c) => p + c)?.length >= 3;
+    return minChar(this.envelopeParametersForm.get('password').value);
   }
 
   majChar() {
-    return this.envelopeParametersForm.get('password').value?.match(/[A-Z]/g)?.reduce((p, c) => p + c)?.length >= 3;
+    return majChar(this.envelopeParametersForm.get('password').value);
   }
 
   numChar() {
-    return this.envelopeParametersForm.get('password').value?.match(/\d/g)?.reduce((p, c) => p + c)?.length >= 3;
+    return numChar(this.envelopeParametersForm.get('password').value);
   }
 
   specialChar() {
-    return this.envelopeParametersForm.get('password').value?.match(/\W/g)?.reduce((p, c) => p + c)?.length >= 3;
+    return specialChar(this.envelopeParametersForm.get('password').value);
   }
 
   // convenience getter for easy access to form fields

@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output }
 import { Subscription } from 'rxjs';
 import { LinkInfosModel, MailInfosModel, ParametersModel } from 'src/app/models';
 import { FileManagerService, UploadManagerService } from 'src/app/services';
+import { majChar, minChar, numChar, sizeControl, specialChar } from 'src/app/shared/validators/forms-validator';
 
 @Component({
   selector: 'ft-envelope',
@@ -64,7 +65,17 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   onParametersFormGroupChangeEvent(event) {
     this.parametersFormValues = event.values;
+  }
 
+  isParamFromValid() {
+    if (this.parametersFormValues && this.parametersFormValues.password && this.parametersFormValues.password != '' && this.parametersFormValues.password != null && this.parametersFormValues.password != undefined) {
+      return minChar(this.parametersFormValues.password)
+        && majChar(this.parametersFormValues.password)
+        && specialChar(this.parametersFormValues.password)
+        && numChar(this.parametersFormValues.password)
+        && sizeControl(this.parametersFormValues.password);
+    }
+    return true;
   }
 
   checkCanSend() {
