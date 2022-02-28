@@ -140,11 +140,11 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.event === 'loadMailingListFromLocalStorage') {
-          this.destinatairesList = result.data;
+          Array.prototype.push.apply(this.destinatairesList, result.data);
           this.checkDestinatairesList();
         }
         if (result.event === 'loadMailingListFromFile') {
-          this.destinatairesList = result.data;
+          Array.prototype.push.apply(this.destinatairesList, result.data);
           this.checkDestinatairesList();
         }
       }
