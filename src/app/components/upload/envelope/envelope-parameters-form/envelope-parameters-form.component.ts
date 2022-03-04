@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { ParametersModel } from 'src/app/models';
 import * as moment from 'moment';
 import { UploadManagerService } from 'src/app/services';
+import { majChar, minChar, numChar, passwordValidator, sizeControl, specialChar } from 'src/app/shared/validators/forms-validator';
 
 @Component({
   selector: 'ft-envelope-parameters-form',
@@ -21,13 +22,15 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
   maxDate = new Date();
 
   constructor(private fb: FormBuilder,
-    private uploadManagerService: UploadManagerService) { }
+    private uploadManagerService: UploadManagerService) {
+  }
 
   ngOnInit(): void {
     this.initForm();
   }
 
   initForm() {
+
     let expireDate;
     if (this.parametersFormValues?.expiryDays) {
       expireDate = moment().add(this.parametersFormValues.expiryDays, 'days').toDate();
@@ -38,8 +41,9 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
 
     this.envelopeParametersForm = this.fb.group({
       expiryDays: [expireDate],
-      password: [this.parametersFormValues?.password, [Validators.minLength(12), Validators.maxLength(20), Validators.pattern('^(?=.{12,})((?=.*[0-9]){3,})((?=.*[a-z]){3,})((?=.*[A-Z]){3,})((?=.*[!@#$%^&*()_:+-]){3,}).*$')]]
+      password: [this.parametersFormValues?.password, [Validators.minLength(12), Validators.maxLength(20), passwordValidator]]
     });
+    this.checkErrors();
     this.envelopeParametersFormChangeSubscription = this.envelopeParametersForm.valueChanges
       .subscribe(() => {
         const _expiryDays = moment().diff(this.envelopeParametersForm.get('expiryDays').value, 'days') - 1;
@@ -55,6 +59,26 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
       });
   }
 
+  sizeControl() {
+    return sizeControl(this.envelopeParametersForm.get('password').value);
+  }
+
+  minChar() {
+    return minChar(this.envelopeParametersForm.get('password').value);
+  }
+
+  majChar() {
+    return majChar(this.envelopeParametersForm.get('password').value);
+  }
+
+  numChar() {
+    return numChar(this.envelopeParametersForm.get('password').value);
+  }
+
+  specialChar() {
+    return specialChar(this.envelopeParametersForm.get('password').value);
+  }
+
   // convenience getter for easy access to form fields
   get f() { return this.envelopeParametersForm.controls; }
 
@@ -62,4 +86,12 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
     this.envelopeParametersFormChangeSubscription.unsubscribe();
   }
 
+  checkErrors() {
+    if (this.f.password.errors != null) {
+      this.envelopeParametersForm.get('password').setValue('');
+    }
+  }
+
 }
+
+

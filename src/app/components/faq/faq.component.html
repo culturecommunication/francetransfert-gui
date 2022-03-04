@@ -6,8 +6,9 @@
         <mat-card-content class="faq-card-content">
             <h2 #pourquoift>Pourquoi France transfert ?</h2>
             <p>
-                <span>France transfert est un service créé par le ministère de la culture pour aider ses usagers (citoyens, professionnels, entreprises, associations…) à envoyer (aux agents de
-                  l’Etat) ou recevoir (des agents de l’Etat), des fichiers et dossiers volumineux qui ne peuvent pas transiter par les messageries électroniques. </span>
+                <span>France transfert est un service créé par l’Etat pour aider ses usagers (citoyens, professionnels, entreprises, associations…), partenaires ou prestataires à envoyer aux agents de
+                  l’Etat ou recevoir des agents de l’Etat, des fichiers et dossiers volumineux qui ne peuvent pas transiter par les messageries électroniques.Il a été conçu et est opéré par le ministère de la Culture,
+                  et mis à la disposition de tous les ministères par la direction interministérielle du numérique (DINUM) </span>
                 <span>C’est un service hébergé en France (société Outscale). Les données sont donc stockées sur des serveurs français le temps qu’elles soient
                   téléchargées par leur destinataire.</span>
             </p>
@@ -31,6 +32,10 @@
                   les destinataires peuvent ensuite transmettre ce lien sans que l’expéditeur puisse en contrôler le téléchargement.</span>
               </li>
             </ul>
+            <p>
+              <span>Remarque : si vous souhaitez envoyer un pli vers une boite fonctionnelle (boite de messagerie lue par plusieurs personnes), nous vous déconseillons d’utiliser la
+                    modalité d’envoi courriel. En effet le nombre de téléchargements d’un pli est limité à 5 fois par destinataire. </span>
+            </p>
             <h2 #utilisationsurmobile>Puis-je utiliser France transfert sur mobile ?</h2>
             <p>
               <span>
@@ -52,9 +57,46 @@
               <span>Si l'analyse antivirale prend du temps (pli de grosse volumétrie) alors l'envoi du courriel de confirmation peut tarder à arriver. Dans tous les cas l'expéditeur reçoit un courriel soit d'erreur (si problème de sécurité), soit de confirmation
                     (dans ce cas les destinataires reçoivent eux aussi chacun un courriel avec les instructions de téléchargement).</span>
             </p>
+            <h2 #commenttelecharger>Comment télécharger le pli qui m’est adressé ?</h2>
+            <p>
+              <span>Lorsque l’envoi du pli est effectué, un courriel de confirmation d’envoi avec le détail concernant les fichiers qui composent le pli est transmis à l’expéditeur ainsi que le mot de passe associé à ce pli.</span>
+              <span>Les destinataires reçoivent un courriel avec un lien de téléchargement et un autre courriel contenant le  mot de passe à saisir pour pouvoir télécharger.</span>
+              <span>Si jamais France transfert refuse le mot de passe saisi, vérifiez qu’en le copiant collant cela n’ait pas ajouté un espace à la fin du mot de passe (utilisez le pictogramme « œil » pour afficher le mot de passe en clair).</span>
+            </p>
+            <h2 #tromperDansListDestinataires>Je me suis trompé dans ma liste de destinataires mais j’ai déjà envoyé mon pli, que faire ?</h2>
+            <p>
+              <span>Vous vous êtes trompés dans votre liste de destinataires ? Plusieurs possibilités s’offrent à vous depuis la page d’administration
+                du pli (lien d’administration reçu dans le courriel de confirmation d’envoi du pli) et selon vos besoins : </span>
+            </p>
+            <ol>
+              <li>
+                Supprimer le pli : le pli est intégralement supprimé, plus aucun destinataire ne peut télécharger son contenu désormais.
+              </li>
+              <li>
+                Supprimer un ou des destinataires : le lien de téléchargement de ce(s) destinataire(s) est désormais révoqué
+                et ne pourra plus être utilisé désormais pour le téléchargement de vos fichiers.
+              </li>
+              <li>
+                Ajouter un destinataire : vous avez la possibilité d’ajouter manuellement un ou plusieurs destinataires au pli. Comme les destinataires originaux,
+                ils recevront un courriel avec le lien d’accès au pli et un courriel avec le mot de passe pour accéder à la page de téléchargement du pli.
+              </li>
+            </ol>
+            <p>
+              <span>
+                Dans le cas d’une suppression du pli ou d’un destinataire, pensez bien à en informer vos contacts afin qu’ils ne tentent pas inutilement de télécharger le pli.
+              </span>
+            </p>
+            <h2 #nombreDeTelechargement>Combien de fois les destinataires peuvent-ils télécharger les fichiers que j’ai envoyé ?</h2>
+            <p>
+              <span>Chaque destinataire dispose d’un lien de téléchargement unique pour accéder au téléchargement du pli. Avec ce lien, chaque destinataire peut télécharger jusqu’à 5 fois le contenu du pli. </span>
+              <span>Cela permet aux destinataires de récupérer plusieurs fois les fichiers si nécessaire (exemple : si le destinataire les a supprimés de son poste par exemple et qu’il en aurait de nouveau besoin). </span>
+              <span>Si un destinataire a dépassé cette limite de 5 téléchargements du même pli, il sera nécessaire de lui renvoyer les fichiers via un nouveau pli. Cela peut être nécessaire de procéder ainsi également si le destinataire
+                a « verrouillé » son lien de téléchargement en saisissant plus de 5 fois un mauvais mot de passe pour accéder à la page de téléchargement. </span>
+            </p>
             <h2 #quedeviennentlesfichiers>Que deviennent les fichiers que j’ai transmis une fois qu’ils ont été téléchargés par le destinataire que j’ai indiqué ?</h2>
             <p>
-                <span>Les fichiers sont tous supprimés après le téléchargement par l’ensemble des destinataires indiqués, dans la limite de 30 jours maximum.</span>
+                <span>Les fichiers sont supprimés après expiration du délai de validité du pli (par défaut à 30 jours). Il n’y a pas de suppression automatique du pli quand tous
+                  les destinataires l’ont téléchargé car un destinataire pourrait avoir besoin de nouveau de télécharger le pli</span>
             </p>
             <h2 #ouvontlesfichiers>Où vont les fichiers téléchargés ?</h2>
             <p>
@@ -82,7 +124,10 @@
             <h2 #listededistribution>Puis-je utiliser une liste de distribution ? </h2>
             <p>
                 <span>Pour envoyer vos fichiers à plusieurs destinataires différents en une seule opération, il est possible d’importer un fichier de type csv
-                  (en respectant le séparateur « ; » entre chaque courriel) comportant la liste des destinataires.  </span>
+                  (en respectant le séparateur « ; » entre chaque courriel) comportant la liste des destinataires. Pour ce faire cliquer sur
+                  le pictogramme situé à droite du champ « Destinataire(s) ». </span>
+                <span>Vous pouvez générer un fichier csv de vos destinataires en cliquant sur le pictogramme situé à droite de vos destinataires. Charge à vous de
+                le stocker puis de le réutiliser pour préremplir automatiquement la liste des destinataires de votre prochain pli. </span>
             </p>
             <h2 #questionnairedesatisfaction>À quoi sert le questionnaire de satisfaction ? </h2>
             <p>
@@ -91,6 +136,12 @@
                   Les commentaires éventuellement laissés vous permettent de vous exprimer de manière libre sur le service.  </span>
                 <span>L’équipe produit examinera les commentaires mais ne peut s’engager, ni à y répondre individuellement, ni à mettre en œuvre les suggestions proposées.</span>
             </p>
+          <h2 #ouTrouverDesInfoSurFT>Où puis-je trouver d’autres informations sur France transfert ?</h2>
+          <p>
+            <span>Pour les agents de l’Etat, il y a un salon « France transfert » dans TCHAP qui vous permettra de suivre les évolutions ou d’échanger avec les autres membres.
+              Vous pouvez vous y abonner. </span>
+            <span>Vous pouvez également écrire au support France transfert via le formulaire « Contact ». </span>
+          </p>
         </mat-card-content>
     </mat-card>
 </div>

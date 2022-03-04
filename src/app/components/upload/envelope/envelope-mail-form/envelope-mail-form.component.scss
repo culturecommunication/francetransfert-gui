@@ -1,4 +1,7 @@
 .envelope-mail-form-container {
+     /* ::ng-deep .mat-form-field-infix {
+        display: flex;
+      }*/
 
     .envelope-mail-form-info {
         display: flex;
@@ -15,9 +18,19 @@
       white-space: normal!important;
     }
 
+    .icon-download{
+      cursor: pointer;
+      margin-left: auto;
+      order: 2;
+    }
+
+    .destinataire-flex{
+      display: flex;
+      align-items: center;
+    }
+
     .mat-form-field {
         width: 100%;
-
         .icon-btn {
             cursor: pointer;
         }
@@ -26,10 +39,16 @@
         color: var(--ft-blue-france);
         text-decoration: underline;
     }
+    ::ng-deep .destinataires-chip-list {
+      max-height: 8rem;
+      height: fit-content;
+      overflow: auto;
+      margin-top: 10px;
+    }
     .destinataires-chip-list {
         ::ng-deep .mat-chip-list-wrapper {
-            margin-top: 20px;
             width: 100%;
+            margin: 0px;
         }
         .destinataires-chip {
             background-color: #DBDBEA;
@@ -37,7 +56,15 @@
             cursor: pointer;
             height: auto !important;
         }
+        width: 100%;
     }
+}
+
+::ng-deep .cdk-overlay-pane{
+  position: absolute;
+}
+::ng-deep .cdk-global-overlay-wrapper{
+
 }
 @media screen and  (min-width: 1000px) {
   .envelope-mail-form-container {

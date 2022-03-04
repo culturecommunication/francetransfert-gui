@@ -5,5 +5,5 @@ export const FLOW_CONFIG: Flow.FlowOptions = {
   chunkSize: 1024 * 1024 * 5, // 5 Mo
   testChunks: false,
   maxChunkRetries: 5,
-  chunkRetryInterval: 5000,
+  chunkRetryInterval: 5000
 };

@@ -24,8 +24,13 @@ export const environment = {
     admin: {
       deleteFile: 'api-private/upload-module/delete-file',
       updateExpiredDate: 'api-private/upload-module/update-expired-date',
-      fileInfos: 'api-private/upload-module/file-info'
+      fileInfos: 'api-private/upload-module/file-info',
+      addNewRecipient:'api-private/upload-module/add-recipient',
+      deleteRecipient:'api-private/upload-module/delete-recipient'
+    },
+    captcha: {
+      url: '/captcha/captcha/'
     }
   },
-  version: '3.1.1'
+  version: '3.2.0'
 };

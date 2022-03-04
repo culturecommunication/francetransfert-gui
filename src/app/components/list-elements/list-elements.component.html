@@ -29,28 +29,28 @@
     <mat-card-content class="list-elements-card-content"
         *ngIf="(flow.transfers$ | async).transfers.length > 0 ; else emptyList">
         <ft-file-item class="file-item"
-            *ngFor="let transfer of (flow.transfers$ | async).transfers | tm; trackBy: trackTransfer"
-            [transfer]="transfer" (itemAdded)="onItemAdded($event)" (deletedTransfer)="deleteTransfer($event)">
+            *ngFor="let transfer of (flow.transfers$ | async).transfers | tm; let index = index"
+            [transfer]="transfer" (itemAdded)="onItemAdded($event, index)" (deletedTransfer)="deleteTransfer($event)" >
         </ft-file-item>
         <div class="list-elements-add-elements-wrapper">
-            <button mat-icon-button flowButton [flowAttributes]="{ accept: '*/*' }" [flow]="flow.flowJs">
-                <mat-icon class="list-elements-card-content-icon" aria-label="Ajoutez-vos fichiers">add_circle
+            <button mat-icon-button flowButton [flow]="flow.flowJs">
+                <mat-icon class="list-elements-card-content-icon" aria-label="Ajoutez vos fichiers">add_circle
                 </mat-icon>
             </button>
             <label>
-                <span class="list-elements-card-content-first-line">Ajoutez-vos fichiers et dossiers ou déposez-les
+                <span class="list-elements-card-content-first-line">Ajoutez vos fichiers et dossiers ou déposez-les
                     ici</span>
             </label>
         </div>
     </mat-card-content>
     <ng-template #emptyList>
         <mat-card-content class="list-elements-card-content empty">
-            <button mat-icon-button flowButton [flowAttributes]="{ accept: '*/*' }" [flow]="flow.flowJs">
-                <mat-icon class="list-elements-card-content-icon" aria-label="Ajoutez-vos fichiers">add_circle
+            <button mat-icon-button flowButton [flow]="flow.flowJs">
+                <mat-icon class="list-elements-card-content-icon" aria-label="Ajoutez vos fichiers">add_circle
                 </mat-icon>
             </button>
             <label>
-                <span class="list-elements-card-content-first-line">Ajoutez-vos fichiers et dossiers</span><br />
+                <span class="list-elements-card-content-first-line">Ajoutez vos fichiers et dossiers</span><br />
                 <span class="list-elements-card-content-second-line">ou déposez-les ici</span>
             </label>
         </mat-card-content>

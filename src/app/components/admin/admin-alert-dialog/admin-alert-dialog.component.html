@@ -1,3 +1,4 @@
+<div *ngIf="data == 'deletePli'">
 <h2 mat-dialog-title>Etes-vous sûr ?</h2>
 <mat-dialog-content class="mat-typography">
   <h3>Cette action supprimera définitivement votre pli et le rendra inaccessible.</h3>
@@ -7,3 +8,16 @@
   <button class="btn" mat-button mat-dialog-close>Annuler</button>
   <button class="btn" mat-button [mat-dialog-close]="true" cdkFocusInitial>Supprimer</button>
 </mat-dialog-actions>
+</div>
+<div *ngIf="data == 'deleteDest'">
+  <h2 mat-dialog-title>Êtes vous sûr(e) de vouloir supprimer ce destinataire ?</h2>
+  <mat-dialog-content class="mat-typography">
+    <h3>Son lien de téléchargement reçu par courriel ne permettra plus de télécharger le pli.</h3>
+    <p>Poursuivre ?</p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button class="btn" mat-button mat-dialog-close>Annuler</button>
+    <button class="btn" mat-button [mat-dialog-close]="true" cdkFocusInitial>Supprimer</button>
+  </mat-dialog-actions>
+</div>
+

@@ -45,7 +45,7 @@
         <mat-card-actions class="envelope-card-actions">
             <button mat-raised-button class="envelope-card-actions-btn"
                 (click)="triggerShowParameters()">Annuler</button>
-            <button mat-raised-button class="envelope-card-actions-btn"
+            <button [disabled]="!isParamFromValid()" mat-raised-button class="envelope-card-actions-btn"
                 (click)="triggerShowParameters()">Valider</button>
         </mat-card-actions>
     </mat-card>
