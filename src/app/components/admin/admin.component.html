@@ -35,9 +35,42 @@
                         <mat-icon matTooltip="Supprimer le pli" (click)="deleteFile()" aria-label="Supprimer le pli">delete
                         </mat-icon>
                     </mat-list-item>
+                  <div *ngIf="fileInfos?.recipientsMails.length != 0 || fileInfos?.deletedRecipients.length != 0">
+                    <div class="admin-card-content-files" >
+                      <div class="subheader respientHeader">
+                        <span>Les destinataires : </span>
+                        <mat-icon *ngIf=" !add" matTooltip="Ajouter un destinataire" style="color: black;cursor: pointer;" (click)="addRecipient()" aria-label="Ajouter un destinataire">add_box</mat-icon>
+                        <mat-icon *ngIf="close" matTooltip="Terminer" style="color: black;cursor: pointer;" (click)="addRecipient()" aria-label="terminer">close</mat-icon>
+                      </div>
+                    </div>
+                    <div *ngIf = "add" class="addDestinataire" [ngClass]="errorValidEmail || errorEmail ? 'big-error' : ''">
+                      <form [formGroup]="envelopeDestForm" class="addForm">
+                      <mat-form-field class="example-full-width">
+                        <mat-label>Courriel du destinataire</mat-label>
+                        <input id="recipientmail" name="recipientmail" formControlName="email" type="email" matInput
+                               placeholder="JEAN.DUPONT@EMAIL.COM"
+                                #dest (blur)="onBlurDestinataires();" (keyup.enter)="dest.blur();">
+                        <mat-error role="alert" *ngIf="envelopeDestForm.controls.email.errors?.emailError">
+                          Une adresse courriel valide est requise (JEAN.DUPONT@EMAIL.COM).
+                        </mat-error>
+                        <mat-error role="alert" *ngIf="envelopeDestForm.controls.email.errors?.emailNotValid">
+                          Il est nécessaire que l'expéditeur ou que l'ensemble des destinataires soi(en)t un/des agent(s) de l'Etat
+                        </mat-error>
+                      </mat-form-field>
+                      </form>
+                    </div>
+                  </div>
+                    <mat-list-item role="listitem" class="delete" *ngFor="let dest of fileInfos?.recipientsMails; let index = index">
+                        <span>{{dest}}</span>
+                        <mat-icon matTooltip="Supprimer le destinataire"  (click)="deleteRecipient(index, dest)" aria-label="Supprimer le destinataire">delete
+                        </mat-icon>
+                    </mat-list-item>
+                  <mat-list-item role="listitem" class="delete" *ngFor="let dest of fileInfos?.deletedRecipients; let index = index">
+                    <span style="color: red;text-decoration: line-through;">{{dest}}</span>
+                  </mat-list-item>
                 </mat-list>
             </div>
-            <div class="admin-card-content-files" *ngIf="fileInfos">
+            <div class="admin-card-content-files " *ngIf="fileInfos">
                 <div class="subheader">
                     <span>Éléments du pli</span>
                 </div>

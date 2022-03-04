@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
-import {catchError, map} from "rxjs/operators";
-import {UploadManagerService} from "../upload-manager/upload-manager.service";
-import {ResponsiveService} from "../responsive/responsive.service";
-import {Router} from "@angular/router";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { environment } from "../../../environments/environment";
+import { catchError, map } from "rxjs/operators";
+import { UploadManagerService } from "../upload-manager/upload-manager.service";
+import { ResponsiveService } from "../responsive/responsive.service";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -19,17 +19,13 @@ export class ContactService {
       map((response: any) => {
         this.uploadManagerService.uploadError$.next(null);
         return response;
-      }),
-      catchError(this.handleError('sendTree'))
+      })
     );
   }
 
   private handleError(operation: string) {
     return (err: any) => {
       const errMsg = `error in ${operation}()`;
-      if (err instanceof HttpErrorResponse) {
-        this.uploadManagerService.uploadError$.next({ statusCode: err.status, ...(err.message && !err.error.type) ? { message: err.message } : { message: err.error.type }, ...err.error.codeTryCount ? { codeTryCount: err.error.codeTryCount } : {} });
-      }
       throw (errMsg);
     };
   }

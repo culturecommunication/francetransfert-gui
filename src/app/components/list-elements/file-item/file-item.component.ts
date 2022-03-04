@@ -27,13 +27,7 @@ export class FileItemComponent implements OnInit {
    * @returns {void}
    */
   deleteTransfer(): void {
-    if (this.transfer.folder) {
-      for (let transfer of this.transfer.childs) {
-        this.deletedTransfer.emit(transfer);
-      }
-    } else {
       this.deletedTransfer.emit(this.transfer);
-    }
   }
 
 }

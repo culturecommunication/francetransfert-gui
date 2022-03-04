@@ -44,11 +44,11 @@ export class PwaService {
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           this.appUpdateAvailable$.next(false);
-          window.location.reload()
+          window.location.reload();
         }
       });
     });
-  }  
+  }
 
   promptUserInstall() {
     this.initPwaPrompt();
@@ -57,6 +57,11 @@ export class PwaService {
   public initPwaPrompt() {
     if (this.platform.ANDROID) {
       window.addEventListener('beforeinstallprompt', (event: any) => {
+        console.log('event origin : ' + event.origin);
+        console.log('window href : ' + window.location.origin);
+        if (event.origin && event.origin !== window.location.origin) {
+          return;
+        }
         event.preventDefault();
         this.promptEvent = event;
         this.openPromptComponent('android');

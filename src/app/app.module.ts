@@ -47,6 +47,8 @@ import { PolitiqueProtectionDonneesComponent } from './components/politique-prot
 import { DownloadErrorComponent } from './components/download/download-error/download-error.component';
 import { SatisfactionMessageComponent } from './components/satisfaction-message/satisfaction-message.component';
 import { ContactEndMessageComponent } from './components/contact-end-message/contact-end-message.component';
+import { InfoMsgComponent } from './components/info-msg/info-msg.component';
+import { AdminEndMsgComponent } from './components/admin/admin-end-msg/admin-end-msg.component';
 
 registerLocaleData(localeFr);
 const initializer = (pwaService: PwaService) => () =>
@@ -92,7 +94,9 @@ const initializer = (pwaService: PwaService) => () =>
     PolitiqueProtectionDonneesComponent,
     DownloadErrorComponent,
     SatisfactionMessageComponent,
-    ContactEndMessageComponent
+    ContactEndMessageComponent,
+    InfoMsgComponent,
+    AdminEndMsgComponent
   ],
   imports: [
     HttpClientModule,

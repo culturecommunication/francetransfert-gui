@@ -1,8 +1,10 @@
 .envelope-card {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     display: -webkit-flex;
     -webkit-flex-direction: column;
+    -webkit-justify-content: center;
     .envelope-card-content {
         .envelope-card-tab-group {
             ::ng-deep .mat-tab-label-content {
@@ -63,7 +65,7 @@
 
 @media screen and (min-width: 812px) {
     .envelope-card {
-        height: 67vh;
+        height: 100%;
         .envelope-card-content {
             height: 100%;
             overflow: auto;

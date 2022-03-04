@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Transfer } from '@flowjs/ngx-flow/lib/transfer';
+import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { UploadInfosModel } from 'src/app/models';
 import { environment } from 'src/environments/environment';
@@ -39,7 +40,7 @@ export class UploadService {
     );
   }
 
-  validateMail(mail: any): any {
+  validateMail(mail: any): Observable<any> {
     return this._httpClient.post(`${environment.host}${environment.apis.upload.validateMail}`, mail).pipe(
       map((response: any) => {
         return response;
@@ -48,7 +49,7 @@ export class UploadService {
     );
   }
 
-  allowedSenderMail(mail: any): any {
+  allowedSenderMail(mail: any): Observable<any> {
     return this._httpClient.post(`${environment.host}${environment.apis.upload.allowedSenderMail}`, mail).pipe(
       catchError(this.handleError('senderMailNotAllowed'))
     );

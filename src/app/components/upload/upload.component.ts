@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FlowDirective, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs/internal/Subject';
@@ -6,9 +6,11 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { take, takeUntil } from 'rxjs/operators';
 import { DownloadManagerService, FileManagerService, ResponsiveService, UploadManagerService, UploadService } from 'src/app/services';
 import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {SatisfactionMessageComponent} from "../satisfaction-message/satisfaction-message.component";
-import {Router} from "@angular/router";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { SatisfactionMessageComponent } from "../satisfaction-message/satisfaction-message.component";
+import { Router } from "@angular/router";
+import * as cloneDeep from 'lodash/cloneDeep';
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'ft-upload',
@@ -24,7 +26,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   uploadFinished: boolean = false;
   uploadValidated: boolean = false;
   uploadFailed: boolean = false;
-  publicLink: boolean  = false;
+  publicLink: boolean = false;
   uploadManagerSubscription: Subscription = new Subscription;
   responsiveSubscription: Subscription = new Subscription;
   fileManagerSubscription: Subscription = new Subscription;
@@ -39,6 +41,9 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   hasFiles: boolean = false;
   listExpanded: boolean = false;
   enclosureId: string = '';
+  canReset: boolean = false;
+
+
 
   constructor(private responsiveService: ResponsiveService,
     private uploadManagerService: UploadManagerService,
@@ -56,7 +61,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.responsiveService.checkWidth();
     this.uploadManagerSubscription = this.uploadManagerService.envelopeInfos.subscribe(_envelopeInfos => {
       if (_envelopeInfos && _envelopeInfos.from) {
-        this.senderEmail = _envelopeInfos.from;
+        this.senderEmail = _envelopeInfos.from.toLowerCase();
         if (_envelopeInfos.parameters) {
           this.availabilityDays = _envelopeInfos.parameters.expiryDays;
         }
@@ -79,26 +84,38 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   scrollTo(_anchor: string) {
     switch (_anchor) {
       case 'upload':
-        this.uploadFragment.nativeElement.scrollIntoView({behavior: "smooth", block: "start"});
+        this.uploadFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
         break;
     }
   }
 
 
   reset() {
+    if (this.transfertSubscription) {
+      this.transfertSubscription.unsubscribe();
+    }
     this.enclosureId = '';
     this.uploadStarted = false;
     this.uploadFinished = false;
     this.uploadValidated = false;
     this.uploadFailed = false;
     this.publicLink = false;
-    this.uploadManagerService.envelopeInfos.next(null);
+    this.uploadManagerService.uploadInfos.next(null);
     this.uploadManagerService.uploadError$.next(null);
     this.downloadManagerService.downloadError$.next(null);
     //Reset token
-    this.uploadManagerService.uploadInfos.next(null);
-    if (this.flow) {
-      this.flow.cancel();
+    if (!this.canReset) {
+      this.uploadManagerService.envelopeInfos.next(null);
+      if (this.flow) {
+        this.fileManagerService.hasFiles.next(false);
+        this.flow.cancel();
+      }
+    } else {
+      this.flow.transfers$.pipe(take(1)).subscribe(transfer => {
+        transfer.transfers.forEach(t => {
+          t.flowFile.bootstrap();
+        });
+      });
     }
   }
 
@@ -138,6 +155,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   onTransferFailed(event) {
     this.uploadFailed = true;
     this.uploadFinished = true;
+    this.canReset = true;
   }
 
   onTransferCancelled(event) {
@@ -147,6 +165,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onTransferFinished(event) {
     this.uploadFinished = event;
+    this.canReset = !event;
   }
 
   onTransferValidated(event) {
@@ -166,7 +185,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     if (event) {
       this.uploadService.rate({ plis: this.enclosureId, mail: this.uploadManagerService.envelopeInfos.getValue().from, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
         .subscribe((result: any) => {
-          if(result){
+          if (result) {
             this.openSnackBar(4000);
           }
           this.reset();
@@ -175,9 +194,9 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openSnackBar(duration: number) {
-    this._snackBar.openFromComponent(SatisfactionMessageComponent,{
-      panelClass : 'panel-success',
-      duration:duration
+    this._snackBar.openFromComponent(SatisfactionMessageComponent, {
+      panelClass: 'panel-success',
+      duration: duration
     });
   }
 
@@ -185,8 +204,8 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.listExpanded = event;
   }
 
-  ispublicLink(val: any){
-    if(val === 'link')
+  ispublicLink(val: any) {
+    if (val === 'link')
       this.publicLink = true;
   }
 
@@ -195,12 +214,10 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadService
       .sendTree({
         transfers: transfers.transfers,
-
-
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
         subject: this.uploadManagerService.envelopeInfos.getValue().subject,
-        senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
+        senderMail: this.uploadManagerService.envelopeInfos.getValue().from.toLowerCase(),
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false },
@@ -215,7 +232,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
           this.availabilityDate = result.expireDate;
           this.ispublicLink(this.uploadManagerService.envelopeInfos.getValue().type);
           this.beginUpload(result);
-
         } else {
           if (this.uploadManagerService.uploadInfos.getValue()) {
             if (this.uploadManagerService.uploadInfos.getValue().senderId && this.uploadManagerService.uploadInfos.getValue().senderToken) {
@@ -235,7 +251,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'mail' ? { emails: this.uploadManagerService.envelopeInfos.getValue().to } : {},
         message: this.uploadManagerService.envelopeInfos.getValue().message,
         subject: this.uploadManagerService.envelopeInfos.getValue().subject,
-        senderMail: this.uploadManagerService.envelopeInfos.getValue().from,
+        senderMail: this.uploadManagerService.envelopeInfos.getValue().from.toLowerCase(),
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false }
@@ -251,15 +267,17 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   beginUpload(result) {
+
     if (this.transfertSubscription) {
       this.transfertSubscription.unsubscribe();
     }
     this.enclosureId = result.enclosureId;
     this.flow.flowJs.opts.query = {
       enclosureId: result.enclosureId,
-      senderId: this.uploadManagerService.envelopeInfos.getValue().from,
+      senderId: this.uploadManagerService.envelopeInfos.getValue().from.toLowerCase(),
       senderToken: result.senderToken,
     };
+
     this.transfertSubscription = this.flow.transfers$.subscribe((uploadState: UploadState) => {
       this.fileManagerService.uploadProgress.next(uploadState);
     });
