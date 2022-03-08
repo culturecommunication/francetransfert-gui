@@ -19,6 +19,7 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   linkFormValid: boolean = false;
   fileManagerServiceSubscription: Subscription;
   uploadManagerSubscription: Subscription;
+  loginSubscription: Subscription;
   showParameters: boolean = false;
   mailFormValues: MailInfosModel = { type: 'mail' };
   linkFormValues: LinkInfosModel = { type: 'link' };
@@ -29,6 +30,12 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    this.loginSubscription = this.uploadManagerService.tokenInfo.subscribe(tokenInfo => {
+      if (tokenInfo && tokenInfo.senderMail) {
+        this.mailFormValues.from = tokenInfo.senderMail;
+        this.linkFormValues.from = tokenInfo.senderMail;
+      }
+    });
     this.uploadManagerSubscription = this.uploadManagerService.envelopeInfos.subscribe(_infos => {
       if (_infos) {
         if (_infos.type === 'mail') {
@@ -105,6 +112,9 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
     }
     if (this.uploadManagerSubscription) {
       this.uploadManagerSubscription.unsubscribe();
+    }
+    if (this.loginSubscription) {
+      this.loginSubscription.unsubscribe();
     }
   }
 }

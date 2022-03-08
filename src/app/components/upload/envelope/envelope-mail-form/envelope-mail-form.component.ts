@@ -64,7 +64,6 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
     this.envelopeMailFormChangeSubscription = this.envelopeMailForm.statusChanges
       .subscribe(() => {
-        // this.copyListDestinataires(this.envelopeMailForm.get('to').value);
         this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
         this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value, ...this.uploadManagerService.envelopeInfos.getValue()?.parameters ? { parameters: this.uploadManagerService.envelopeInfos.getValue().parameters } : {} });
       });
@@ -162,6 +161,15 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     this.dest.nativeElement.focus();
   }
 
+  hasSenderInfo() {
+    return this.uploadManagerService.tokenInfo.getValue()?.senderMail;
+  }
+
+  getSenderInfo() {
+    if (this.uploadManagerService.tokenInfo.getValue()?.senderMail) {
+      return this.uploadManagerService.tokenInfo.getValue()?.senderMail;
+    }
+  }
 
   copyListDestinataires(val: any) {
     if (val.indexOf("<") > 0 && val.indexOf(">") > 0) {

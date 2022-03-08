@@ -27,9 +27,9 @@ export class UploadService {
       rootFiles: trMapping.files,
       rootDirs: trMapping.dirs,
       publicLink: body.publicLink,
-      expireDelay: body.expiryDays
-      //senderId: body.senderId,
-      //senderToken: body.senderToken
+      expireDelay: body.expiryDays,
+      senderId: body.senderId,
+      senderToken: body.senderToken
     };
     return this._httpClient.post(`${environment.host}${environment.apis.upload.tree}`, treeBody).pipe(
       map((response: any) => {
@@ -74,6 +74,11 @@ export class UploadService {
       treeBody
     ).pipe(map((response: UploadInfosModel) => {
       this.uploadManagerService.uploadError$.next(null);
+      this.uploadManagerService.tokenInfo.next({
+        senderMail: body.senderMail,
+        senderId: response.senderId,
+        senderToken: response.senderToken
+      });
       this.uploadManagerService.uploadInfos.next({
         canUpload: response.canUpload,
         enclosureId: response.enclosureId,
