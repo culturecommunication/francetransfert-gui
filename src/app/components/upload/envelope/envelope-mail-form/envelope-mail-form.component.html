@@ -7,11 +7,11 @@
     <div class="envelope-mail-form-group" [ngClass]="f.from.errors?.quota ? 'big-error' : ''">
         <mat-form-field>
             <mat-label>Expéditeur</mat-label>
-            <input id="sendermail" name="email" matInput placeholder="Votre adresse courriel" formControlName="from"
-                required autocomplete="email">
+            <input id="sendermail" [readonly]="hasSenderInfo()" [disabled]="hasSenderInfo()" name="email" matInput
+                placeholder="Votre adresse courriel" formControlName="from" required autocomplete="email">
             <mat-icon class="icon-btn" aria-hidden="true" matSuffix
-                    matTooltip="l’expéditeur peut être un agent de l’administration française ou un particulier.">
-            info_outline</mat-icon>
+                matTooltip="l’expéditeur peut être un agent de l’administration française ou un particulier.">
+                info_outline</mat-icon>
             <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
             <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise
                 (JEAN.DUPONT@EMAIL.COM).</mat-error>
@@ -25,13 +25,13 @@
         <mat-form-field>
             <mat-label>Destinataire(s) *</mat-label>
             <input id="recipientmail" name="recipientmail" matInput
-                placeholder="les adresses courriels des destinataires" formControlName="to"
-                 #dest (blur)="onBlurDestinataires();" (keyup.enter)="dest.blur();focus();">
+                placeholder="les adresses courriels des destinataires" formControlName="to" #dest
+                (blur)="onBlurDestinataires();" (keyup.enter)="dest.blur();focus();">
             <mat-icon class="icon-btn" aria-hidden="true" matSuffix
-                      matTooltip="si l’expéditeur est un agent de l’Etat, le ou les destinataires peuvent être un agent de l’Etat ou un
+                matTooltip="si l’expéditeur est un agent de l’Etat, le ou les destinataires peuvent être un agent de l’Etat ou un
                         particulier. Si l’expéditeur est un particulier, les destinataires ne peuvent être que des agents de l’Etat.">
-              info_outline</mat-icon>
-            <mat-icon class="icon-btn" aria-hidden="true"  matSuffix matTooltip="Utiliser une liste de contacts"
+                info_outline</mat-icon>
+            <mat-icon class="icon-btn" aria-hidden="true" matSuffix matTooltip="Utiliser une liste de contacts"
                 (click)="openMailingListManager()">list_alt
             </mat-icon>
 
@@ -49,8 +49,9 @@
             <mat-chip *ngFor="let dest of destinatairesList; let index = index" class="destinataires-chip"
                 (click)="deleteDestinataire(index)">{{dest}}</mat-chip>
         </mat-chip-list>
-        <mat-icon *ngIf="destinatairesList && destinatairesList.length > 0" class="icon-btn icon-download" aria-hidden="true" matSuffix
-            matTooltip="Exporter ma liste de destinataires au format CSV" (click)="exportDataCSV() ">cloud_download
+        <mat-icon *ngIf="destinatairesList && destinatairesList.length > 0" class="icon-btn icon-download"
+            aria-hidden="true" matSuffix matTooltip="Exporter ma liste de destinataires au format CSV"
+            (click)="exportDataCSV() ">cloud_download
         </mat-icon>
     </div>
 

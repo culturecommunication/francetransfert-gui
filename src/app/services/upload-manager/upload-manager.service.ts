@@ -10,6 +10,7 @@ import { FTErrorModel, LinkInfosModel, MailInfosModel, UploadInfosModel } from '
 })
 export class UploadManagerService {
 
+  tokenInfo: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   envelopeInfos: BehaviorSubject<MailInfosModel | LinkInfosModel> = new BehaviorSubject<MailInfosModel | LinkInfosModel>(null);
   uploadError$: BehaviorSubject<FTErrorModel> = new BehaviorSubject<FTErrorModel>(null);
   uploadInfos: BehaviorSubject<UploadInfosModel> = new BehaviorSubject<UploadInfosModel>(null);

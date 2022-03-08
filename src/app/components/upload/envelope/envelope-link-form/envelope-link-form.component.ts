@@ -96,4 +96,14 @@ export class EnvelopeLinkFormComponent implements OnInit {
     window.open(url, '_blank');
   }
 
+  hasSenderInfo() {
+    return this.uploadManagerService.tokenInfo.getValue()?.senderMail;
+  }
+
+  getSenderInfo() {
+    if (this.uploadManagerService.tokenInfo.getValue()?.senderMail) {
+      return this.uploadManagerService.tokenInfo.getValue()?.senderMail;
+    }
+  }
+
 }

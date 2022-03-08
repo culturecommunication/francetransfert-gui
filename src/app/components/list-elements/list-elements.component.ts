@@ -225,7 +225,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openSnackBar(duration: number) {
     this._snackBar.openFromComponent(InfoMsgComponent, {
-      panelClass: 'panel-success',
+      panelClass: 'file-exist',
       duration: duration,
     });
   }

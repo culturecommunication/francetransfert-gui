@@ -11,6 +11,7 @@ import { SatisfactionMessageComponent } from "../satisfaction-message/satisfacti
 import { Router } from "@angular/router";
 import * as cloneDeep from 'lodash/cloneDeep';
 import { Observable } from "rxjs";
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'ft-upload',
@@ -50,6 +51,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     private downloadManagerService: DownloadManagerService,
     private fileManagerService: FileManagerService,
     private uploadService: UploadService,
+    private loginService: LoginService,
     private titleService: Title,
     private _snackBar: MatSnackBar,
     private router: Router) { }
@@ -221,8 +223,8 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false },
-        ...this.uploadManagerService.uploadInfos.getValue()?.senderId ? { senderId: this.uploadManagerService.uploadInfos.getValue().senderId } : {},
-        ...this.uploadManagerService.uploadInfos.getValue()?.senderToken ? { senderToken: this.uploadManagerService.uploadInfos.getValue().senderToken } : {}
+        ...this.uploadManagerService.tokenInfo.getValue()?.senderId ? { senderId: this.uploadManagerService.tokenInfo.getValue()?.senderId } : {},
+        ...this.uploadManagerService.tokenInfo.getValue()?.senderToken ? { senderToken: this.uploadManagerService.tokenInfo.getValue()?.senderToken } : {}
       })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
