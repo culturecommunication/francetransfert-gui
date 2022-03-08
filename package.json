@@ -1,6 +1,6 @@
 {
   "name": "francetransfert-updown-gui",
-  "version": "3.2.1-1",
+  "version": "3.3.0-1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
