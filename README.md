@@ -2,7 +2,7 @@
 
 v2 de l'app front FranceTransfert
 > refonte socle/structure v1
-> PWA
+> PWA 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.4.
 
