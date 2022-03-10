@@ -11,7 +11,7 @@ export class ConnectComponent implements OnInit {
 
 
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.email]),
+    email: new FormControl('', [Validators.required, Validators.email]),
   })
 
   codeSent: boolean = false;
@@ -31,6 +31,7 @@ export class ConnectComponent implements OnInit {
     this.codeSent = !this.codeSent;
     this.visible = !this.visible;
     this.loginForm.get('email').setValue('');
+    this.loginForm.get('email').markAsUntouched();
   }
 
   initForm() {

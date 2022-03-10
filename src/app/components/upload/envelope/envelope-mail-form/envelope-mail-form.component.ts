@@ -181,4 +181,13 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
       })
     }
   }
+
+
+  EnterSubmit(event, index) {
+    if (event.keyCode === 13) {
+      this.destinatairesList.splice(index, 1);
+      this.checkDestinatairesList();
+    }
+  }
+
 }
