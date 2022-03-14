@@ -277,7 +277,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.flow.flowJs.opts.query = {
       enclosureId: result.enclosureId,
       senderId: this.uploadManagerService.envelopeInfos.getValue().from.toLowerCase(),
-      senderToken: result.senderToken,
+      senderToken: this.uploadManagerService.tokenInfo.getValue()?.senderToken,
     };
 
     this.transfertSubscription = this.flow.transfers$.subscribe((uploadState: UploadState) => {
