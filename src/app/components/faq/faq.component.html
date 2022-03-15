@@ -6,11 +6,13 @@
     <mat-card-content class="faq-card-content">
       <!-- test -->
       <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              Pourquoi France transfert ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                Pourquoi France transfert ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <span>France transfert est un service créé par l’Etat pour aider ses usagers (citoyens, professionnels,
             entreprises, associations…), partenaires ou prestataires à envoyer aux agents de
@@ -22,29 +24,28 @@
             français le temps qu’elles soient
             téléchargées par leur destinataire.</span>
         </mat-expansion-panel>
-      </mat-accordion>
 
 
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              Puis-je me servir de France transfert pour mon usage personnel ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                Puis-je me servir de France transfert pour mon usage personnel ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <span>France transfert est réservé aux échanges de fichiers volumineux entre services de l’administration et
             ses usagers. </span><br>
           <span>Il n’est pas possible d’échanger des fichiers entre usagers.</span>
         </mat-expansion-panel>
-      </mat-accordion>
 
-
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              Deux façons d’utiliser France transfert ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                Deux façons d’utiliser France transfert ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
             <span>France transfert peut être utilisé de deux façons différentes : </span>
@@ -72,31 +73,27 @@
               destinataire. </span>
           </p>
         </mat-expansion-panel>
-      </mat-accordion>
 
-
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              Puis-je utiliser France transfert sur mobile ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                Puis-je utiliser France transfert sur mobile ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <span>France transfert est réservé aux échanges de fichiers volumineux entre services de l’administration et
             ses usagers. </span><br>
           <span>Il n’est pas possible d’échanger des fichiers entre usagers.</span>
         </mat-expansion-panel>
-      </mat-accordion>
 
-
-
-
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              Pourquoi me demande-t-on un code de confirmation avant de procéder à l’envoi ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                Pourquoi me demande-t-on un code de confirmation avant de procéder à l’envoi ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
             <span>Des personnes pourraient utiliser France transfert à des fins personnelles en « empruntant » l’adresse
@@ -107,15 +104,18 @@
               dont la durée de validité est de 10 min. </span>
           </p>
         </mat-expansion-panel>
-      </mat-accordion>
 
 
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+
+
+
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              Que se passe-t-il après l’envoi de mes fichiers ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                Que se passe-t-il après l’envoi de mes fichiers ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
             <span>Une fois les fichiers envoyés vers France transfert, ils subissent une analyse antivirale qui peut
@@ -130,15 +130,17 @@
               téléchargement).</span>
           </p>
         </mat-expansion-panel>
-      </mat-accordion>
 
 
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+
+
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              Comment télécharger le pli qui m’est adressé ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                Comment télécharger le pli qui m’est adressé ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
             <span>Lorsque l’envoi du pli est effectué, un courriel de confirmation d’envoi avec le détail concernant les
@@ -151,36 +153,15 @@
               passe en clair).</span>
           </p>
         </mat-expansion-panel>
-      </mat-accordion>
 
 
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              Comment télécharger le pli qui m’est adressé ?
-            </h3>
-          </mat-expansion-panel-header>
-          <p>
-            <span>Lorsque l’envoi du pli est effectué, un courriel de confirmation d’envoi avec le détail concernant les
-              fichiers qui composent le pli est transmis à l’expéditeur ainsi que le mot de passe associé à ce
-              pli.</span>
-            <span>Les destinataires reçoivent un courriel avec un lien de téléchargement et un autre courriel contenant
-              le mot de passe à saisir pour pouvoir télécharger.</span>
-            <span>Si jamais France transfert refuse le mot de passe saisi, vérifiez qu’en le copiant collant cela n’ait
-              pas ajouté un espace à la fin du mot de passe (utilisez le pictogramme « œil » pour afficher le mot de
-              passe en clair).</span>
-          </p>
-        </mat-expansion-panel>
-      </mat-accordion>
-
-
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <h3>
-              Pourquoi me demande-t-on un code de confirmation avant de procéder à l’envoi ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                Pourquoi me demande-t-on un code de confirmation avant de procéder à l’envoi ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
             <span>Vous vous êtes trompés dans votre liste de destinataires ? Plusieurs possibilités s’offrent à vous
@@ -212,15 +193,17 @@
             </span>
           </p>
         </mat-expansion-panel>
-      </mat-accordion>
 
 
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+
+
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              Combien de fois les destinataires peuvent-ils télécharger les fichiers que j’ai envoyé ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                Combien de fois les destinataires peuvent-ils télécharger les fichiers que j’ai envoyé ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
             <span>Chaque destinataire dispose d’un lien de téléchargement unique pour accéder au téléchargement du pli.
@@ -234,16 +217,19 @@
               accéder à la page de téléchargement. </span>
           </p>
         </mat-expansion-panel>
-      </mat-accordion>
 
 
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+
+
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              Que deviennent les fichiers que j’ai transmis une fois qu’ils ont été téléchargés par le destinataire que
-              j’ai indiqué ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                Que deviennent les fichiers que j’ai transmis une fois qu’ils ont été téléchargés par le destinataire
+                que
+                j’ai indiqué ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
             <span>Les fichiers sont supprimés après expiration du délai de validité du pli (par défaut à 30 jours). Il
@@ -252,15 +238,17 @@
               pli</span>
           </p>
         </mat-expansion-panel>
-      </mat-accordion>
 
 
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+
+
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              Où vont les fichiers téléchargés ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                Où vont les fichiers téléchargés ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
             <span>Les fichiers sont téléchargés par votre navigateur. En fonction de son paramétrage, il se peut qu’ils
@@ -268,15 +256,17 @@
               « téléchargements » ou bien que la question de l’emplacement vous soit posée.</span>
           </p>
         </mat-expansion-panel>
-      </mat-accordion>
 
 
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+
+
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              Existe-il une limite de taille de transfert de fichiers sur France transfert ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                Existe-il une limite de taille de transfert de fichiers sur France transfert ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
             <span>France transfert permet d’envoyer jusqu’à 20 Go de fichiers et dossiers par transfert en faisant
@@ -284,16 +274,18 @@
               que chacun des fichiers respecte la taille maximale de 2Go.</span>
           </p>
         </mat-expansion-panel>
-      </mat-accordion>
 
 
 
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+
+
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              Quelles extensions de fichiers puis-je envoyer sur France transfert ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                Quelles extensions de fichiers puis-je envoyer sur France transfert ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
             <span>Toutes les extensions communes de fichiers sont téléchargeables sur France transfert, sauf, pour des
@@ -314,17 +306,19 @@
               documents.</span>
           </p>
         </mat-expansion-panel>
-      </mat-accordion>
 
 
 
 
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+
+
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              Puis-je utiliser une liste de distribution ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                Puis-je utiliser une liste de distribution ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
             <span>Pour envoyer vos fichiers à plusieurs destinataires différents en une seule opération, il est possible
@@ -338,16 +332,18 @@
               prochain pli. </span>
           </p>
         </mat-expansion-panel>
-      </mat-accordion>
 
 
 
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+
+
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              À quoi sert le questionnaire de satisfaction ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                À quoi sert le questionnaire de satisfaction ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
             <span>Le questionnaire est anonyme. Il sera utilisé à des fins statistiques et d’améliorations. </span>
@@ -359,17 +355,19 @@
               ni à mettre en œuvre les suggestions proposées.</span>
           </p>
         </mat-expansion-panel>
-      </mat-accordion>
 
 
 
 
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+
+
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <h3>
-              Où puis-je trouver d’autres informations sur France transfert ?
-            </h3>
+            <mat-panel-title>
+              <h3>
+                Où puis-je trouver d’autres informations sur France transfert ?
+              </h3>
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
             <span>Pour les agents de l’Etat, il y a un salon « France transfert » dans TCHAP qui vous permettra de
@@ -378,7 +376,9 @@
             <span>Vous pouvez également écrire au support France transfert via le formulaire « Contact ». </span>
           </p>
         </mat-expansion-panel>
+
       </mat-accordion>
+
     </mat-card-content>
   </mat-card>
 </div>
