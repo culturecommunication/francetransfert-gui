@@ -26,6 +26,10 @@ export class FaqComponent implements OnInit, AfterViewInit {
   @ViewChild('utilisationsurmobile') private utilisationsurmobile: ElementRef;
   @ViewChild('deuxfaçondutiliserfrancetransfert') private deuxfaçondutiliserfrancetransfert: ElementRef;
 
+
+  panelOpenState = false;
+
+
   constructor(private titleService: Title,
     private router: Router) { }
 
@@ -87,7 +91,7 @@ export class FaqComponent implements OnInit, AfterViewInit {
       case 'questionnairedesatisfaction':
         this.questionnairedesatisfactionFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
         break;
-      case 'ouTrouverDesInfoSurFT' :
+      case 'ouTrouverDesInfoSurFT':
         this.ouTrouverDesInfoSurFT.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
         break;
     }

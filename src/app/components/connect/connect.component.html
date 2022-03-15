@@ -1,0 +1,74 @@
+
+
+   <form  [formGroup]="loginForm"  class="contact-container">
+    <div class="card-formulaire">
+      <div class="contact-parameters">
+      <div class="contact-header"><br><br>
+        <span>Veuillez saisir votre adresse courriel pour utiliser ce service:</span>
+      </div><br><br>
+
+
+
+      <div  class="envelope-mail-form-group" [ngClass]="!email.valid && email.touched && codeSent == false? 'big-error' : ''">
+        <mat-form-field>
+          <mat-label>Votre courriel </mat-label>
+          <input id="sendercourriel" name="email" matInput placeholder="jean.dupont@domaine.fr"
+            formControlName="email" autocomplete="email">
+          <mat-error role="alert" *ngIf="email.errors?.required && codeSent == false">Un expéditeur est requis.</mat-error>
+          <mat-error role="alert" *ngIf="email.errors?.email && codeSent == false">Une adresse courriel valide est requise
+            (JEAN.DUPONT@EMAIL.COM).</mat-error>
+        </mat-form-field>
+      </div>
+
+      <p>Un code de confirmation vous sera envoyé par courriel, il vous permettra d'utiliser le service pendant 30 minutes. Au-delà un nouveau code de confirmation vous sera envoyé si vous souhaitez envoyer un nouveau pli.</p>
+
+      <div class="card-actions">
+        <mat-card-actions><br><br><br>
+          <button mat-raised-button class="card-actions-btn" [disabled]="codeSent" (click)="sendCode()">ENVOYER CODE</button>
+        </mat-card-actions>
+      </div>
+
+
+
+
+
+
+  <ng-container *ngIf="visible">
+    <div><br><br>
+      <p>Saisissez le code qui vous a été envoyé pour accéder à France transfert (vérifier votre dossier spam):</p>
+    </div>
+    <div class="field-contact">
+      <mat-form-field>
+        <mat-label>Code reçu </mat-label>
+        <input id="codeReceived" name="code" matInput placeholder="Code" >
+      </mat-form-field>
+    </div><br>
+
+
+
+     <div class="flex">
+        <button mat-raised-button class="card-actions-btn color" (click)="sendCode()" >ANNULER</button>
+        <button mat-raised-button class="card-actions-btn color" >VALIDER</button>
+    </div>
+
+
+    <!-- <div class="card-actions flex"><br><br><br>
+      <mat-card-actions class="flex">
+        <button mat-raised-button class="card-actions-btn" (click)="sendCode()" >ANNULER</button>
+        <button mat-raised-button class="card-actions-btn" >VALIDER</button>
+      </mat-card-actions>
+    </div> -->
+
+  </ng-container>
+
+</div>
+
+
+</div>
+  </form>
+
+
+
+
+
+

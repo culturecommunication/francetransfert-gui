@@ -181,4 +181,11 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
       })
     }
   }
+
+
+  enterSubmit(event, index) {
+    this.destinatairesList.splice(index, 1);
+    this.checkDestinatairesList();
+  }
+
 }
