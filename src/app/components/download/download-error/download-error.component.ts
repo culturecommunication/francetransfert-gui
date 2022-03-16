@@ -19,8 +19,9 @@ export class DownloadErrorComponent implements OnInit {
         this.errorMessage = 'Vous avez dépassé le nombre de téléchargements autorisé pour ce pli';
       } else if (error && error.message == 'DELETED_ENCLOSURE') {
         this.errorMessage = 'Le pli demandé n\'existe pas.';
-      }
-      else {
+      } else if (error && error.message == 'HASH_INVALID') {
+        this.errorMessage = 'Le pli a été corrompu, merci de voir avec l\'expéditeur pour vous le renvoyer.';
+      } else {
         this.errorMessage = 'Une erreur est survenue lors de la récupération de votre pli.';
       }
     });
