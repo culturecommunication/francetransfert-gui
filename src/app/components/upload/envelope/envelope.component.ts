@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output }
 import { Subscription } from 'rxjs';
 import { LinkInfosModel, MailInfosModel, ParametersModel } from 'src/app/models';
 import { FileManagerService, UploadManagerService } from 'src/app/services';
+import { LoginService } from 'src/app/services/login/login.service';
 import { majChar, minChar, numChar, sizeControl, specialChar } from 'src/app/shared/validators/forms-validator';
 
 @Component({
@@ -27,13 +28,18 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   constructor(private fileManagerService: FileManagerService,
     private uploadManagerService: UploadManagerService,
+    private loginService: LoginService,
     private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.loginSubscription = this.uploadManagerService.tokenInfo.subscribe(tokenInfo => {
+    this.loginSubscription = this.loginService.tokenInfo.subscribe(tokenInfo => {
+      console.log('tokenInfo', tokenInfo);
       if (tokenInfo && tokenInfo.senderMail) {
         this.mailFormValues.from = tokenInfo.senderMail;
         this.linkFormValues.from = tokenInfo.senderMail;
+      } else {
+        this.mailFormValues.from = '';
+        this.linkFormValues.from = '';
       }
     });
     this.uploadManagerSubscription = this.uploadManagerService.envelopeInfos.subscribe(_infos => {

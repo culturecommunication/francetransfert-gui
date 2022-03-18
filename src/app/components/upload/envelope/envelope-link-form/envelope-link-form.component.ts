@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { LinkInfosModel } from 'src/app/models';
 import { UploadManagerService, UploadService } from 'src/app/services';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'ft-envelope-link-form',
@@ -21,6 +22,7 @@ export class EnvelopeLinkFormComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
     private uploadService: UploadService,
+    private loginService: LoginService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -96,14 +98,12 @@ export class EnvelopeLinkFormComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-  hasSenderInfo() {
-    return this.uploadManagerService.tokenInfo.getValue()?.senderMail;
+  isLoggedIn() {
+    return this.loginService.isLoggedIn();
   }
 
   getSenderInfo() {
-    if (this.uploadManagerService.tokenInfo.getValue()?.senderMail) {
-      return this.uploadManagerService.tokenInfo.getValue()?.senderMail;
-    }
+    return this.loginService.getEmail();
   }
 
 }

@@ -17,7 +17,7 @@
     <div class="envelope-link-form-group">
         <mat-form-field>
             <mat-label>Expéditeur</mat-label>
-            <input id="sendermail" name="email" matInput [readonly]="hasSenderInfo()" [disabled]="hasSenderInfo()"
+            <input id="sendermail" name="email" matInput [readonly]="isLoggedIn()" [disabled]="isLoggedIn()"
                 placeholder="Votre adresse courriel" formControlName="from" autocomplete="email" required>
             <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
             <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise

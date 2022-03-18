@@ -1,5 +1,4 @@
 export interface TokenModel {
-    senderEmail: string;
-    senderId: string;
+    senderMail: string;
     senderToken?: string;
 }

@@ -4,6 +4,16 @@
             <mat-icon class="check-validation-code-card-content-icon" aria-hidden="true">lock_outline</mat-icon>
             <div class="check-validation-code-card-content-text">
                 <span class="check-validation-code-card-content-text-title">Vérifiez votre adresse courriel</span>
+                <span class="check-validation-code-card-content-text-sub" *ngIf="isLoggedIn()">Votre session a expiré,
+                    un nouveau code de confirmation vous a été envoyé par
+                    courriel, il vous permettra de continuer à utiliser le service pendant 30 minutes
+                    supplémentaires.</span>
+                <span class="check-validation-code-card-content-text-sub" *ngIf="!isLoggedIn()">Un code de confirmation
+                    vous sera envoyé par courriel, il vous permettra
+                    d'utiliser le service tant que vous ne
+                    dépassez pas les 30 minutes d'inactivité. Au-delà un nouveau code de confirmation vous sera envoyé
+                    si vous
+                    souhaitez envoyer un nouveau pli.</span>
                 <span class="check-validation-code-card-content-text-sub">Saisissez le code qui vous a été envoyé à
                     {{email}}
                     (vérifiez votre dossier spam).</span>
@@ -11,7 +21,8 @@
             <div class="check-validation-code-card-content-error" *ngIf="error && error.statusCode === 401">
                 <span role="alert">Le code de vérification est invalide.</span><br />
                 <span *ngIf="error.codeTryCount > 0" role="alert">Nombre d'échecs : {{error.codeTryCount}}</span>
-                <span *ngIf="!error.codeTryCount" role="alert">Suite à 5 erreurs de validation du code votre pli est annulé</span>
+                <span *ngIf="!error.codeTryCount" role="alert">Suite à 5 erreurs de validation du code votre pli est
+                    annulé</span>
             </div>
             <div class="check-validation-code-card-content-error" *ngIf="error && error.statusCode === 400">
                 <span role="alert">Une erreur technique s'est produite.</span>
@@ -26,12 +37,15 @@
             </div>
         </mat-card-content>
         <mat-card-actions class="check-validation-code-card-actions">
-            <button mat-raised-button
-                    class="check-validation-code-card-actions-btn" *ngIf="error && error.statusCode === 401 && !error.codeTryCount" (click)="backToHome()">Accueil</button>
-            <button mat-raised-button
-                class="check-validation-code-card-actions-btn" *ngIf="!error || (error && error.statusCode === 401 && error.codeTryCount)" (click)="cancel()">Annuler</button>
+            <button mat-raised-button class="check-validation-code-card-actions-btn"
+                *ngIf="error && error.statusCode === 401 && !error.codeTryCount" (click)="backToHome()">Accueil</button>
+            <button mat-raised-button class="check-validation-code-card-actions-btn"
+                *ngIf="!error || (error && error.statusCode === 401 && error.codeTryCount)"
+                (click)="cancel()">Annuler</button>
             <button type="submit" [disabled]="!verificationCodeForm.valid" mat-raised-button
-                class="check-validation-code-card-actions-btn" *ngIf="!error || (error && error.statusCode === 401 && error.codeTryCount)" (click)="validateForm()">Valider</button>
+                class="check-validation-code-card-actions-btn"
+                *ngIf="!error || (error && error.statusCode === 401 && error.codeTryCount)"
+                (click)="validateForm()">Valider</button>
         </mat-card-actions>
     </form>
 </mat-card>
@@ -55,12 +69,14 @@
             <div class="verification-code-form-group">
                 <mat-form-field>
                     <mat-label>Mot de passe</mat-label>
-                    <input matInput formControlName="verificationCode" required [type]="hide ? 'password' : 'text'" autocomplete="off">
-                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Masquer le mot de passe'"
-                        [attr.aria-pressed]="'Masquer le mot de passe'">
+                    <input matInput formControlName="verificationCode" required [type]="hide ? 'password' : 'text'"
+                        autocomplete="off">
+                    <button mat-icon-button matSuffix (click)="hide = !hide"
+                        [attr.aria-label]="'Masquer le mot de passe'" [attr.aria-pressed]="'Masquer le mot de passe'">
                         <mat-icon aria-hidden="true">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-                    <mat-error role="alert" *ngIf="f.verificationCode.errors?.required">Veuillez entrer le mot de passe.</mat-error>
+                    <mat-error role="alert" *ngIf="f.verificationCode.errors?.required">Veuillez entrer le mot de passe.
+                    </mat-error>
                 </mat-form-field>
             </div>
         </mat-card-content>

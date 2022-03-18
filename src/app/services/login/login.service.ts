@@ -1,31 +1,28 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, catchError } from 'rxjs';
-import { UploadInfosModel } from 'src/app/models';
+import { map, catchError, BehaviorSubject } from 'rxjs';
 import { TokenModel } from 'src/app/models/token.model';
 import { environment } from 'src/environments/environment';
-import { UploadManagerService } from '../upload-manager/upload-manager.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private _httpClient: HttpClient,
-    private uploadManagerService: UploadManagerService) { }
+  tokenInfo: BehaviorSubject<TokenModel> = new BehaviorSubject<any>(null);
+
+  constructor(private _httpClient: HttpClient) { }
 
   logout(): any {
-    this.uploadManagerService.tokenInfo.next(null);
+    this.tokenInfo.next(null);
   }
-
 
   validateCode(body: any): any {
     return this._httpClient.get(
       `${environment.host}${environment.apis.upload.validateCode}?code=${body.code}&senderMail=${body.senderMail}`
     ).pipe(map((response: TokenModel) => {
-      this.uploadManagerService.tokenInfo.next({
-        senderEmail: response.senderEmail,
-        senderId: response.senderId,
+      this.tokenInfo.next({
+        senderMail: response.senderMail,
         senderToken: response.senderToken
       });
       return response;
@@ -34,24 +31,34 @@ export class LoginService {
     );
   }
 
-  generateCode(body: any): any {
+  generateCode(email: any): any {
     return this._httpClient.get(
-      `${environment.host}${environment.apis.upload.generateCode}?senderMail=${body.senderMail}`
+      `${environment.host}${environment.apis.upload.generateCode}?senderMail=${email}`
     ).pipe(map((response: TokenModel) => {
-      this.uploadManagerService.tokenInfo.next(null);
+      this.tokenInfo.next(null);
       return response;
     }),
       catchError(this.handleError('generateCode'))
     );
   }
 
+  isLoggedIn(): boolean {
+    if (this.tokenInfo.getValue() && this.tokenInfo.getValue().senderMail) {
+      return true;
+    }
+    return false;
+  }
+
+  getEmail(): string {
+    if (this.isLoggedIn()) {
+      return this.tokenInfo.getValue().senderMail;
+    }
+    return "";
+  }
+
   private handleError(operation: string) {
     return (err: any) => {
-      const errMsg = `error in ${operation}()`;
-      if (err instanceof HttpErrorResponse) {
-        this.uploadManagerService.uploadError$.next({ statusCode: err.status, ...(err.message && !err.error.type) ? { message: err.message } : { message: err.error.type }, ...err.error.codeTryCount ? { codeTryCount: err.error.codeTryCount } : {} });
-      }
-      throw (errMsg);
+      throw (err);
     };
   }
 }

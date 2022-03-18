@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { FTErrorModel } from 'src/app/models';
 import { DownloadManagerService, UploadManagerService } from 'src/app/services';
+import { LoginService } from 'src/app/services/login/login.service';
 import { ConfirmAlertDialogComponent } from './confirm-alert-dialog/confirm-alert-dialog.component';
 
 @Component({
@@ -25,7 +26,7 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
   hide = true;
 
   constructor(private fb: FormBuilder, private uploadManagerService: UploadManagerService,
-    private downloadManagerService: DownloadManagerService,
+    private downloadManagerService: DownloadManagerService, private loginService: LoginService,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -51,6 +52,10 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
     this.verificationCodeForm = this.fb.group({
       verificationCode: ['', [Validators.required]],
     });
+  }
+
+  isLoggedIn(): boolean {
+    return this.loginService.isLoggedIn();
   }
 
   // convenience getter for easy access to form fields
