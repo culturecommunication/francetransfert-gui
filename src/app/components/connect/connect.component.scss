@@ -1,5 +1,4 @@
-
-.contact-container {
+.connect-container {
   height: 100%;
   width: 100%;
   display: flex;
@@ -10,24 +9,22 @@
     box-shadow: 0 2px 1px -1px #0003, 0 1px 1px #00000024, 0 1px 3px #0000001f;
     border-radius: 4px;
     height: 80%;
-    //width: 35%;
-    //margin-top: 2%;
-    //height: 80%;
-    //width: 35%;
     margin-top: 2%;
     margin-bottom: 2%;
     display: flex;
     flex-direction: column;
 
+    .form-group {
+      margin-bottom: 2.2rem;
+    }
 
-    .color{
+    .color {
       background-color: var(--ft-blue-france);
       color: var(--ft-white);
     }
 
-    .flex{
-      display: flex;
-      justify-content: space-evenly;
+    .evenly {
+      justify-content: space-evenly !important;
     }
     .mat-divider {
       display: block;
@@ -37,20 +34,18 @@
       border-top-color: black !important;
     }
 
-    .big-error{
+    .big-error {
       margin-bottom: 2.2rem;
-  }
-
-    .mat-error {
-        color: var(--ft-error);
-        font-size: 18.5px;
-        font-weight: 700;
-
     }
 
+    .mat-error {
+      color: var(--ft-error);
+      font-size: 18.5px;
+      font-weight: 700;
+    }
 
-    .contact-parameters {
-      margin: 9% 10% 13%;
+    .connect-parameters {
+      margin: 6%;
     }
 
     ::ng-deep textarea.mat-input-element {
@@ -79,6 +74,8 @@
       flex-direction: row;
       display: -webkit-flex;
       flex-direction: row;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
       padding-top: 2.5rem;
       padding-right: 1rem;
       padding-top: 2%;
@@ -95,21 +92,13 @@
       }
     }
 
-    .befor-field {
-      text-align: end;
-      color: var(--ft-mention);
-      font-size: 12px;
-      padding-bottom: 4%;
-    }
-
-    .contact-header {
+    .connect-header {
       width: 100%;
       font-weight: bold;
       font-size: 20px;
-      line-height: 28px;
       text-align: center;
       margin-bottom: 3%;
-      color:var(--ft-mention) !important;
+      color: var(--ft-mention) !important;
 
       ::ng-deep .mat-tab-label-content {
         width: 100%;
@@ -121,111 +110,103 @@
         background-color: var(--ft-primary);
       }
     }
-
-    .captcha-container {
-      display: flex;
-      display: -webkit-flex;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-      .captcha-text {
-        margin-left: 1%;
-      }
-      .captcha-button {
-        margin-left: 1%;
-      }
-    }
   }
 }
 
- ::ng-deep .mat-snack-bar-container{
+::ng-deep .mat-snack-bar-container {
   padding: 0px !important;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: #0a0a0a;
   border-color: #40a02b;
   border-style: solid;
 }
 
-@media screen and  (min-width: 1300px) {
-  .contact-container{
+@media screen and (min-width: 1300px) {
+  .connect-container {
     height: 100%;
     width: 100%;
     .card-formulaire {
       width: 40%;
       margin-top: 2%;
     }
-    .big-error{
+    .big-error {
       margin-bottom: 4.2rem;
     }
   }
 }
 
-@media screen and  (min-width: 812px) and (max-width: 1300px) {
-  .contact-container{
+@media screen and (min-width: 812px) and (max-width: 1300px) {
+  .connect-container {
     height: 100%;
     width: 100%;
     .card-formulaire {
       width: 60%;
       margin-top: 5%;
     }
-    .big-error{
+    .big-error {
       margin-bottom: 6.2rem;
     }
   }
 }
 @media screen and (min-width: 580px) and (max-width: 812px) {
-  .contact-container{
+  .connect-container {
     height: 100%;
     width: 100%;
     .card-formulaire {
       width: 88%;
       margin-top: 15%;
     }
-    .big-error{
+    .big-error {
       margin-bottom: 5.2rem;
     }
   }
 }
 
 @media screen and (min-width: 480px) and (max-width: 580px) {
-  .contact-container{
+  .connect-container {
     height: 100%;
     width: 100%;
     .card-formulaire {
       width: 90%;
       margin-top: 22%;
     }
-    .big-error{
+    .big-error {
       margin-bottom: 5.2rem;
     }
   }
 }
 
 @media screen and (min-width: 200px) and (max-width: 480px) {
-  .contact-container{
+  .connect-container {
     height: 100%;
     width: 100%;
     .card-formulaire {
       width: 90%;
       margin-top: 33%;
     }
-    .big-error{
+    .big-error {
       margin-bottom: 7.2rem;
     }
   }
 }
 
-
 .text {
   background-color: var(--ft-blue-france);
   color: var(--ft-white);
-  font-family: marianne,sans-serif!important;
+  font-family: marianne, sans-serif !important;
 }
 
-
-
-
-
-
-
-
-
+.content-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  display: -webkit-flex;
+  -webkit-align-items: center;
+  -webkit-justify-content: space-around;
+  -webkit-flex-direction: column;
+  height: 90%;
+  width: 100%;
+  padding: 0px 8px;
+  color: var(--ft-error);
+}

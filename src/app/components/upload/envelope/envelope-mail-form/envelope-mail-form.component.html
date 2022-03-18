@@ -7,7 +7,7 @@
     <div class="envelope-mail-form-group" [ngClass]="f.from.errors?.quota ? 'big-error' : ''">
         <mat-form-field>
             <mat-label>Expéditeur</mat-label>
-            <input id="sendermail" name="email" matInput placeholder="Votre adresse courriel" formControlName="from"
+            <input id="sendermail" name="email" [readonly]="isLoggedIn()" [disabled]="isLoggedIn()" matInput placeholder="Votre adresse courriel" formControlName="from"
                 required autocomplete="email">
             <mat-icon class="icon-btn" aria-hidden="true" matSuffix
                 matTooltip="l’expéditeur peut être un agent de l’administration française ou un particulier.">

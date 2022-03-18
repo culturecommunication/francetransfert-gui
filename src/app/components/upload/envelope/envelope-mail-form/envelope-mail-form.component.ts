@@ -12,6 +12,7 @@ import { UploadManagerService, UploadService } from 'src/app/services';
 import { saveAs } from 'file-saver';
 import { QuotaAsyncValidator } from 'src/app/shared/validators/quota-validator';
 import { MailAsyncValidator } from 'src/app/shared/validators/mail-validator';
+import { LoginService } from 'src/app/services/login/login.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -43,6 +44,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
+    private loginService: LoginService,
     private uploadService: UploadService,
     private router: Router,
     private dialog: MatDialog,
@@ -161,14 +163,12 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     this.dest.nativeElement.focus();
   }
 
-  hasSenderInfo() {
-    return this.uploadManagerService.tokenInfo.getValue()?.senderMail;
+  isLoggedIn() {
+    return this.loginService.isLoggedIn();
   }
 
   getSenderInfo() {
-    if (this.uploadManagerService.tokenInfo.getValue()?.senderMail) {
-      return this.uploadManagerService.tokenInfo.getValue()?.senderMail;
-    }
+    return this.loginService.getEmail();
   }
 
   copyListDestinataires(val: any) {

@@ -1,74 +1,64 @@
-
-
-   <form  [formGroup]="loginForm"  class="contact-container">
-    <div class="card-formulaire">
-      <div class="contact-parameters">
-      <div class="contact-header"><br><br>
+<form [formGroup]="loginForm" class="connect-container">
+  <div class="card-formulaire">
+    <div class="connect-parameters">
+      <div class="connect-header">
         <span>Veuillez saisir votre adresse courriel pour utiliser ce service:</span>
-      </div><br><br>
+      </div>
 
 
 
-      <div  class="envelope-mail-form-group" [ngClass]="!email.valid && email.touched && codeSent == false? 'big-error' : ''">
+      <div class="form-group">
         <mat-form-field>
           <mat-label>Votre courriel </mat-label>
-          <input id="sendercourriel" name="email" matInput placeholder="jean.dupont@domaine.fr"
-            formControlName="email" autocomplete="email">
-          <mat-error role="alert" *ngIf="email.errors?.required && codeSent == false">Un expéditeur est requis.</mat-error>
-          <mat-error role="alert" *ngIf="email.errors?.email && codeSent == false">Une adresse courriel valide est requise
+          <input id="sendercourriel" name="email" matInput placeholder="jean.dupont@domaine.fr" formControlName="email"
+            autocomplete="email">
+          <mat-error role="alert" *ngIf="email.errors?.required && codeSent == false">Un expéditeur est requis.
+          </mat-error>
+          <mat-error role="alert" *ngIf="email.errors?.email && codeSent == false">Une adresse courriel valide est
+            requise
             (JEAN.DUPONT@EMAIL.COM).</mat-error>
         </mat-form-field>
       </div>
 
-      <p>Un code de confirmation vous sera envoyé par courriel, il vous permettra d'utiliser le service pendant 30 minutes. Au-delà un nouveau code de confirmation vous sera envoyé si vous souhaitez envoyer un nouveau pli.</p>
+      <p>Un code de confirmation vous sera envoyé par courriel, il vous permettra d'utiliser le service tant que vous ne
+        dépassez pas les 30 minutes d'inactivité. Au-delà un nouveau code de confirmation vous sera envoyé si vous
+        souhaitez envoyer un nouveau pli.</p>
 
       <div class="card-actions">
-        <mat-card-actions><br><br><br>
-          <button mat-raised-button class="card-actions-btn" [disabled]="codeSent" (click)="sendCode()">ENVOYER CODE</button>
+        <mat-card-actions>
+          <button mat-raised-button class="card-actions-btn" [disabled]="codeSent" (click)="sendCode()">ENVOYER
+            CODE</button>
         </mat-card-actions>
       </div>
 
+      <ng-container *ngIf="visible">
+        <div>
+          <p>Saisissez le code qui vous a été envoyé pour accéder à France transfert (vérifier votre dossier spam):</p>
+        </div>
+        <div class="field-contact">
+          <mat-form-field>
+            <mat-label>Code reçu </mat-label>
+            <input id="codeReceived" name="code" formControlName="code" matInput placeholder="Code">
+          </mat-form-field>
+          <div class="content-error" *ngIf="error && error.statusCode === 401">
+            <span role="alert">Le code de vérification est invalide.</span><br />
+            <span *ngIf="error?.codeTryCount > 0" role="alert">Nombre d'échecs : {{error?.codeTryCount}}</span>
+            <span *ngIf="!error?.codeTryCount" role="alert">Suite à 5 erreurs de validation, le code n'est plus
+              disponible.<br />Merci d'annuler et de demander le renvoi d'un code</span>
+          </div>
+          <div class="content-error" *ngIf="error && error.statusCode === 400">
+            <span role="alert">Une erreur technique s'est produite.</span>
+          </div>
+        </div>
+        <div class="card-actions evenly">
+          <button mat-raised-button class="card-actions-btn color" (click)="cancel()">ANNULER</button>
+          <button mat-raised-button class="card-actions-btn color" [disabled]="!form.valid || (error && !error?.codeTryCount)"
+            (click)="validateCode()">VALIDER</button>
+        </div>
+      </ng-container>
 
-
-
-
-
-  <ng-container *ngIf="visible">
-    <div><br><br>
-      <p>Saisissez le code qui vous a été envoyé pour accéder à France transfert (vérifier votre dossier spam):</p>
     </div>
-    <div class="field-contact">
-      <mat-form-field>
-        <mat-label>Code reçu </mat-label>
-        <input id="codeReceived" name="code" matInput placeholder="Code" >
-      </mat-form-field>
-    </div><br>
 
 
-
-     <div class="flex">
-        <button mat-raised-button class="card-actions-btn color" (click)="sendCode()" >ANNULER</button>
-        <button mat-raised-button class="card-actions-btn color" >VALIDER</button>
-    </div>
-
-
-    <!-- <div class="card-actions flex"><br><br><br>
-      <mat-card-actions class="flex">
-        <button mat-raised-button class="card-actions-btn" (click)="sendCode()" >ANNULER</button>
-        <button mat-raised-button class="card-actions-btn" >VALIDER</button>
-      </mat-card-actions>
-    </div> -->
-
-  </ng-container>
-
-</div>
-
-
-</div>
-  </form>
-
-
-
-
-
-
+  </div>
+</form>

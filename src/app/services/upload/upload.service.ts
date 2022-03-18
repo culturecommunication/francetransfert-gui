@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { UploadInfosModel } from 'src/app/models';
 import { environment } from 'src/environments/environment';
+import { LoginService } from '../login/login.service';
 import { UploadManagerService } from '../upload-manager/upload-manager.service';
 
 @Injectable({
@@ -13,7 +14,8 @@ import { UploadManagerService } from '../upload-manager/upload-manager.service';
 export class UploadService {
 
   constructor(private _httpClient: HttpClient,
-    private uploadManagerService: UploadManagerService) { }
+    private uploadManagerService: UploadManagerService,
+    private loginService: LoginService) { }
 
   sendTree(body: any): any {
     const trMapping = this._mappingTree(body.transfers);
@@ -74,9 +76,8 @@ export class UploadService {
       treeBody
     ).pipe(map((response: UploadInfosModel) => {
       this.uploadManagerService.uploadError$.next(null);
-      this.uploadManagerService.tokenInfo.next({
+      this.loginService.tokenInfo.next({
         senderMail: body.senderMail,
-        senderId: response.senderId,
         senderToken: response.senderToken
       });
       this.uploadManagerService.uploadInfos.next({
