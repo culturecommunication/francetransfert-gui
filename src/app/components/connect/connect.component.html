@@ -26,7 +26,8 @@
 
       <div class="card-actions">
         <mat-card-actions>
-          <button mat-raised-button class="card-actions-btn" [disabled]="codeSent" (click)="sendCode()">ENVOYER
+          <button mat-raised-button class="card-actions-btn" [disabled]="codeSent || !email.valid"
+            (click)="sendCode()">ENVOYER
             CODE</button>
         </mat-card-actions>
       </div>
@@ -52,8 +53,8 @@
         </div>
         <div class="card-actions evenly">
           <button mat-raised-button class="card-actions-btn color" (click)="cancel()">ANNULER</button>
-          <button mat-raised-button class="card-actions-btn color" [disabled]="!form.valid || (error && !error?.codeTryCount)"
-            (click)="validateCode()">VALIDER</button>
+          <button mat-raised-button class="card-actions-btn color"
+            [disabled]="!form.valid || (error && !error?.codeTryCount)" (click)="validateCode()">VALIDER</button>
         </div>
       </ng-container>
 
