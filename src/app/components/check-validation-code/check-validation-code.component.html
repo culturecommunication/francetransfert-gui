@@ -6,10 +6,10 @@
                 <span class="check-validation-code-card-content-text-title">Vérifiez votre adresse courriel</span>
                 <span class="check-validation-code-card-content-text-sub" *ngIf="isLoggedIn()">Votre session a expiré,
                     un nouveau code de confirmation vous a été envoyé par
-                    courriel, il vous permettra de continuer à utiliser le service pendant 30 minutes
-                    supplémentaires.</span>
+                    courriel, il vous permettra de continuer à utiliser le service tant que vous ne
+                    dépassez pas les 30 minutes d'inactivité.</span>
                 <span class="check-validation-code-card-content-text-sub" *ngIf="!isLoggedIn()">Un code de confirmation
-                    vous sera envoyé par courriel, il vous permettra
+                    vous a été envoyé par courriel, il vous permettra
                     d'utiliser le service tant que vous ne
                     dépassez pas les 30 minutes d'inactivité. Au-delà un nouveau code de confirmation vous sera envoyé
                     si vous

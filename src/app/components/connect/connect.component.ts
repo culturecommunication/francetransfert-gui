@@ -23,9 +23,6 @@ export class ConnectComponent implements OnInit {
   visible: boolean = false;
   error = null;
 
-  get email() { return this.loginForm.get('email') }
-  get code() { return this.loginForm.get('code') }
-
   ngOnInit(): void {
 
   }
@@ -40,8 +37,12 @@ export class ConnectComponent implements OnInit {
     this.error = null;
   }
 
+  
+  get email() { return this.loginForm.get('email') }
+  get code() { return this.loginForm.get('code') }
   get f() { return this.loginForm.controls; }
   get form() { return this.loginForm; }
+  
 
   sendCode() {
     this.codeSent = !this.codeSent;

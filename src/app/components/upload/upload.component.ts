@@ -9,8 +9,6 @@ import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { SatisfactionMessageComponent } from "../satisfaction-message/satisfaction-message.component";
 import { Router } from "@angular/router";
-import * as cloneDeep from 'lodash/cloneDeep';
-import { Observable } from "rxjs";
 import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
