@@ -33,7 +33,6 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loginSubscription = this.loginService.tokenInfo.subscribe(tokenInfo => {
-      console.log('tokenInfo', tokenInfo);
       if (tokenInfo && tokenInfo.senderMail) {
         this.mailFormValues.from = tokenInfo.senderMail;
         this.linkFormValues.from = tokenInfo.senderMail;
