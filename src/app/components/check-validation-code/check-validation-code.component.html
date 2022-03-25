@@ -42,7 +42,7 @@
             <button mat-raised-button class="check-validation-code-card-actions-btn"
                 *ngIf="!error || (error && error.statusCode === 401 && error.codeTryCount)"
                 (click)="cancel()">Annuler</button>
-            <button type="submit" [disabled]="!verificationCodeForm.valid" mat-raised-button
+            <button type="submit" [disabled]="!verificationCodeForm.valid || buttonDisable" mat-raised-button
                 class="check-validation-code-card-actions-btn"
                 *ngIf="!error || (error && error.statusCode === 401 && error.codeTryCount)"
                 (click)="validateForm()">Valider</button>
@@ -81,7 +81,7 @@
             </div>
         </mat-card-content>
         <mat-card-actions class="check-validation-code-card-actions">
-            <button type="submit" [disabled]="!verificationCodeForm.valid" mat-raised-button
+            <button type="submit" [disabled]="!verificationCodeForm.valid || buttonDisable" mat-raised-button
                 class="check-validation-code-card-actions-btn" (click)="validateForm()">Valider</button>
         </mat-card-actions>
     </form>
