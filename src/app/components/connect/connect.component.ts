@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ConnectEndMessageComponent } from './../connect-end-message/connect-end-message.component';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { LoginService } from 'src/app/services/login/login.service';
-import { ConnectEndMessageComponent } from '../connect-end-message/connect-end-message.component';
+
 
 @Component({
   selector: 'ft-connect',
@@ -82,6 +83,5 @@ export class ConnectComponent implements OnInit {
       duration: duration
     });
   }
-
 
 }

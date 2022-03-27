@@ -19,6 +19,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private onDestroy$: Subject<void> = new Subject();
+  checkConnect: boolean;
   isMobile: boolean = false;
   screenWidth: string;
   uploadStarted: boolean = false;
@@ -72,6 +73,14 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       this.hasFiles = _hasFiles;
     });
     this.reset();
+
+
+    this.loginService.checkConnect.subscribe(checkConnect => {
+      this.checkConnect = checkConnect;
+    });
+
+
+
   }
 
   ngAfterViewInit() {
@@ -152,6 +161,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   onUploadStarted(event) {
     this.uploadStarted = event;
     this.upload();
+
   }
 
   onTransferFailed(event) {
@@ -169,18 +179,23 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   onTransferCancelled(event) {
     this.uploadStarted = !event;
     this.uploadValidated = !event;
+
   }
 
   onTransferFinished(event) {
     this.uploadFinished = event;
     this.canReset = !event;
+
+
   }
 
   onTransferValidated(event) {
     if (event) {
       // this.uploadValidated = true;
       this.validateCode(event);
+
     }
+
   }
 
   onCheckTransferCancelled(event) {
@@ -272,6 +287,12 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         this.availabilityDate = result.expireDate;
         this.ispublicLink(this.uploadManagerService.envelopeInfos.getValue().type);
         this.beginUpload(result);
+
+        if (this.checkConnect == false) {
+          this.loginService.tokenInfo.next(null);
+
+         }
+
       });
   }
 
@@ -292,6 +313,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       senderId: this.uploadManagerService.envelopeInfos.getValue().from.toLowerCase(),
       senderToken: token,
     };
+
 
     this.transfertSubscription = this.flow.transfers$.subscribe((uploadState: UploadState) => {
       this.fileManagerService.uploadProgress.next(uploadState);

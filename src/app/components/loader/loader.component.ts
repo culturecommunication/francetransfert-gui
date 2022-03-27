@@ -5,6 +5,7 @@ import { timer } from 'rxjs/internal/observable/timer';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { FileManagerService } from 'src/app/services';
 
+
 @Component({
   selector: 'ft-loader',
   templateUrl: './loader.component.html',
@@ -20,9 +21,12 @@ export class LoaderComponent implements OnInit, OnDestroy {
   timerSubscription: Subscription;
   progressSubscription: Subscription;
 
-  constructor(private fileManagerService: FileManagerService) { }
+  constructor(private fileManagerService: FileManagerService,
+    ) { }
 
   ngOnInit(): void {
+
+
     // this.observableTimer();
     this.progressSubscription = this.fileManagerService.uploadProgress.subscribe(t => {
       if (this.haveChunkError(t)) {
@@ -38,6 +42,8 @@ export class LoaderComponent implements OnInit, OnDestroy {
         console.log('Transfert Error');
       }
     });
+
+
   }
 
   observableTimer() {

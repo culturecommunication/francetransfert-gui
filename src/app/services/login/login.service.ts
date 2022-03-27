@@ -14,6 +14,7 @@ export class LoginService {
 
   constructor(private _httpClient: HttpClient) { }
 
+
   logout(): any {
     this.tokenInfo.next(null);
   }

@@ -59,6 +59,7 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
   }
 
   initForm() {
+
     this.verificationCodeForm = this.fb.group({
       verificationCode: ['', [Validators.required]],
       connectCheck: [true, [Validators.required]],
@@ -82,6 +83,7 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
       this.dowloadValidated.emit(this.verificationCodeForm.get('verificationCode').value);
       this.buttonDisable = true;
     }
+
   }
 
   backToHome() {

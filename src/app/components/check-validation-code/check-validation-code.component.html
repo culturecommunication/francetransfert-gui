@@ -39,6 +39,7 @@
                 <mat-checkbox formControlName="connectCheck">Rester connecté(e)</mat-checkbox>
             </div>
         </mat-card-content>
+
         <mat-card-actions class="check-validation-code-card-actions">
             <button mat-raised-button class="check-validation-code-card-actions-btn"
                 *ngIf="error && error.statusCode === 401 && !error.codeTryCount" (click)="backToHome()">Accueil</button>
