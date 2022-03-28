@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ft-menu',
@@ -9,13 +10,13 @@ export class MenuComponent implements OnInit {
 
   @Output() sidenavToggle = new EventEmitter();
 
-  constructor() { }
+  constructor(private _router: Router) { }
 
   ngOnInit(): void {
   }
 
   goToLink(url) {
-    window.open(url);
+    this._router.navigate([url]);
     this.sidenavToggle.emit();
   }
 
