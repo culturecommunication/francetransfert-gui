@@ -12,7 +12,7 @@
         <ft-loader *ngIf="uploadValidated && uploadStarted && !uploadFinished"
             (transferFailed)="onTransferFailed($event)" (transferCancelled)="onTransferCancelled($event)"
             (transferFinished)="onTransferFinished($event)" class="loader-wrapper"></ft-loader>
-        <ft-check-validation-code *ngIf="uploadStarted && !uploadValidated"
+        <ft-check-validation-code *ngIf="uploadStarted && !uploadValidated && showCode"
             (transferValidated)="onTransferValidated($event)" (transferCancelled)="onCheckTransferCancelled($event)"
             [component]="'upload'" [email]="senderEmail" class="check-validation-code-wrapper">
         </ft-check-validation-code>

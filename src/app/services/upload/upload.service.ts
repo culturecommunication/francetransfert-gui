@@ -76,7 +76,7 @@ export class UploadService {
       treeBody
     ).pipe(map((response: UploadInfosModel) => {
       this.uploadManagerService.uploadError$.next(null);
-      this.loginService.tokenInfo.next({
+      this.loginService.setLogin({
         senderMail: body.senderMail,
         senderToken: response.senderToken
       });

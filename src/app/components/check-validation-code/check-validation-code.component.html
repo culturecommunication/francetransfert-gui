@@ -4,16 +4,16 @@
             <mat-icon class="check-validation-code-card-content-icon" aria-hidden="true">lock_outline</mat-icon>
             <div class="check-validation-code-card-content-text">
                 <span class="check-validation-code-card-content-text-title">Vérifiez votre adresse courriel</span>
-                <span class="check-validation-code-card-content-text-sub" *ngIf="isLoggedIn()">Votre session a expiré,
+                <span class="check-validation-code-card-content-text-sub" *ngIf="isLoggedIn">Votre session a expiré,
                     un nouveau code de confirmation vous a été envoyé par
                     courriel, il vous permettra de continuer à utiliser le service tant que vous ne
                     dépassez pas les 30 minutes d'inactivité.</span>
-                <span class="check-validation-code-card-content-text-sub" *ngIf="!isLoggedIn()">Un code de confirmation
-                    vous a été envoyé par courriel, il vous permettra
-                    d'utiliser le service tant que vous ne
-                    dépassez pas les 30 minutes d'inactivité. Au-delà un nouveau code de confirmation vous sera envoyé
-                    si vous
-                    souhaitez envoyer un nouveau pli.</span>
+                <span class="check-validation-code-card-content-text-sub" *ngIf="!isLoggedIn">
+                    Un code de confirmation vous a été envoyé par courriel.
+                    Si vous souhaitez rester "connecté(e)",
+                    il vous permettra d'utiliser le service tant que vous ne dépassez pas les 30 minutes d'inactivité.
+                    Au-delà un nouveau code de confirmation vous sera envoyé si vous souhaitez envoyer un nouveau pli.
+                </span>
                 <span class="check-validation-code-card-content-text-sub">Saisissez le code qui vous a été envoyé à
                     {{email}}
                     (vérifiez votre dossier spam).</span>
@@ -34,6 +34,9 @@
                     <mat-error role="alert" *ngIf="f.verificationCode.errors?.required">Veuillez entrer votre code de
                         vérification.</mat-error>
                 </mat-form-field>
+            </div>
+            <div class="mat-checkbox-layout">
+                <mat-checkbox formControlName="connectCheck">Rester connecté(e)</mat-checkbox>
             </div>
         </mat-card-content>
         <mat-card-actions class="check-validation-code-card-actions">

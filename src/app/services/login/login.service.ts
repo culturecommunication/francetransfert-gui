@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class LoginService {
 
   tokenInfo: BehaviorSubject<TokenModel> = new BehaviorSubject<any>(null);
+  connectCheck: BehaviorSubject<boolean> = new BehaviorSubject<any>(false);
 
   constructor(private _httpClient: HttpClient) { }
 
@@ -29,6 +30,15 @@ export class LoginService {
     }),
       catchError(this.handleError('validateCode'))
     );
+  }
+
+  setLogin(loginData) {
+    if (this.connectCheck.getValue() == true) {
+      this.tokenInfo.next({
+        senderMail: loginData.senderMail,
+        senderToken: loginData.senderToken
+      });
+    }
   }
 
   generateCode(email: any): any {

@@ -50,6 +50,7 @@ import { ContactEndMessageComponent } from './components/contact-end-message/con
 import { InfoMsgComponent } from './components/info-msg/info-msg.component';
 import { AdminEndMsgComponent } from './components/admin/admin-end-msg/admin-end-msg.component';
 import { ConnectComponent } from './components/connect/connect.component';
+import { ConnectEndMessageComponent } from './components/connect-end-message/connect-end-message.component';
 
 registerLocaleData(localeFr);
 const initializer = (pwaService: PwaService) => () =>
@@ -98,7 +99,8 @@ const initializer = (pwaService: PwaService) => () =>
     ContactEndMessageComponent,
     InfoMsgComponent,
     AdminEndMsgComponent,
-    ConnectComponent
+    ConnectComponent,
+    ConnectEndMessageComponent
   ],
   imports: [
     HttpClientModule,

@@ -41,6 +41,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   listExpanded: boolean = false;
   enclosureId: string = '';
   canReset: boolean = false;
+  showCode: boolean = false;
 
 
 
@@ -98,6 +99,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadStarted = false;
     this.uploadFinished = false;
     this.uploadValidated = false;
+    this.showCode = false;
     this.uploadFailed = false;
     this.publicLink = false;
     this.uploadManagerService.uploadInfos.next(null);
@@ -228,10 +230,12 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         if (result && result?.canUpload == true) {
           this.uploadManagerService.uploadInfos.next(result);
           this.uploadValidated = true;
+          this.showCode = false;
           this.availabilityDate = result.expireDate;
           this.ispublicLink(this.uploadManagerService.envelopeInfos.getValue().type);
           this.beginUpload(result);
         } else {
+          this.showCode = true;
           if (this.uploadManagerService.uploadInfos.getValue()) {
             if (this.uploadManagerService.uploadInfos.getValue().senderId && this.uploadManagerService.uploadInfos.getValue().senderToken) {
               this.validateCode();
@@ -266,15 +270,21 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   beginUpload(result) {
-
+    let token = '';
     if (this.transfertSubscription) {
       this.transfertSubscription.unsubscribe();
     }
+    if (this.loginService.isLoggedIn()) {
+      token = this.loginService.tokenInfo.getValue()?.senderToken
+    } else {
+      token = this.uploadManagerService.uploadInfos.getValue().senderToken;
+    }
+
     this.enclosureId = result.enclosureId;
     this.flow.flowJs.opts.query = {
       enclosureId: result.enclosureId,
       senderId: this.uploadManagerService.envelopeInfos.getValue().from.toLowerCase(),
-      senderToken: this.loginService.tokenInfo.getValue()?.senderToken,
+      senderToken: token,
     };
 
     this.transfertSubscription = this.flow.transfers$.subscribe((uploadState: UploadState) => {

@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { LoginService } from 'src/app/services/login/login.service';
+import { ConnectEndMessageComponent } from '../connect-end-message/connect-end-message.component';
 
 @Component({
   selector: 'ft-connect',
@@ -12,6 +14,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 export class ConnectComponent implements OnInit {
 
   constructor(private loginService: LoginService,
+    private _snackBar: MatSnackBar,
     private router: Router) { }
 
   loginForm = new FormGroup({
@@ -62,11 +65,19 @@ export class ConnectComponent implements OnInit {
         code: this.code.value,
         senderMail: this.email.value
       }).pipe(take(1)).subscribe(x => {
+        this.openSnackBar(4000);
         this.router.navigate(['/upload']);
       }, err => {
         this.error = err.error;
       });
     }
   }
+
+  openSnackBar(duration: number) {
+    this._snackBar.openFromComponent(ConnectEndMessageComponent, {
+      duration: duration
+    });
+  }
+
 
 }

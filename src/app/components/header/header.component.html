@@ -37,7 +37,7 @@
             </li>
             <span class="column-divider"></span>
             <li *ngIf="isLoggedIn()">
-              <mat-icon aria-hidden="true">person_outline</mat-icon>
+              <mat-icon aria-hidden="true">logout</mat-icon>
               <a routerLink="/upload" class="link" (click)="logout()">Me déconnecter</a>
             </li>
             <li *ngIf="!isLoggedIn()">
