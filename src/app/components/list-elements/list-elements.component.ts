@@ -7,6 +7,8 @@ import { ConfigService } from 'src/app/services/config/config.service';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { InfoMsgComponent } from "../info-msg/info-msg.component";
 import { FTTransferModel } from "../../models";
+import {TranslateService} from '@ngx-translate/core';
+
 
 @Component({
   selector: 'ft-list-elements',
@@ -38,6 +40,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private cdr: ChangeDetectorRef,
     private fileManagerService: FileManagerService,
     private configService: ConfigService,
+    private translate: TranslateService,
     private _snackBar: MatSnackBar) {
 
     this.configService.getConfig().pipe(take(1)).subscribe((config: any) => {
@@ -108,7 +111,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!this.checkExtentionValid(event)) {
         this.flow.cancelFile(event);
         this.filesSize -= event.size;
-        this.errorMessage = 'Le type de fichier que vous avez essayé d\'ajouter n\'est pas autorisé';
+        this.errorMessage = this.translate.instant('NonAutorisé');
         this.hasError = true;
       } else if (event.folder) {
         try {
@@ -148,7 +151,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
           this.cdr.detectChanges();
         } else {
           this.flow.cancelFile(event);
-          this.errorMessage = 'Le fichier que vous avez essayé d\'ajouter a dépassé la taille maximale du pli autorisée (20 Go) ou la taille maximale autorisée par fichier (2 Go) ';
+          this.errorMessage =  this.translate.instant('TailleMaximale');
           this.hasError = true;
           this.cdr.detectChanges();
         }
@@ -208,13 +211,13 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
       for (let child of fileEvent.childs) {
         tmpSize += this.checkSize(child, tmpSize);
         if (tmpSize > this.filesSizeLimit) {
-          throw new Error('Un fichier que vous avez essayé d\'ajouter a dépassé la taille maximale du pli autorisée (20 Go)');
+          throw new Error(this.translate.instant('TailleMaximalePli'));
         }
       }
     } else {
       // si le fichier est ok on return sa taille sinon on throw une erreur
       if (fileEvent.size > this.fileSizeLimit) {
-        throw new Error('Un fichier que vous avez essayé d\'ajouter a dépassé la taille maximale autorisée (2 Go)');
+        throw new Error(this.translate.instant('TailleMaximaleFichier'));
       } else {
         return fileEvent.size;
       }

@@ -1,39 +1,40 @@
 <form [formGroup]="envelopeMailForm" class="envelope-mail-form-container">
 
     <div class="envelope-mail-form-info">
-        <span>Les champs marqués d'une * sont obligatoires</span>
+        <span>{{'ChampsObligatoires' | translate}}</span>
     </div>
 
     <div class="envelope-mail-form-group" [ngClass]="f.from.errors?.quota ? 'big-error' : ''">
         <mat-form-field>
-            <mat-label>Expéditeur</mat-label>
-            <input id="sendermail" name="email" [readonly]="isLoggedIn()" [disabled]="isLoggedIn()" matInput
-                placeholder="Votre adresse courriel" formControlName="from" required autocomplete="email">
+            <mat-label>{{'Expéditeur' | translate}}</mat-label>
+            <input id="sendermail" name="email" [readonly]="isLoggedIn()" [disabled]="isLoggedIn()" matInput placeholder="{{'AdresseCourriel' | translate}}" formControlName="from"
+                required autocomplete="email">
             <mat-icon class="icon-btn" aria-hidden="true" matSuffix
-                matTooltip="l’expéditeur peut être un agent de l’administration française ou un particulier.">
+                matTooltip="{{'TooltipExpéditeurLien' | translate}}">
                 info_outline</mat-icon>
-            <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
-            <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise
-                (JEAN.DUPONT@EMAIL.COM).</mat-error>
-            <mat-error role="alert" *ngIf="f.from.errors?.quota">Le quota quotidien d’envoi de l'expéditeur est
-                dépassé<br />
+            <mat-error role="alert" *ngIf="f.from.errors?.required">{{'ExpéditeurRequis' | translate}}</mat-error>
+            <mat-error role="alert" *ngIf="f.from.errors?.email">{{'AdresseRequis' | translate}}</mat-error>
+            <mat-error role="alert" *ngIf="f.from.errors?.quota">{{'QotaDépassé' | translate}}<br />
             </mat-error>
         </mat-form-field>
     </div>
 
     <div class="envelope-mail-form-group" [ngClass]="!f.to.valid && f.to.touched ? 'big-error' : ''">
         <mat-form-field>
-            <mat-label>Destinataire(s) *</mat-label>
+            <mat-label>{{'Destinataire' | translate}} *</mat-label>
             <input id="recipientmail" name="recipientmail" matInput
-                placeholder="les adresses courriels des destinataires" formControlName="to" #dest
+                placeholder="{{'PlaceholderDestinataires' | translate}}" formControlName="to" #dest
                 (blur)="onBlurDestinataires();" (keyup.enter)="dest.blur();focus();">
             <mat-icon class="icon-btn" aria-hidden="true" matSuffix
-                matTooltip="si l’expéditeur est un agent de l’Etat, le ou les destinataires peuvent être un agent de l’Etat ou un
-                      particulier. Si l’expéditeur est un particulier, les destinataires ne peuvent être que des agents de l’Etat.">
+                matTooltip="{{'TooltipExpéditeurCourriel' | translate}}">
                 info_outline</mat-icon>
-            <mat-icon class="icon-btn" aria-hidden="true" matSuffix matTooltip="Utiliser une liste de contacts"
+            <mat-icon class="icon-btn" aria-hidden="true" matSuffix matTooltip="{{'ListeContacts' | translate}}"
                 (click)="openMailingListManager()">list_alt
             </mat-icon>
+
+            <mat-error role="alert" *ngIf="f.to.errors?.required">{{'DestinataireRequis' | translate}}</mat-error>
+            <mat-error role="alert" *ngIf="f.to.errors?.email">{{'AdresseRequis' | translate}}</mat-error>
+            <mat-error role="alert" *ngIf="f.to.errors?.notValid">{{'ExpéditeurNécessaire' | translate}}</mat-error>
 
         </mat-form-field>
     </div>
@@ -47,29 +48,30 @@
             </mat-chip>
         </mat-chip-list>
         <mat-icon *ngIf="destinatairesList && destinatairesList.length > 0" class="icon-btn icon-download"
-            aria-hidden="true" matSuffix matTooltip="Exporter ma liste de destinataires au format CSV"
+            aria-hidden="true" matSuffix matTooltip="{{'ExporterListeCSV' | translate}}"
             (click)="exportDataCSV() ">cloud_download
         </mat-icon>
     </div>
 
     <div class="envelope-mail-form-group">
         <mat-form-field>
-            <mat-label>Objet</mat-label>
+            <mat-label>{{'Objet' | translate}}</mat-label>
             <input matInput placeholder="(Facultatif)" formControlName="subject" autocomplete="off">
         </mat-form-field>
     </div>
 
     <div class="envelope-mail-form-group">
         <mat-form-field>
-            <mat-label>Message</mat-label>
+            <mat-label>{{'Message' | translate}}</mat-label>
             <textarea cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10" matInput
                 placeholder="(Facultatif)" formControlName="message" autocomplete="off"></textarea>
         </mat-form-field>
     </div>
 
     <div class="mat-checkbox-layout">
-        <mat-checkbox formControlName="cguCheck">J'accepte les <a class="link" rel="noopener noreferrer" href="cgu"
-                target="_blank" class="link">CGU</a>
-            et je n'envoie pas de données à caractère personnel ou sensibles non chiffrées au préalable</mat-checkbox>
-    </div>
+      <mat-checkbox formControlName="cguCheck">
+          <div [innerHTML]="'CGU' | translate" >
+          </div>
+        </mat-checkbox>
+  </div>
 </form>

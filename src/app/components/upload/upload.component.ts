@@ -290,7 +290,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
         if (this.checkConnect == false) {
           this.loginService.tokenInfo.next(null);
-
          }
 
       });

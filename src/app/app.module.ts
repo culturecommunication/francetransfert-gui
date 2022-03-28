@@ -37,7 +37,7 @@ import { CheckValidationCodeComponent } from './components/check-validation-code
 import { EndMessageComponent } from './components/end-message/end-message.component';
 import { SatisfactionCheckComponent } from './components/satisfaction-check/satisfaction-check.component';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminAlertDialogComponent } from './components/admin/admin-alert-dialog/admin-alert-dialog.component';
 import { CguComponent } from './components/cgu/cgu.component';
@@ -51,6 +51,15 @@ import { InfoMsgComponent } from './components/info-msg/info-msg.component';
 import { AdminEndMsgComponent } from './components/admin/admin-end-msg/admin-end-msg.component';
 import { ConnectComponent } from './components/connect/connect.component';
 import { ConnectEndMessageComponent } from './components/connect-end-message/connect-end-message.component';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+
+export function HttpLoaderFactory(http: HttpClient) {
+  //return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 
 registerLocaleData(localeFr);
 const initializer = (pwaService: PwaService) => () =>
@@ -115,7 +124,14 @@ const initializer = (pwaService: PwaService) => () =>
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    NgxFlowModule
+    NgxFlowModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR' },

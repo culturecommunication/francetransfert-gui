@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LanguageModel } from 'src/app/models';
 import { LanguageSelectionService } from 'src/app/services';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'ft-language-selector',
@@ -14,7 +15,19 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
   defaultLanguage: LanguageModel;
   languageList: LanguageModel[];
 
-  constructor(private languageSelectionService: LanguageSelectionService) { }
+  constructor(private languageSelectionService: LanguageSelectionService,
+  private translateService: TranslateService,
+  ) {
+    //translateService.setDefaultLang("en-US")
+    translateService.setDefaultLang("fr-FR")
+ }
+
+
+
+  public selectLanguage(event: any){
+    console.log("changer la langue")
+    this.translateService.use(event.target.value);
+  }
 
   ngOnInit(): void {
     this.languageSelectionSubscription = this.languageSelectionService.selectedLanguage.subscribe(lang => {
