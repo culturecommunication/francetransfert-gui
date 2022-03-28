@@ -49,6 +49,8 @@ import { SatisfactionMessageComponent } from './components/satisfaction-message/
 import { ContactEndMessageComponent } from './components/contact-end-message/contact-end-message.component';
 import { InfoMsgComponent } from './components/info-msg/info-msg.component';
 import { AdminEndMsgComponent } from './components/admin/admin-end-msg/admin-end-msg.component';
+import { ConnectComponent } from './components/connect/connect.component';
+import { ConnectEndMessageComponent } from './components/connect-end-message/connect-end-message.component';
 
 registerLocaleData(localeFr);
 const initializer = (pwaService: PwaService) => () =>
@@ -96,7 +98,9 @@ const initializer = (pwaService: PwaService) => () =>
     SatisfactionMessageComponent,
     ContactEndMessageComponent,
     InfoMsgComponent,
-    AdminEndMsgComponent
+    AdminEndMsgComponent,
+    ConnectComponent,
+    ConnectEndMessageComponent
   ],
   imports: [
     HttpClientModule,

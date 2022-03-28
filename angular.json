@@ -33,6 +33,9 @@
             ],
             "styles": [
               {
+                "input": "./node_modules/material-icons/iconfont/material-icons.css"
+              },
+              {
                 "input": "src/theme/variables.scss"
               },
               {

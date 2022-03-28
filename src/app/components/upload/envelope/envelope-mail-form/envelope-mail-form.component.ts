@@ -12,6 +12,7 @@ import { UploadManagerService, UploadService } from 'src/app/services';
 import { saveAs } from 'file-saver';
 import { QuotaAsyncValidator } from 'src/app/shared/validators/quota-validator';
 import { MailAsyncValidator } from 'src/app/shared/validators/mail-validator';
+import { LoginService } from 'src/app/services/login/login.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -43,6 +44,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
+    private loginService: LoginService,
     private uploadService: UploadService,
     private router: Router,
     private dialog: MatDialog,
@@ -64,7 +66,6 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
     this.envelopeMailFormChangeSubscription = this.envelopeMailForm.statusChanges
       .subscribe(() => {
-        // this.copyListDestinataires(this.envelopeMailForm.get('to').value);
         this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
         this.uploadManagerService.envelopeInfos.next({ type: 'mail', ...this.envelopeMailForm.value, ...this.uploadManagerService.envelopeInfos.getValue()?.parameters ? { parameters: this.uploadManagerService.envelopeInfos.getValue().parameters } : {} });
       });
@@ -162,6 +163,13 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     this.dest.nativeElement.focus();
   }
 
+  isLoggedIn() {
+    return this.loginService.isLoggedIn();
+  }
+
+  getSenderInfo() {
+    return this.loginService.getEmail();
+  }
 
   copyListDestinataires(val: any) {
     if (val.indexOf("<") > 0 && val.indexOf(">") > 0) {
@@ -173,4 +181,11 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
       })
     }
   }
+
+
+  enterSubmit(event, index) {
+    this.destinatairesList.splice(index, 1);
+    this.checkDestinatairesList();
+  }
+
 }

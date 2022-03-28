@@ -1,7 +1,8 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ResponsiveService } from 'src/app/services';
+import { ResponsiveService, UploadManagerService } from 'src/app/services';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'ft-header',
@@ -15,7 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   responsiveSubscription: Subscription = new Subscription;
   screenWidth: string;
 
-  constructor(private responsiveService: ResponsiveService,
+  constructor(private responsiveService: ResponsiveService, private loginService: LoginService,
     private _router: Router) { }
 
   ngOnInit(): void {
@@ -38,12 +39,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.sidenavToggle.emit();
   }
 
-  backToHome() { 
+  backToHome() {
     if (this._router.url.includes('upload')) {
       window.location.reload();
     } else {
       this._router.navigate(['/upload']);
     }
+  }
+
+  isLoggedIn() {
+    return this.loginService.isLoggedIn();
+  }
+
+  logout() {
+    this.loginService.logout();
+    this._router.navigate(['/upload']);
   }
 
   goToLink(url: string) {

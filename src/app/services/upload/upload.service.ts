@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { UploadInfosModel } from 'src/app/models';
 import { environment } from 'src/environments/environment';
+import { LoginService } from '../login/login.service';
 import { UploadManagerService } from '../upload-manager/upload-manager.service';
 
 @Injectable({
@@ -13,7 +14,8 @@ import { UploadManagerService } from '../upload-manager/upload-manager.service';
 export class UploadService {
 
   constructor(private _httpClient: HttpClient,
-    private uploadManagerService: UploadManagerService) { }
+    private uploadManagerService: UploadManagerService,
+    private loginService: LoginService) { }
 
   sendTree(body: any): any {
     const trMapping = this._mappingTree(body.transfers);
@@ -27,9 +29,9 @@ export class UploadService {
       rootFiles: trMapping.files,
       rootDirs: trMapping.dirs,
       publicLink: body.publicLink,
-      expireDelay: body.expiryDays
-      //senderId: body.senderId,
-      //senderToken: body.senderToken
+      expireDelay: body.expiryDays,
+      senderId: body.senderId,
+      senderToken: body.senderToken
     };
     return this._httpClient.post(`${environment.host}${environment.apis.upload.tree}`, treeBody).pipe(
       map((response: any) => {
@@ -74,6 +76,10 @@ export class UploadService {
       treeBody
     ).pipe(map((response: UploadInfosModel) => {
       this.uploadManagerService.uploadError$.next(null);
+      this.loginService.setLogin({
+        senderMail: body.senderMail,
+        senderToken: response.senderToken
+      });
       this.uploadManagerService.uploadInfos.next({
         canUpload: response.canUpload,
         enclosureId: response.enclosureId,

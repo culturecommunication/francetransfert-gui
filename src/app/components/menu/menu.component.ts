@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit {
   }
 
   goToLink(url) {
-    window.open(url, "_blank");
+    window.open(url);
     this.sidenavToggle.emit();
   }
 

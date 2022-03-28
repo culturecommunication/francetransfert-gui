@@ -17,13 +17,14 @@
     <div class="envelope-link-form-group">
         <mat-form-field>
             <mat-label>Expéditeur</mat-label>
-            <input id="sendermail" name="email" matInput placeholder="Votre adresse courriel" formControlName="from"
-                autocomplete="email" required>
+            <input id="sendermail" name="email" matInput [readonly]="isLoggedIn()" [disabled]="isLoggedIn()"
+                placeholder="Votre adresse courriel" formControlName="from" autocomplete="email" required>
             <mat-error role="alert" *ngIf="f.from.errors?.required">Un expéditeur est requis.</mat-error>
             <mat-error role="alert" *ngIf="f.from.errors?.email">Une adresse courriel valide est requise
                 (JEAN.DUPONT@EMAIL.COM).</mat-error>
-            <mat-error role="alert" *ngIf="f.from.errors?.notValid">le lien est réservé aux agents de l'ETAT, merci d'utiliser
-              la fonctionnalité Courriel</mat-error>
+            <mat-error role="alert" *ngIf="f.from.errors?.notValid">le lien est réservé aux agents de l'ETAT, merci
+                d'utiliser
+                la fonctionnalité Courriel</mat-error>
             <mat-error role="alert" *ngIf="f.from.errors?.quota">Le quota quotidien d’envoi de l'expéditeur est dépassé
             </mat-error>
 
@@ -41,7 +42,7 @@
     <div class="envelope-link-form-group mat-checkbox-layout">
         <mat-checkbox formControlName="cguCheck">J'accepte les
             <a class="link" rel="noopener noreferrer" href="cgu" target="_blank" class="link">CGU</a>
-          et je n'envoie pas de données à caractère personnel ou sensibles non chiffrées au préalable
+            et je n'envoie pas de données à caractère personnel ou sensibles non chiffrées au préalable
         </mat-checkbox>
     </div>
 
