@@ -24,14 +24,14 @@
         dépassez pas les 30 minutes d'inactivité. Au-delà un nouveau code de confirmation vous sera envoyé si vous
         souhaitez envoyer un nouveau pli.</p>
 
-      <div class="card-actions evenly">
+      <div class="card-actions evenly" *ngIf="!visible">
         <mat-card-actions>
-          <button aria-label="Accueil" mat-raised-button class="card-actions-btn"
+          <button type="button" aria-label="Accueil" mat-raised-button class="card-actions-btn"
             (click)="backToHome()">ACCUEIL</button>
         </mat-card-actions>
         <mat-card-actions>
-          <button mat-raised-button aria-label="Envoyer code" class="card-actions-btn"
-            [disabled]="codeSent || !email.valid" (click)="sendCode()">ENVOYER
+          <button type="submit" mat-raised-button aria-label="Envoyer code" class="card-actions-btn"
+            [disabled]="(codeSent || !email.valid) && visible" (click)="sendCode()">ENVOYER
             CODE</button>
         </mat-card-actions>
       </div>
@@ -56,9 +56,9 @@
           </div>
         </div>
         <div class="card-actions evenly">
-          <button mat-raised-button aria-label="Annuler" class="card-actions-btn color"
+          <button type="button" mat-raised-button aria-label="Annuler" class="card-actions-btn color"
             (click)="cancel()">ANNULER</button>
-          <button mat-raised-button aria-label="Valider" class="card-actions-btn color"
+          <button type="submit" mat-raised-button aria-label="Valider" class="card-actions-btn color"
             [disabled]="!form.valid || (error && !error?.codeTryCount)" (click)="validateCode()">VALIDER</button>
         </div>
       </ng-container>
