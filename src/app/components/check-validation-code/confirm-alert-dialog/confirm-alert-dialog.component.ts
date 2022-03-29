@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, HostListener, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'ft-confirm-alert-dialog',
   templateUrl: './confirm-alert-dialog.component.html',
@@ -7,9 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfirmAlertDialogComponent implements OnInit {
 
-  constructor() { }
+  @HostListener('window:keyup', ['$event'])
+  onDialogClick(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.close();
+    }
+  }
+
+  isTrue: string = "false";
+  constructor(private dialogRef: MatDialogRef<ConfirmAlertDialogComponent>) { }
+
+	close(): void {
+		this.dialogRef.close(true);
+	}
 
   ngOnInit(): void {
+  }
+
+  sendMessage(){
+    this.isTrue = "true";
   }
 
 }

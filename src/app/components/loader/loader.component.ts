@@ -4,6 +4,7 @@ import { UploadState } from '@flowjs/ngx-flow';
 import { timer } from 'rxjs/internal/observable/timer';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { FileManagerService } from 'src/app/services';
+import { LoginService } from 'src/app/services/login/login.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
   progressSubscription: Subscription;
 
   constructor(private fileManagerService: FileManagerService,
+    private loginService: LoginService,
     ) { }
 
   ngOnInit(): void {
@@ -76,6 +78,10 @@ export class LoaderComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  isLoggedIn(): boolean {
+    return this.loginService.isLoggedIn();
+  }
 
   haveChunkError(uploadState: UploadState): boolean {
     for (let transfer of uploadState.transfers) {

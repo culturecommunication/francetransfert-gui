@@ -9,6 +9,7 @@ import { ContactEndMessageComponent } from "../contact-end-message/contact-end-m
 import { BehaviorSubject, Subscription, take } from "rxjs";
 import { v4 as uuidv4 } from 'uuid';
 import { environment } from "../../../environments/environment";
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'ft-contact',
@@ -24,9 +25,13 @@ export class ContactComponent implements OnInit {
   isSend: boolean = false;
   uuid = uuidv4();
   captchaType: string = 'IMAGE';
+  CaptchaAudio: string;
+  CaptchaVisuel: string;
+  ChangerCaptcha: string;
 
   constructor(private fb: FormBuilder, private contactService: ContactService,
     private _snackBar: MatSnackBar,
+    private translate: TranslateService,
     private _router: Router) {
     this.uuid = uuidv4();
     this.formulaireContactForm = this.fb.group({
@@ -42,6 +47,8 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+
+
   }
 
 
@@ -50,6 +57,10 @@ export class ContactComponent implements OnInit {
       .subscribe(() => {
         this.checkSend();
       });
+
+      this.CaptchaAudio = 'CaptchaAudio';
+      this.CaptchaVisuel = 'CaptchaVisuel';
+      this.ChangerCaptcha = 'ChangerCaptcha';
 
   }
 

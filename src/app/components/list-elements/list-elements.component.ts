@@ -111,7 +111,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!this.checkExtentionValid(event)) {
         this.flow.cancelFile(event);
         this.filesSize -= event.size;
-        this.errorMessage = this.translate.instant('NonAutorisé');
+        this.errorMessage = 'NonAutorisé';
         this.hasError = true;
       } else if (event.folder) {
         try {
@@ -151,7 +151,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
           this.cdr.detectChanges();
         } else {
           this.flow.cancelFile(event);
-          this.errorMessage =  this.translate.instant('TailleMaximale');
+          this.errorMessage =  'TailleMaximale';
           this.hasError = true;
           this.cdr.detectChanges();
         }
@@ -211,13 +211,13 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
       for (let child of fileEvent.childs) {
         tmpSize += this.checkSize(child, tmpSize);
         if (tmpSize > this.filesSizeLimit) {
-          throw new Error(this.translate.instant('TailleMaximalePli'));
+          throw new Error('TailleMaximalePli');
         }
       }
     } else {
       // si le fichier est ok on return sa taille sinon on throw une erreur
       if (fileEvent.size > this.fileSizeLimit) {
-        throw new Error(this.translate.instant('TailleMaximaleFichier'));
+        throw new Error('TailleMaximaleFichier');
       } else {
         return fileEvent.size;
       }

@@ -3,17 +3,14 @@
         <mat-card-content class="check-validation-code-card-content">
             <mat-icon class="check-validation-code-card-content-icon" aria-hidden="true">lock_outline</mat-icon>
             <div class="check-validation-code-card-content-text">
-                <span class="check-validation-code-card-content-text-title">Vérifiez votre adresse courriel</span>
-                <span class="check-validation-code-card-content-text-sub" *ngIf="isLoggedIn">Votre session a expiré,
-                    un nouveau code de confirmation vous a été envoyé par
-                    courriel, il vous permettra de continuer à utiliser le service tant que vous ne
-                    dépassez pas les 30 minutes d'inactivité.</span>
-                <span class="check-validation-code-card-content-text-sub" *ngIf="!isLoggedIn">
-                    Un code de confirmation vous a été envoyé par courriel.
-                    Si vous souhaitez rester "connecté(e)",
-                    il vous permettra d'utiliser le service tant que vous ne dépassez pas les 30 minutes d'inactivité.
-                    Au-delà un nouveau code de confirmation vous sera envoyé si vous souhaitez envoyer un nouveau pli.
-                </span>
+                <span class="check-validation-code-card-content-text-title">{{'Vérification Adresse' |
+                    translate}}</span>
+                <span class="check-validation-code-card-content-text-sub" *ngIf="isLoggedIn()">{{'Session Expiré' |
+                    translate}}</span>
+                <span class="check-validation-code-card-content-text-sub" *ngIf="!isLoggedIn()">{{'CodeConfirmation1' |
+                    translate}}
+                    "{{'CodeConfirmation2' | translate}}",
+                    {{'CodeConfirmation3' | translate}}</span>
                 <span class="check-validation-code-card-content-text-sub">Saisissez le code qui vous a été envoyé à
                     {{email}}
                     (vérifiez votre dossier spam).</span>
@@ -41,9 +38,9 @@
         </mat-card-content>
 
         <mat-card-actions class="check-validation-code-card-actions">
-            <button mat-raised-button class="check-validation-code-card-actions-btn"
+            <button type="button" mat-raised-button class="check-validation-code-card-actions-btn"
                 *ngIf="error && error.statusCode === 401 && !error.codeTryCount" (click)="backToHome()">Accueil</button>
-            <button mat-raised-button class="check-validation-code-card-actions-btn"
+            <button type="button" mat-raised-button class="check-validation-code-card-actions-btn"
                 *ngIf="!error || (error && error.statusCode === 401 && error.codeTryCount)"
                 (click)="cancel()">Annuler</button>
             <button type="submit" [disabled]="!verificationCodeForm.valid || buttonDisable" mat-raised-button
@@ -75,7 +72,7 @@
                     <mat-label>Mot de passe</mat-label>
                     <input matInput formControlName="verificationCode" required [type]="hide ? 'password' : 'text'"
                         autocomplete="off">
-                    <button mat-icon-button matSuffix (click)="hide = !hide"
+                    <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
                         [attr.aria-label]="'Masquer le mot de passe'" [attr.aria-pressed]="'Masquer le mot de passe'">
                         <mat-icon aria-hidden="true">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>

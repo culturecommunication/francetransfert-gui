@@ -3,24 +3,24 @@
         <mat-card-content class="satisfaction-check-card-content">
             <mat-icon class="satisfaction-check-card-content-icon" aria-hidden="true">info_outline</mat-icon>
             <div class="satisfaction-check-card-content-text">
-                <span class="satisfaction-check-card-content-text-title">Tout s’est bien passé ?</span>
-                <span class="satisfaction-check-card-content-text-sub">Donnez votre avis sur France transfert</span>
+                <span class="satisfaction-check-card-content-text-title"> {{'BienPassé' | translate}} ?</span>
+                <span class="satisfaction-check-card-content-text-sub">  {{'VotreAvis' | translate}} </span>
             </div>
             <div class="satisfaction-check-faces">
                 <div class="satisfaction-check-faces-icon-wrapper dissatisfied"
                     [ngClass]="selectedFace === 'dissatisfied' ? 'selected' : ''" (click)="selectFace('dissatisfied')">
                     <mat-icon class="satisfaction-check-faces-icon" aria-hidden="true">sentiment_dissatisfied</mat-icon>
-                    <span class="satisfaction-check-faces-text">Pas bien</span>
+                    <span class="satisfaction-check-faces-text">  {{'Pas bien' | translate}} </span>
                 </div>
                 <div class="satisfaction-check-faces-icon-wrapper neutral"
                     [ngClass]="selectedFace === 'neutral' ? 'selected' : ''" (click)="selectFace('neutral')">
                     <mat-icon class="satisfaction-check-faces-icon" aria-hidden="true">sentiment_neutral</mat-icon>
-                    <span class="satisfaction-check-faces-text">Moyen</span>
+                    <span class="satisfaction-check-faces-text"> {{'Moyen' | translate}} </span>
                 </div>
                 <div class="satisfaction-check-faces-icon-wrapper satisfied"
                     [ngClass]="selectedFace === 'satisfied' ? 'selected' : ''" (click)="selectFace('satisfied')">
                     <mat-icon class="satisfaction-check-faces-icon" aria-hidden="true">sentiment_satisfied</mat-icon>
-                    <span class="satisfaction-check-faces-text">Très bien</span>
+                    <span class="satisfaction-check-faces-text"> {{'Très bien' | translate}} </span>
                 </div>
             </div>
             <div class="satisfaction-check-form-group">
@@ -33,7 +33,7 @@
         </mat-card-content>
         <mat-card-actions class="satisfaction-check-card-actions">
             <button type="submit" [disabled]="selectedFace === '' || !satisfactionCheckForm.valid" mat-raised-button
-                class="satisfaction-check-card-actions-btn" (click)="validateForm()">Envoyer</button>
+                class="satisfaction-check-card-actions-btn" (click)="validateForm()"> {{'Envoyer' | translate}}</button>
         </mat-card-actions>
     </form>
 </mat-card>

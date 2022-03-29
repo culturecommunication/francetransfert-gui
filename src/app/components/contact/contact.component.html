@@ -21,7 +21,7 @@
 
       <div class="field-contact">
         <mat-form-field>
-          <mat-label> {{'CourrielContact' | translate}} </mat-label>
+          <mat-label> {{'VotreCourriel' | translate}} </mat-label>
           <input id="sendercourriel" name="courriel" matInput placeholder="jean.dupont@domaine.fr"
             formControlName="from" required autocomplete="email">
           <mat-error role="alert" *ngIf="f.from.errors?.required">{{'ExpéditeurRequis' | translate}}</mat-error>
@@ -32,9 +32,7 @@
       <div class="field-contact">
         <mat-form-field>
           <mat-label>{{'AdministrationSociété' | translate}}</mat-label>
-          <input id="administration" name="administration" matInput placeholder="Votre administration / société"
-            formControlName="administration">
-        </mat-form-field>
+          <input id="administration" name="administration" matInput placeholder= "{{'AdministrationSociété' | translate}}">  </mat-form-field>
       </div>
 
       <div class="field-contact">
@@ -64,16 +62,16 @@
           </figure>
         </div>
         <div class="captcha-button">
-          <button mat-icon-button color="primary" matTooltip="Changer le captcha" (click)="resetUuid()"
-            aria-label="Changer le captcha">
+          <button mat-icon-button color="primary" matTooltip= "{{'ChangerCaptcha' | translate}}" (click)="resetUuid()"
+         attr.aria-label="{{'ChangerCaptcha' | translate}}">
             <mat-icon>refresh
             </mat-icon>
           </button>
 
           <button mat-icon-button color="primary"
-            [matTooltip]="captchaType == 'IMAGE' ? 'Passer à un captcha audio' :'Passer à un captcha visuel'"
+            [matTooltip]="captchaType == 'IMAGE' ? ('CaptchaAudio' | translate )   :  ('CaptchaVisuel' | translate ) "
             (click)="switchType()"
-            [attr.aria-label]="captchaType == 'IMAGE' ? 'Passer à un captcha audio':'Passer à un captcha visuel' ">
+            [attr.aria-label]="captchaType == 'IMAGE' ? ('CaptchaAudio' | translate ) : ('CaptchaVisuel' | translate ) ">
             <mat-icon *ngIf="captchaType == 'IMAGE'">volume_up
             </mat-icon>
             <mat-icon *ngIf="captchaType == 'SOUND'">image
@@ -92,7 +90,7 @@
     </div>
     <div class="card-actions">
       <mat-card-actions>
-        <button mat-raised-button [disabled]="!canSend" class="card-actions-btn" (click)="send()">Envoyer </button>
+        <button mat-raised-button [disabled]="!canSend" class="card-actions-btn" (click)="send()">{{'Envoyer' | translate}} </button>
       </mat-card-actions>
     </div>
 

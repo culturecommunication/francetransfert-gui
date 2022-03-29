@@ -11,15 +11,101 @@
   "Lien": "Lien",
   "LienFonctionnalité": "",
   "ModificationOption": "",
-  "UploadEnvoyer": "",
+  "Envoyer": "",
   "PréférencesTransfert": "",
-  "UploadAnnuler": "",
-  "UploadValider": "",
+  "Annuler": "",
+  "Valider": "",
+
+
+
+
+
+
+  "ChampsObligatoires": "",
+  "NomTransfert": "",
+  "TooltipNomTransfert": "",
+  "ExpéditeurRequis": "",
+  "AdresseRequis": "",
+  "LienRéservé": "",
+  "QotaDépassé": "",
+  "Message": "",
+  "CGU": "",
+
+
+
+  "TooltipExpéditeurLien": "",
+  "Expéditeur": "",
+  "Destinataire": "",
+  "TooltipExpéditeurCourriel":  "",
+  "PlaceholderDestinataires": "",
+  "DestinataireRequis": "",
+  "ExpéditeurNécessaire": "",
+  "ListeContacts": "",
+  "": "",
+  "AdresseCourriel": "",
+  "ExporterListeCSV": "",
+  "Objet": "",
+
 
   "NonAutorisé": "The file type you tried to add is not allowed",
+  "TailleMaximale": "",
+  "TailleMaximalePli": "",
+  "TailleMaximaleFichier": "",
+  "AjoutDocument": "",
+  "Dépot": "",
+
+
+  "ChoixLangue": "Choice of language",
 
 
 
+  "FAQ": "",
+  "Contact": "",
+  "MeConnecter": "",
+  "MeDéconnecter": "",
 
-  "ChoixLangue": "Choice of language"
+
+
+  "NomContact": "",
+  "PrénomContact": "",
+  "VotreCourriel": "",
+  "AdministrationSociété": "",
+  "MessageRequis": "",
+  "CaptchaVisuel": "Switch to a visual captcha",
+  "ChangerCaptcha": "Change the captcha",
+  "CaptchaAudio": "Switch to an audio captcha",
+  "Captcha": "",
+  "CaptchaRequis": "",
+  "CaptchaIncorrect": "",
+
+
+
+  "CourrielConnect": "",
+  "CodeConfrimationEnvoyé": "",
+  "ACCUEIL": "",
+  "EnvoyerCode": "",
+  "SaisieCode": "",
+  "CodeInvalide": "",
+  "NombreEchecs": "",
+  "CodeNonDisponible": "",
+  "ErreurTechnique": "",
+
+
+
+  "CréationTransfert": "",
+
+
+  "MentionsLégales": "",
+  "Éditeur": "",
+  "Ministère": "",
+  "Adresse": "",
+  "CodePostale_Ville": "",
+  "ResponsablePublication": "Publication Manager",
+  "ChefService": "",
+  "Liens": "",
+  "LiensPagesSite": "",
+  "Développement": "",
+  "ACT-ONTECHNOLOGY_Adresse": "",
+  "Hébergement": "",
+  "OUSTSCAL_Adresse": ""
 }

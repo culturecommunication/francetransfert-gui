@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { DownloadManagerService } from 'src/app/services/download-manager/download-manager.service';
+import {TranslateService} from '@ngx-translate/core';
+
 
 @Component({
   selector: 'ft-download-error',
@@ -13,16 +15,18 @@ export class DownloadErrorComponent implements OnInit {
   errorMessage: string;
   private onDestroy$: Subject<void> = new Subject();
 
-  constructor(private downloadManagerService: DownloadManagerService) {
+  constructor(private downloadManagerService: DownloadManagerService,
+    private translate: TranslateService,
+    ) {
     this.downloadManagerService.downloadError$.pipe(takeUntil(this.onDestroy$)).subscribe((error) => {
       if (error && error.message == 'DOWNLOAD_LIMIT') {
-        this.errorMessage = 'Vous avez dépassé le nombre de téléchargements autorisé pour ce pli';
+        this.errorMessage = 'Nombre_Téléchargements_Dépassé';
       } else if (error && error.message == 'DELETED_ENCLOSURE') {
         this.errorMessage = 'Le pli demandé n\'existe pas.';
       } else if (error && error.message == 'HASH_INVALID') {
-        this.errorMessage = 'Le pli a été corrompu, merci de voir avec l\'expéditeur pour vous le renvoyer.';
+        this.errorMessage = 'Pli_Corrompu';
       } else {
-        this.errorMessage = 'Une erreur est survenue lors de la récupération de votre pli.';
+        this.errorMessage = 'Erreur_Récupération_Pli.';
       }
     });
   }

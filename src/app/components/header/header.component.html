@@ -28,21 +28,21 @@
             <span class="column-divider"></span>
             <li>
               <mat-icon aria-hidden="true">help_outline</mat-icon>
-              <a routerLink="/faq" class="link" (click)="routeTo('/faq')">FAQ</a>
+              <a routerLink="/faq" class="link" (click)="routeTo('/faq')">{{'FAQ' | translate}}</a>
             </li>
             <span class="column-divider"></span>
             <li>
               <mat-icon aria-hidden="true">mail_outline</mat-icon>
-              <a routerLink="/contact" class="link" (click)="routeTo('/contact')">Contact</a>
+              <a routerLink="/contact" class="link" (click)="routeTo('/contact')">{{'Contact' | translate}}</a>
             </li>
             <span class="column-divider"></span>
             <li *ngIf="isLoggedIn()">
               <mat-icon aria-hidden="true">logout</mat-icon>
-              <a routerLink="/upload" class="link" (click)="logout()">Me déconnecter</a>
+              <a routerLink="/upload" class="link" (click)="logout()">{{'MeDéconnecter' | translate}}</a>
             </li>
             <li *ngIf="!isLoggedIn()">
               <mat-icon aria-hidden="true">person_outline</mat-icon>
-              <a routerLink="/connect" class="link" (click)="routeTo('/connect')">Me connecter</a>
+              <a routerLink="/connect" class="link" (click)="routeTo('/connect')"> {{'MeConnecter' | translate}}</a>
             </li>
           </ul>
         </nav>

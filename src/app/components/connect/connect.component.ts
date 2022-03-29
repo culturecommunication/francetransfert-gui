@@ -17,12 +17,16 @@ export class ConnectComponent implements OnInit {
   constructor(private loginService: LoginService,
     private _snackBar: MatSnackBar,
     private router: Router,
-    private changeDetectorRef: ChangeDetectorRef) { }
+    private changeDetectorRef: ChangeDetectorRef) {
 
-  loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    code: new FormControl('', [Validators.required, Validators.minLength(8)]),
-  })
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      code: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    })
+
+  }
+
+  loginForm
 
   codeSent: boolean = false;
   visible: boolean = false;
@@ -35,7 +39,7 @@ export class ConnectComponent implements OnInit {
 
 
 
-  cancel() {
+  cancel(event) {
     this.loginService.tokenInfo.next(null);
     this.loginForm.reset();
     this.codeSent = false;
@@ -55,7 +59,8 @@ export class ConnectComponent implements OnInit {
   get form() { return this.loginForm; }
 
 
-  sendCode() {
+  sendCode(event) {
+    event.preventDefault();
     this.codeSent = !this.codeSent;
     this.visible = !this.visible;
     this.loginService.generateCode(this.email.value).pipe(take(1)).subscribe();
@@ -63,7 +68,8 @@ export class ConnectComponent implements OnInit {
     this.codeField.first.nativeElement.focus();
   }
 
-  validateCode() {
+
+  validateCode(event) {
     if (this.loginForm.valid) {
       this.error = null;
       this.loginService.validateCode({
