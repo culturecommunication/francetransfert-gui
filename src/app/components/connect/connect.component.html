@@ -43,7 +43,7 @@
         <div class="field-contact">
           <mat-form-field>
             <mat-label>Code reçu </mat-label>
-            <input id="codeReceived" name="code" formControlName="code" matInput placeholder="Code" autocomplete="off">
+            <input #codeReceived id="codeReceived" name="code" formControlName="code" matInput placeholder="Code" autocomplete="off">
           </mat-form-field>
           <div class="content-error" *ngIf="error && error.statusCode === 401">
             <span role="alert">Le code de vérification est invalide.</span><br />

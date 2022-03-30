@@ -23,7 +23,13 @@ export class PwaService {
 
     if (swUpdate.isEnabled) {
       interval(6 * 60 * 60).subscribe(() => swUpdate.checkForUpdate()
-        .then(() => console.log('checking for updates')));
+        .then(() => {
+          console.log(document.location.hostname);
+          if (document.location.hostname === 'francetransfert.culture.gouv.fr') {
+            window.location.href = "https://francetransfert.numerique.gouv.fr";
+          }
+          console.log('checking for updates');
+        }));
     }
 
   }
@@ -57,8 +63,6 @@ export class PwaService {
   public initPwaPrompt() {
     if (this.platform.ANDROID) {
       window.addEventListener('beforeinstallprompt', (event: any) => {
-        console.log('event origin : ' + event.origin);
-        console.log('window href : ' + window.location.origin);
         if (event.origin && event.origin !== window.location.origin) {
           return;
         }
