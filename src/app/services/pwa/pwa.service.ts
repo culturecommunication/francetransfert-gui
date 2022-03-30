@@ -28,9 +28,9 @@ export class PwaService {
           if (document.location.hostname === 'francetransfert.culture.gouv.fr') {
             window.location.href = "https://francetransfert.numerique.gouv.fr";
           }
-          /* if (document.location.hostname === 'test.ft.com') {
+          if (document.location.hostname === 'test.ft.com') {
             window.location.href = "https://francetransfert.numerique.gouv.fr";
-          } */
+          }
           console.log('checking for updates');
         }));
     }
