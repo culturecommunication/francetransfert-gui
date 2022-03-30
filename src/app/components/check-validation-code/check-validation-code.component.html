@@ -3,50 +3,45 @@
         <mat-card-content class="check-validation-code-card-content">
             <mat-icon class="check-validation-code-card-content-icon" aria-hidden="true">lock_outline</mat-icon>
             <div class="check-validation-code-card-content-text">
-                <span class="check-validation-code-card-content-text-title">{{'Vérification Adresse' |
-                    translate}}</span>
-                <span class="check-validation-code-card-content-text-sub" *ngIf="isLoggedIn()">{{'Session Expiré' |
-                    translate}}</span>
-                <span class="check-validation-code-card-content-text-sub" *ngIf="!isLoggedIn()">{{'CodeConfirmation1' |
-                    translate}}
-                    "{{'CodeConfirmation2' | translate}}",
-                    {{'CodeConfirmation3' | translate}}</span>
-                <span class="check-validation-code-card-content-text-sub">Saisissez le code qui vous a été envoyé à
+                <span class="check-validation-code-card-content-text-title">{{'Vérification Adresse' | translate}}</span>
+                <span class="check-validation-code-card-content-text-sub" *ngIf="isLoggedIn()">{{'Session Expiré' | translate}}</span>
+                <span class="check-validation-code-card-content-text-sub" *ngIf="!isLoggedIn()">{{'CodeConfirmation1' | translate}}
+                  "{{'CodeConfirmation2' | translate}}",
+                  {{'CodeConfirmation3' | translate}}</span>
+                <span class="check-validation-code-card-content-text-sub">{{'Saisie_Code_Envoyé' | translate}}
                     {{email}}
-                    (vérifiez votre dossier spam).</span>
+                    {{'Spam' | translate}}</span>
             </div>
             <div class="check-validation-code-card-content-error" *ngIf="error && error.statusCode === 401">
-                <span role="alert">Le code de vérification est invalide.</span><br />
-                <span *ngIf="error.codeTryCount > 0" role="alert">Nombre d'échecs : {{error.codeTryCount}}</span>
-                <span *ngIf="!error.codeTryCount" role="alert">Suite à 5 erreurs de validation du code votre pli est
-                    annulé</span>
+                <span role="alert"> {{'CodeInvalide' | translate}}</span><br />
+                <span *ngIf="error.codeTryCount > 0" role="alert">{{'NombreEchecs' | translate}} {{error.codeTryCount}}</span>
+                <span *ngIf="!error.codeTryCount" role="alert"> {{'CodeAnnulé' | translate}}</span>
             </div>
             <div class="check-validation-code-card-content-error" *ngIf="error && error.statusCode === 400">
-                <span role="alert">Une erreur technique s'est produite.</span>
+                <span role="alert"> {{'ErreurTechnique' | translate}}  </span>
             </div>
             <div class="verification-code-form-group">
                 <mat-form-field>
-                    <mat-label>Code de vérification</mat-label>
+                    <mat-label> {{'CodeVérification' | translate}} </mat-label>
                     <input matInput formControlName="verificationCode" required autocomplete="off">
-                    <mat-error role="alert" *ngIf="f.verificationCode.errors?.required">Veuillez entrer votre code de
-                        vérification.</mat-error>
+                    <mat-error role="alert" *ngIf="f.verificationCode.errors?.required">{{'Saisie_Code_Vérification' | translate}} </mat-error>
                 </mat-form-field>
             </div>
             <div class="mat-checkbox-layout">
-                <mat-checkbox formControlName="connectCheck">Rester connecté(e)</mat-checkbox>
+              <mat-checkbox formControlName="connectCheck"> {{'Rester_Connecté' | translate}} </mat-checkbox>
             </div>
         </mat-card-content>
 
         <mat-card-actions class="check-validation-code-card-actions">
             <button type="button" mat-raised-button class="check-validation-code-card-actions-btn"
-                *ngIf="error && error.statusCode === 401 && !error.codeTryCount" (click)="backToHome()">Accueil</button>
+                *ngIf="error && error.statusCode === 401 && !error.codeTryCount" (click)="backToHome()"> {{'Accueil' | translate}} </button>
             <button type="button" mat-raised-button class="check-validation-code-card-actions-btn"
                 *ngIf="!error || (error && error.statusCode === 401 && error.codeTryCount)"
-                (click)="cancel()">Annuler</button>
+                (click)="cancel()"> {{'Annuler' | translate}} </button>
             <button type="submit" [disabled]="!verificationCodeForm.valid || buttonDisable" mat-raised-button
                 class="check-validation-code-card-actions-btn"
                 *ngIf="!error || (error && error.statusCode === 401 && error.codeTryCount)"
-                (click)="validateForm()">Valider</button>
+                (click)="validateForm()"> {{'Valider' | translate}} </button>
         </mat-card-actions>
     </form>
 </mat-card>
@@ -55,35 +50,34 @@
         <mat-card-content class="check-validation-code-card-content">
             <mat-icon class="check-validation-code-card-content-icon" aria-hidden="true">lock_outline</mat-icon>
             <div class="check-validation-code-card-content-text">
-                <span class="check-validation-code-card-content-text-title">Accès au pli sécurisé !</span>
-                <span class="check-validation-code-card-content-text-sub">La saisie d’un mot de passe est nécessaire
-                    pour télécharger ce pli.</span>
+                <span class="check-validation-code-card-content-text-title">{{'AccèsSécurisé' | translate}}</span>
+                <span class="check-validation-code-card-content-text-sub">{{'Mot_Passe_Téléchargement' | translate}}</span>
             </div>
             <div class="check-validation-code-card-content-error" *ngIf="error && error.statusCode === 401">
-                <span role="alert">Le mot de passe est invalide.</span><br />
-                <span *ngIf="error.codeTryCount > 0" role="alert">Nombre d'échecs : {{error.codeTryCount}}</span>
+                <span role="alert">{{'Mot_Passe_Invalide' | translate}}</span><br />
+                <span *ngIf="error.codeTryCount > 0" role="alert">{{'NombreEchecs' | translate}} {{error.codeTryCount}}</span>
                 <span *ngIf="!error.codeTryCount && error.message" role="alert">{{error.message}}</span>
             </div>
             <div class="check-validation-code-card-content-error" *ngIf="error && error.statusCode === 400">
-                <span>Une erreur technique s'est produite.</span>
+                <span>{{'ErreurTechnique' | translate}}</span>
             </div>
             <div class="verification-code-form-group">
                 <mat-form-field>
-                    <mat-label>Mot de passe</mat-label>
+                    <mat-label>{{'Mot_de_Passe' | translate}}</mat-label>
                     <input matInput formControlName="verificationCode" required [type]="hide ? 'password' : 'text'"
                         autocomplete="off">
                     <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
                         [attr.aria-label]="'Masquer le mot de passe'" [attr.aria-pressed]="'Masquer le mot de passe'">
                         <mat-icon aria-hidden="true">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-                    <mat-error role="alert" *ngIf="f.verificationCode.errors?.required">Veuillez entrer le mot de passe.
+                    <mat-error role="alert" *ngIf="f.verificationCode.errors?.required">{{'Saisie_Mot_passe' | translate}}
                     </mat-error>
                 </mat-form-field>
             </div>
         </mat-card-content>
         <mat-card-actions class="check-validation-code-card-actions">
             <button type="submit" [disabled]="!verificationCodeForm.valid || buttonDisable" mat-raised-button
-                class="check-validation-code-card-actions-btn" (click)="validateForm()">Valider</button>
+                class="check-validation-code-card-actions-btn" (click)="validateForm()"> {{'Valider' | translate}}</button>
         </mat-card-actions>
     </form>
 </mat-card>

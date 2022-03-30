@@ -1,9 +1,9 @@
-<h2 mat-dialog-title>Etes-vous sûr ?</h2>
+<h2 mat-dialog-title>{{'Etes_vous_sûr' | translate}} ?</h2>
 <mat-dialog-content class="mat-typography">
-  <h3>Cette action annulera votre pli.</h3>
-  <p>Poursuivre ?</p>
+  <h3> {{'AnnulationPli' | translate}}</h3>
+  <p> {{'Poursuivre' | translate}} ?</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button class="btn" mat-button mat-dialog-close>Annuler</button>
-  <button class="btn" mat-button [mat-dialog-close]="true" cdkFocusInitial>Continuer</button>
+  <button class="btn" mat-button mat-dialog-close>{{'Annuler' | translate}}</button>
+  <button class="btn" mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'Continuer' | translate}}</button>
 </mat-dialog-actions>

@@ -1,27 +1,25 @@
+
+  <!--
+  "Titre_CGU": "CGU",
+  "Préambule": "Préambule",
+  "Intro": "<span>Les présentes conditions générales d’utilisation (CGU), valables pour une durée indéterminée, s’appliquent à tout usager du service en ligne : francetransfert.culture.gouv.fr. Elles sont mises en œuvre conformément à l’article L. 112-8 du code des relations entre le public et l’administration (droit de saisine de l’administration par voie électronique). </span> <span>En cochant la case CGU lors d’un envoi, vous certifiez avoir lu et accepté les conditions générales d’utilisation du service France transfert présentées sur cette page. </span> <span>Une nouvelle acceptation des CGU sera demandée en cas d’extension des services proposés par le service France transfert ayant impliquée une modification des CGU.</span>",
+  "Présentation_Service": "1. Présentation du service",
+  "Présentation_Service_texte": "<span>France transfert est un service (<b>le Service</b>) créé par l’Etat (<b>l’Etat</b>) pour aider ses usagers (citoyens, professionnels, entreprises, associations…), partenaires ou prestataires à envoyer aux agents de l’Etat ou recevoir de la part des agents de l’Etat, des fichiers et dossiers volumineux qui ne peuvent pas transiter par les messageries électroniques. </span> <span>Dans sa version actuelle le Service ne permet pas de transférer des fichiers ou dossiers numériques d’une taille unitaire supérieure à 2 Go. Une version ultérieure permettra d’augmenter significativement cette taille. </span> <span>Le Service permet de transférer un ensemble de fichiers ou dossiers volumineux dans une limite de 20 Go dès lors que chaque fichier ou dossier transféré ne dépasse individuellement pas 2 Go. </span> <span>Le Service n’est pas conçu : </span>",
+  "": "",
+-->
 <div class="cgu-wrapper">
     <mat-card class="cgu-card">
         <mat-card-header class="cgu-card-header">
-            <h1 #cgu>CGU</h1>
+            <h1 #cgu> {{'Titre_CGU' | translate}}</h1>
         </mat-card-header>
         <mat-card-content class="cgu-card-content">
-            <h3 #preambule>Préambule</h3>
-            <p>
-                <span>Les présentes conditions générales d’utilisation (CGU), valables pour une durée indéterminée, s’appliquent à tout usager du service en ligne :
-                  francetransfert.numerique.gouv.fr. Elles sont
-                  mises en œuvre conformément à l’article L. 112-8 du code des relations entre le public et l’administration (droit de saisine de
-                  l’administration par voie électronique). </span>
+            <h3 #preambule> {{'Préambule' | translate}}</h3>
+            <p [innerHTML]="'Présentation_Service' | translate">
 
-              <span>En cochant la case CGU lors d’un envoi, vous certifiez avoir lu et accepté les conditions générales d’utilisation du service France transfert présentées sur cette page. </span>
-
-                <span>Une nouvelle acceptation des CGU sera demandée en cas d’extension des services proposés par le service France transfert ayant impliquée une modification des CGU.</span>
             </p>
-            <h2 #presentationduservice>1. Présentation du service</h2>
-            <p>
-              <span>France transfert est un service (<b>le Service</b>) créé par l’Etat (<b>l’Etat</b>) pour aider ses usagers (citoyens, professionnels, entreprises, associations…),
-                  partenaires ou prestataires à envoyer aux agents de l’Etat ou recevoir de la part des agents de l’Etat, des fichiers et dossiers volumineux qui ne peuvent pas transiter par les messageries électroniques. </span>
-                <span>Dans sa version actuelle le Service ne permet pas de transférer des fichiers ou dossiers numériques d’une taille unitaire supérieure à 2 Go. Une version ultérieure permettra d’augmenter significativement cette taille. </span>
-                <span>Le Service permet de transférer un ensemble de fichiers ou dossiers volumineux dans une limite de 20 Go dès lors que chaque fichier ou dossier transféré ne dépasse individuellement pas 2 Go. </span>
-                <span>Le Service n’est pas conçu : </span>
+            <h2 #presentationduservice>{{'Présentation_Service' | translate}}</h2>
+            <p [innerHTML]="'Présentation_Service_texte' | translate">
+
             </p>
             <ul>
                  <li>
@@ -36,7 +34,7 @@
                 <span>Le Service est mis à disposition sans autres garanties expresses ou tacites que celles qui sont prévues par les présentes.</span>
             </p>
 
-          <h2 #modalites>2. Modalités d’utilisation du Service</h2>
+          <h2 #modalites>2. Modalités d’utilisation du Service {{'SaisieCode' | translate}}</h2>
             <h3 #inscription>2.1 Inscription et transmission de fichiers constituant le pli</h3>
             <p>
                 <span>Lors de la connexion sur la page du Service, l’usager du Service fournit l’adresse électronique du ou des destinataire(s) du pli.
@@ -48,7 +46,7 @@
                   limite de téléchargement avant suppression du pli.</span>
                 <span>L’utilisation du Service est libre et facultative.</span>
             </p>
-            <h3 #sensibles>2.2 Données sensibles</h3>
+            <h3 #sensibles>2.2 Données sensibles {{'SaisieCode' | translate}}</h3>
             <p>
                 <span>Le Service n’est actuellement pas prévu pour l’envoi de données sensibles. </span>
                 <span>Par données sensibles, on entend :</span>
@@ -72,7 +70,7 @@
                 Le Ministère engagera alors une procédure de mise sous séquestre du pli concerné et procédera à une vérification puis prendra les mesures nécessaires qui s’imposent.
               </span>
             </p>
-            <h2 #techniques>3. Données techniques</h2>
+            <h2 #techniques>3. Données techniques {{'SaisieCode' | translate}}</h2>
             <h3>3.1 Généralités</h3>
             <p>
                 <span>L'utilisation du Service requiert une connexion et un navigateur internet.</span>

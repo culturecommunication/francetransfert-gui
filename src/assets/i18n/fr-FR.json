@@ -136,5 +136,27 @@
   "Session Expiré": "Votre session a expiré, un nouveau code de confirmation vous a été envoyé par courriel, il vous permettra de continuer à utiliser le service tant que vous ne dépassez pas les 30 minutes d'inactivité.",
   "CodeConfirmation1": "Un code de confirmation vous a été envoyé par courriel. Si vous souhaitez rester ",
   "CodeConfirmation2": "connecté(e)",
-  "CodeConfirmation3": " il vous permettra d'utiliser le service tant que vous ne dépassez pas les 30 minutes d'inactivité. Au-delà un nouveau code de confirmation vous sera envoyé si vous souhaitez envoyer un nouveau pli."
+  "CodeConfirmation3": " il vous permettra d'utiliser le service tant que vous ne dépassez pas les 30 minutes d'inactivité. Au-delà un nouveau code de confirmation vous sera envoyé si vous souhaitez envoyer un nouveau pli.",
+  "Saisie_Code_Envoyé": "Saisissez le code qui vous a été envoyé à",
+  "Spam": "(vérifiez votre dossier spam).",
+  "CodeAnnulé": "Suite à 5 erreurs de validation du code votre pli est annulé",
+  "CodeVérification": "Code de vérification",
+  "Saisie_Code_Vérification": "Veuillez entrer votre code de vérification.",
+  "Rester_Connecté": "Rester connecté(e)",
+  "AccèsSécurisé": "Accès au pli sécurisé !",
+  "Mot_Passe_Téléchargement": "La saisie d’un mot de passe est nécessaire pour télécharger ce pli.",
+  "Mot_Passe_Invalide": "Le mot de passe est invalide.",
+  "Mot_de_Passe": "Mot de passe",
+  "Saisie_Mot_passe": "Veuillez entrer le mot de passe.",
+  "Etes_vous_sûr": "Etes-vous sûr ",
+  "AnnulationPli": "Cette action annulera votre pli.",
+  "Poursuivre": "Poursuivre ",
+  "Continuer": "Continuer",
+  "Titre_CGU": "CGU",
+  "Préambule": "Préambule1",
+  "Intro": "<span>Les présentes conditions générales d’utilisation (CGU), valables pour une durée indéterminée, s’appliquent à tout usager du service en ligne : francetransfert.culture.gouv.fr. Elles sont mises en œuvre conformément à l’article L. 112-8 du code des relations entre le public et l’administration (droit de saisine de l’administration par voie électronique). </span> <span>En cochant la case CGU lors d’un envoi, vous certifiez avoir lu et accepté les conditions générales d’utilisation du service France transfert présentées sur cette page. </span> <span>Une nouvelle acceptation des CGU sera demandée en cas d’extension des services proposés par le service France transfert ayant impliquée une modification des CGU.</span>",
+  "Présentation_Service": "1. Présentation du service",
+  "Présentation_Service_texte": "<span>France transfert est un service (<b>le Service</b>) créé par l’Etat (<b>l’Etat</b>) pour aider ses usagers (citoyens, professionnels, entreprises, associations…), partenaires ou prestataires à envoyer aux agents de l’Etat ou recevoir de la part des agents de l’Etat, des fichiers et dossiers volumineux qui ne peuvent pas transiter par les messageries électroniques. </span> <span>Dans sa version actuelle le Service ne permet pas de transférer des fichiers ou dossiers numériques d’une taille unitaire supérieure à 2 Go. Une version ultérieure permettra d’augmenter significativement cette taille. </span> <span>Le Service permet de transférer un ensemble de fichiers ou dossiers volumineux dans une limite de 20 Go dès lors que chaque fichier ou dossier transféré ne dépasse individuellement pas 2 Go. </span> <span>Le Service n’est pas conçu : </span>"
+
+
 }

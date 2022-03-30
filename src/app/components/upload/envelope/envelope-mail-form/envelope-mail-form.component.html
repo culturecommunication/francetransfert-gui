@@ -8,7 +8,7 @@
         <mat-form-field>
             <mat-label>{{'Expéditeur' | translate}}</mat-label>
             <input id="sendermail" name="email" [readonly]="isLoggedIn()" [disabled]="isLoggedIn()" matInput placeholder="{{'AdresseCourriel' | translate}}" formControlName="from"
-                required autocomplete="email">
+                required autocomplete="email" (keydown.enter)="enterExpediteur()" autofocus>
             <mat-icon class="icon-btn" aria-hidden="true" matSuffix
                 matTooltip="{{'TooltipExpéditeurLien' | translate}}">
                 info_outline</mat-icon>
@@ -24,7 +24,7 @@
             <mat-label>{{'Destinataire' | translate}} *</mat-label>
             <input id="recipientmail" name="recipientmail" matInput
                 placeholder="{{'PlaceholderDestinataires' | translate}}" formControlName="to" #dest
-                (blur)="onBlurDestinataires();" (keyup.enter)="dest.blur();focus();">
+                (blur)="onBlurDestinataires();" (keydown.enter)="dest.blur();focus();">
             <mat-icon class="icon-btn" aria-hidden="true" matSuffix
                 matTooltip="{{'TooltipExpéditeurCourriel' | translate}}">
                 info_outline</mat-icon>
@@ -56,7 +56,7 @@
     <div class="envelope-mail-form-group">
         <mat-form-field>
             <mat-label>{{'Objet' | translate}}</mat-label>
-            <input matInput placeholder="(Facultatif)" formControlName="subject" autocomplete="off">
+            <input matInput placeholder="(Facultatif)" formControlName="subject" autocomplete="off" #objet (keydown.enter)="enterObjet()">
         </mat-form-field>
     </div>
 
@@ -64,7 +64,7 @@
         <mat-form-field>
             <mat-label>{{'Message' | translate}}</mat-label>
             <textarea cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10" matInput
-                placeholder="(Facultatif)" formControlName="message" autocomplete="off"></textarea>
+                placeholder="(Facultatif)" formControlName="message" autocomplete="off" #message></textarea>
         </mat-form-field>
     </div>
 

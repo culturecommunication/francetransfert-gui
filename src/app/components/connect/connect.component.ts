@@ -14,6 +14,11 @@ import { LoginService } from 'src/app/services/login/login.service';
 })
 export class ConnectComponent implements OnInit {
 
+
+  @ViewChild('mailEnter') mailEnter: ElementRef;
+  @ViewChild('codeEnter', { static: false }) codeEnter: ElementRef;
+
+
   constructor(private loginService: LoginService,
     private _snackBar: MatSnackBar,
     private router: Router,
@@ -45,6 +50,7 @@ export class ConnectComponent implements OnInit {
     this.codeSent = false;
     this.visible = false;
     this.error = null;
+    this.mailEnter.nativeElement.focus();
   }
 
   backToHome() {
