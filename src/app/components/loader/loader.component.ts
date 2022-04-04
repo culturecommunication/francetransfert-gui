@@ -35,6 +35,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
         this.transferFinished.emit(true);
       } else if (this.haveChunkError(t)) {
         this.cancelTransfer();
+        console.log('Transfert Error');
       }
     });
   }
@@ -51,12 +52,22 @@ export class LoaderComponent implements OnInit, OnDestroy {
   }
 
   cancelTransfer() {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
+    if (this.progressSubscription) {
+      this.progressSubscription.unsubscribe();
+    }
     this.transferFailed.emit(true);
   }
 
   ngOnDestroy(): void {
-    //this.timerSubscription.unsubscribe();
-    this.progressSubscription.unsubscribe();
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
+    if (this.progressSubscription) {
+      this.progressSubscription.unsubscribe();
+    }
   }
 
 
