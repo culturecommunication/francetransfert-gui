@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -15,7 +15,8 @@ export class ConnectComponent implements OnInit {
 
   constructor(private loginService: LoginService,
     private _snackBar: MatSnackBar,
-    private router: Router) { }
+    private router: Router,
+    private changeDetectorRef: ChangeDetectorRef) { }
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -25,6 +26,7 @@ export class ConnectComponent implements OnInit {
   codeSent: boolean = false;
   visible: boolean = false;
   error = null;
+  @ViewChildren('codeReceived') codeField: QueryList<ElementRef>;
 
   ngOnInit(): void {
 
@@ -56,6 +58,8 @@ export class ConnectComponent implements OnInit {
     this.codeSent = !this.codeSent;
     this.visible = !this.visible;
     this.loginService.generateCode(this.email.value).pipe(take(1)).subscribe();
+    this.changeDetectorRef.detectChanges();
+    this.codeField.first.nativeElement.focus();
   }
 
   validateCode() {

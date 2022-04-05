@@ -158,6 +158,12 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadFailed = true;
     this.uploadFinished = true;
     this.canReset = true;
+    this.flow.transfers$.pipe(take(1)).subscribe(transfer => {
+      transfer.transfers.forEach(t => {
+        t.flowFile.pause();
+        t.flowFile.bootstrap();
+      });
+    });
   }
 
   onTransferCancelled(event) {
