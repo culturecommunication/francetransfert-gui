@@ -18,5 +18,14 @@
             <span>Contact</span>
         </mat-list-item>
         <mat-divider></mat-divider>
+        <mat-list-item *ngIf="isLoggedIn()" class="menu-list-item" (click)="logout()">
+            <mat-icon aria-hidden="true">logout</mat-icon>
+            <span>Me déconnecter</span>
+        </mat-list-item>
+        <mat-list-item *ngIf="!isLoggedIn()" class="menu-list-item" (click)="goToLink('/connect')">
+            <mat-icon aria-hidden="true">person_outline</mat-icon>
+            <span>Me connecter</span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
     </mat-list>
 </div>

@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'ft-menu',
@@ -9,18 +11,27 @@ export class MenuComponent implements OnInit {
 
   @Output() sidenavToggle = new EventEmitter();
 
-  constructor() { }
+  constructor(private _router: Router, private loginService: LoginService) { }
 
   ngOnInit(): void {
   }
 
   goToLink(url) {
-    window.open(url, "_blank");
+    this._router.navigate([url]);
     this.sidenavToggle.emit();
   }
 
   onToggleSidenav = () => {
     this.sidenavToggle.emit();
+  }
+
+  isLoggedIn() {
+    return this.loginService.isLoggedIn();
+  }
+
+  logout() {
+    this.loginService.logout();
+    this._router.navigate(['/upload']);
   }
 
 }

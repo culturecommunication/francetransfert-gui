@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { FTErrorModel } from 'src/app/models';
 import { DownloadManagerService, UploadManagerService } from 'src/app/services';
+import { LoginService } from 'src/app/services/login/login.service';
 import { ConfirmAlertDialogComponent } from './confirm-alert-dialog/confirm-alert-dialog.component';
 
 @Component({
@@ -24,21 +25,31 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
   error: FTErrorModel;
   hide = true;
 
+  buttonDisable = false;
+
+  isLoggedIn = false;
+
   constructor(private fb: FormBuilder, private uploadManagerService: UploadManagerService,
-    private downloadManagerService: DownloadManagerService,
+    private downloadManagerService: DownloadManagerService, private loginService: LoginService,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.initForm();
+    this.isLoggedIn = this.loginService.isLoggedIn();
+    if (this.component === 'upload' && this.isLoggedIn == true) {
+      this.loginService.logout();
+    }
     this.errorSubscription = this.uploadManagerService.uploadError$.subscribe(error => {
       if (error) {
         this.error = { statusCode: error.statusCode, message: error.message, codeTryCount: error.codeTryCount };
       }
+      this.buttonDisable = false;
     });
     this.errorDLSubscription = this.downloadManagerService.downloadError$.subscribe(error => {
       if (error) {
         this.error = { statusCode: error.statusCode, message: error.message, codeTryCount: error.codeTryCount };
       }
+      this.buttonDisable = false;
     });
   }
 
@@ -50,6 +61,7 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
   initForm() {
     this.verificationCodeForm = this.fb.group({
       verificationCode: ['', [Validators.required]],
+      connectCheck: [true, [Validators.required]],
     });
   }
 
@@ -61,11 +73,14 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
     if (this.verificationCodeForm.invalid) {
       return;
     }
+    this.loginService.connectCheck.next(this.verificationCodeForm.get('connectCheck').value);
     if (this.component === 'upload') {
       this.transferValidated.emit(this.verificationCodeForm.get('verificationCode').value);
+      this.buttonDisable = true;
     }
     if (this.component === 'download') {
       this.dowloadValidated.emit(this.verificationCodeForm.get('verificationCode').value);
+      this.buttonDisable = true;
     }
   }
 

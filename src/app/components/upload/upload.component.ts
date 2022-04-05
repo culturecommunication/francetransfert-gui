@@ -9,8 +9,7 @@ import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { SatisfactionMessageComponent } from "../satisfaction-message/satisfaction-message.component";
 import { Router } from "@angular/router";
-import * as cloneDeep from 'lodash/cloneDeep';
-import { Observable } from "rxjs";
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'ft-upload',
@@ -42,6 +41,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   listExpanded: boolean = false;
   enclosureId: string = '';
   canReset: boolean = false;
+  showCode: boolean = false;
 
 
 
@@ -50,6 +50,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     private downloadManagerService: DownloadManagerService,
     private fileManagerService: FileManagerService,
     private uploadService: UploadService,
+    private loginService: LoginService,
     private titleService: Title,
     private _snackBar: MatSnackBar,
     private router: Router) { }
@@ -98,6 +99,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadStarted = false;
     this.uploadFinished = false;
     this.uploadValidated = false;
+    this.showCode = false;
     this.uploadFailed = false;
     this.publicLink = false;
     this.uploadManagerService.uploadInfos.next(null);
@@ -156,6 +158,12 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadFailed = true;
     this.uploadFinished = true;
     this.canReset = true;
+    this.flow.transfers$.pipe(take(1)).subscribe(transfer => {
+      transfer.transfers.forEach(t => {
+        t.flowFile.pause();
+        t.flowFile.bootstrap();
+      });
+    });
   }
 
   onTransferCancelled(event) {
@@ -221,18 +229,19 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false },
-        ...this.uploadManagerService.uploadInfos.getValue()?.senderId ? { senderId: this.uploadManagerService.uploadInfos.getValue().senderId } : {},
-        ...this.uploadManagerService.uploadInfos.getValue()?.senderToken ? { senderToken: this.uploadManagerService.uploadInfos.getValue().senderToken } : {}
+        ...this.loginService.tokenInfo.getValue()?.senderToken ? { senderToken: this.loginService.tokenInfo.getValue()?.senderToken } : {}
       })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
         if (result && result?.canUpload == true) {
           this.uploadManagerService.uploadInfos.next(result);
           this.uploadValidated = true;
+          this.showCode = false;
           this.availabilityDate = result.expireDate;
           this.ispublicLink(this.uploadManagerService.envelopeInfos.getValue().type);
           this.beginUpload(result);
         } else {
+          this.showCode = true;
           if (this.uploadManagerService.uploadInfos.getValue()) {
             if (this.uploadManagerService.uploadInfos.getValue().senderId && this.uploadManagerService.uploadInfos.getValue().senderToken) {
               this.validateCode();
@@ -267,15 +276,21 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   beginUpload(result) {
-
+    let token = '';
     if (this.transfertSubscription) {
       this.transfertSubscription.unsubscribe();
     }
+    if (this.loginService.isLoggedIn()) {
+      token = this.loginService.tokenInfo.getValue()?.senderToken
+    } else {
+      token = this.uploadManagerService.uploadInfos.getValue().senderToken;
+    }
+
     this.enclosureId = result.enclosureId;
     this.flow.flowJs.opts.query = {
       enclosureId: result.enclosureId,
       senderId: this.uploadManagerService.envelopeInfos.getValue().from.toLowerCase(),
-      senderToken: result.senderToken,
+      senderToken: token,
     };
 
     this.transfertSubscription = this.flow.transfers$.subscribe((uploadState: UploadState) => {
