@@ -20,6 +20,7 @@ export interface LinkInfosModel extends EnvelopeInfosModel {
 export interface ParametersModel {
     expiryDays: number;
     password: string;
+    zipPassword: boolean;
 }
 
 export interface FormulaireContactModel{

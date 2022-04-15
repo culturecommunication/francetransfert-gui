@@ -13,7 +13,8 @@
             </span>
             <span>-</span>
             <span *ngIf="!transfer.folder" class="upload-item-details-type">
-                {{ transfer.name | filetype }}
+              <!-- {{transfer.name  ? (transfer.name  | filetype) : !null}} -->
+              {{ transfer.name | filetype }}
             </span>
             <span *ngIf="transfer.folder" class="upload-item-details-type">
                  {{'Dossier' | translate}}
@@ -21,7 +22,7 @@
         </div>
     </div>
     <div class="upload-item-actions" *ngIf="!readOnly">
-        <button mat-icon-button class="upload-item-actions-btn" aria-label="Supprimer le fichier" (keydown.enter)="deleteTransfer()">
+        <button mat-icon-button class="upload-item-actions-btn"  attr.aria-label="{{'Supprimer_Fichier' | translate}}" (keydown.enter)="deleteTransfer()">
             <mat-icon (click)="deleteTransfer()">delete</mat-icon>
         </button>
     </div>

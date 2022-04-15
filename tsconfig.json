@@ -2,6 +2,12 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "fs": ["./node_modules/fs-web"]
+    },
+
+    "types": ["node"],
+    "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -15,10 +21,15 @@
     "lib": [
       "es2018",
       "dom"
+    ],
+    "typeRoots": [
+      "./../node_modules/@types",
+      "node_modules/@types/node"
     ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictTemplates": true
   }
+
 }

@@ -31,7 +31,7 @@ export class ContactComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private contactService: ContactService,
     private _snackBar: MatSnackBar,
-    private translate: TranslateService,
+    public translateService: TranslateService,
     private _router: Router) {
     this.uuid = uuidv4();
     this.formulaireContactForm = this.fb.group({
@@ -80,7 +80,7 @@ export class ContactComponent implements OnInit {
       ...this.formulaireContactForm.controls.message.value  ? {message : this.formulaireContactForm.controls.message.value} : {message : ""},
       userResponse: this.formulaireContactForm.controls.userResponse.value,
       challengeId: this.uuid,
-      captchaType: this.captchaType
+      captchaType: this.captchaType,
     }
     this.contactService.sendFormulaireContact(this.formulaireBody).pipe(take(1)).subscribe((result: any) => {
       if (result) {

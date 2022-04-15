@@ -11,10 +11,11 @@
   "Lien": "Lien",
   "LienFonctionnalité": "",
   "ModificationOption": "",
-  "Envoyer": "",
+  "Envoyer": "Send",
   "PréférencesTransfert": "",
   "Annuler": "",
-  "Valider": "",
+  "Valider": "Validate",
+
 
 
 
@@ -46,8 +47,8 @@
   "ExporterListeCSV": "",
   "Objet": "",
 
-
-  "NonAutorisé": "The file type you tried to add is not allowed",
+  "TypeFichier": "The file ",
+  "NonAutorisé":"has a file type that is not allowed",
   "TailleMaximale": "",
   "TailleMaximalePli": "",
   "TailleMaximaleFichier": "",
@@ -58,11 +59,7 @@
   "ChoixLangue": "Choice of language",
 
 
-
-  "FAQ": "",
-  "Contact": "",
-  "MeConnecter": "",
-  "MeDéconnecter": "",
+  "FichierType": "File",
 
 
 
@@ -79,16 +76,6 @@
   "CaptchaIncorrect": "",
 
 
-
-  "CourrielConnect": "",
-  "CodeConfrimationEnvoyé": "",
-  "ACCUEIL": "",
-  "EnvoyerCode": "",
-  "SaisieCode": "",
-  "CodeInvalide": "",
-  "NombreEchecs": "",
-  "CodeNonDisponible": "",
-  "ErreurTechnique": "",
 
 
 
@@ -107,5 +94,30 @@
   "Développement": "",
   "ACT-ONTECHNOLOGY_Adresse": "",
   "Hébergement": "",
-  "OUSTSCAL_Adresse": ""
+
+  "CourrielConnect": "Veuillez saisir votre adresse courriel pour utiliser ce service :",
+  "CodeConfrimationEnvoyé": "Un code de confirmation vous sera envoyé par courriel, il vous permettra d'utiliser le service tant que vous ne dépassez pas les 30 minutes d'inactivité. Au-delà un nouveau code de confirmation vous sera envoyé si vous souhaitez envoyer un nouveau pli.",
+  "ACCUEIL": "ACCUEIL",
+  "EnvoyerCode": "ENVOYER CODE",
+  "SaisieCode": "Saisissez le code qui vous a été envoyé pour accéder à France transfert (vérifier votre dossier spam):",
+  "CodeInvalide": "Le code de vérification est invalide.",
+  "NombreEchecs": "Nombre d'échecs : ",
+  "CodeNonDisponible": "Suite à 5 erreurs de validation, le code n'est plus disponible.<br />Merci d'annuler et de demander le renvoi d'un code ",
+  "ErreurTechnique": "Une erreur technique s'est produite.",
+
+  "FAQ": "FAQ",
+  "Contact": "Contact",
+  "MeConnecter": "Me connecter",
+  "MeDéconnecter": "Me déconnecter",
+  "OUSTSCAL_Adresse": "",
+
+
+  "ITEMS_PER_PAGE": "Items per page",
+  "NEXT_PAGE": "Next page",
+  "PREVIOUS_PAGE": "Previous page",
+  "LAST_PAGE": "Last page",
+  "OF_LABEL": "of"
+
+
+
 }

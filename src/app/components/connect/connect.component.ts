@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { LoginService } from 'src/app/services/login/login.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class ConnectComponent implements OnInit {
 
 
   constructor(private loginService: LoginService,
+    public translateService: TranslateService,
     private _snackBar: MatSnackBar,
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef) {
@@ -69,7 +71,7 @@ export class ConnectComponent implements OnInit {
     event.preventDefault();
     this.codeSent = !this.codeSent;
     this.visible = !this.visible;
-    this.loginService.generateCode(this.email.value).pipe(take(1)).subscribe();
+    this.loginService.generateCode(this.email.value, this.translateService.currentLang).pipe(take(1)).subscribe();
     this.changeDetectorRef.detectChanges();
     this.codeField.first.nativeElement.focus();
   }
@@ -81,12 +83,13 @@ export class ConnectComponent implements OnInit {
       this.loginService.validateCode({
         code: this.code.value,
         senderMail: this.email.value
-      }).pipe(take(1)).subscribe(x => {
-        this.openSnackBar(4000);
-        this.router.navigate(['/upload']);
-      }, err => {
-        this.error = err.error;
-      });
+      },
+        this.translateService.currentLang).pipe(take(1)).subscribe(x => {
+          this.openSnackBar(4000);
+          this.router.navigate(['/upload']);
+        }, err => {
+          this.error = err.error;
+        });
     }
   }
 

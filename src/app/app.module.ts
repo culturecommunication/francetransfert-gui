@@ -1,3 +1,4 @@
+
 import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -51,8 +52,24 @@ import { InfoMsgComponent } from './components/info-msg/info-msg.component';
 import { AdminEndMsgComponent } from './components/admin/admin-end-msg/admin-end-msg.component';
 import { ConnectComponent } from './components/connect/connect.component';
 import { ConnectEndMessageComponent } from './components/connect-end-message/connect-end-message.component';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+
+import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
+import localeEn from '@angular/common/locales/en';
+import localeEs from '@angular/common/locales/es';
+import localeEsExtra from '@angular/common/locales/extra/es';
+import localeFrExtra from '@angular/common/locales/extra/fr';
+import localeEnExtra from '@angular/common/locales/extra/en';
+import { PlisComponent } from './components/plis/plis.component';
+import { PlisRecusComponent } from './components/plis/plis-recus/plis-recus.component';
+import { PlisEnvoyesComponent } from './components/plis/plis-envoyes/plis-envoyes.component';
+import { FormsModule } from '@angular/forms';
+import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
+
+registerLocaleData(localeEn, 'en', localeEnExtra);
+registerLocaleData(localeEs, 'es', localeEsExtra);
+registerLocaleData(localeFr, 'fr', localeFrExtra);
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -61,7 +78,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 
-registerLocaleData(localeFr);
+//registerLocaleData(localeFr);
 const initializer = (pwaService: PwaService) => () =>
   pwaService.initPwaPrompt()
 
@@ -109,15 +126,21 @@ const initializer = (pwaService: PwaService) => () =>
     InfoMsgComponent,
     AdminEndMsgComponent,
     ConnectComponent,
-    ConnectEndMessageComponent
+    ConnectEndMessageComponent,
+    PlisComponent,
+    PlisRecusComponent,
+    PlisEnvoyesComponent,
+
   ],
   imports: [
+
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
+    MatPaginatorModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
@@ -125,6 +148,7 @@ const initializer = (pwaService: PwaService) => () =>
       registrationStrategy: 'registerWhenStable:30000'
     }),
     NgxFlowModule,
+    FormsModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -134,7 +158,9 @@ const initializer = (pwaService: PwaService) => () =>
     })
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'fr-FR' },
+    {provide: MatPaginatorIntl,
+      useClass: PlisEnvoyesComponent},
+    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
     DatePipe,
     FileMultipleSizePipe,
     FileNamePipe,
@@ -154,4 +180,7 @@ const initializer = (pwaService: PwaService) => () =>
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private translate: TranslateService) {
+  // translate.setDefaultLang('fr');
+}}

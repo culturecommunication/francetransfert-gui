@@ -2,7 +2,7 @@
   <mat-toolbar-row class="header-toolbar-row">
     <div class="header-toolbar-row-title">
       <div class="header-toolbar-logos-wrapper" *ngIf="!isMobile">
-        <button mat-button aria-label="Retour à l'accueil" (click)="backToHome()">
+        <button mat-button attr.aria-label="{{'Retour_Accueil' | translate}}" (click)="backToHome()">
           <img class="header-toolbar-logo rep-fr" alt="Logo République française" aria-hidden="true"
             src="assets/logos/republique_francaise_logo.svg" />
           <img class="header-toolbar-logo ft" alt="Logo France transfert" aria-hidden="true"
@@ -10,7 +10,7 @@
         </button>
       </div>
       <div class="header-toolbar-logos-wrapper" *ngIf="isMobile">
-        <button mat-button aria-label="Retour à l'accueil" (click)="backToHome()">
+        <button mat-button attr.aria-label="{{'Retour_Accueil' | translate}}" (click)="backToHome()">
           <img class="header-toolbar-logo rep-fr" alt="Logo République française" aria-hidden="true"
             src="assets/logos/republique_francaise_logo.svg" />
           <img class="header-toolbar-logo ft" alt="Logo France transfert" aria-hidden="true"
@@ -18,7 +18,7 @@
         </button>
       </div>
       <button mat-icon-button (click)="onToggleSidenav()" class="menu-icon" *ngIf="screenWidth !== 'lg'"
-        aria-label="Ouvrir le menu">
+        attr.aria-label="{{'Ouvrir_Menu' | translate}}">
         <mat-icon>menu</mat-icon>
       </button>
       <div class="header-toolbar-right" *ngIf="screenWidth === 'lg'">
@@ -38,7 +38,11 @@
             <span class="column-divider"></span>
             <li *ngIf="isLoggedIn()">
               <mat-icon aria-hidden="true">logout</mat-icon>
-              <a routerLink="/upload" class="link" (click)="logout()">{{'MeDéconnecter' | translate}}</a>
+              <a class="link" [matMenuTriggerFor]="menu">{{'Mon_Compte' | translate}}</a>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="routeTo('/plis')">{{'Mes_Plis' | translate}}</button>
+                <button mat-menu-item (click)="logout()">{{'MeDéconnecter' | translate}}</button>
+              </mat-menu>
             </li>
             <li *ngIf="!isLoggedIn()">
               <mat-icon aria-hidden="true">person_outline</mat-icon>

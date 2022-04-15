@@ -1,180 +1,80 @@
 
-  <!--
-  "Titre_CGU": "CGU",
-  "Préambule": "Préambule",
-  "Intro": "<span>Les présentes conditions générales d’utilisation (CGU), valables pour une durée indéterminée, s’appliquent à tout usager du service en ligne : francetransfert.culture.gouv.fr. Elles sont mises en œuvre conformément à l’article L. 112-8 du code des relations entre le public et l’administration (droit de saisine de l’administration par voie électronique). </span> <span>En cochant la case CGU lors d’un envoi, vous certifiez avoir lu et accepté les conditions générales d’utilisation du service France transfert présentées sur cette page. </span> <span>Une nouvelle acceptation des CGU sera demandée en cas d’extension des services proposés par le service France transfert ayant impliquée une modification des CGU.</span>",
-  "Présentation_Service": "1. Présentation du service",
-  "Présentation_Service_texte": "<span>France transfert est un service (<b>le Service</b>) créé par l’Etat (<b>l’Etat</b>) pour aider ses usagers (citoyens, professionnels, entreprises, associations…), partenaires ou prestataires à envoyer aux agents de l’Etat ou recevoir de la part des agents de l’Etat, des fichiers et dossiers volumineux qui ne peuvent pas transiter par les messageries électroniques. </span> <span>Dans sa version actuelle le Service ne permet pas de transférer des fichiers ou dossiers numériques d’une taille unitaire supérieure à 2 Go. Une version ultérieure permettra d’augmenter significativement cette taille. </span> <span>Le Service permet de transférer un ensemble de fichiers ou dossiers volumineux dans une limite de 20 Go dès lors que chaque fichier ou dossier transféré ne dépasse individuellement pas 2 Go. </span> <span>Le Service n’est pas conçu : </span>",
-  "": "",
--->
+
 <div class="cgu-wrapper">
     <mat-card class="cgu-card">
         <mat-card-header class="cgu-card-header">
-            <h1 #cgu> {{'Titre_CGU' | translate}}</h1>
+            <h1 #cgu> {{'CGU_Titre' | translate}}</h1>
         </mat-card-header>
         <mat-card-content class="cgu-card-content">
             <h3 #preambule> {{'Préambule' | translate}}</h3>
-            <p [innerHTML]="'Présentation_Service' | translate">
+            <p [innerHTML]="'Intro' | translate">
 
             </p>
             <h2 #presentationduservice>{{'Présentation_Service' | translate}}</h2>
-            <p [innerHTML]="'Présentation_Service_texte' | translate">
+            <p [innerHTML]="'Présentation_Service_Texte' | translate">
 
             </p>
-            <ul>
-                 <li>
-                   <span>pour des démarches effectuées par des mineurs.</span>
-                 </li>
-                  <li>
-                    <span>pour des démarches nécessitant la collecte de données relevant du I de
-                      l’article 6 de la loi n° 78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés (données sensibles).</span>
-                  </li>
+            <ul [innerHTML]="'Présentation_Service_List' | translate">
             </ul>
             <p>
-                <span>Le Service est mis à disposition sans autres garanties expresses ou tacites que celles qui sont prévues par les présentes.</span>
+                <span> {{'Service_Mis_A_Disposition' | translate}}</span>
             </p>
 
-          <h2 #modalites>2. Modalités d’utilisation du Service {{'SaisieCode' | translate}}</h2>
-            <h3 #inscription>2.1 Inscription et transmission de fichiers constituant le pli</h3>
-            <p>
-                <span>Lors de la connexion sur la page du Service, l’usager du Service fournit l’adresse électronique du ou des destinataire(s) du pli.
-                  Chaque destinataire du pli reçoit un courriel indiquant l’adresse électronique de l’émetteur, le nom et la taille du ou des fichiers transmis
-                  et la date limite de téléchargement avant suppression du pli ainsi que le mot de passe pour télécharger les fichiers du pli dans un courriel à part.
-                  L’usager du Service fournit également une adresse électronique valide, à laquelle sera envoyé un courriel
-                  confirmant la transmission du fichier au(x) destinataire(s). </span>
-                <span>Ce courriel indique l’adresse électronique du destinataire ou des destinataires, le nom et la taille du ou des fichiers transmis et la date
-                  limite de téléchargement avant suppression du pli.</span>
-                <span>L’utilisation du Service est libre et facultative.</span>
+          <h2 #modalites>{{'Modalités_Titre' | translate}}</h2>
+            <h3 #inscription>{{'Inscription_Transmission_Titre' | translate}}</h3>
+            <p [innerHTML]="'Inscription_Transmission_Texte' | translate">
             </p>
-            <h3 #sensibles>2.2 Données sensibles {{'SaisieCode' | translate}}</h3>
-            <p>
-                <span>Le Service n’est actuellement pas prévu pour l’envoi de données sensibles. </span>
-                <span>Par données sensibles, on entend :</span>
+            <h3 #sensibles> {{'Données_Sensibles_Titre' | translate}}</h3>
+            <p [innerHTML]="'Données_Sensibles_Texte' | translate">
+
             </p>
-            <ul>
-                 <li>La catégorie particulière de données à caractère personnel, définie à l’article 6 de la loi n°78-17 du 6 janvier 1978 relative à l'informatique,
-                          aux fichiers et aux libertés. Il s’agit des informations qui révèlent la prétendue origine raciale ou ethnique, les opinions politiques, les convictions
-                          religieuses ou philosophiques ou l'appartenance syndicale, ainsi que le traitement des données génétiques, des données biométriques aux fins d'identifier
-                          une personne physique de manière unique, des données concernant la santé ou des données concernant la vie sexuelle ou l'orientation sexuelle d'une personne physique.
-                 </li>
-                 <li>Des données confidentielles ou secrètes (dont la diffusion est censée être limitée à un nombre restreint de personnes identifiées)
-                          <b>[que le Ministère n’a pas vocation à recueillir dans le cadre de ses missions]</b>.
-                 </li>
+            <ul  [innerHTML]="'Données_Sensibles_Liste' | translate">
+
             </ul>
-            <p>
-              <span>Si l’expéditeur souhaite malgré tout envoyer des données sensibles via le Service, il doit s’assurer de les avoir chiffrées au préalable (via un conteneur
-                Zed par exemple, voir https://www.ssi.gouv.fr/administration/qualification/zed/). </span>
-
-              <span>Si un destinataire du Service constate que des données sensibles ont été transmises sans avoir été chiffrées par l’expéditeur, il peut faire un signalement en
-                utilisant le formulaire de contact en veillant bien à fournir le lien de téléchargement du fichier ou dossier et le mot de passe associé.
-                Le Ministère engagera alors une procédure de mise sous séquestre du pli concerné et procédera à une vérification puis prendra les mesures nécessaires qui s’imposent.
-              </span>
+            <p [innerHTML]="'Données_Sensibles_Texte2' | translate">
             </p>
-            <h2 #techniques>3. Données techniques {{'SaisieCode' | translate}}</h2>
-            <h3>3.1 Généralités</h3>
+            <h2 #techniques> {{'Données_Techniques_Titre' | translate}}</h2>
+            <h3>{{'Généralités_Titre' | translate}}</h3>
             <p>
-                <span>L'utilisation du Service requiert une connexion et un navigateur internet.</span>
+                <span> {{'Généralités_Texte' | translate}} </span>
             </p>
-            <h3>3.2 Utilisation de cookies</h3>
+            <h3>{{'Utilisation_Cookies_Titre' | translate}}</h3>
             <p>
-                <span>Le Service n'utilise pas de cookies.</span>
+                <span>{{'Utilisation_Cookies_Texte' | translate}}</span>
             </p>
-            <h3>3.3 Plateformes et outils</h3>
+            <h3> {{'Plateformes_Outils_Titre' | translate}}</h3>
             <p>
-                <span>Technologies utilisées :</span>
+                <span>{{'Plateformes_Outils_Texte' | translate}} :</span>
             </p>
-            <ul>
-                  <li>Angular</li>
-                  <li>Angular Material UI</li>
+            <ul [innerHTML]="'Plateformes_Outils_List' | translate">
              </ul>
 
-
-            <h2 #traitementdesdonnees>4. Traitement des données à caractère personnel</h2>
-            <p>
-                <span>Le Ministère est responsable des traitements opérés sur les données reçues dans le cadre du Service et, à ce titre,
-                  respecte les obligations inhérentes à ce traitement, notamment celles prévues par la loi n° 78-17 du 6 janvier 1978 relative à l’informatique,
-                  aux fichiers et aux libertés et par le règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des
-                  personnes physiques à l'égard du traitement des données à caractère personnel et à la libre circulation de ces données, et abrogeant la
-                  directive 95/46/CE (règlement général sur la protection des données ou RGPD).
-                </span>
-                <span>Le Ministère s’engage à ne pas commercialiser les données reçues, à ne pas les communiquer à des tiers en dehors des cas
-                  prévus par la loi et à effectuer toutes formalités préalables obligatoires auprès de la Commission Nationale de l’Informatique et des Libertés. </span>
-                <span>Le Ministère garantit aux usagers du Service les droits d'accès, de rectification, d’effacement, d’opposition, d’un droit à la portabilité des informations
-                  qui le concernent ainsi qu’à la limitation des traitements prévus par la loi n° 78-17 du 6 janvier 1978 relative à l'informatique aux fichiers et aux libertés qui
-                  s’exercent auprès du Délégué à la protection des données par courrier électronique à l’adresse suivante : delegue-protection-donnees@culture.gouv.fr ou par courrier postal à
-                  l’adresse suivante, Délégué ministériel à la protection des données – 182 rue Saint-Honoré – 75033 Paris Cedex 01, en justifiant de votre identité par tout moyen. </span>
-                <span>Le Ministère s’engage à n’opérer aucune commercialisation des informations et documents transmis par l’usager
-                  au moyen du Service et à ne pas les communiquer à des tiers, en dehors des cas prévus par la loi.
-                </span>
-                <span>Le Ministère s'engage à prendre toutes précautions utiles pour préserver la sécurité et la confidentialité des données transmises par l'usager,
-                  et notamment empêcher qu'elles soient déformées, endommagées ou que des tiers non autorisés y aient accès.</span>
+            <h2 #traitementdesdonnees> {{'Traitement_Données_Titre' | translate}}</h2>
+            <p [innerHTML]="'Traitement_Données_Texte' | translate">
             </p>
-            <h2 #conservationdesdonnees>5. Lieu de stockage et durée de conservation des données des démarches publiées
-                sur le Service</h2>
-            <p>
-                <span>Le Service est hébergé sur un cloud souverain (Outscale). Les fichiers ou dossiers
-                  sont donc stockés sur des serveurs français le temps qu’ils soient téléchargés par leur(s) destinataire(s). </span>
-              <span>Les fichiers ou dossiers transmis dans le cadre du Service sont détruits :</span>
+            <h2 #conservationdesdonnees> {{'Démarches_Publiées_Titre' | translate}}</h2>
+            <p [innerHTML]="'Démarches_Publiées_Texte' | translate">
             </p>
-            <ul>
-                 <li>Soit à la demande de l’expéditeur du transfert via le lien d’administration du pli qu’il a reçu.
-                 </li>
-                 <li>Soit automatiquement à la date d’expiration fournie par l’expéditeur du transfert.</li>
-                 <li>Soit, à défaut de précision de la part de l’expéditeur, automatiquement au bout de 30 jours.
-                 </li>
+            <ul [innerHTML]="'Démarches_Publiées_List' | translate">
             </ul>
 
 
-            <h2 #engagementsetresponsabilite>6. Engagements et responsabilité</h2>
-            <h3>6.1 Engagements du Ministère</h3>
-            <p>
-                <span>La responsabilité du Ministère ne peut être recherchée en cas d'interruption du service,
-                  quelles que soient les conséquences qui pourraient en découler. L'indisponibilité du service ne donne droit à aucune indemnité.</span>
+            <h2 #engagementsetresponsabilite>{{'Engagements_Responsabilité_Titre' | translate}}</h2>
+            <h3> {{'Engagements_Ministère_Titre' | translate}}</h3>
+            <p [innerHTML]="'Engagements_Ministère_Texte' | translate">
             </p>
-            <h3>6.2 Engagements et responsabilité de l’usager</h3>
-            <p>
-                <span>L’usager s’engage à respecter les présentes conditions générales d’utilisation et la législation en vigueur. Il s’engage
-                  notamment à ne fournir, dans le cadre de l'utilisation du Service, que des informations exactes, à jour et complètes. </span>
-
-                <span>L’usager du Service s’engage à en faire un usage raisonné et à l’utiliser à des fins administratives et non personnelles. </span>
-
-                <span>L’usager est seul responsable de son utilisation des moyens techniques mis à disposition dans le cadre du Service et des
-                  fichiers transférés par ses soins, dans le respect des lois et règlements en vigueur et des présentes conditions générales d’utilisation. </span>
-
-                <span>L’usager s’engage à ne pas user du Service pour transférer des contenus illicites. Si un usager constate le transfert
-                  d’un contenu illicite, il lui est possible de le signaler via le formulaire « Contact ». Le Ministère engagera alors une
-                  procédure de mise sous séquestre du pli concerné et procédera à une vérification puis prendra les mesures nécessaires qui s’imposent
-                  (signalement au Procureur de la République). </span>
-
-                <span>L’usager s'engage à ne transmettre, via le Service, que des informations exactes, à jour et complètes. Dans l'hypothèse où l'usager
-                  ne s'acquitterait pas de cet engagement, le Ministère se réserve le droit de suspendre ou résilier la démarche administrative, sans préjudice des
-                  éventuelles actions en responsabilité pénale et civile qui pourraient être engagées à son encontre. </span>
-                <span>Il est rappelé que toute personne procédant à une fausse déclaration pour elle-même ou pour autrui s'expose, notamment, aux sanctions prévues
-                  à l'article 441-1 du Code Pénal, prévoyant des peines pouvant aller jusqu'à trois ans d'emprisonnement et 45 000 euros d'amende.</span>
+            <h3>{{'Engagements_Responsabilité_Usager_Titre' | translate}}</h3>
+            <p [innerHTML]="'Engagements_Responsabilité_Usager_Texte' | translate">
+            </p>
+            <h2 #qualiteduservice> {{'Modification_Evolution_Qualité_Titre' | translate}}</h2>
+            <p [innerHTML]="'Modification_Evolution_Qualité_Texte' | translate" >
+            </p>
+            <h2 #securite>{{'Sécurité_Titre' | translate}}</h2>
+            <p [innerHTML]="'Sécurité_Texte' | translate">
 
             </p>
-            <h2 #qualiteduservice>7. Modification, évolution et qualité du service</h2>
-            <p>
-                <span>Le Ministère se réserve la liberté de faire évoluer, de modifier ou de suspendre, sans préavis, le service pour des raisons de
-                  maintenance ou pour tout autre motif jugé nécessaire. </span>
-                <span>Les termes des présentes conditions d'utilisation peuvent être amendés à tout moment, sans préavis, en fonction des modifications
-                  apportées au Service, de l'évolution de la législation ou pour tout autre motif jugé nécessaire.</span>
-            </p>
-            <h2 #securite>8. Sécurité</h2>
-            <p>
-                <span>Les données envoyées par France transfert font l’objet d’une analyse antivirale. Elles peuvent être protégées dans une archive
-                  zip avec mot de passe défini par l’usager. France transfert a fait l’objet d’une étude de sécurité EBIOS RM et de test d’intrusion début 2021, ainsi que d’un audit de code et de configuration en octobre 2021.  </span>
-                <span>Le service France transfert a fait l'objet d'une homologation sécurité sous l'autorité de la DINUM le 15/12/2021.</span>
-                <span>Le Ministère prend toutes précautions et mesures utiles pour préserver la sécurité des données à caractère personnel et, notamment, empêcher qu’elles soient déformées ou endommagées ou que des tiers non autorisés y aient accès. </span>
-                <span>Toute question à propos de la sécurité du Service peut être adressée à l’adresse de contact défini à l’article 9.</span>
-
-            </p>
-            <h2 #contact>9. Contact</h2>
-            <p>
-                <span>Le service contact est la direction interministérielle du numérique.</span>
-                <span>Il est accessible via le lien « Contact ».</span>
-                <span>Pour les agents de l’Etat, vous pouvez rejoindre le salon tchap : France transfert si vous le souhaitez. Vous y trouverez des informations
-                sur les futures évolutions et échanger avec d’autres agents sur le service. </span>
+            <h2 #contact> {{'Contact_Titre' | translate}}</h2>
+            <p [innerHTML]="'Contact_Texte' | translate">
             </p>
         </mat-card-content>
     </mat-card>

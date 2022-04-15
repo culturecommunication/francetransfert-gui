@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  host: 'http://localhost:8080/',
+  host: 'http://localhost:8081/',
   apis: {
     config: 'api-private/upload-module/config',
     upload: {
@@ -32,7 +32,8 @@ export const environment = {
       updateExpiredDate: 'api-private/upload-module/update-expired-date',
       fileInfos: 'api-private/upload-module/file-info',
       addNewRecipient: 'api-private/upload-module/add-recipient',
-      deleteRecipient: 'api-private/upload-module/delete-recipient'
+      deleteRecipient: 'api-private/upload-module/delete-recipient',
+      getPlisSent: 'api-private/upload-module/get-plis-sent'
     },
     captcha: {
       url: 'https://test-francetransfert.aot.agency/captcha/captcha/'

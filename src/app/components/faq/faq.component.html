@@ -14,15 +14,7 @@
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <span>France transfert est un service créé par l’Etat pour aider ses usagers (citoyens, professionnels,
-            entreprises, associations…), partenaires ou prestataires à envoyer aux agents de
-            l’Etat ou recevoir des agents de l’Etat, des fichiers et dossiers volumineux qui ne peuvent pas transiter
-            par les messageries électroniques.Il a été conçu et est opéré par le ministère de la Culture,
-            et mis à la disposition de tous les ministères par la direction interministérielle du numérique (DINUM)
-          </span>
-          <span>C’est un service hébergé en France (société Outscale). Les données sont donc stockées sur des serveurs
-            français le temps qu’elles soient
-            téléchargées par leur destinataire.</span>
+          <p [innerHTML]="'Question1_Texte' | translate"></p>
         </mat-expansion-panel>
 
 
@@ -34,9 +26,7 @@
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <span>France transfert est réservé aux échanges de fichiers volumineux entre services de l’administration et
-            ses usagers. </span><br>
-          <span>Il n’est pas possible d’échanger des fichiers entre usagers.</span>
+          <p [innerHTML]="'Question2_Texte' | translate"></p>
         </mat-expansion-panel>
 
         <mat-expansion-panel>
@@ -48,29 +38,34 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
-            <span>France transfert peut être utilisé de deux façons différentes : </span>
+            <span>{{'Question3_Texte1' | translate}} </span>
           </p>
-          <ul>
-            <li>
-              <span>Pour un envoi courriel, accessible aux agents de l’Etat tout comme aux usagers. Cette fonctionnalité
-                permet à un expéditeur (agent de l’Etat ou usager) de transmettre des fichiers volumineux à un ou
-                plusieurs destinataires connus. Attention toutefois, si l’expéditeur est un
-                usager, le ou les destinataires doivent être obligatoirement des agents de l’Etat. Il n’y pas de
-                transfert entre usagers. </span>
-            </li>
-            <li>
-              <span>Pour la fonctionnalité « lien », elle n’est autorisée que pour les agents de l’Etat. Elle permet de
-                générer un lien public vers les fichiers. L’expéditeur devra transmettre ce lien avec le mot de passe
-                aux personnes qu’il juge nécessaire. La différence réside dans le fait que
-                les destinataires peuvent ensuite transmettre ce lien sans que l’expéditeur puisse en contrôler le
-                téléchargement.</span>
-            </li>
+          <ul [innerHTML]="'Question3_Liste' | translate">
           </ul>
-          <p>
-            <span>Remarque : si vous souhaitez envoyer un pli vers une boite fonctionnelle (boite de messagerie lue par
-              plusieurs personnes), nous vous déconseillons d’utiliser la
-              modalité d’envoi courriel. En effet le nombre de téléchargements d’un pli est limité à 5 fois par
-              destinataire. </span>
+          <p [innerHTML]="'Question3_Texte2' | translate"></p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
+                {{'Question4' | translate}}
+              </h3>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <span> {{'Question4_Texte' | translate}}
+          </span><br>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
+                {{'Question5' | translate}}
+              </h3>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p [innerHTML]="'Question5_Texte' | translate">
           </p>
         </mat-expansion-panel>
 
@@ -78,111 +73,17 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
-                Puis-je utiliser France transfert sur mobile ?
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <span>Oui le service a été conçu comme une Progressive Web App et peut donc être installé comme une application
- (le navigateur internet invite l'utilisateur à installer France transfert comme application). </span><br>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                Pourquoi me demande-t-on un code de confirmation avant de procéder à l’envoi ?
+                {{'Question6' | translate}}
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
-            <span>Des personnes pourraient utiliser France transfert à des fins personnelles en « empruntant »
-              l’adresse courriel d’un agent de l’Etat ou d’un usager. Pour éviter cela, un courriel contenant un code
-               de confirmation est envoyé à l’expéditeur. Au moment de l’ajout des fichiers à transférer,
-                il est alors demandé de saisir ce code de confirmation, dont la durée de validité est de 10 min.
-            </span>
-            <span>Par la suite, si vous vous êtes préalablement connecté et que vous décidez de renvoyer un autre
-              pli moins de 30 min après le précédent pli, on ne vous demandera pas un nouveau code de confirmation.</span>
-          </p>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                A quoi cela sert-il de « se connecter » ?
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p>
-            <span>Vous pouvez décider de vous connecter à France transfert avant un envoi de pli ou au moment
-              de l’envoi de votre pli en cliquant sur la case « Rester connecté(e) ». </span>
+            <span> {{'Question6_Texte1' | translate}}</span>
           </p>
 
-              <ul>
-                <li>
-                  <span>
-                    La connexion consiste à confirmer que vous êtes bien le propriétaire de l’adresse courriel
-                    indiquée comme expéditeur du pli : un code de confirmation est envoyé par courriel et vous disposez
-                    de 10 min pour le saisir.
-                  </span>
-                </li>
-                <li>
-                  <span>
-                	  Une fois que vous êtes connecté,
-                    il n’est plus nécessaire de saisir votre adresse courriel en tant qu’expéditeur lors d’un nouveau pli.
-                  </span>
-                  </li>
-                <li>
-                    <span>
-                    La connexion est valable 30 min, et reste active tant que vous envoyez un pli dans cet intervalle.
-                    Passé ce délai, et sans nouveau pli créé, il faudra de nouveau passer par l’étape de connexion.
-                  </span>
+          <ul [innerHTML]="'Question6_Liste' | translate"></ul>
 
-
-
-                </li>
-              </ul>
-          <p>
-
-            <span>La connexion ne nécessite pas la création d’un compte utilisateur,
-               il s’agit uniquement d’un moyen de vérification de votre adresse courriel
-               en tant qu’expéditeur et d’une facilité vous évitant de faire cette vérification à chaque pli.  </span>
-            <span>Si vous êtes déjà connecté et que vous souhaitez utiliser une autre adresse courriel en tant qu’expéditeur,
-                il suffit de cliquer sur « Se déconnecter ». Vous pourrez alors passer par le processus de connexion,
-                soit à l’envoi de votre prochain pli, soit en ayant au préalable cliqué sur « Se connecter ». </span>
-            <span>Attention toutefois, si vous ouvrez France transfert dans un nouvel onglet ou rafraichissez la page de France transfert,
-                les informations de connexion sont effacées. </span>
-            <span>Vous pouvez aussi décider de ne pas vous connecter,
-                dans ce cas vous devrez systématiquement saisir un code de confirmation à chaque envoi de pli. </span>
-          </p>
-        </mat-expansion-panel>
-<<<<<<< HEAD
-=======
-
->>>>>>> 6205f7b (Rester connecté - footer zoom - faq text)
-
-
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                Que se passe-t-il après l’envoi de mes fichiers ?
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p>
-            <span>Une fois les fichiers envoyés vers France transfert, ils subissent une analyse antivirale qui peut
-              conduire à leur suppression. </span>
-            <span>Si l’analyse s’est bien passée, un courriel de confirmation d’envoi est transmis à l’expéditeur ainsi
-              que le mot de passe associé à ce pli. Les destinataires reçoivent un courriel avec un
-              lien de téléchargement et un mot de passe dans un courriel séparé. </span>
-            <span>Si l'analyse antivirale prend du temps (pli de grosse volumétrie) alors l'envoi du courriel de
-              confirmation peut tarder à arriver. Dans tous les cas l'expéditeur reçoit un courriel soit d'erreur (si
-              problème de sécurité), soit de confirmation
-              (dans ce cas les destinataires reçoivent eux aussi chacun un courriel avec les instructions de
-              téléchargement).</span>
-          </p>
+          <p [innerHTML]="'Question6_Texte2' | translate"> </p>
         </mat-expansion-panel>
 
 
@@ -192,19 +93,25 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
-                Comment télécharger le pli qui m’est adressé ?
+                {{'Question7' | translate}}
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>
-            <span>Lorsque l’envoi du pli est effectué, un courriel de confirmation d’envoi avec le détail concernant les
-              fichiers qui composent le pli est transmis à l’expéditeur ainsi que le mot de passe associé à ce
-              pli.</span>
-            <span>Les destinataires reçoivent un courriel avec un lien de téléchargement et un autre courriel contenant
-              le mot de passe à saisir pour pouvoir télécharger.</span>
-            <span>Si jamais France transfert refuse le mot de passe saisi, vérifiez qu’en le copiant collant cela n’ait
-              pas ajouté un espace à la fin du mot de passe (utilisez le pictogramme « œil » pour afficher le mot de
-              passe en clair).</span>
+          <p [innerHTML]="'Question7_Texte' | translate">
+          </p>
+        </mat-expansion-panel>
+
+
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
+                {{'Question8' | translate}}
+              </h3>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p [innerHTML]="'Question8_Texte' | translate">
           </p>
         </mat-expansion-panel>
 
@@ -213,37 +120,18 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
-                Je me suis trompé dans ma liste de destinataires mais j’ai déjà envoyé mon pli, que faire ?
+                {{'Question9' | translate}}
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <p>
-            <span>Vous vous êtes trompés dans votre liste de destinataires ? Plusieurs possibilités s’offrent à vous
-              depuis la page d’administration
-              du pli (lien d’administration reçu dans le courriel de confirmation d’envoi du pli) et selon vos besoins :
+            <span> {{'Question9_Texte1' | translate}}
             </span>
           </p>
-          <ol>
-            <li>
-              Supprimer le pli : le pli est intégralement supprimé, plus aucun destinataire ne peut télécharger son
-              contenu désormais.
-            </li>
-            <li>
-              Supprimer un ou des destinataires : le lien de téléchargement de ce(s) destinataire(s) est désormais
-              révoqué
-              et ne pourra plus être utilisé désormais pour le téléchargement de vos fichiers.
-            </li>
-            <li>
-              Ajouter un destinataire : vous avez la possibilité d’ajouter manuellement un ou plusieurs destinataires au
-              pli. Comme les destinataires originaux,
-              ils recevront un courriel avec le lien d’accès au pli et un courriel avec le mot de passe pour accéder à
-              la page de téléchargement du pli.
-            </li>
+          <ol [innerHTML]="'Question9_Liste' | translate">
           </ol>
           <p>
-            <span>
-              Dans le cas d’une suppression du pli ou d’un destinataire, pensez bien à en informer vos contacts afin
-              qu’ils ne tentent pas inutilement de télécharger le pli.
+            <span> {{'Question9_Texte2' | translate}}
             </span>
           </p>
         </mat-expansion-panel>
@@ -255,20 +143,11 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
-                Combien de fois les destinataires peuvent-ils télécharger les fichiers que j’ai envoyé ?
+                {{'Question10' | translate}}
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>
-            <span>Chaque destinataire dispose d’un lien de téléchargement unique pour accéder au téléchargement du pli.
-              Avec ce lien, chaque destinataire peut télécharger jusqu’à 5 fois le contenu du pli. </span>
-            <span>Cela permet aux destinataires de récupérer plusieurs fois les fichiers si nécessaire (exemple : si le
-              destinataire les a supprimés de son poste par exemple et qu’il en aurait de nouveau besoin). </span>
-            <span>Si un destinataire a dépassé cette limite de 5 téléchargements du même pli, il sera nécessaire de lui
-              renvoyer les fichiers via un nouveau pli. Cela peut être nécessaire de procéder ainsi également si le
-              destinataire
-              a « verrouillé » son lien de téléchargement en saisissant plus de 5 fois un mauvais mot de passe pour
-              accéder à la page de téléchargement. </span>
+          <p [innerHTML]="'Question10_Texte' | translate">
           </p>
         </mat-expansion-panel>
 
@@ -279,17 +158,11 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
-                Que deviennent les fichiers que j’ai transmis une fois qu’ils ont été téléchargés par le destinataire
-                que
-                j’ai indiqué ?
+                {{'Question11' | translate}}
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>
-            <span>Les fichiers sont supprimés après expiration du délai de validité du pli (par défaut à 30 jours). Il
-              n’y a pas de suppression automatique du pli quand tous
-              les destinataires l’ont téléchargé car un destinataire pourrait avoir besoin de nouveau de télécharger le
-              pli.</span>
+          <p [innerHTML]="'Question11_Texte' | translate">
           </p>
         </mat-expansion-panel>
 
@@ -300,14 +173,11 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
-                Où vont les fichiers téléchargés ?
+                {{'Question12' | translate}}
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>
-            <span>Les fichiers sont téléchargés par votre navigateur. En fonction de son paramétrage, il se peut qu’ils
-              aillent directement dans le dossier
-              « téléchargements » ou bien que la question de l’emplacement vous soit posée.</span>
+          <p [innerHTML]="'Question12_Texte' | translate">
           </p>
         </mat-expansion-panel>
 
@@ -318,14 +188,11 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
-                Existe-il une limite de taille de transfert de fichiers sur France transfert ?
+                {{'Question13' | translate}}
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>
-            <span>France transfert permet d’envoyer jusqu’à 20 Go de fichiers et dossiers par transfert en faisant
-              attention
-              que chacun des fichiers respecte la taille maximale de 2Go.</span>
+          <p [innerHTML]="'Question13_Texte' | translate">
           </p>
         </mat-expansion-panel>
 
@@ -337,27 +204,11 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
-                Quelles extensions de fichiers puis-je envoyer sur France transfert ?
+                {{'Question14' | translate}}
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>
-            <span>Toutes les extensions communes de fichiers sont téléchargeables sur France transfert, sauf, pour des
-              raisons
-              de sécurité, certains fichiers exécutables ou scripts informatiques qui pourraient contenir des virus.
-            </span>
-            <span>Liste des extensions de fichiers interdites : </span>
-            <span>« ade, adp, app, asp, aspx, asx, bas, bat, cer, chm, cmd, cnt, com, cpl, crt, csh, der, diagcab, exe,
-              fxp, gadget, grp, hlp, hpj, hta, htc,
-              inf, ins, isp, its, jar, jnlp, js, jse, ksh, lnk, mad, maf, mag, mam, maq, mar, mas, mat, mau, mav, maw,
-              mcf, mda, mdb, mde, mdt, mdw, mdz, msc,
-              msh, msh1, msh2, mshxml, msh1xml, msh2xml, msi, msp, mst, msu, ops, osd, pcd, pif, pl, plg, prf, prg,
-              printerexport, ps1, ps1xml, ps2, ps2xml,
-              psc1, psc2, psd1, psdm1, pst, py, pyc, pyo, pyw, pyz, pyzw, reg, scf, scr, sct, shb, shs, theme, tmp, url,
-              vb, vbe, vbp, vbs, vhd, vhdx, vsmacros,
-              vsw, webpnp, website, ws, wsc, wsf, wsh, xbap, xll, xnk »</span>
-            <span>Lorsque vous envoyez un fichier, assurez-vous néanmoins que votre destinataire puisse lire vos
-              documents.</span>
+          <p [innerHTML]="'Question14_Texte' | translate">
           </p>
         </mat-expansion-panel>
 
@@ -370,20 +221,11 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
-                Puis-je utiliser une liste de distribution ?
+                {{'Question15' | translate}}
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>
-            <span>Pour envoyer vos fichiers à plusieurs destinataires différents en une seule opération, il est possible
-              d’importer un fichier de type csv
-              (en respectant le séparateur « ; » entre chaque courriel) comportant la liste des destinataires. Pour ce
-              faire cliquer sur
-              le pictogramme situé à droite du champ « Destinataire(s) ». </span>
-            <span>Vous pouvez générer un fichier csv de vos destinataires en cliquant sur le pictogramme situé à droite
-              de vos destinataires. Charge à vous de
-              le stocker puis de le réutiliser pour préremplir automatiquement la liste des destinataires de votre
-              prochain pli. </span>
+          <p [innerHTML]="'Question15_Texte' | translate">
           </p>
         </mat-expansion-panel>
 
@@ -395,18 +237,11 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
-                À quoi sert le questionnaire de satisfaction ?
+                {{'Question16' | translate}}
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>
-            <span>Le questionnaire est anonyme. Il sera utilisé à des fins statistiques et d’améliorations. </span>
-            <span>Si vous remplissez le questionnaire de satisfaction, la note que vous laissez est enregistrée à des
-              fins exclusives de statistiques.
-              Les commentaires éventuellement laissés vous permettent de vous exprimer de manière libre sur le service.
-            </span>
-            <span>L’équipe produit examinera les commentaires mais ne peut s’engager, ni à y répondre individuellement,
-              ni à mettre en œuvre les suggestions proposées.</span>
+          <p [innerHTML]="'Question16_Texte' | translate">
           </p>
         </mat-expansion-panel>
 
@@ -419,15 +254,24 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
-                Où puis-je trouver d’autres informations sur France transfert ?
+                {{'Question17' | translate}}
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>
-            <span>Pour les agents de l’Etat, il y a un salon « France transfert » dans TCHAP qui vous permettra de
-              suivre les évolutions ou d’échanger avec les autres membres.
-              Vous pouvez vous y abonner. </span>
-            <span>Vous pouvez également écrire au support France transfert via le formulaire « Contact ». </span>
+          <p [innerHTML]="'Question17_Texte' | translate">
+          </p>
+        </mat-expansion-panel>
+
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
+                {{'Question18' | translate}}
+              </h3>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p [innerHTML]="'Question18_Texte' | translate">
           </p>
         </mat-expansion-panel>
 

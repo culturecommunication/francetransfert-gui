@@ -19,9 +19,9 @@ export class LoginService {
     this.tokenInfo.next(null);
   }
 
-  validateCode(body: any): any {
+  validateCode(body: any, currentLanguage: any): any {
     return this._httpClient.get(
-      `${environment.host}${environment.apis.upload.validateCode}?code=${body.code}&senderMail=${body.senderMail}`
+      `${environment.host}${environment.apis.upload.validateCode}?code=${body.code}&senderMail=${body.senderMail}&currentLanguage=${currentLanguage}`
     ).pipe(map((response: TokenModel) => {
       this.tokenInfo.next({
         senderMail: response.senderMail,
@@ -42,9 +42,9 @@ export class LoginService {
     }
   }
 
-  generateCode(email: any): any {
+  generateCode(email: any, currentLanguage: any): any {
     return this._httpClient.get(
-      `${environment.host}${environment.apis.upload.generateCode}?senderMail=${email}`
+      `${environment.host}${environment.apis.upload.generateCode}?senderMail=${email}&currentLanguage=${currentLanguage}`
     ).pipe(map((response: TokenModel) => {
       this.tokenInfo.next(null);
       return response;

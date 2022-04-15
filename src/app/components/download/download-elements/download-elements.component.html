@@ -2,21 +2,20 @@
     <mat-card-content class="download-elements-card-content">
         <mat-icon class="download-elements-card-content-icon" aria-hidden="true">file_download</mat-icon>
         <div class="download-elements-card-content-text">
-            <span class="download-elements-card-content-text-title">Prêt ? Partez !</span>
-            <span class="download-elements-card-content-text-sub">Il vous reste {{ remainingDays }} jours pour
-                télécharger le transfert.</span>
-            <div class="download-elements-card-content-error" *ngIf="error">
-                <span role="alert">Une erreur est survenue lors de la récupération de votre pli, merci de réessayer ultérieurement.</span><br />
-            </div>
+            <span class="download-elements-card-content-text-title"> {{'Prêt_Partez' | translate}} </span>
+            <span class="download-elements-card-content-text-sub"> {{'Jours_Restants1' | translate}} {{ remainingDays }}
+                {{'Jours_Restants2' | translate}} </span>
         </div>
 
     </mat-card-content>
     <div class="download-elements-div-CGU">
-        <mat-checkbox (click)="cguChecked()" formControlName="cguCheck" class="checkbox">J'accepte les <span
-                class="link" (click)="routeToInNewWindow('/cgu')">CGU</span></mat-checkbox>
+        <mat-checkbox (click)="cguChecked()" formControlName="cguCheck" class="checkbox">
+            <div [innerHTML]="'Acceptation_CGU' | translate">
+            </div>
+        </mat-checkbox>
     </div>
     <mat-card-actions class="download-elements-card-actions">
         <button mat-raised-button [disabled]="!checkCGU || buttonDisable" class="download-elements-card-actions-btn"
-            (click)="download()">Télécharger</button>
+            (click)="download()">{{'Télécharger' | translate}} </button>
     </mat-card-actions>
 </mat-card>

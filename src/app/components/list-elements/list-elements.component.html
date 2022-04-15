@@ -7,23 +7,24 @@
         <mat-card-title *ngIf="(flow.transfers$ | async).transfers.length === 1">
             <span>{{(flow.transfers$ |
                 async).transfers.length}} {{'élément' | translate}} {{filesSize | filesize}} / {{filesSizeLimit | filesize}}</span>
-            <mat-icon *ngIf="screenWidth === 'sm' && !expanded" (click)="expandList()" aria-label="Afficher la liste">
+            <mat-icon *ngIf="screenWidth === 'sm' && !expanded" (click)="expandList()"  attr.aria-label="{{'Afficher_Liste' | translate}}">
                 expand_less</mat-icon>
-            <mat-icon *ngIf="screenWidth === 'sm' && expanded" (click)="expandList()" aria-label="Masquer la liste">
+            <mat-icon *ngIf="screenWidth === 'sm' && expanded" (click)="expandList()" attr.aria-label="{{'Masquer_Liste' | translate}}">
                 expand_more</mat-icon>
         </mat-card-title>
         <mat-card-title *ngIf="(flow.transfers$ | async).transfers.length > 1">
             <span>{{(flow.transfers$ |
                 async).transfers.length}} {{'éléments' | translate}} / {{filesSizeLimit | filesize}}</span>
-            <mat-icon *ngIf="screenWidth === 'sm'  && !expanded" (click)="expandList()" aria-label="Afficher la liste">
+            <mat-icon *ngIf="screenWidth === 'sm'  && !expanded" (click)="expandList()"  attr.aria-label="{{'Afficher_Liste' | translate}}">
                 expand_less</mat-icon>
-            <mat-icon *ngIf="screenWidth === 'sm' && expanded" (click)="expandList()" aria-label="Masquer la liste">
+            <mat-icon *ngIf="screenWidth === 'sm' && expanded" (click)="expandList()" attr.aria-label="{{'Masquer_Liste' | translate}}">
                 expand_more</mat-icon>
         </mat-card-title>
     </mat-card-header>
     <mat-card-header class="list-elements-card-header" *ngIf="errorMessage !== ''">
         <mat-card-title>
-            <span class="mat-error" role="alert">{{errorMessage | translate}}</span>
+            <span class="mat-error" role="alert">{{file | translate}} {{unauthorizedFile}}  {{errorMessage | translate}}</span>
+            <!-- <span class="mat-error" role="alert">{{file | translate}} {{unauthorizedFile}}  {{errorMessage | translate}}</span> -->
         </mat-card-title>
     </mat-card-header>
     <mat-card-content class="list-elements-card-content"
@@ -34,7 +35,7 @@
         </ft-file-item>
         <div class="list-elements-add-elements-wrapper">
             <button type="button" mat-icon-button flowButton [flow]="flow.flowJs">
-                <mat-icon class="list-elements-card-content-icon" aria-label="Ajoutez vos fichiers">add_circle
+                <mat-icon class="list-elements-card-content-icon" attr.aria-label="{{'Ajout_Fichiers' | translate}}">add_circle
                 </mat-icon>
             </button>
             <label>
@@ -45,7 +46,7 @@
     <ng-template #emptyList>
         <mat-card-content class="list-elements-card-content empty">
             <button type="button" mat-icon-button flowButton [flow]="flow.flowJs">
-                <mat-icon class="list-elements-card-content-icon" aria-label="Ajoutez vos fichiers">add_circle
+                <mat-icon class="list-elements-card-content-icon"  attr.aria-label="{{'Ajout_Fichiers' | translate}}">add_circle
                 </mat-icon>
             </button>
             <label>

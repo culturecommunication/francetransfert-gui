@@ -24,13 +24,13 @@
 
       <div class="card-actions evenly" *ngIf="!visible">
         <mat-card-actions>
-          <button type="button" aria-label="Accueil" mat-raised-button class="card-actions-btn" (click)="backToHome()">
-            {{'ACCUEIL' | translate}}</button>
+          <button type="button" attr.aria-label="{{'Accueil' | translate}}" mat-raised-button class="card-actions-btn"
+            (click)="backToHome()"> {{'ACCUEIL' | translate}}</button>
         </mat-card-actions>
         <mat-card-actions>
-          <button type="submit" mat-raised-button aria-label="Envoyer code" class="card-actions-btn"
-            [disabled]="codeSent || !email.valid && visible" (click)="sendCode($event)"> {{'EnvoyerCode' | translate}}
-          </button>
+          <button type="submit" mat-raised-button attr.aria-label="{{'Envoyer_Code' | translate}}"
+            class="card-actions-btn" [disabled]="codeSent || !email.valid" (click)="sendCode($event)"> {{'EnvoyerCode' |
+            translate}} </button>
         </mat-card-actions>
       </div>
 
@@ -55,11 +55,11 @@
           </div>
         </div>
         <div class="card-actions evenly">
-          <button type="button" mat-raised-button aria-label="Annuler" class="card-actions-btn color"
-            (click)="cancel($event)"> {{'ANNULER' | translate}}</button>
-          <button type="submit" mat-raised-button aria-label="Valider" class="card-actions-btn color"
-            [disabled]="!form.valid || (error && !error?.codeTryCount)" (click)="validateCode($event)"> {{'VALIDER' |
-            translate}}</button>
+          <button type="button" mat-raised-button attr.aria-label="{{'Annuler' | translate}}"
+            class="card-actions-btn color" (click)="cancel($event)"> {{'ANNULER' | translate}}</button>
+          <button type="submit" mat-raised-button attr.aria-label="{{'Valider' | translate}}"
+            class="card-actions-btn color" [disabled]="!form.valid || (error && !error?.codeTryCount)"
+            (click)="validateCode($event)"> {{'VALIDER' | translate}}</button>
         </div>
       </ng-container>
 

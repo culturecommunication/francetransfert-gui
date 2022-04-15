@@ -8,7 +8,8 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { InfoMsgComponent } from "../info-msg/info-msg.component";
 import { FTTransferModel } from "../../models";
 import {TranslateService} from '@ngx-translate/core';
-
+import Fs from 'fs';
+import * as fs from 'fs';
 
 @Component({
   selector: 'ft-list-elements',
@@ -33,8 +34,8 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   firstFile: boolean = true;
   oldLength: number = 0;
   hasError: boolean = false;
-
-
+  unauthorizedFile: string;
+  file: string = '';
   uploadSubscription: Subscription;
 
   constructor(private cdr: ChangeDetectorRef,
@@ -86,6 +87,12 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param {Transfer} transfer
    * @returns {void}
    */
+  deleteFolder(event){
+    for (let child of event.childs) {
+      this.flow.cancelFile(child);
+    }
+  }
+
   deleteTransfer(transfer: any): void {
     if (!transfer.folder) {
       this.flow.cancelFile(transfer);
@@ -94,6 +101,8 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.cdr.detectChanges();
       if (this.filesSize <= this.filesSizeLimit) {
         this.errorMessage = '';
+        this.unauthorizedFile = '';
+        this.file = '';
       }
     } else {
       for (let tr of transfer.childs) {
@@ -106,15 +115,26 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+
   onItemAdded(event, index) {
+
     if (!this.checkExisteFile(event)) {
+      console.log(this.checkExtentionValid(event))
       if (!this.checkExtentionValid(event)) {
-        this.flow.cancelFile(event);
-        this.filesSize -= event.size;
-        this.errorMessage = 'NonAutorisé';
+
+        if(event.folder){
+          for (let child of event.childs) {
+            this.flow.cancelFile(child);
+          }
+
+        }
+
         this.hasError = true;
+        this.cdr.detectChanges();
       } else if (event.folder) {
+
         try {
+
           this.checkSize(event, this.filesSize);
           if (index == 0) {
             this.filesSize = 0;
@@ -122,19 +142,20 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
           this.filesSize += event.size;
           this.fileManagerService.hasFiles.next(this.filesSize > 0);
           this.errorMessage = '';
+          this.unauthorizedFile = '';
+          this.file = '';
           this.hasError = false;
           this.cdr.detectChanges();
         } catch (error) {
           // c'est un dossier
-          for (let child of event.childs) {
-            this.filesSize += child.size
-            this.deleteTransfer(child);
-          }
+          this.deleteFolder(event)
           if (this.filesSize < 0) {
             this.filesSize = 0;
           }
           this.fileManagerService.hasFiles.next(this.filesSize > 0);
           this.errorMessage = error.message;
+          this.unauthorizedFile = '';
+          this.file = '';
           this.hasError = true;
           this.cdr.detectChanges();
           return;
@@ -147,11 +168,15 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
           this.filesSize += event.size;
           this.fileManagerService.hasFiles.next(this.filesSize > 0);
           this.errorMessage = '';
+          this.unauthorizedFile = '';
+          this.file = '';
           this.hasError = false;
           this.cdr.detectChanges();
         } else {
           this.flow.cancelFile(event);
           this.errorMessage =  'TailleMaximale';
+          this.unauthorizedFile = '';
+          this.file = '';
           this.hasError = true;
           this.cdr.detectChanges();
         }
@@ -195,13 +220,34 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   checkExtentionValid(event: any) {
     let valid = false;
     if (event?.name) {
-      const fileExt = event.name.split('.').pop();
-      // BlackList
-      if (!this.extension.includes(fileExt)) {
+      if (event.folder) {
+        for (let child of event.childs) {
+          const fileExt = child.name.split('.').pop();
+          if (this.extension.includes(fileExt)) {
+            this.file = 'TypeFichier';
+            this.errorMessage = 'NonAutorisé';
+            this.unauthorizedFile = child.name;
+            return valid;
+          }
+        }
+
         valid = true;
+      }else{
+        const fileExt = event.name.split('.').pop();
+        if (!this.extension.includes(fileExt)) {
+          valid = true;
+        }
+        else{
+          this.flow.cancelFile(event);
+          this.file = '';
+          this.errorMessage = 'FichierNonAutorisé';
+          this.unauthorizedFile = '';
+        }
       }
+
     }
     return valid;
+
   }
 
   checkSize(fileEvent, size) {
