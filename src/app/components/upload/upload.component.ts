@@ -59,7 +59,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit(): void {
-  this.uploadService.setLangueCourriels(this.translateService.currentLang);
+    this.uploadService.setLangueCourriels(this.translateService.currentLang);
     this.titleService.setTitle('France transfert - Téléversement');
     this.onResize();
     this.flowConfig = FLOW_CONFIG;
@@ -78,14 +78,14 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.reset();
 
 
-    this.loginService.checkConnect.subscribe(checkConnect => {
+    this.loginService.connectCheck.subscribe(checkConnect => {
       this.checkConnect = checkConnect;
     });
 
 
     this.uploadService.langueCourriels.subscribe(langueCourriels => {
       this.langueCourriels = langueCourriels;
-      console.log("langue upload:", this.langueCourriels  )
+      console.log("langue upload:", this.langueCourriels)
 
     });
 
@@ -256,10 +256,10 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false },
         ...this.loginService.tokenInfo.getValue()?.senderToken ? { senderToken: this.loginService.tokenInfo.getValue()?.senderToken } : {},
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.zipPassword ? { zipPassword: this.uploadManagerService.envelopeInfos.getValue().parameters.zipPassword } : { zipPassword: false },
-      //langueSelected: this.uploadManagerService.envelopeInfos.getValue().langueSelected,
+        //langueSelected: this.uploadManagerService.envelopeInfos.getValue().langueSelected,
 
       },
-      this.langueCourriels)
+        this.langueCourriels)
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
         if (result && result?.canUpload == true) {
@@ -296,7 +296,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.zipPassword ? { zipPassword: this.uploadManagerService.envelopeInfos.getValue().parameters.zipPassword } : { zipPassword: false },
 
       },
-      this.langueCourriels)
+        this.langueCourriels)
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
         this.uploadManagerService.uploadInfos.next(result);
@@ -307,7 +307,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
         if (this.checkConnect == false) {
           this.loginService.tokenInfo.next(null);
-         }
+        }
 
       });
   }

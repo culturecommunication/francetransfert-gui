@@ -6,10 +6,7 @@ import { FileManagerService, MailingListService } from 'src/app/services';
 import { ConfigService } from 'src/app/services/config/config.service';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { InfoMsgComponent } from "../info-msg/info-msg.component";
-import { FTTransferModel } from "../../models";
-import {TranslateService} from '@ngx-translate/core';
-import Fs from 'fs';
-import * as fs from 'fs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ft-list-elements',
@@ -87,7 +84,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param {Transfer} transfer
    * @returns {void}
    */
-  deleteFolder(event){
+  deleteFolder(event) {
     for (let child of event.childs) {
       this.flow.cancelFile(child);
     }
@@ -119,10 +116,8 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   onItemAdded(event, index) {
 
     if (!this.checkExisteFile(event)) {
-      console.log(this.checkExtentionValid(event))
       if (!this.checkExtentionValid(event)) {
-
-        if(event.folder){
+        if (event.folder) {
           for (let child of event.childs) {
             this.flow.cancelFile(child);
           }
@@ -174,7 +169,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
           this.cdr.detectChanges();
         } else {
           this.flow.cancelFile(event);
-          this.errorMessage =  'TailleMaximale';
+          this.errorMessage = 'TailleMaximale';
           this.unauthorizedFile = '';
           this.file = '';
           this.hasError = true;
@@ -227,17 +222,16 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
             this.file = 'TypeFichier';
             this.errorMessage = 'NonAutorisé';
             this.unauthorizedFile = child.name;
-            return valid;
+            return false;
           }
         }
-
         valid = true;
-      }else{
+      } else {
         const fileExt = event.name.split('.').pop();
         if (!this.extension.includes(fileExt)) {
           valid = true;
         }
-        else{
+        else {
           this.flow.cancelFile(event);
           this.file = '';
           this.errorMessage = 'FichierNonAutorisé';

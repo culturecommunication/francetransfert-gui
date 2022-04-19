@@ -4,8 +4,8 @@
             <mat-icon class="check-validation-code-card-content-icon" aria-hidden="true">lock_outline</mat-icon>
             <div class="check-validation-code-card-content-text">
                 <span class="check-validation-code-card-content-text-title">{{'Vérification Adresse' | translate}}</span>
-                <span class="check-validation-code-card-content-text-sub" *ngIf="isLoggedIn()">{{'Session Expiré' | translate}}</span>
-                <span class="check-validation-code-card-content-text-sub" *ngIf="!isLoggedIn()">{{'CodeConfirmation1' | translate}}
+                <span class="check-validation-code-card-content-text-sub" *ngIf="isLoggedIn">{{'Session Expiré' | translate}}</span>
+                <span class="check-validation-code-card-content-text-sub" *ngIf="!isLoggedIn">{{'CodeConfirmation1' | translate}}
                   "{{'CodeConfirmation2' | translate}}",
                   {{'CodeConfirmation3' | translate}}</span>
                 <span class="check-validation-code-card-content-text-sub">{{'Saisie_Code_Envoyé' | translate}}
