@@ -1,31 +1,29 @@
 <div class="mentions-legales-wrapper">
     <mat-card class="mentions-legales-card">
         <mat-card-header class="mentions-legales-card-header">
-            <h1 #mentionslegales>Mentions légales</h1>
+            <h1 #mentionslegales>  {{'MentionsLégales' | translate}}</h1>
         </mat-card-header>
         <mat-card-content class="mentions-legales-card-content">
-            <h2 #editeur>Éditeur</h2>
+            <h2 #editeur> {{'Éditeur' | translate}}</h2>
             <p>
-                <span>Ministère de la Culture</span>
-                <span>182, rue Saint Honoré</span>
-                <span>75001 Paris</span>
+                <span> {{'Ministère' | translate}}</span>
+                <span>{{'Adresse' | translate}}</span>
+                <span>{{'CodePostale_Ville' | translate}}</span>
             </p>
-            <h2 #responsabledelapublication>Responsable de la publication</h2>
+            <h2 #responsabledelapublication> {{'ResponsablePublication' | translate}}</h2>
             <p>
-                <span>Le chef du Service Numérique du Ministère de la Culture</span>
+                <span> {{'ChefService' | translate}}</span>
             </p>
-            <h2 #liens>Liens vers les pages du site</h2>
-            <p>
-                <span>Tout site public ou privé est autorisé à établir un lien vers les pages de ce site. Il n’y a pas d’autorisation préalable.</span>
-                <span>Les pages de ce site ne devront pas être imbriquées à l’intérieur des pages d’un autre site. Elles devront être affichées dans une nouvelle fenêtre. </span>
+            <h2 #liens>{{'Liens' | translate}}</h2>
+            <p [innerHTML]="'LiensPagesSite' | translate">
             </p>
-            <h2 #developpement>Développement</h2>
+            <h2 #developpement> {{'Développement' | translate}}</h2>
             <p>
-                <span>ACT-ON TECHNOLOGY : 19 rue d'Orléans 92200 Neuilly sur Seine</span>
+                <span>{{'ACT-ONTECHNOLOGY_Adresse' | translate}}</span>
             </p>
-            <h2 #hebergement>Hébergement</h2>
+            <h2 #hebergement> {{'Hébergement' | translate}}</h2>
             <p>
-                <span>OUTSCALE : 1, rue Royale – 319 Bureaux de la Colline 92210 Saint-Cloud</span>
+                <span>  {{'OUSTSCAL_Adresse' | translate}}</span>
             </p>
         </mat-card-content>
     </mat-card>

@@ -102,6 +102,9 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
     });
   }
 
+
+
+
   triggerShowParameters() {
     this.showParameters = !this.showParameters;
 

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { map } from 'rxjs/internal/operators/map';
+import { TokenModel } from 'src/app/models/token.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,8 +12,23 @@ import { environment } from 'src/environments/environment';
 export class AdminService {
 
   adminError$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
+  tokenInfo: BehaviorSubject<TokenModel> = new BehaviorSubject<any>(null);
 
   constructor(private _httpClient: HttpClient) { }
+
+
+  getPlisSent(email: any): any {
+    console.log("getpli")
+    return this._httpClient.get(
+      `${environment.host}${environment.apis.admin.getPlisSent}?senderMail=${email}`
+    ).pipe(map((response: TokenModel) => {
+      this.tokenInfo.next(null);
+      return response;
+    }),
+      catchError(this.handleError('getPlisSent'))
+    );
+  }
+
 
   getFileInfos(params: Array<{ string: string }>) {
     return this._httpClient.get(

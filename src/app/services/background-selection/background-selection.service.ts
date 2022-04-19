@@ -8,6 +8,6 @@ export class BackgroundSelectionService {
   constructor() { }
 
   getBackground(): string {
-    return '../assets/images/image_fond.png';
+    return '../assets/images/image_fond.min.png';
   }
 }

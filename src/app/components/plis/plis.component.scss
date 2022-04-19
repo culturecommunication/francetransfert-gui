@@ -1,0 +1,74 @@
+
+
+.envelope-card {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px;
+
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  .envelope-card-content {
+    padding: 16px;
+      .envelope-card-tab-group {
+          ::ng-deep .mat-tab-label-content {
+              width: 100%;
+              justify-content: flex-start;
+              -webkit-justify-content: flex-start;
+              font-weight: bold;
+              font-size: 20px;
+              line-height: 28px;
+          }
+          ::ng-deep .mat-ink-bar {
+              background-color: var(--ft-primary);
+          }
+          ::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+              width: 100%;
+          }
+
+      }
+  }
+
+  ::ng-deep .mat-tab-body-content{
+      overflow-x: clip;
+  }
+}
+
+@media screen and (min-width: 812px) {
+  .envelope-card {
+      height: 100%;
+      .envelope-card-content {
+          height: 100%;
+          overflow: auto;
+          .envelope-card-tab-group {
+              height: 100%;
+              ::ng-deep .mat-tab-body-wrapper {
+                  height: 100%;
+              }
+
+          }
+      }
+  }
+}
+
+@media screen and (min-width: 200px) and (max-width: 812px) {
+  .envelope-card {
+      height: 100%;
+      margin-top: 22%;
+      .envelope-card-content {
+          height: 100%;
+          overflow: auto;
+          .envelope-card-tab-group {
+              height: 100%;
+              ::ng-deep .mat-tab-body-wrapper {
+                  height: 100%;
+              }
+
+          }
+      }
+  }
+}
+

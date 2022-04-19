@@ -10,6 +10,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { SatisfactionMessageComponent } from "../satisfaction-message/satisfaction-message.component";
 import { Router } from "@angular/router";
 import { LoginService } from 'src/app/services/login/login.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ft-upload',
@@ -19,6 +20,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private onDestroy$: Subject<void> = new Subject();
+  checkConnect: boolean;
   isMobile: boolean = false;
   screenWidth: string;
   uploadStarted: boolean = false;
@@ -43,12 +45,13 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   canReset: boolean = false;
   showCode: boolean = false;
 
-
+  langueCourriels: String;
 
   constructor(private responsiveService: ResponsiveService,
     private uploadManagerService: UploadManagerService,
     private downloadManagerService: DownloadManagerService,
     private fileManagerService: FileManagerService,
+    public translateService: TranslateService,
     private uploadService: UploadService,
     private loginService: LoginService,
     private titleService: Title,
@@ -56,6 +59,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit(): void {
+    this.uploadService.setLangueCourriels(this.translateService.currentLang);
     this.titleService.setTitle('France transfert - Téléversement');
     this.onResize();
     this.flowConfig = FLOW_CONFIG;
@@ -72,6 +76,20 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       this.hasFiles = _hasFiles;
     });
     this.reset();
+
+
+    this.loginService.connectCheck.subscribe(checkConnect => {
+      this.checkConnect = checkConnect;
+    });
+
+
+    this.uploadService.langueCourriels.subscribe(langueCourriels => {
+      this.langueCourriels = langueCourriels;
+      console.log("langue upload:", this.langueCourriels)
+
+    });
+
+
   }
 
   ngAfterViewInit() {
@@ -152,6 +170,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   onUploadStarted(event) {
     this.uploadStarted = event;
     this.upload();
+
   }
 
   onTransferFailed(event) {
@@ -169,18 +188,23 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   onTransferCancelled(event) {
     this.uploadStarted = !event;
     this.uploadValidated = !event;
+
   }
 
   onTransferFinished(event) {
     this.uploadFinished = event;
     this.canReset = !event;
+
+
   }
 
   onTransferValidated(event) {
     if (event) {
       // this.uploadValidated = true;
       this.validateCode(event);
+
     }
+
   }
 
   onCheckTransferCancelled(event) {
@@ -219,6 +243,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async upload(): Promise<any> {
     let transfers: UploadState = await this.uploadManagerService.getRxValue(this.fileManagerService.transfers.getValue());
+
     this.uploadService
       .sendTree({
         transfers: transfers.transfers,
@@ -229,8 +254,12 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false },
-        ...this.loginService.tokenInfo.getValue()?.senderToken ? { senderToken: this.loginService.tokenInfo.getValue()?.senderToken } : {}
-      })
+        ...this.loginService.tokenInfo.getValue()?.senderToken ? { senderToken: this.loginService.tokenInfo.getValue()?.senderToken } : {},
+        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.zipPassword ? { zipPassword: this.uploadManagerService.envelopeInfos.getValue().parameters.zipPassword } : { zipPassword: false },
+        //langueSelected: this.uploadManagerService.envelopeInfos.getValue().langueSelected,
+
+      },
+        this.langueCourriels)
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
         if (result && result?.canUpload == true) {
@@ -263,8 +292,11 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         senderMail: this.uploadManagerService.envelopeInfos.getValue().from.toLowerCase(),
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.password ? { password: this.uploadManagerService.envelopeInfos.getValue().parameters.password } : { password: '' },
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },
-        ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false }
-      })
+        ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false },
+        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.zipPassword ? { zipPassword: this.uploadManagerService.envelopeInfos.getValue().parameters.zipPassword } : { zipPassword: false },
+
+      },
+        this.langueCourriels)
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
         this.uploadManagerService.uploadInfos.next(result);
@@ -272,6 +304,11 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         this.availabilityDate = result.expireDate;
         this.ispublicLink(this.uploadManagerService.envelopeInfos.getValue().type);
         this.beginUpload(result);
+
+        if (this.checkConnect == false) {
+          this.loginService.tokenInfo.next(null);
+        }
+
       });
   }
 
@@ -292,6 +329,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       senderId: this.uploadManagerService.envelopeInfos.getValue().from.toLowerCase(),
       senderToken: token,
     };
+
 
     this.transfertSubscription = this.flow.transfers$.subscribe((uploadState: UploadState) => {
       this.fileManagerService.uploadProgress.next(uploadState);

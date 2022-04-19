@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Transfer } from '@flowjs/ngx-flow/lib/transfer';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { UploadInfosModel } from 'src/app/models';
 import { environment } from 'src/environments/environment';
@@ -13,11 +13,15 @@ import { UploadManagerService } from '../upload-manager/upload-manager.service';
 })
 export class UploadService {
 
+  public langueCourriels = new BehaviorSubject('langueCourriels');
+  public langueSelected = new BehaviorSubject('langueSelected');
+
+
   constructor(private _httpClient: HttpClient,
     private uploadManagerService: UploadManagerService,
     private loginService: LoginService) { }
 
-  sendTree(body: any): any {
+  sendTree(body: any, currentLanguage: any): any {
     const trMapping = this._mappingTree(body.transfers);
     const treeBody = {
       confirmedSenderId: '',
@@ -31,7 +35,10 @@ export class UploadService {
       publicLink: body.publicLink,
       expireDelay: body.expiryDays,
       senderId: body.senderId,
-      senderToken: body.senderToken
+      senderToken: body.senderToken,
+      language: currentLanguage,
+      zipPassword: body.zipPassword,
+
     };
     return this._httpClient.post(`${environment.host}${environment.apis.upload.tree}`, treeBody).pipe(
       map((response: any) => {
@@ -40,6 +47,15 @@ export class UploadService {
       }),
       catchError(this.handleError('sendTree'))
     );
+  }
+
+
+  setLangueCourriels(langueCourriels) {
+    this.langueCourriels.next(langueCourriels);
+  }
+
+  setLangue(langueSelected) {
+    this.langueSelected.next(langueSelected);
   }
 
   validateMail(mail: any): Observable<any> {
@@ -57,7 +73,7 @@ export class UploadService {
     );
   }
 
-  validateCode(body: any): any {
+  validateCode(body: any, currentLanguage: any): any {
     const trMapping = this._mappingTree(body.transfers);
     const treeBody = {
       confirmedSenderId: '',
@@ -69,7 +85,10 @@ export class UploadService {
       rootFiles: trMapping.files,
       rootDirs: trMapping.dirs,
       publicLink: body.publicLink,
-      expireDelay: body.expiryDays
+      expireDelay: body.expiryDays,
+      language: currentLanguage,
+      zipPassword: body.zipPassword,
+
     };
     return this._httpClient.post(
       `${environment.host}${environment.apis.upload.confirmationCode}?code=${body.code}&senderMail=${body.senderMail}`,

@@ -3,8 +3,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ParametersModel } from 'src/app/models';
 import * as moment from 'moment';
-import { UploadManagerService } from 'src/app/services';
+import { UploadManagerService, UploadService } from 'src/app/services';
 import { majChar, minChar, numChar, passwordValidator, sizeControl, specialChar } from 'src/app/shared/validators/forms-validator';
+import { LanguageModel } from 'src/app/models';
+
+import { LanguageSelectionService } from 'src/app/services';
+import { DateAdapter } from '@angular/material/core';
+import { LOCALE_ID, Inject } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+
 
 @Component({
   selector: 'ft-envelope-parameters-form',
@@ -20,13 +27,39 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
   passwordHelp = 'Le mot de passe doit respecter les contraintes suivantes: \n - 12 caractères minimum \n - 20 caractères maximum \n - Au moins 3 lettres minuscules \n - Au moins 3 lettres majuscules \n - Au moins 3 chiffres \n - Au moins 3 caractères spéciaux (!@#$%^&*()_-:+)';
   minDate = new Date();
   maxDate = new Date();
+  languageList: LanguageModel[];
+  languageSelectionSubscription: Subscription;
+  currentLanguage: string;
+  language: LanguageModel;
+  langueCourriels: String;
+  zipPassword: boolean = false;
 
   constructor(private fb: FormBuilder,
-    private uploadManagerService: UploadManagerService) {
+    private uploadManagerService: UploadManagerService,
+    private languageSelectionService: LanguageSelectionService,
+    public translateService: TranslateService,
+    private uploadService: UploadService,
+    ) {
+
+
+    this.currentLanguage = this.translateService.currentLang;
+    this.languageList = this.languageSelectionService.languageList;
+    this.language =  this.languageList.find(x => x.value == this.currentLanguage);
+
+    console.log('current lang:', this.language)
+    console.log('browser lang', this.language.code);
   }
 
+
+
   ngOnInit(): void {
+    console.log(this.zipPassword)
     this.initForm();
+
+  }
+
+  passwordChecked() {
+    this.zipPassword = !this.zipPassword;
   }
 
   initForm() {
@@ -41,7 +74,8 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
 
     this.envelopeParametersForm = this.fb.group({
       expiryDays: [expireDate],
-      password: [this.parametersFormValues?.password, [Validators.minLength(12), Validators.maxLength(20), passwordValidator]]
+      password: [this.parametersFormValues?.password, [Validators.minLength(12), Validators.maxLength(20), passwordValidator]],
+      zipPassword: [this.zipPassword]
     });
     this.checkErrors();
     this.envelopeParametersFormChangeSubscription = this.envelopeParametersForm.valueChanges
@@ -53,7 +87,8 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
             ...this.uploadManagerService.envelopeInfos.getValue(),
             parameters: {
               expiryDays: -_expiryDays,
-              ...this.envelopeParametersForm.get('password').value ? { password: this.envelopeParametersForm.get('password').value } : { password: '' }
+              ...this.envelopeParametersForm.get('password').value ? { password: this.envelopeParametersForm.get('password').value } : { password: '' },
+              zipPassword: this.envelopeParametersForm.get('zipPassword').value,
             }
           });
       });
@@ -90,6 +125,18 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
     if (this.f.password.errors != null) {
       this.envelopeParametersForm.get('password').setValue('');
     }
+  }
+
+  compareFunction(a:any ,b:any){
+
+    return a.code == b.code;
+  }
+
+  public selectLanguage(value){
+
+    console.log("Selected option: ", value.value);
+    this.uploadService.setLangueCourriels(value.value);
+
   }
 
 }

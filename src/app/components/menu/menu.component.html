@@ -1,8 +1,8 @@
 <div class="menu-list-wrapper">
     <mat-list class="menu-list">
         <mat-list-item class="menu-list-item end" (click)="onToggleSidenav()">
-            <mat-icon mat-list-icon aria-label="Fermer le menu">close</mat-icon>
-            <div mat-line>Fermer</div>
+            <mat-icon mat-list-icon attr.aria-label="{{'Fermer_Menu' | translate}}">close</mat-icon>
+            <div mat-line> {{'Fermer' | translate}}</div>
         </mat-list-item>
         <mat-list-item (click)="onToggleSidenav()">
             <ft-language-selector class="language-selector-wrapper"></ft-language-selector>
@@ -10,21 +10,24 @@
         <mat-divider></mat-divider>
         <mat-list-item class="menu-list-item" (click)="goToLink('/faq')">
             <mat-icon aria-hidden="true">help_outline</mat-icon>
-            <span>FAQ</span>
+            <span> {{'FAQ' | translate}}</span>
         </mat-list-item>
+
         <mat-divider></mat-divider>
         <mat-list-item class="menu-list-item" (click)="goToLink('/contact')">
             <mat-icon aria-hidden="true">mail_outline</mat-icon>
-            <span>Contact</span>
+            <span> {{'Contact' | translate}}</span>
         </mat-list-item>
+
         <mat-divider></mat-divider>
         <mat-list-item *ngIf="isLoggedIn()" class="menu-list-item" (click)="logout()">
-            <mat-icon aria-hidden="true">logout</mat-icon>
-            <span>Me déconnecter</span>
+            <mat-icon aria-hidden="true">person</mat-icon>
+            <span>{{'MeDéconnecter' | translate}}</span>
         </mat-list-item>
-        <mat-list-item *ngIf="!isLoggedIn()" class="menu-list-item" (click)="goToLink('/connect')">
+
+        <mat-list-item *ngIf="!isLoggedIn()" class="menu-list-item" (click)="routeTo('/connect')">
             <mat-icon aria-hidden="true">person_outline</mat-icon>
-            <span>Me connecter</span>
+            <span>{{'MeConnecter' | translate}}</span>
         </mat-list-item>
         <mat-divider></mat-divider>
     </mat-list>

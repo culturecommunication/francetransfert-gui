@@ -13,6 +13,8 @@ import { AdminAlertDialogComponent } from './admin-alert-dialog/admin-alert-dial
 import {MyErrorStateMatcher} from "../upload/envelope/envelope-mail-form/envelope-mail-form.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AdminEndMsgComponent} from "./admin-end-msg/admin-end-msg.component";
+import { DateAdapter } from '@angular/material/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ft-admin',
@@ -39,13 +41,15 @@ export class AdminComponent implements OnInit, OnDestroy {
   errorValidEmail: boolean = false;
   senderOk: boolean = false;
   envelopeDestForm: FormGroup;
+  public selectedDate: Date = new Date();
 
-  constructor(private _adminService: AdminService,private formBuilder: FormBuilder,
+  constructor(private _adminService: AdminService, private formBuilder: FormBuilder,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private dialog: MatDialog,
     private titleService: Title,
-    private uploadService: UploadService, private _snackBar: MatSnackBar,) { }
+    private uploadService: UploadService, private _snackBar: MatSnackBar,
+    public translate: TranslateService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -65,7 +69,7 @@ export class AdminComponent implements OnInit, OnDestroy {
               this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
             });
             this.validUntilDate = new FormControl(new Date(this.fileInfos.validUntilDate));
-            let temp = new Date(this.fileInfos.timestamp);
+            let temp = this.selectedDate;
             this.maxDate.setDate(temp.getDate() + 90);
           });
       } else {
@@ -74,7 +78,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     });
     this.adminErrorsSubscription = this._adminService.adminError$.subscribe(err => {
       if (err === 401) {
-        this.errorMessage = 'Le pli demandé n\'existe pas';
+        this.errorMessage = 'Existence_Pli';
       }
     });
   }
