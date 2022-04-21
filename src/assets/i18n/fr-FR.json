@@ -61,7 +61,7 @@
   "AdresseRequis": "Une adresse courriel valide est requise (JEAN.DUPONT@EMAIL.COM).",
   "LienRéservé": "le lien est réservé aux agents de l'ETAT, merci d'utiliser la fonctionnalité Courriel",
   "QotaDépassé": "Le quota quotidien d'envoi de l'expéditeur est dépassé",
-  "Message": "Message",
+  "Message": "Message :",
   "CGU": "J'accepte les <a class='link' rel='noopener noreferrer' href='cgu' target='_blank'> CGU</a> et je n'envoie pas de données à caractère personnel ou sensibles non chiffrées au préalable",
 
   "TooltipExpéditeurLien": "l'expéditeur peut être un agent de l'administration française ou un particulier.",

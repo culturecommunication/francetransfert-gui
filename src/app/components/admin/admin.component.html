@@ -15,7 +15,7 @@
         </div>
         <mat-list role="list">
           <ng-container *ngIf="!(fileInfos?.recipientsMails.length != 0 || fileInfos?.deletedRecipients.length != 0)">
-            <mat-list-item role="listitem"><span>{{'Nombre_Téléchargements : ' | translate}}{{fileInfos.downloadCount}}</span>
+            <mat-list-item role="listitem"><span>{{'Nombre_Téléchargements' | translate}}{{fileInfos.downloadCount}}</span>
             </mat-list-item>
           </ng-container>
           <mat-list-item role="listitem"><span>{{'Emetteur' | translate}} {{fileInfos.senderEmail}}</span></mat-list-item>
