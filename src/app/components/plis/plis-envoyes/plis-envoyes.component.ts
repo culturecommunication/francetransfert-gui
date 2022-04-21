@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FTTransferModel } from 'src/app/models';
 import { FormControl } from '@angular/forms';
 import { Transfer } from '@flowjs/ngx-flow';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'ft-plis-envoyes',
@@ -22,6 +23,7 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl   {
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   OF_LABEL: any;
   bookRatings:Array<any>=[] ;
   recipients:Array<any>=[] ;
@@ -101,7 +103,7 @@ navigateTo( enclosureId: String){
 
   ngOnInit(): void {
 
-
+    //this.dataSource.sort = this.sort;
 //---------------get infos--------------
   this._adminService.getPlisSent(
     {senderMail: this.loginService.tokenInfo.getValue().senderMail,
@@ -178,6 +180,7 @@ navigateTo( enclosureId: String){
   });
   this.dataSource = new MatTableDataSource<PliModel>(this.empList);
   this.dataSource.paginator = this.paginator;
+  this.dataSource.sort = this.sort;
 
   });
   }

@@ -66,6 +66,7 @@ import { PlisRecusComponent } from './components/plis/plis-recus/plis-recus.comp
 import { PlisEnvoyesComponent } from './components/plis/plis-envoyes/plis-envoyes.component';
 import { FormsModule } from '@angular/forms';
 import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort' ;
 
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeEs, 'es', localeEsExtra);
@@ -141,6 +142,7 @@ const initializer = (pwaService: PwaService) => () =>
     MaterialModule,
     ReactiveFormsModule,
     MatPaginatorModule,
+    MatSortModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
