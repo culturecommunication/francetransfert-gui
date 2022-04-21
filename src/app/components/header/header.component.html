@@ -37,11 +37,19 @@
             </li>
             <span class="column-divider"></span>
             <li *ngIf="isLoggedIn()">
-              <mat-icon aria-hidden="true">logout</mat-icon>
+              <mat-icon aria-hidden="true">person</mat-icon>
               <a class="link" [matMenuTriggerFor]="menu">{{'Mon_Compte' | translate}}</a>
               <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="routeTo('/plis')">{{'Mes_Plis' | translate}}</button>
-                <button mat-menu-item (click)="logout()">{{'MeDéconnecter' | translate}}</button>
+
+                <button mat-menu-item (click)="routeTo('/plis')">
+                  <mat-icon class="icon-position" aria-hidden="true">email</mat-icon>
+                  <span class="font-size">{{'Mes_Plis' | translate}}</span>
+                </button>
+
+                <button mat-menu-item (click)="logout()">
+                  <mat-icon class="icon-position" aria-hidden="true">logout</mat-icon>
+                  <span  class="font-size">{{'MeDéconnecter' | translate}}</span>
+                </button>
               </mat-menu>
             </li>
             <li *ngIf="!isLoggedIn()">

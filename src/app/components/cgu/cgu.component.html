@@ -5,6 +5,8 @@
         <mat-card-header class="cgu-card-header">
             <h1 #cgu> {{'CGU_Titre' | translate}}</h1>
         </mat-card-header>
+        <h4> {{'Version' | translate}} 3.4.0</h4>
+        <span> {{'Version_Française' | translate}}</span>
         <mat-card-content class="cgu-card-content">
             <h3 #preambule> {{'Préambule' | translate}}</h3>
             <p [innerHTML]="'Intro' | translate">
@@ -24,15 +26,8 @@
             <h3 #inscription>{{'Inscription_Transmission_Titre' | translate}}</h3>
             <p [innerHTML]="'Inscription_Transmission_Texte' | translate">
             </p>
-            <h3 #sensibles> {{'Données_Sensibles_Titre' | translate}}</h3>
-            <p [innerHTML]="'Données_Sensibles_Texte' | translate">
 
-            </p>
-            <ul  [innerHTML]="'Données_Sensibles_Liste' | translate">
 
-            </ul>
-            <p [innerHTML]="'Données_Sensibles_Texte2' | translate">
-            </p>
             <h2 #techniques> {{'Données_Techniques_Titre' | translate}}</h2>
             <h3>{{'Généralités_Titre' | translate}}</h3>
             <p>
@@ -50,8 +45,27 @@
              </ul>
 
             <h2 #traitementdesdonnees> {{'Traitement_Données_Titre' | translate}}</h2>
-            <p [innerHTML]="'Traitement_Données_Texte' | translate">
-            </p>
+            <h3>{{'Information_Personnes_Titre' | translate}}</h3>
+                <p [innerHTML]="'Information_Personnes_Texte' | translate" ></p>
+                  <ul [innerHTML]="'Information_Personnes_Liste' | translate"></ul><br>
+                  <p [innerHTML]="'Information_Personnes_Second_Texte' | translate" ></p>
+
+
+            <h3 #sensibles> {{'Données_Sensibles_Titre' | translate}}</h3>
+                <p [innerHTML]="'Données_Sensibles_Texte' | translate">
+
+                </p>
+                <ul  [innerHTML]="'Données_Sensibles_Liste' | translate">
+
+                </ul>
+                <p [innerHTML]="'Données_Sensibles_Texte2' | translate">
+                </p>
+<span></span><br>
+
+
+
+
+
             <h2 #conservationdesdonnees> {{'Démarches_Publiées_Titre' | translate}}</h2>
             <p [innerHTML]="'Démarches_Publiées_Texte' | translate">
             </p>

@@ -16,7 +16,7 @@ import { majChar, minChar, numChar, sizeControl, specialChar } from 'src/app/sha
 })
 export class PlisComponent implements OnInit {
 
-
+  //added by abir
   tokenInfo: BehaviorSubject<TokenModel> = new BehaviorSubject<any>(null);
   fileInfos: any;
   transfers: Array<any> = [];
@@ -37,9 +37,7 @@ export class PlisComponent implements OnInit {
     private loginService: LoginService,) { }
 
   ngOnInit(): void {
-    console.log("mail: ",  this.loginService.getEmail())
-  this._adminService.getPlisSent(this.loginService.getEmail()).pipe(take(1)).subscribe(
-  );
+
 
   }
 

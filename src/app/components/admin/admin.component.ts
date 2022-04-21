@@ -15,6 +15,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {AdminEndMsgComponent} from "./admin-end-msg/admin-end-msg.component";
 import { DateAdapter } from '@angular/material/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Location } from '@angular/common';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'ft-admin',
@@ -42,6 +44,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   senderOk: boolean = false;
   envelopeDestForm: FormGroup;
   public selectedDate: Date = new Date();
+  enclosureId = '';
+
+
 
   constructor(private _adminService: AdminService, private formBuilder: FormBuilder,
     private _activatedRoute: ActivatedRoute,
@@ -49,7 +54,11 @@ export class AdminComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private titleService: Title,
     private uploadService: UploadService, private _snackBar: MatSnackBar,
-    public translate: TranslateService) { }
+    public translate: TranslateService,
+    private location: Location,
+    private loginService: LoginService,
+
+    ) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -69,10 +78,40 @@ export class AdminComponent implements OnInit, OnDestroy {
               this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
             });
             this.validUntilDate = new FormControl(new Date(this.fileInfos.validUntilDate));
-            let temp = this.selectedDate;
+            let temp = new Date(this.fileInfos.timestamp);
+            this.selectedDate = temp;
+            //let temp = this.selectedDate;
             this.maxDate.setDate(temp.getDate() + 90);
           });
-      } else {
+      }else if(this.params['enclosure'] && this.params['token'] == null){
+
+        this._adminService.enclosureId.subscribe(enclosureId => {
+          this.enclosureId = enclosureId;
+        });
+
+
+        this._adminService
+        .getFileInfosConnect({
+          senderMail: this.loginService.tokenInfo.getValue().senderMail,
+          senderToken: this.loginService.tokenInfo.getValue().senderToken,
+
+        }, this.enclosureId)
+        .pipe(takeUntil(this.onDestroy$))
+        .subscribe(fileInfos => {
+          this.fileInfos = fileInfos;
+          this.fileInfos.rootFiles.map(file => {
+            this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
+          });
+          this.fileInfos.rootDirs.map(file => {
+            this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
+          });
+          this.validUntilDate = new FormControl(new Date(this.fileInfos.validUntilDate));
+          let temp = new Date(this.fileInfos.timestamp);
+          this.selectedDate = temp;
+          //let temp = this.selectedDate;
+          this.maxDate.setDate(temp.getDate() + 90);
+        });
+      }else {
         this._router.navigateByUrl('/error');
       }
     });
@@ -243,6 +282,16 @@ export class AdminComponent implements OnInit, OnDestroy {
     this._snackBar.openFromComponent(AdminEndMsgComponent,{
       duration:4000,
     });
+  }
+
+  previousPage(){
+    if(this.params['token'] == null){
+      this.location.back();
+    }
+    else{
+      this._router.navigate(['/upload']);
+
+    }
   }
 
 }

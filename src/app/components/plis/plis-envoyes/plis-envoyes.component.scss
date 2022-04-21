@@ -1,5 +1,98 @@
+@media screen and (min-width: 960px) {
 
-//margin-top: 86px;
+.overflow-clip {
+  //text-overflow: ellipsis;
+  //width: 113px;
+  padding: 18px 16px 13px 0px;
+
+}
+.mat-column-objet {
+  flex: none;
+  width: 220px;
+}
+
+.mat-column-token {
+  flex: none;
+  width: 196px;
+}
+
+
+.mat-column-dateEnvoi {
+  flex: none;
+  width: 220px;
+}
+
+.mat-column-destinataires {
+  flex: none;
+  width: 320px;
+}
+
+}
+
+
+
+
+.overflow-clip-header{
+  padding: 0px 16px 0px 0;
+}
+
+// #content {
+//   display: flex;
+//   flex-direction: column;
+//   padding: 21px;
+//   align-items: baseline;
+
+// }
+
+mat-cell > span.truncate-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.overflow-ellipsis {
+  text-overflow: ellipsis;
+  width: 100px;
+}
+
+
+
+.mat-width{
+ width: 112%;
+}
+
+// .mat-table {
+//   width: 100%;
+//   table-layout: fixed;
+// }
+
+// .mat-table .mat-row  {
+//   overflow: hidden;
+//   width:auto;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+// }
+
+
+// th, td {
+//   overflow: hidden;
+//   width:auto;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+// }
+
+// table {
+//   width: 100%;
+//   table-layout: fixed;
+// }
+
+// .mat-table .mat-cell {
+//   overflow: hidden;
+//   width:auto;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+// }
+
 
 
 @media screen and (max-width: 960px) {
@@ -41,7 +134,7 @@
     font-weight: bold;
     height:30px;
     margin-bottom: 4%;
-    padding-right: 24px;
+    padding-right: 55px;
     padding-left: 24px;
   }
   .mat-table .mat-cell:before {

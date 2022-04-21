@@ -13,6 +13,7 @@ import { UploadManagerService } from '../upload-manager/upload-manager.service';
 })
 export class UploadService {
 
+  public zipPassword = new BehaviorSubject(false);
   public langueCourriels = new BehaviorSubject('langueCourriels');
   public langueSelected = new BehaviorSubject('langueSelected');
 
@@ -49,6 +50,9 @@ export class UploadService {
     );
   }
 
+  setCheckZip(zipPassword) {
+    this.zipPassword.next(zipPassword);
+  }
 
   setLangueCourriels(langueCourriels) {
     this.langueCourriels.next(langueCourriels);

@@ -33,6 +33,7 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
   language: LanguageModel;
   langueCourriels: String;
   zipPassword: boolean = false;
+  checked: boolean = false;
 
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
@@ -53,6 +54,11 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+
+    this.uploadService.zipPassword.subscribe(zipPassword => {
+      this.zipPassword = zipPassword;
+    });
+    console.log("ngOnInit :", this.zipPassword)
     console.log(this.zipPassword)
     this.initForm();
 
@@ -60,7 +66,18 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
 
   passwordChecked() {
     this.zipPassword = !this.zipPassword;
+
+    //this.checked = !this.checked;
+    console.log("changeValue :", this.zipPassword)
+    this.uploadService.setCheckZip(this.zipPassword);
   }
+
+  changeValue() {
+    this.checked = !this.checked;
+    console.log("changeValue :", this.checked)
+    this.uploadService.setCheckZip(this.checked);
+
+}
 
   initForm() {
 

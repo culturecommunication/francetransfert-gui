@@ -89,7 +89,7 @@
       </div>
     </mat-card-content>
     <mat-card-actions align="end" *ngIf="fileInfos">
-      <button class="admin-card-actions-btn" mat-button [routerLink]="'/upload'">{{'Retour' | translate}}</button>
+      <button class="admin-card-actions-btn" mat-button (click)="previousPage()">{{'Retour' | translate}}</button>
     </mat-card-actions>
   </mat-card>
 </div>
