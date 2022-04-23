@@ -22,29 +22,15 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   OF_LABEL: any;
-  fileInfos: any;
-  taille: number;
-  tailleFiles: number;
-  tailleDirs: number;
-  typeSize: string;
   empList: PliModel[] = [];
-  connect: boolean;
   displayedColumns: string[] = ['dateEnvoi', 'type', 'objet', 'taille', 'finValidite', 'destinataires', 'token'];
   dataSource = new MatTableDataSource<PliModel>(this.empList);
-  transfers: Array<any> = [];
-  validUntilDate;
-  public selectedDate: Date = new Date();
-  maxDate = new Date();
-  private onDestroy$: Subject<void> = new Subject();
-  params: Array<{ string: string }>;
-  token: string = this.loginService.tokenInfo.getValue().senderMail;
 
 
   constructor(public translate: TranslateService,
     private _adminService: AdminService,
     private loginService: LoginService,
     private _router: Router,
-    private _activatedRoute: ActivatedRoute,
   ) {
     super();
     this.translate.onLangChange.subscribe((e: Event) => {
@@ -95,8 +81,6 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
 
   ngOnInit(): void {
 
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
     //---------------get infos--------------
     this._adminService.getPlisSent(
       {
@@ -106,55 +90,63 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
 
     ).pipe(take(1)).subscribe(
       fileInfos => {
-        this.fileInfos = fileInfos;
         fileInfos.forEach(t => {
-          let customObj: PliModel;
           //----------size of files------------
 
           //TODO MOVE THIS TO BACK
 
-          this.tailleFiles = t.size.reduce((a, b) => a + b, 0) / 1024;
-          this.tailleDirs = t.sizeDir.reduce((a, b) => a + b, 0) / 1024;
-          this.taille = this.tailleDirs + this.tailleFiles;
-          if (this.taille >= 1100000) {
-            customObj.taille = (this.taille / 1000000).toFixed(2);
-            this.typeSize = 'GO';
+          let files = t.rootFiles.map(n => n.name);
+          let size = t.rootFiles.map(n => n.size);
+          let sizeDir = t.rootDirs.map(n => n.totalSize);
 
-          } else if (this.taille >= 1100) {
-            customObj.taille = (this.taille / 1000).toFixed(2);
-            this.typeSize = 'MO';
+          let tailleFiles = size.reduce((a, b) => a + b, 0) / 1024;
+          let tailleDirs = sizeDir.reduce((a, b) => a + b, 0) / 1024;
+          let taille = tailleDirs + tailleFiles;
+          let tailleStr = "";
+          let typeSize = 'GO';
+          if (taille >= 1100000) {
+            tailleStr = (taille / 1000000).toFixed(2);
+            typeSize = 'GO';
+
+          } else if (taille >= 1100) {
+            tailleStr = (taille / 1000).toFixed(2);
+            typeSize = 'MO';
           }
           else {
-            customObj.taille = this.taille.toFixed(2);
-            this.typeSize = 'KO';
-
+            tailleStr = taille.toFixed(2);
+            typeSize = 'KO';
           }
 
           //-----------condition on type-----------
+          let type = "";
           if (t.recipientsMails != null && t.recipientsMails != '' && t.recipientsMails != undefined) {
-            customObj.type = 'Courriel';
-
+            type = 'Courriel';
           }
           else {
-            customObj.type = 'Lien';
+            type = 'Lien';
           }
 
 
 
           var str = t.recipientsMails.join(", ");
-          customObj.destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
+          let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
 
 
           //---------add to mat-table-------------
           this.empList.push({
-            dateEnvoi: t.timestamp, type: customObj.type, objet: t.subject,
-            taille: customObj.taille, finValidite: t.validUntilDate, destinataires: customObj.destinataires,
-            enclosureId: t.enclosureId, typeSize: this.typeSize
+            dateEnvoi: t.timestamp, type: type, objet: t.subject,
+            taille: tailleStr, finValidite: t.validUntilDate, destinataires: destinataires,
+            enclosureId: t.enclosureId, typeSize: typeSize
           });
-          this.dataSource.data = this.empList
+          this.dataSource.data = this.empList;
         });
 
       });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {
