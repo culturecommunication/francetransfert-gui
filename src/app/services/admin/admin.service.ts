@@ -11,24 +11,11 @@ import { environment } from 'src/environments/environment';
 })
 export class AdminService {
 
-  public enclosureId = new BehaviorSubject('enclosureId');
-  public token = new BehaviorSubject('token');
   adminError$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
-  tokenInfo: BehaviorSubject<TokenModel> = new BehaviorSubject<any>(null);
 
   constructor(private _httpClient: HttpClient) { }
 
-
-  setEnclosure(enclosureId) {
-    this.enclosureId.next(enclosureId);
-  }
-
-  setToken(token) {
-    this.token.next(token);
-  }
-
   getFileInfosConnect(body: any, enclosureId: string): Observable<any> {
-
     const treeBody = {
       senderMail: body.senderMail,
       senderToken: body.senderToken,
@@ -54,7 +41,6 @@ export class AdminService {
       `${environment.host}${environment.apis.admin.getPlisSent}`,
        treeBody
     ).pipe(map((response) => {
-      this.tokenInfo.next(null);
       return response;
     }),
       catchError(this.handleError('get-plis-sent'))

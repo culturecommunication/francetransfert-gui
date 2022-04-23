@@ -4,7 +4,7 @@ import { FlowDirective, UploadState } from '@flowjs/ngx-flow';
 import { Subject } from 'rxjs/internal/Subject';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { take, takeUntil } from 'rxjs/operators';
-import { DownloadManagerService, FileManagerService, ResponsiveService, UploadManagerService, UploadService } from 'src/app/services';
+import { DownloadManagerService, FileManagerService, LanguageSelectionService, ResponsiveService, UploadManagerService, UploadService } from 'src/app/services';
 import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { SatisfactionMessageComponent } from "../satisfaction-message/satisfaction-message.component";
@@ -32,6 +32,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   responsiveSubscription: Subscription = new Subscription;
   fileManagerSubscription: Subscription = new Subscription;
   transfertSubscription: Subscription = new Subscription;
+  loginSubscription: Subscription = new Subscription;
   senderEmail: string;
   availabilityDate: Date;
   availabilityDays: number;
@@ -45,8 +46,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   canReset: boolean = false;
   showCode: boolean = false;
 
-  langueCourriels: String;
-
   constructor(private responsiveService: ResponsiveService,
     private uploadManagerService: UploadManagerService,
     private downloadManagerService: DownloadManagerService,
@@ -54,12 +53,12 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     public translateService: TranslateService,
     private uploadService: UploadService,
     private loginService: LoginService,
+    private languageSelectionService: LanguageSelectionService,
     private titleService: Title,
     private _snackBar: MatSnackBar,
     private router: Router) { }
 
   ngOnInit(): void {
-    this.uploadService.setLangueCourriels(this.translateService.currentLang);
     this.titleService.setTitle('France transfert - Téléversement');
     this.onResize();
     this.flowConfig = FLOW_CONFIG;
@@ -78,17 +77,15 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.reset();
 
 
-    this.loginService.connectCheck.subscribe(checkConnect => {
+    this.loginSubscription = this.loginService.connectCheck.subscribe(checkConnect => {
       this.checkConnect = checkConnect;
     });
 
 
-    this.uploadService.langueCourriels.subscribe(langueCourriels => {
-      this.langueCourriels = langueCourriels;
+    /* this.languageSelectionService.selectedLanguage.subscribe(langueCourriels => {
+      this.langueCourriels = langueCourriels.code;
       console.log("langue upload:", this.langueCourriels)
-
-    });
-
+    }); */
 
   }
 
@@ -256,10 +253,8 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false },
         ...this.loginService.tokenInfo.getValue()?.senderToken ? { senderToken: this.loginService.tokenInfo.getValue()?.senderToken } : {},
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.zipPassword ? { zipPassword: this.uploadManagerService.envelopeInfos.getValue().parameters.zipPassword } : { zipPassword: false },
-        //langueSelected: this.uploadManagerService.envelopeInfos.getValue().langueSelected,
-
-      },
-        this.langueCourriels)
+        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.langueCourriels ? { langueCourriels: this.uploadManagerService.envelopeInfos.getValue().parameters.langueCourriels.code } : { langueCourriels: this.languageSelectionService.selectedLanguage.getValue().code },
+      })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
         if (result && result?.canUpload == true) {
@@ -294,9 +289,9 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.expiryDays ? { expiryDays: this.uploadManagerService.envelopeInfos.getValue().parameters.expiryDays } : { expiryDays: 30 },
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false },
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.zipPassword ? { zipPassword: this.uploadManagerService.envelopeInfos.getValue().parameters.zipPassword } : { zipPassword: false },
+        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.langueCourriels ? { langueCourriels: this.uploadManagerService.envelopeInfos.getValue().parameters.langueCourriels.code } : { langueCourriels: this.languageSelectionService.selectedLanguage.getValue().code },
 
-      },
-        this.langueCourriels)
+      })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
         this.uploadManagerService.uploadInfos.next(result);
@@ -344,5 +339,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadManagerSubscription.unsubscribe();
     this.fileManagerSubscription.unsubscribe();
     this.transfertSubscription.unsubscribe();
+    this.loginSubscription.unsubscribe();
   }
 }

@@ -21,6 +21,7 @@ export interface ParametersModel {
     expiryDays: number;
     password: string;
     zipPassword: boolean;
+    langueCourriels: any;
 }
 
 export interface FormulaireContactModel{

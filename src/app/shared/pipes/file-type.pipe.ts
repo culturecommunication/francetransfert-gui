@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { UploadService } from 'src/app/services';
+import { LanguageSelectionService, UploadService } from 'src/app/services';
 
 @Pipe({
   name: 'filetype'
@@ -14,20 +14,20 @@ export class FileTypePipe implements PipeTransform {
    * @param {string} filename
    * @returns {string}
    */
-   constructor(
-    private uploadService: UploadService,
+  constructor(
+    private languageService: LanguageSelectionService,
     private translate: TranslateService) {
 
 
-}
+  }
 
 
 
 
   transform(filename: string = ''): string {
 
-    this.uploadService.langueCourriels.subscribe(langueSelected => {
-      this.langueSelected = langueSelected;
+    this.languageService.selectedLanguage.subscribe(langueSelected => {
+      this.langueSelected = langueSelected.code;
     });
 
     let type: string = 'Pas de type';
@@ -36,13 +36,13 @@ export class FileTypePipe implements PipeTransform {
       let segments: Array<string> = filename.split('.');
       if (segments.length > 1) {
 
-        if(this.langueSelected == 'en-US'){
-          type = ` ${segments[segments.length - 1]} ` + `${this.translate.instant('FichierType')}`  ;
-        }else{
-        type = `${this.translate.instant('FichierType')}`  + ` ${segments[segments.length - 1]}`;
+        if (this.langueSelected == 'en-US') {
+          type = ` ${segments[segments.length - 1]} ` + `${this.translate.instant('FichierType')}`;
+        } else {
+          type = `${this.translate.instant('FichierType')}` + ` ${segments[segments.length - 1]}`;
         }
       }
-      else{
+      else {
         type = null;
       }
     }

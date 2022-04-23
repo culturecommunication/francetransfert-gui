@@ -33,8 +33,7 @@ export class PlisComponent implements OnInit {
 
   parametersFormValues: ParametersModel;
 
-  constructor(private _adminService: AdminService,
-    private loginService: LoginService,) { }
+  constructor() { }
 
   ngOnInit(): void {
 
