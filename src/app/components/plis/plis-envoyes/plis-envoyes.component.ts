@@ -81,6 +81,10 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
 
   ngOnInit(): void {
 
+
+    if (!this.loginService.isLoggedIn()) {
+      this._router.navigate(['/connect']);
+    }
     //---------------get infos--------------
     this._adminService.getPlisSent(
       {
