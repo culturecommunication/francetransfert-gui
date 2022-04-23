@@ -31,6 +31,7 @@ export const environment = {
       deleteFile: 'api-private/upload-module/delete-file',
       updateExpiredDate: 'api-private/upload-module/update-expired-date',
       fileInfos: 'api-private/upload-module/file-info',
+      fileInfosConnect: 'api-private/upload-module/file-info-connect',
       addNewRecipient: 'api-private/upload-module/add-recipient',
       deleteRecipient: 'api-private/upload-module/delete-recipient',
       getPlisSent: 'api-private/upload-module/get-plis-sent'

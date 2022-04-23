@@ -1,20 +1,22 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Transfer } from '@flowjs/ngx-flow';
 import * as moment from 'moment';
 import { Subject, Subscription } from 'rxjs';
-import {take, takeUntil} from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { FTTransferModel } from 'src/app/models';
-import {AdminService, UploadService} from 'src/app/services';
+import { AdminService, UploadService } from 'src/app/services';
 import { AdminAlertDialogComponent } from './admin-alert-dialog/admin-alert-dialog.component';
-import {MyErrorStateMatcher} from "../upload/envelope/envelope-mail-form/envelope-mail-form.component";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {AdminEndMsgComponent} from "./admin-end-msg/admin-end-msg.component";
+import { MyErrorStateMatcher } from "../upload/envelope/envelope-mail-form/envelope-mail-form.component";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { AdminEndMsgComponent } from "./admin-end-msg/admin-end-msg.component";
 import { DateAdapter } from '@angular/material/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Location } from '@angular/common';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'ft-admin',
@@ -42,6 +44,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   senderOk: boolean = false;
   envelopeDestForm: FormGroup;
   public selectedDate: Date = new Date();
+  enclosureId = '';
+
+
 
   constructor(private _adminService: AdminService, private formBuilder: FormBuilder,
     private _activatedRoute: ActivatedRoute,
@@ -49,7 +54,11 @@ export class AdminComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private titleService: Title,
     private uploadService: UploadService, private _snackBar: MatSnackBar,
-    public translate: TranslateService) { }
+    public translate: TranslateService,
+    private location: Location,
+    private loginService: LoginService,
+
+  ) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -69,7 +78,33 @@ export class AdminComponent implements OnInit, OnDestroy {
               this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
             });
             this.validUntilDate = new FormControl(new Date(this.fileInfos.validUntilDate));
-            let temp = this.selectedDate;
+            let temp = new Date(this.fileInfos.timestamp);
+            this.selectedDate = temp;
+            //let temp = this.selectedDate;
+            this.maxDate.setDate(temp.getDate() + 90);
+          });
+      } else if (this.params['token'] == null && this.params['enclosure']) {
+
+        this.enclosureId = this.params['enclosure'];
+
+        this._adminService
+          .getFileInfosConnect({
+            senderMail: this.loginService.tokenInfo.getValue().senderMail,
+            senderToken: this.loginService.tokenInfo.getValue().senderToken,
+          }, this.enclosureId)
+          .pipe(takeUntil(this.onDestroy$))
+          .subscribe(fileInfos => {
+            this.fileInfos = fileInfos;
+            this.fileInfos.rootFiles.map(file => {
+              this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
+            });
+            this.fileInfos.rootDirs.map(file => {
+              this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
+            });
+            this.validUntilDate = new FormControl(new Date(this.fileInfos.validUntilDate));
+            let temp = new Date(this.fileInfos.timestamp);
+            this.selectedDate = temp;
+            //let temp = this.selectedDate;
             this.maxDate.setDate(temp.getDate() + 90);
           });
       } else {
@@ -102,7 +137,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   deleteFile() {
-    const dialogRef = this.dialog.open(AdminAlertDialogComponent,{data:'deletePli'});
+    const dialogRef = this.dialog.open(AdminAlertDialogComponent, { data: 'deletePli' });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this._adminService
@@ -124,7 +159,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   deleteRecipient(index, dest) {
-    const dialogRef = this.dialog.open(AdminAlertDialogComponent,{data:'deleteDest'});
+    const dialogRef = this.dialog.open(AdminAlertDialogComponent, { data: 'deleteDest' });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const body = {
@@ -133,7 +168,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           "newRecipient": dest,
         }
         this._adminService.deleteRecipient(body).
-        pipe(takeUntil(this.onDestroy$))
+          pipe(takeUntil(this.onDestroy$))
           .subscribe(response => {
             if (response) {
               this.fileInfos.recipientsMails.splice(index, 1);
@@ -147,28 +182,28 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   addRecipient() {
-      this.add = !this.add;
-      this.close = !this.close;
-      this.initForm();
+    this.add = !this.add;
+    this.close = !this.close;
+    this.initForm();
   }
 
   onBlurDestinataires() {
 
-      if(this.emailFormControl.errors == null){
-          this.errorEmail = false;
-          this.checkDestinataire(this.emailFormControl.value);
-      }else{
-        this.errorEmail = true;
-        this.envelopeDestForm.controls['email'].markAsTouched();
-        this.envelopeDestForm.controls['email'].setErrors({ emailError: true });
-      }
+    if (this.emailFormControl.errors == null) {
+      this.errorEmail = false;
+      this.checkDestinataire(this.emailFormControl.value);
+    } else {
+      this.errorEmail = true;
+      this.envelopeDestForm.controls['email'].markAsTouched();
+      this.envelopeDestForm.controls['email'].setErrors({ emailError: true });
+    }
 
   }
 
   initForm() {
 
     this.envelopeDestForm = this.formBuilder.group({
-      email : ['', { validators: [Validators.email], updateOn: 'blur' }],
+      email: ['', { validators: [Validators.email], updateOn: 'blur' }],
     });
     this.emailFormControl = this.envelopeDestForm.get('email');
     this.envelopeMailFormChangeSubscription = this.emailFormControl.valueChanges
@@ -178,44 +213,46 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   checkDestinataire(email: any) {
     let destOk = false;
-    if(this.emailFormControl.errors == null){
+    if (this.emailFormControl.errors == null) {
       this.errorEmail = false;
       this.uploadService.validateMail([this.fileInfos.senderEmail]).pipe(
         take(1)).subscribe((isValid: boolean) => {
           this.senderOk = isValid;
-          if(!this.senderOk && !this.errorEmail){
+          if (!this.senderOk && !this.errorEmail) {
             this.uploadService.validateMail([email]).pipe(
-              take(1)).subscribe((valid: boolean)=>{
+              take(1)).subscribe((valid: boolean) => {
                 destOk = valid;
-                if(destOk){
+                if (destOk) {
                   //appeler le back;
                   this.addNewRecipient(email);
-                  this.errorValidEmail= false;
+                  this.errorValidEmail = false;
                   this.envelopeDestForm.controls['email'].markAsUntouched();
                   this.envelopeDestForm.controls['email'].setErrors({ emailNotValid: false });
 
-                }else{
+                } else {
                   this.envelopeDestForm.controls['email'].markAsTouched();
                   this.envelopeDestForm.controls['email'].setErrors({ emailNotValid: true });
-                  this.errorValidEmail= true;
+                  this.errorValidEmail = true;
                 }
-            })
-          }else{
-            if(!this.errorEmail){
+              })
+          } else {
+            if (!this.errorEmail) {
               //appeler le back
               this.addNewRecipient(email);
             }
           }
-      })}else{
+        })
+    } else {
       this.errorEmail = true;
       this.envelopeDestForm.controls['email'].markAsUntouched();
-      this.envelopeDestForm.controls['email'].setErrors({ emailError: true });}
+      this.envelopeDestForm.controls['email'].setErrors({ emailError: true });
+    }
 
     this.envelopeDestForm.updateValueAndValidity();
 
   }
 
-  addNewRecipient(email: any){
+  addNewRecipient(email: any) {
     const body = {
       "enclosureId": this.params['enclosure'],
       "token": this.params['token'],
@@ -227,10 +264,10 @@ export class AdminComponent implements OnInit, OnDestroy {
       .subscribe(response => {
         if (response) {
           this.fileInfos.recipientsMails.push(email);
-          for(let i = 0; i < this.fileInfos.deletedRecipients.length; i++){
-              if(this.fileInfos.deletedRecipients[i] === email){
-                this.fileInfos.deletedRecipients.splice(i,1);
-              }
+          for (let i = 0; i < this.fileInfos.deletedRecipients.length; i++) {
+            if (this.fileInfos.deletedRecipients[i] === email) {
+              this.fileInfos.deletedRecipients.splice(i, 1);
+            }
           }
 
           this.envelopeDestForm.get('email').setValue('');
@@ -240,9 +277,19 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   openSnackBar() {
-    this._snackBar.openFromComponent(AdminEndMsgComponent,{
-      duration:4000,
+    this._snackBar.openFromComponent(AdminEndMsgComponent, {
+      duration: 4000,
     });
+  }
+
+  previousPage() {
+    if (this.params['token'] == null) {
+      this.location.back();
+    }
+    else {
+      this._router.navigate(['/upload']);
+
+    }
   }
 
 }

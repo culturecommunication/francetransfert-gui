@@ -10,7 +10,7 @@ import { LanguageModel } from 'src/app/models';
 import { LanguageSelectionService } from 'src/app/services';
 import { DateAdapter } from '@angular/material/core';
 import { LOCALE_ID, Inject } from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -33,33 +33,21 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
   language: LanguageModel;
   langueCourriels: String;
   zipPassword: boolean = false;
+  checked: boolean = false;
 
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
     private languageSelectionService: LanguageSelectionService,
     public translateService: TranslateService,
-    private uploadService: UploadService,
-    ) {
-
-
-    this.currentLanguage = this.translateService.currentLang;
+  ) {
     this.languageList = this.languageSelectionService.languageList;
-    this.language =  this.languageList.find(x => x.value == this.currentLanguage);
-
-    console.log('current lang:', this.language)
-    console.log('browser lang', this.language.code);
   }
 
 
 
   ngOnInit(): void {
-    console.log(this.zipPassword)
     this.initForm();
 
-  }
-
-  passwordChecked() {
-    this.zipPassword = !this.zipPassword;
   }
 
   initForm() {
@@ -75,7 +63,8 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
     this.envelopeParametersForm = this.fb.group({
       expiryDays: [expireDate],
       password: [this.parametersFormValues?.password, [Validators.minLength(12), Validators.maxLength(20), passwordValidator]],
-      zipPassword: [this.zipPassword]
+      zipPassword: [this.parametersFormValues?.zipPassword],
+      langueCourriels: [this.parametersFormValues?.langueCourriels ? this.parametersFormValues.langueCourriels : this.languageSelectionService.selectedLanguage.getValue()],
     });
     this.checkErrors();
     this.envelopeParametersFormChangeSubscription = this.envelopeParametersForm.valueChanges
@@ -86,9 +75,10 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
           {
             ...this.uploadManagerService.envelopeInfos.getValue(),
             parameters: {
+              langueCourriels: this.envelopeParametersForm.get('langueCourriels').value,
               expiryDays: -_expiryDays,
-              ...this.envelopeParametersForm.get('password').value ? { password: this.envelopeParametersForm.get('password').value } : { password: '' },
               zipPassword: this.envelopeParametersForm.get('zipPassword').value,
+              ...this.envelopeParametersForm.get('password').value ? { password: this.envelopeParametersForm.get('password').value } : { password: '' }
             }
           });
       });
@@ -127,16 +117,8 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  compareFunction(a:any ,b:any){
-
+  compareFunction(a: any, b: any) {
     return a.code == b.code;
-  }
-
-  public selectLanguage(value){
-
-    console.log("Selected option: ", value.value);
-    this.uploadService.setLangueCourriels(value.value);
-
   }
 
 }

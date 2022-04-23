@@ -116,7 +116,16 @@
   "NEXT_PAGE": "Next page",
   "PREVIOUS_PAGE": "Previous page",
   "LAST_PAGE": "Last page",
-  "OF_LABEL": "of"
+  "OF_LABEL": "of",
+
+  "Filtrer": "Filter",
+  "Liste_Plis": "List of folds I have sent and still active ",
+  "Date_Envoi": "Sending date",
+  "Type": "Type",
+  "Taille": "size",
+  "Fin_Validité": "End of validity",
+  "Liste_Destinataires": "Recipients",
+  "Elément_Récurrent": "Select recurring item page"
 
 
 

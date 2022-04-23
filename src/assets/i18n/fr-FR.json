@@ -61,7 +61,7 @@
   "AdresseRequis": "Une adresse courriel valide est requise (JEAN.DUPONT@EMAIL.COM).",
   "LienRéservé": "le lien est réservé aux agents de l'ETAT, merci d'utiliser la fonctionnalité Courriel",
   "QotaDépassé": "Le quota quotidien d'envoi de l'expéditeur est dépassé",
-  "Message": "Message",
+  "Message": "Message :",
   "CGU": "J'accepte les <a class='link' rel='noopener noreferrer' href='cgu' target='_blank'> CGU</a> et je n'envoie pas de données à caractère personnel ou sensibles non chiffrées au préalable",
 
   "TooltipExpéditeurLien": "l'expéditeur peut être un agent de l'administration française ou un particulier.",
@@ -203,10 +203,12 @@
   "Modalités_Titre": "2. Modalités d’utilisation du Service ",
   "Inscription_Transmission_Titre": "2.1 Inscription et transmission de fichiers constituant le pli",
   "Inscription_Transmission_Texte": "<span>Lors de la connexion sur la page du Service, l’usager du Service fournit l’adresse électronique du ou des destinataire(s) du pli. Chaque destinataire du pli reçoit un courriel indiquant l’adresse électronique de l’émetteur, le nom et la taille du ou des fichiers transmis et la date limite de téléchargement avant suppression du pli ainsi que le mot de passe pour télécharger les fichiers du pli dans un courriel à part. L’usager du Service fournit également une adresse électronique valide, à laquelle sera envoyé un courriel confirmant la transmission du fichier au(x) destinataire(s). </span> <span>Ce courriel indique l’adresse électronique du destinataire ou des destinataires, le nom et la taille du ou des fichiers transmis et la date limite de téléchargement avant suppression du pli.</span> <span>L’utilisation du Service est libre et facultative.</span>",
-  "Données_Sensibles_Titre": "2.2 Données sensibles",
-  "Données_Sensibles_Texte": "<span>Le Service n’est actuellement pas prévu pour l’envoi de données sensibles. </span><br><span>Par données sensibles, on entend :</span>",
-  "Données_Sensibles_Liste": "<li>La catégorie particulière de données à caractère personnel, définie à l’article 6 de la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés. Il s’agit des informations qui révèlent la prétendue origine raciale ou ethnique, les opinions politiques, les convictions religieuses ou philosophiques ou l'appartenance syndicale, ainsi que le traitement des données génétiques, des données biométriques aux fins d'identifier une personne physique de manière unique, des données concernant la santé ou des données concernant la vie sexuelle ou l'orientation sexuelle d'une personne physique.</li> <li>Des données confidentielles ou secrètes (dont la diffusion est censée être limitée à un nombre restreint de personnes identifiées)<b>[que le Ministère n’a pas vocation à recueillir dans le cadre de ses missions]</b>.</li>",
-  "Données_Sensibles_Texte2": "<span>Si l’expéditeur souhaite malgré tout envoyer des données sensibles via le Service, il doit s’assurer de les avoir chiffrées au préalable (via un conteneur Zed par exemple, voir https://www.ssi.gouv.fr/administration/qualification/zed/). </span><br> <span>Si un destinataire du Service constate que des données sensibles ont été transmises sans avoir été chiffrées par l’expéditeur, il peut faire un signalement en utilisant le formulaire de contact en veillant bien à fournir le lien de téléchargement du fichier ou dossier et le mot de passe associé. Le Ministère engagera alors une procédure de mise sous séquestre du pli concerné et procédera à une vérification puis prendra les mesures nécessaires qui s’imposent.</span>",
+  "Données_Sensibles_Titre": "4.2 Données sensibles",
+  "Données_Sensibles_Texte": "<span>Le Service n’est actuellement pas prévu pour l’envoi de données sensibles. Par données sensibles, on entend :</span>",
+
+  "Données_Sensibles_Liste": "<li>La catégorie particulière de données à caractère personnel définie par la réglementation sur la protection des données personnelles. Il s’agit des informations qui révèlent la prétendue origine raciale ou ethnique, les opinions politiques, les convictions religieuses ou philosophiques ou l'appartenance syndicale, ainsi que le traitement des données génétiques, des données biométriques aux fins d'identifier une personne physique de manière unique, des données concernant la santé ou des données concernant la vie sexuelle ou l'orientation sexuelle d'une personne physique.</li> <li>Des données confidentielles ou secrètes (dont la diffusion est censée être limitée à un nombre restreint de personnes identifiées) que le Ministère n’a pas vocation à recueillir dans le cadre de ses missions via cet outil.</b></li>",
+  "Données_Sensibles_Texte2": "<span>Si l’expéditeur souhaite malgré tout envoyer des données sensibles et ce, en conformité avec la réglementation applicable, via le Service, il doit s’assurer de les avoir chiffrées au préalable (via un conteneur Zed par exemple, voir <a rel='noopener noreferrer' href=' https://www.ssi.gouv.fr/administration/qualification/zed/' target='_blank'> https://www.ssi.gouv.fr/administration/qualification/zed/</a>).</span><br> <span>Si un destinataire du Service constate que des données sensibles ont été transmises sans avoir été chiffrées par l’expéditeur, il peut faire un signalement en utilisant le formulaire de contact en veillant bien à fournir le lien de téléchargement du fichier ou dossier et le mot de passe associé. Le Ministère engagera alors une procédure de mise sous séquestre du pli concerné et procédera à une vérification puis prendra les mesures nécessaires qui s’imposent.</span>",
+
   "Données_Techniques_Titre": "3. Données techniques",
   "Généralités_Titre": "3.1 Généralités ",
   "Généralités_Texte": "L'utilisation du Service requiert une connexion et un navigateur internet.",
@@ -321,17 +323,18 @@
   "Oui": "Oui",
 
 
-  "Délai_Validité ": "Délai de validité ",
+  "Délai_Validité": "Délai de validité ",
   "Nombres_Caractères": "12 caractères minimum - 20 caractères maximum",
   "Nombres_Lettres_Minuscules": "Au moins 3 lettres minuscules",
   "Nombres_Lettres_Majuscules": "Au moins 3 lettres majuscules",
   "Nombres_chiffres": "Au moins 3 chiffres",
   "Nombres_Caractères_Spéciaux": "Au moins 3 caractères spéciaux (!@#$%^&*()_-:+)",
-  "Langue_Affichage_Courriels": "langue d'affichage des courriels",
-  "Zip_Mot_Passe": "protéger l'archive Zip de mon pli par mot de passe",
+  "Langue_Affichage_Courriels": "Langue d'affichage des courriels",
+  "Zip_Mot_Passe": "Protéger l'archive Zip de mon pli par mot de passe",
 
   "Ajout_Destinataire": "Ajouter un destinataire",
   "Terminer": "Terminer",
+  "Details": "Administrer le pli",
   "Ouvrir_Menu": "Ouvrir le menu",
   "Retour_Accueil": "Retour à l'accueil",
   "Valide": "Valide",
@@ -359,6 +362,27 @@
   "PREVIOUS_PAGE": "Page précédente",
   "FIRST_PAGE": "Première page",
   "LAST_PAGE": "Dernière page",
-  "OF_LABEL": "sur"
+  "OF_LABEL": "sur",
+
+
+  "Filtrer": "Filtrer",
+  "Liste_Plis": "Liste des plis que j’ai envoyés et toujours actifs ",
+  "Date_Envoi": "Date d'envoi",
+  "Type": "Type",
+  "Taille": "Taille",
+  "Fin_Validité": "Fin de validité",
+  "Liste_Destinataires": "Destinataires",
+  "Elément_Récurrent": "Sélectionner la page de l'élément récurrent",
+
+  "Version2": "version ",
+  "Version_Française": " La version française de cette page fait foi en cas d'écart avec la version de cette page dans une autre langue.",
+  "Information_Personnes_Titre": "4.1 Information des personnes",
+  "Information_Personnes_Texte": "<span>Le ministère de la Culture, responsable du traitement, met en œuvre un traitement de données à caractère personnel vous concernant pour assurer la fourniture du Service France Transfert.</span><br><br><span>Les données collectées sont indispensables à ce traitement et sont destinées aux directions et services concernés du ministère de la Culture, ainsi qu’à son sous-traitant pour les mêmes finalités.</span><br><br><span>La base juridique du traitement est l’intérêt légitime du ministère de la Culture.</span><br><br><span>Les données collectées sont conservées pendant les durées suivantes :</span><br>",
+  "Information_Personnes_Liste": "<li>adresse courriel : en base de données : de 1 à 90 jours selon choix de l’expéditeur (30 jours par défaut) ;</li> <li>logs : 12 mois</li>",
+  "Information_Personnes_Second_Texte": "<span>En application de la réglementation en vigueur, vous disposez d’un droit d’accès, de rectification ou d’effacement, de limitation du traitement de vos données, d’un droit d’opposition ainsi que du droit de définir des directives relatives au sort de vos données après votre décès, qui s’exercent par courrier électronique à delegue-protection-donnees@culture.gouv.fr ou par courrier postal, accompagné de tout titre permettant de justifier de votre identité, à l’adresse suivante : </span><br><br><span>Ministère de la culture </span><br><br><span>À l'attention de Monsieur le Délégué à la protection des données </span><br><br><span>182, rue Saint Honoré </span><br><br><span>75001 Paris </span><br><br><br><span>Vous pouvez contacter le Délégué à la protection des données personnelles désigné par le ministère de la Cultureà l’adresse suivante : delegue-protection-donnees@culture.gouv.fr</span><br><br><br><span>Vous disposez enfin du droit d'introduire une réclamation auprès de la Commission Nationale de l’Informatique et des Libertés (CNIL), autorité de contrôle en charge du respect des obligations en matière de données à caractère personnel.</span><br><br><span>Le ministère de la Cultures’engage à n’opérer aucune commercialisation des informations et documents transmis par l’usager au moyen du Service et à ne pas les communiquer à des tiers, en dehors des cas prévus par la loi.</span><br>",
+  "": "",
+  "": "",
+  "": "",
+  "": ""
 
 }

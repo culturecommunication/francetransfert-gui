@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { map } from 'rxjs/internal/operators/map';
 import { TokenModel } from 'src/app/models/token.model';
@@ -12,20 +12,38 @@ import { environment } from 'src/environments/environment';
 export class AdminService {
 
   adminError$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
-  tokenInfo: BehaviorSubject<TokenModel> = new BehaviorSubject<any>(null);
 
   constructor(private _httpClient: HttpClient) { }
 
-
-  getPlisSent(email: any): any {
-    console.log("getpli")
-    return this._httpClient.get(
-      `${environment.host}${environment.apis.admin.getPlisSent}?senderMail=${email}`
-    ).pipe(map((response: TokenModel) => {
-      this.tokenInfo.next(null);
+  getFileInfosConnect(body: any, enclosureId: string): Observable<any> {
+    const treeBody = {
+      senderMail: body.senderMail,
+      senderToken: body.senderToken,
+    };
+    return this._httpClient.post(
+      `${environment.host}${environment.apis.admin.fileInfosConnect}?enclosure=${enclosureId}`,
+      treeBody
+    ).pipe(map(response => {
+      this.adminError$.next(null);
       return response;
     }),
-      catchError(this.handleError('getPlisSent'))
+      catchError(this.handleError('file-info-connect'))
+    );
+  }
+
+
+  getPlisSent(body: any):  Observable<any>{
+    const treeBody = {
+      senderMail: body.senderMail,
+      senderToken: body.senderToken,
+    };
+    return this._httpClient.post(
+      `${environment.host}${environment.apis.admin.getPlisSent}`,
+       treeBody
+    ).pipe(map((response) => {
+      return response;
+    }),
+      catchError(this.handleError('get-plis-sent'))
     );
   }
 

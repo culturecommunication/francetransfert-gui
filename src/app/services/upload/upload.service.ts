@@ -13,15 +13,11 @@ import { UploadManagerService } from '../upload-manager/upload-manager.service';
 })
 export class UploadService {
 
-  public langueCourriels = new BehaviorSubject('langueCourriels');
-  public langueSelected = new BehaviorSubject('langueSelected');
-
-
   constructor(private _httpClient: HttpClient,
     private uploadManagerService: UploadManagerService,
     private loginService: LoginService) { }
 
-  sendTree(body: any, currentLanguage: any): any {
+  sendTree(body: any): any {
     const trMapping = this._mappingTree(body.transfers);
     const treeBody = {
       confirmedSenderId: '',
@@ -36,7 +32,7 @@ export class UploadService {
       expireDelay: body.expiryDays,
       senderId: body.senderId,
       senderToken: body.senderToken,
-      language: currentLanguage,
+      language: body.langueCourriels,
       zipPassword: body.zipPassword,
 
     };
@@ -47,15 +43,6 @@ export class UploadService {
       }),
       catchError(this.handleError('sendTree'))
     );
-  }
-
-
-  setLangueCourriels(langueCourriels) {
-    this.langueCourriels.next(langueCourriels);
-  }
-
-  setLangue(langueSelected) {
-    this.langueSelected.next(langueSelected);
   }
 
   validateMail(mail: any): Observable<any> {
@@ -73,7 +60,7 @@ export class UploadService {
     );
   }
 
-  validateCode(body: any, currentLanguage: any): any {
+  validateCode(body: any): any {
     const trMapping = this._mappingTree(body.transfers);
     const treeBody = {
       confirmedSenderId: '',
@@ -86,7 +73,7 @@ export class UploadService {
       rootDirs: trMapping.dirs,
       publicLink: body.publicLink,
       expireDelay: body.expiryDays,
-      language: currentLanguage,
+      language: body.langueCourriels,
       zipPassword: body.zipPassword,
 
     };
