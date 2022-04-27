@@ -1,4 +1,10 @@
 <br>
+
+<div *ngIf="!userToken">
+<span class ="error-message">Vous avez été déconnecté(e). Merci de vous connecter de nouveau pour accéder à vos plis.</span>
+</div>
+
+<div *ngIf="userToken">
 <p>{{'Liste_Plis' | translate}}</p>
 
 <mat-form-field appearance="standard">
@@ -78,5 +84,7 @@
                  showFirstLastButtons
                  attr.aria-label="{{'Elément_Récurrent' | translate}}">
   </mat-paginator>
+</div>
+
 </div>
 

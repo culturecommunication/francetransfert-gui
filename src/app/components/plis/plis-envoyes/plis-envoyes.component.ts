@@ -25,7 +25,7 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
   empList: PliModel[] = [];
   displayedColumns: string[] = ['dateEnvoi', 'type', 'objet', 'taille', 'finValidite', 'destinataires', 'token'];
   dataSource = new MatTableDataSource<PliModel>(this.empList);
-
+  userToken: string = this.loginService.tokenInfo.getValue().senderToken;
 
   constructor(public translate: TranslateService,
     private _adminService: AdminService,
@@ -68,12 +68,17 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
   };
 
 
+
+
   //-------------navigate token------------
   navigateTo(enclosureId: String, receiverToken) {
 
-    //this._router.navigate(['/admin'], { state: { example: 'bar' } });
+    this.userToken = this.loginService.tokenInfo.getValue().senderToken;
 
-    console.log("tokenChoisi:", receiverToken )
+
+
+    if(this.userToken != null){
+
     this._adminService.setReceiverToken(receiverToken);
 
     this._router.navigate(['/admin'], {
@@ -81,20 +86,22 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
         enclosure: enclosureId
       },
       state: {
-        //receiverToken: receiverToken
         example: receiverToken
       },
       queryParamsHandling: 'merge',
     });
+    }else{
+      this.ngOnInit();
+    }
   }
 
   ngOnInit(): void {
-
 
     if (!this.loginService.isLoggedIn()) {
       this._router.navigate(['/connect']);
     }
     //---------------get infos--------------
+    if(this.userToken != null){
     this._adminService.getPlisSent(
       {
         senderMail: this.loginService.tokenInfo.getValue().senderMail,
@@ -144,8 +151,6 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
           var str = t.recipientsMails.join(", ");
           let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
 
-          console.log('tokenInfos: ', t.token)
-
                 //---------add to mat-table-------------
                 this.empList.push({
                   dateEnvoi: t.timestamp, type: type, objet: t.subject,
@@ -158,6 +163,9 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
         });
 
       });
+    }else{
+      this.loginService.logout();
+    }
   }
 
   ngAfterViewInit() {

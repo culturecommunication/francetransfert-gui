@@ -93,9 +93,11 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   checkCanSend() {
     this.fileManagerServiceSubscription = this.fileManagerService.hasFiles.subscribe(hasFiles => {
       if (this.selectedTab === 'Courriel') {
+        console.log("this.selectedTab mail", this.selectedTab)
         this.canSend = hasFiles && this.mailFormValid;
       } else {
         if (this.selectedTab === 'Lien') {
+        console.log("this.selectedTab link", this.selectedTab)
           this.canSend = hasFiles && this.linkFormValid;
         }
       }

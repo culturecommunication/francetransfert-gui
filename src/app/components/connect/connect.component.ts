@@ -85,8 +85,14 @@ export class ConnectComponent implements OnInit {
         senderMail: this.email.value
       },
         this.translateService.currentLang).pipe(take(1)).subscribe(x => {
-          this.openSnackBar(4000);
-          this.router.navigate(['/upload']);
+         this.router.navigate(['/upload']);
+
+
+          setTimeout (() => {
+            this.loginService.tokenInfo.getValue().senderToken = null;
+
+         }, 30 * 60 * 1000)
+
         }, err => {
           this.error = err.error;
         });

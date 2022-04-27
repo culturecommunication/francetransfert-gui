@@ -69,28 +69,12 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    // this._adminService.currentReceiverToken.subscribe(receiverToken => {
-    //   this.receiverToken = receiverToken;
-    // });
-
-  //   this._activatedRoute.paramMap
-  //   .pipe(map(() => window.history.state))
-  //   .subscribe(state => {
-  //     this.receiverToken = state && state.receiverToken;
-  // });
-
-
 
     this.initForm();
     this.titleService.setTitle('France transfert - Administration d\'un pli');
     this._activatedRoute.queryParams.pipe(takeUntil(this.onDestroy$)).subscribe((params: Array<{ string: string }>) => {
       this.params = params;
-    //   if (this._router.getCurrentNavigation().extras.state) {
-    // console.log("token init:", this._router.getCurrentNavigation().extras.state);
 
-    //     this.receiverToken = this._router.getCurrentNavigation().extras.state;
-
-    // }
       if (this.params['enclosure'] && this.params['token']) {
         this._adminService
           .getFileInfos(params)
@@ -157,8 +141,6 @@ export class AdminComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(response => {
         if (response) {
-          //window.location.reload();
-          console.log("enclosure id :", body.enclosureId )
           this.ngOnInit();
         }
       });
@@ -175,7 +157,6 @@ export class AdminComponent implements OnInit, OnDestroy {
           "senderMail": this.loginService.tokenInfo.getValue().senderMail,
         }
 
-console.log( "senderMail", this.loginService.tokenInfo.getValue().senderMail)
         this._adminService
           .deleteFile(body)
           .pipe(takeUntil(this.onDestroy$))

@@ -47,6 +47,7 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForm();
+    console.log("type sent preference", this.uploadManagerService.envelopeInfos.getValue().type)
 
   }
 

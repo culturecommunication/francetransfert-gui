@@ -1,3 +1,7 @@
+.error-message{
+  color: var(--ft-error);
+}
+
 @media screen and (min-width: 960px) {
 
 .overflow-clip {
@@ -46,11 +50,6 @@
   flex: none;
   width: 25%;
 }
-
-
-
-
-
 
 }
 
