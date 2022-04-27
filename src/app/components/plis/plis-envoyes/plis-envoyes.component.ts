@@ -25,7 +25,6 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
   empList: PliModel[] = [];
   displayedColumns: string[] = ['dateEnvoi', 'type', 'objet', 'taille', 'finValidite', 'destinataires', 'token'];
   dataSource = new MatTableDataSource<PliModel>(this.empList);
-  userToken: string = this.loginService.tokenInfo.getValue().senderToken;
 
   constructor(public translate: TranslateService,
     private _adminService: AdminService,
@@ -53,7 +52,9 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
   }
 
 
-
+  isLoggedIn() {
+    return this.loginService.isLoggedIn();
+  }
 
 
 
@@ -71,28 +72,14 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
 
 
   //-------------navigate token------------
-  navigateTo(enclosureId: String, receiverToken) {
-
-    this.userToken = this.loginService.tokenInfo.getValue().senderToken;
-
-
-
-    if(this.userToken != null){
-
-    this._adminService.setReceiverToken(receiverToken);
+  navigateTo(enclosureId: String) {
 
     this._router.navigate(['/admin'], {
       queryParams: {
         enclosure: enclosureId
       },
-      state: {
-        example: receiverToken
-      },
       queryParamsHandling: 'merge',
     });
-    }else{
-      this.ngOnInit();
-    }
   }
 
   ngOnInit(): void {
@@ -101,7 +88,6 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
       this._router.navigate(['/connect']);
     }
     //---------------get infos--------------
-    if(this.userToken != null){
     this._adminService.getPlisSent(
       {
         senderMail: this.loginService.tokenInfo.getValue().senderMail,
@@ -146,26 +132,20 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
             type = 'Lien';
           }
 
-
-
           var str = t.recipientsMails.join(", ");
           let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
 
-                //---------add to mat-table-------------
-                this.empList.push({
-                  dateEnvoi: t.timestamp, type: type, objet: t.subject,
-                  taille: tailleStr, finValidite: t.validUntilDate, destinataires: destinataires,
-                  enclosureId: t.enclosureId, typeSize: typeSize,  receiverToken: t.token,
-                });
-
+          //---------add to mat-table-------------
+          this.empList.push({
+            dateEnvoi: t.timestamp, type: type, objet: t.subject,
+            taille: tailleStr, finValidite: t.validUntilDate, destinataires: destinataires,
+            enclosureId: t.enclosureId, typeSize: typeSize, receiverToken: t.token,
+          });
 
           this.dataSource.data = this.empList;
         });
 
       });
-    }else{
-      this.loginService.logout();
-    }
   }
 
   ngAfterViewInit() {

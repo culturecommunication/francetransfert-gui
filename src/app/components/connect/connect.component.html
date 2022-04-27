@@ -10,8 +10,8 @@
       <div class="form-group">
         <mat-form-field>
           <mat-label> {{'VotreCourriel' | translate}} </mat-label>
-          <input type="input" id="sendercourriel" name="email" matInput placeholder="jean.dupont@domaine.fr"
-            formControlName="email" autocomplete="email">
+          <input [readonly]="visible" [disabled]="visible" type="input" id="sendercourriel" name="email" matInput
+            placeholder="jean.dupont@domaine.fr" formControlName="email" autocomplete="email">
           <mat-error role="alert" *ngIf="email.errors?.required && codeSent == false"> {{'ExpéditeurRequis' |
             translate}}
           </mat-error>
