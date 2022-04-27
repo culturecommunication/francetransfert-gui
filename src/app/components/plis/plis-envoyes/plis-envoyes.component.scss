@@ -1,3 +1,7 @@
+.error-message{
+  color: var(--ft-error);
+}
+
 @media screen and (min-width: 960px) {
 
 .overflow-clip {
@@ -6,25 +10,45 @@
   padding: 18px 16px 13px 0px;
 
 }
-.mat-column-objet {
-  flex: none;
-  width: 220px;
-}
+
 
 .mat-column-token {
   flex: none;
-  width: 196px;
+  width: 6.5%;
+  padding-right: 0px;
+}
+
+.mat-column-taille {
+  flex: none;
+  width: 6.5%;
+}
+
+.mat-column-type {
+  flex: none;
+  width: 6.5%;
 }
 
 
 .mat-column-dateEnvoi {
   flex: none;
-  width: 220px;
+  width: 10%;
+}
+
+.mat-column-finValidite {
+  flex: none;
+  width: 10%;
+}
+
+
+
+.mat-column-objet {
+  flex: none;
+  width: 25%;
 }
 
 .mat-column-destinataires {
   flex: none;
-  width: 320px;
+  width: 25%;
 }
 
 }
@@ -95,7 +119,7 @@ mat-cell > span.truncate-text {
 
 
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1000px) {
   .mat-table {
     border: 0;
     vertical-align: middle
@@ -134,7 +158,7 @@ mat-cell > span.truncate-text {
     font-weight: bold;
     height:30px;
     margin-bottom: 4%;
-    padding-right: 55px;
+    padding-right: 12%;;
     padding-left: 24px;
   }
   .mat-table .mat-cell:before {

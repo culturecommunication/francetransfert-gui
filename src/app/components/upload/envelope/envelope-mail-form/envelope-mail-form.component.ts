@@ -55,7 +55,6 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForm();
-
   }
 
   initForm() {

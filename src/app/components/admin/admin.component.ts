@@ -58,13 +58,18 @@ export class AdminComponent implements OnInit, OnDestroy {
     private location: Location,
     private loginService: LoginService,
 
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
+
+
     this.initForm();
+    this.transfers = [];
     this.titleService.setTitle('France transfert - Administration d\'un pli');
     this._activatedRoute.queryParams.pipe(takeUntil(this.onDestroy$)).subscribe((params: Array<{ string: string }>) => {
       this.params = params;
+
       if (this.params['enclosure'] && this.params['token']) {
         this._adminService
           .getFileInfos(params)
@@ -123,15 +128,16 @@ export class AdminComponent implements OnInit, OnDestroy {
     let formattedDate = moment(this.validUntilDate.value).format('DD-MM-yyyy');
     const body = {
       "enclosureId": this.params['enclosure'],
-      "token": this.params['token'],
-      "newDate": formattedDate
+      "token": this.params['token'] ? this.params['token'] : this.loginService.tokenInfo.getValue().senderToken,
+      "newDate": formattedDate,
+      "senderMail": this.loginService.tokenInfo.getValue() ? this.loginService.tokenInfo.getValue().senderMail : null,
     }
     this._adminService
       .updateExpiredDate(body)
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(response => {
         if (response) {
-          window.location.reload();
+          this.ngOnInit();
         }
       });
   }
@@ -140,12 +146,25 @@ export class AdminComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(AdminAlertDialogComponent, { data: 'deletePli' });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+
+        const body = {
+          "enclosureId": this.params['enclosure'],
+          "token": this.params['token'] ? this.params['token'] : this.loginService.tokenInfo.getValue().senderToken,
+          "senderMail": this.loginService.tokenInfo.getValue().senderMail,
+        }
+
         this._adminService
-          .deleteFile(this.params)
+          .deleteFile(body)
           .pipe(takeUntil(this.onDestroy$))
           .subscribe(response => {
             if (response) {
-              this._router.navigate(['/upload']);
+              if (this.params['token'] == null) {
+                this.location.back();
+              }
+              else {
+                this._router.navigate(['/upload']);
+
+              }
             }
           });
       }
@@ -164,8 +183,9 @@ export class AdminComponent implements OnInit, OnDestroy {
       if (result) {
         const body = {
           "enclosureId": this.params['enclosure'],
-          "token": this.params['token'],
+          "token": this.params['token'] ? this.params['token'] : this.loginService.tokenInfo.getValue().senderToken,
           "newRecipient": dest,
+          "senderMail": this.loginService.tokenInfo.getValue() ? this.loginService.tokenInfo.getValue().senderMail : null,
         }
         this._adminService.deleteRecipient(body).
           pipe(takeUntil(this.onDestroy$))
@@ -255,8 +275,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   addNewRecipient(email: any) {
     const body = {
       "enclosureId": this.params['enclosure'],
-      "token": this.params['token'],
+      "token": this.params['token'] ? this.params['token'] : this.loginService.tokenInfo.getValue().senderToken,
       "newRecipient": email,
+      "senderMail": this.loginService.tokenInfo.getValue() ? this.loginService.tokenInfo.getValue().senderMail : null,
     }
     this._adminService
       .addNewRecipient(body)

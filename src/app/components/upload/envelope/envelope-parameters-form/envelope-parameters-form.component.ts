@@ -47,7 +47,6 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForm();
-
   }
 
   initForm() {

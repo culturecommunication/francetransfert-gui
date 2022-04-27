@@ -59,6 +59,9 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit(): void {
+
+
+
     this.titleService.setTitle('France transfert - Téléversement');
     this.onResize();
     this.flowConfig = FLOW_CONFIG;

@@ -32,14 +32,14 @@ export class AdminService {
   }
 
 
-  getPlisSent(body: any):  Observable<any>{
+  getPlisSent(body: any): Observable<any> {
     const treeBody = {
       senderMail: body.senderMail,
       senderToken: body.senderToken,
     };
     return this._httpClient.post(
       `${environment.host}${environment.apis.admin.getPlisSent}`,
-       treeBody
+      treeBody
     ).pipe(map((response) => {
       return response;
     }),
@@ -59,9 +59,11 @@ export class AdminService {
     );
   }
 
-  deleteFile(params: Array<{ string: string }>) {
-    return this._httpClient.get(
-      `${environment.host}${environment.apis.admin.deleteFile}?enclosure=${params['enclosure']}&token=${params['token']}`
+  deleteFile(body) {
+
+    return this._httpClient.post(
+      `${environment.host}${environment.apis.admin.deleteFile}`,
+      body
     ).pipe(map(response => {
       this.adminError$.next(null);
       return response;
@@ -74,7 +76,8 @@ export class AdminService {
     return this._httpClient.post(`${environment.host}${environment.apis.admin.updateExpiredDate}`, {
       enclosureId: body.enclosureId,
       newDate: body.newDate,
-      token: body.token
+      token: body.token,
+      senderMail: body.senderMail,
     }).pipe(map(response => {
       this.adminError$.next(null);
       return response;
@@ -87,11 +90,12 @@ export class AdminService {
     return this._httpClient.post(`${environment.host}${environment.apis.admin.addNewRecipient}`, {
       enclosureId: body.enclosureId,
       token: body.token,
-      newRecipient: body.newRecipient
+      newRecipient: body.newRecipient,
+      senderMail: body.senderMail,
     }).pipe(map(response => {
-        this.adminError$.next(null);
-        return response;
-      }),
+      this.adminError$.next(null);
+      return response;
+    }),
       catchError(this.handleError('add-new-Recipient'))
     );
   }
@@ -100,11 +104,12 @@ export class AdminService {
     return this._httpClient.post(`${environment.host}${environment.apis.admin.deleteRecipient}`, {
       enclosureId: body.enclosureId,
       token: body.token,
-      newRecipient: body.newRecipient
+      newRecipient: body.newRecipient,
+      senderMail: body.senderMail,
     }).pipe(map(response => {
-        this.adminError$.next(null);
-        return response;
-      }),
+      this.adminError$.next(null);
+      return response;
+    }),
       catchError(this.handleError('delete-Recipient'))
     );
   }

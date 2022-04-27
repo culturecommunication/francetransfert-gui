@@ -26,7 +26,6 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
   displayedColumns: string[] = ['dateEnvoi', 'type', 'objet', 'taille', 'finValidite', 'destinataires', 'token'];
   dataSource = new MatTableDataSource<PliModel>(this.empList);
 
-
   constructor(public translate: TranslateService,
     private _adminService: AdminService,
     private loginService: LoginService,
@@ -53,7 +52,9 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
   }
 
 
-
+  isLoggedIn() {
+    return this.loginService.isLoggedIn();
+  }
 
 
 
@@ -68,6 +69,8 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
   };
 
 
+
+
   //-------------navigate token------------
   navigateTo(enclosureId: String) {
 
@@ -80,7 +83,6 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
   }
 
   ngOnInit(): void {
-
 
     if (!this.loginService.isLoggedIn()) {
       this._router.navigate(['/connect']);
@@ -107,18 +109,18 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
           let tailleDirs = sizeDir.reduce((a, b) => a + b, 0) / 1024;
           let taille = tailleDirs + tailleFiles;
           let tailleStr = "";
-          let typeSize = 'GO';
+          let typeSize = 'Go';
           if (taille >= 1100000) {
             tailleStr = (taille / 1000000).toFixed(2);
-            typeSize = 'GO';
+            typeSize = 'Go';
 
           } else if (taille >= 1100) {
             tailleStr = (taille / 1000).toFixed(2);
-            typeSize = 'MO';
+            typeSize = 'Mo';
           }
           else {
             tailleStr = taille.toFixed(2);
-            typeSize = 'KO';
+            typeSize = 'Ko';
           }
 
           //-----------condition on type-----------
@@ -130,11 +132,8 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
             type = 'Lien';
           }
 
-
-
           var str = t.recipientsMails.join(", ");
           let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
-
 
           //---------add to mat-table-------------
           this.empList.push({
@@ -142,6 +141,7 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
             taille: tailleStr, finValidite: t.validUntilDate, destinataires: destinataires,
             enclosureId: t.enclosureId, typeSize: typeSize
           });
+
           this.dataSource.data = this.empList;
         });
 
