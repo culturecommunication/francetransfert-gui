@@ -57,7 +57,15 @@
         <mat-header-cell *matHeaderCellDef >  {{'Action' | translate}}</mat-header-cell>
         <mat-cell  *matCellDef="let element"  attr.data-label="{{'Action' | translate}}">
           <mat-icon matTooltip="{{'Details' | translate}}" style="color: black;cursor: pointer;"
-          (click)="navigateTo(element.enclosureId)"  attr.aria-label="{{'Details' | translate}}">edit</mat-icon>
+          (click)="navigateTo(element.enclosureId, element.receiverToken)"
+
+
+          attr.aria-label="{{'Details' | translate}}"
+          >edit</mat-icon>
+
+          <!-- (click)="navigateTo(element.enclosureId, element.token)"   -->
+          <!-- [routerLink]="['/admin', element.enclosureId]"
+          [state]="{ receiverToken: element.token }" -->
 
            </mat-cell>
       </ng-container>

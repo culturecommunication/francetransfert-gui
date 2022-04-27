@@ -69,11 +69,20 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
 
 
   //-------------navigate token------------
-  navigateTo(enclosureId: String) {
+  navigateTo(enclosureId: String, receiverToken) {
+
+    //this._router.navigate(['/admin'], { state: { example: 'bar' } });
+
+    console.log("tokenChoisi:", receiverToken )
+    this._adminService.setReceiverToken(receiverToken);
 
     this._router.navigate(['/admin'], {
       queryParams: {
         enclosure: enclosureId
+      },
+      state: {
+        //receiverToken: receiverToken
+        example: receiverToken
       },
       queryParamsHandling: 'merge',
     });
@@ -107,18 +116,18 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
           let tailleDirs = sizeDir.reduce((a, b) => a + b, 0) / 1024;
           let taille = tailleDirs + tailleFiles;
           let tailleStr = "";
-          let typeSize = 'GO';
+          let typeSize = 'Go';
           if (taille >= 1100000) {
             tailleStr = (taille / 1000000).toFixed(2);
-            typeSize = 'GO';
+            typeSize = 'Go';
 
           } else if (taille >= 1100) {
             tailleStr = (taille / 1000).toFixed(2);
-            typeSize = 'MO';
+            typeSize = 'Mo';
           }
           else {
             tailleStr = taille.toFixed(2);
-            typeSize = 'KO';
+            typeSize = 'Ko';
           }
 
           //-----------condition on type-----------
@@ -135,13 +144,16 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
           var str = t.recipientsMails.join(", ");
           let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
 
+          console.log('tokenInfos: ', t.token)
 
-          //---------add to mat-table-------------
-          this.empList.push({
-            dateEnvoi: t.timestamp, type: type, objet: t.subject,
-            taille: tailleStr, finValidite: t.validUntilDate, destinataires: destinataires,
-            enclosureId: t.enclosureId, typeSize: typeSize
-          });
+                //---------add to mat-table-------------
+                this.empList.push({
+                  dateEnvoi: t.timestamp, type: type, objet: t.subject,
+                  taille: tailleStr, finValidite: t.validUntilDate, destinataires: destinataires,
+                  enclosureId: t.enclosureId, typeSize: typeSize,  receiverToken: t.token,
+                });
+
+
           this.dataSource.data = this.empList;
         });
 

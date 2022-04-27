@@ -45,6 +45,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   envelopeDestForm: FormGroup;
   public selectedDate: Date = new Date();
   enclosureId = '';
+  receiverToken :any;
 
 
 
@@ -58,13 +59,38 @@ export class AdminComponent implements OnInit, OnDestroy {
     private location: Location,
     private loginService: LoginService,
 
-  ) { }
+  ) {
+
+     if (this._router.getCurrentNavigation().extras.state) {
+
+    this.receiverToken =  this._router.getCurrentNavigation().extras.state.example;
+     }
+}
 
   ngOnInit(): void {
+
+    // this._adminService.currentReceiverToken.subscribe(receiverToken => {
+    //   this.receiverToken = receiverToken;
+    // });
+
+  //   this._activatedRoute.paramMap
+  //   .pipe(map(() => window.history.state))
+  //   .subscribe(state => {
+  //     this.receiverToken = state && state.receiverToken;
+  // });
+
+
+
     this.initForm();
     this.titleService.setTitle('France transfert - Administration d\'un pli');
     this._activatedRoute.queryParams.pipe(takeUntil(this.onDestroy$)).subscribe((params: Array<{ string: string }>) => {
       this.params = params;
+    //   if (this._router.getCurrentNavigation().extras.state) {
+    // console.log("token init:", this._router.getCurrentNavigation().extras.state);
+
+    //     this.receiverToken = this._router.getCurrentNavigation().extras.state;
+
+    // }
       if (this.params['enclosure'] && this.params['token']) {
         this._adminService
           .getFileInfos(params)
@@ -123,7 +149,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     let formattedDate = moment(this.validUntilDate.value).format('DD-MM-yyyy');
     const body = {
       "enclosureId": this.params['enclosure'],
-      "token": this.params['token'],
+      "token":  this.params['token']?  this.params['token']: this.receiverToken,
       "newDate": formattedDate
     }
     this._adminService
@@ -131,7 +157,9 @@ export class AdminComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(response => {
         if (response) {
-          window.location.reload();
+          //window.location.reload();
+          console.log("enclosure id :", body.enclosureId )
+          this.ngOnInit();
         }
       });
   }
@@ -140,12 +168,26 @@ export class AdminComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(AdminAlertDialogComponent, { data: 'deletePli' });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+
+        const body = {
+          "enclosureId": this.params['enclosure'],
+          "token":  this.params['token']?  this.params['token']: this.receiverToken,
+          "senderMail": this.loginService.tokenInfo.getValue().senderMail,
+        }
+
+console.log( "senderMail", this.loginService.tokenInfo.getValue().senderMail)
         this._adminService
-          .deleteFile(this.params)
+          .deleteFile(body)
           .pipe(takeUntil(this.onDestroy$))
           .subscribe(response => {
             if (response) {
-              this._router.navigate(['/upload']);
+              if( this.params['token'] == null){
+                this.location.back();
+              }
+              else {
+                this._router.navigate(['/upload']);
+
+              }
             }
           });
       }
@@ -164,7 +206,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       if (result) {
         const body = {
           "enclosureId": this.params['enclosure'],
-          "token": this.params['token'],
+          "token":  this.params['token']?  this.params['token']: this.receiverToken,
           "newRecipient": dest,
         }
         this._adminService.deleteRecipient(body).
@@ -255,7 +297,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   addNewRecipient(email: any) {
     const body = {
       "enclosureId": this.params['enclosure'],
-      "token": this.params['token'],
+      "token":  this.params['token']?  this.params['token']: this.receiverToken,
       "newRecipient": email,
     }
     this._adminService

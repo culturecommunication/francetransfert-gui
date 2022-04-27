@@ -12,6 +12,16 @@ import { environment } from 'src/environments/environment';
 export class AdminService {
 
   adminError$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
+  //public receiverToken = new BehaviorSubject(null);
+
+  private receiverToken = new BehaviorSubject('');
+  currentReceiverToken = this.receiverToken.asObservable();
+
+
+  setReceiverToken(receiverToken) {
+    this.receiverToken.next(receiverToken);
+  }
+
 
   constructor(private _httpClient: HttpClient) { }
 
@@ -59,9 +69,10 @@ export class AdminService {
     );
   }
 
-  deleteFile(params: Array<{ string: string }>) {
+  deleteFile(body) {
+
     return this._httpClient.get(
-      `${environment.host}${environment.apis.admin.deleteFile}?enclosure=${params['enclosure']}&token=${params['token']}`
+      `${environment.host}${environment.apis.admin.deleteFile}?enclosure=${body.enclosureId}&token=${body.token}&senderMail=${body.senderMail}`
     ).pipe(map(response => {
       this.adminError$.next(null);
       return response;
