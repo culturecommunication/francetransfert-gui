@@ -8,5 +8,4 @@ export class PliModel {
   destinataires?: Array<String>;
   enclosureId: string;
   typeSize: string;
-  receiverToken: string;
 }

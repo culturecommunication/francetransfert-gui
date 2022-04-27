@@ -139,7 +139,7 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
           this.empList.push({
             dateEnvoi: t.timestamp, type: type, objet: t.subject,
             taille: tailleStr, finValidite: t.validUntilDate, destinataires: destinataires,
-            enclosureId: t.enclosureId, typeSize: typeSize, receiverToken: t.token,
+            enclosureId: t.enclosureId, typeSize: typeSize
           });
 
           this.dataSource.data = this.empList;
