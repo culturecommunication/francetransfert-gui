@@ -55,8 +55,6 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForm();
-    console.log("type sent mail", this.uploadManagerService.envelopeInfos.getValue().type)
-
   }
 
   initForm() {
