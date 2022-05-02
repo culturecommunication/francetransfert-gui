@@ -57,11 +57,9 @@
         <ng-container matColumnDef="destinataires">
           <mat-header-cell *matHeaderCellDef> {{'Liste_Destinataires' | translate}}</mat-header-cell>
           <mat-cell *matCellDef="let element" attr.data-label="{{'Liste_Destinataires' | translate}}">
-            <ng-container *ngFor="let dest of element.destinataires">
-              <div class="overflow-clip">
-                {{dest}}
-              </div>
-            </ng-container>
+            <div class="overflow-clip">
+              {{element.destinataires}}
+            </div>
           </mat-cell>
         </ng-container>
 

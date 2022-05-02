@@ -8,14 +8,9 @@
     }
   }
 
-  .mat-row {
-    max-height: 25vh;
-  }
   .mat-column-destinataires {
     display: flex;
     flex-wrap: wrap;
-    overflow: auto;
-    max-height: 25vh;
   }
 
   .error-message {
@@ -29,25 +24,6 @@
     color: var(--ft-error);
   }
 
-  .overflow-clip {
-    text-overflow: ellipsis;
-    width: 90%;
-    padding: 0.2em 0;
-    overflow: auto;
-  }
-
-  .mat-column-dateEnvoi {
-    min-width: 4.8rem;
-  }
-
-  .mat-column-finValidite {
-    min-width: 4.8rem;
-  }
-
-  .mat-column-type {
-    max-width: 3rem;
-  }  
-
   mat-cell > span.truncate-text {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -59,7 +35,108 @@
     width: 100px;
   }
 
-  .mat-width {
-    width: 112%;
+  .overflow-clip {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+  }
+
+  @media screen and (min-width: 640px) {
+    // .overflow-clip {
+    //   text-overflow: ellipsis;
+    //   width: 90%;
+    //   padding: 0.2em 0;
+    //   overflow: auto;
+    // }
+
+    .mat-width {
+      width: 112%;
+    }
+
+    .mat-row {
+      max-height: 25vh;
+    }
+
+    .mat-column-objet {
+      flex-grow: 2;
+    }
+
+    .mat-column-destinataires {
+      display: flex;
+      flex-wrap: wrap;
+      overflow: auto;
+      flex-grow: 3;
+      max-height: 15vh;
+    }
+
+    .mat-column-dateEnvoi {
+      flex-grow: 0;
+      flex-basis: 5.1rem;
+    }
+
+    .mat-column-finValidite {
+      flex-grow: 0;
+      flex-basis: 5.1rem;
+    }
+
+    .mat-column-type {
+      flex-grow: 0;
+      flex-basis: 3.2rem;
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    .mat-table {
+      border: 0;
+      vertical-align: middle;
+    }
+
+    .mat-table caption {
+      font-size: 1em;
+    }
+
+    // Enable this to hide header
+    .mat-table .mat-header-cell {
+      border: 10px solid;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    .mat-table .mat-header-row {
+      min-height: 0px;
+    }
+
+    .mat-table .mat-row {
+      border-bottom: 5px solid #ddd;
+      display: block;
+    }
+    .mat-table .mat-cell {
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      font-size: 1em;
+      text-align: right;
+      font-weight: bold;
+      height: 30px;
+      margin-bottom: 4%;
+      padding-left: 24px;
+    }
+    .mat-table .mat-cell:before {
+      content: attr(data-label);
+      margin-right: auto;
+      //text-transform: uppercase;
+      font-weight: normal;
+      font-size: 0.85em;
+    }
+    .mat-table .mat-cell:last-child {
+      border-bottom: 0;
+    }
+    .mat-table .mat-cell:first-child {
+      margin-top: 4%;
+    }
   }
 }
