@@ -1,13 +1,14 @@
-import { ChangeDetectorRef, Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
-import { AdminService, DownloadService } from 'src/app/services';
+import { AdminService, ResponsiveService } from 'src/app/services';
 import { LoginService } from 'src/app/services/login/login.service';
-import { Subject, take, takeUntil } from 'rxjs';
+import { take } from 'rxjs';
 import { PliModel } from 'src/app/models/pli.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'ft-plis-envoyes',
@@ -16,20 +17,21 @@ import { MatSort } from '@angular/material/sort';
 })
 export class PlisEnvoyesComponent extends MatPaginatorIntl {
 
-
-
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   OF_LABEL: any;
   empList: PliModel[] = [];
   displayedColumns: string[] = ['dateEnvoi', 'type', 'objet', 'taille', 'finValidite', 'destinataires', 'token'];
   dataSource = new MatTableDataSource<PliModel>(this.empList);
+  responsiveSubscription: Subscription = new Subscription();
+  isMobile;
+  screenWidth;
 
   constructor(public translate: TranslateService,
     private _adminService: AdminService,
     private loginService: LoginService,
     private _router: Router,
+    private responsiveService: ResponsiveService,
   ) {
     super();
     this.translate.onLangChange.subscribe((e: Event) => {
@@ -48,6 +50,11 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
 
   ngOnInit(): void {
 
+    this.responsiveSubscription = this.responsiveService.getMobileStatus().subscribe(isMobile => {
+      this.isMobile = isMobile;
+      this.screenWidth = this.responsiveService.screenWidth;
+    });
+
     if (!this.loginService.isLoggedIn()) {
       this.navigateToConnect();
     }
@@ -59,60 +66,65 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
       }
 
     ).pipe(take(1)).subscribe(
-      fileInfos => {
-        fileInfos.forEach(t => {
-          //----------size of files------------
+      {
+        next: (fileInfos) => {
+          {
+            fileInfos.forEach(t => {
+              //----------size of files------------
 
-          //TODO MOVE THIS TO BACK
-          let size = t.rootFiles.map(n => n.size);
-          let sizeDir = t.rootDirs.map(n => n.totalSize);
+              //TODO MOVE THIS TO BACK
+              let size = t.rootFiles.map(n => n.size);
+              let sizeDir = t.rootDirs.map(n => n.totalSize);
 
-          let tailleFiles = size.reduce((a, b) => a + b, 0) / 1024;
-          let tailleDirs = sizeDir.reduce((a, b) => a + b, 0) / 1024;
-          let taille = tailleDirs + tailleFiles;
-          let tailleStr = "";
-          let typeSize = 'Go';
-          if (taille >= 1100000) {
-            tailleStr = (taille / 1000000).toFixed(2);
-            typeSize = 'Go';
+              let tailleFiles = size.reduce((a, b) => a + b, 0) / 1024;
+              let tailleDirs = sizeDir.reduce((a, b) => a + b, 0) / 1024;
+              let taille = tailleDirs + tailleFiles;
+              let tailleStr = "";
+              let typeSize = 'Go';
+              if (taille >= 1100000) {
+                tailleStr = (taille / 1000000).toFixed(2);
+                typeSize = 'Go';
 
-          } else if (taille >= 1100) {
-            tailleStr = (taille / 1000).toFixed(2);
-            typeSize = 'Mo';
+              } else if (taille >= 1100) {
+                tailleStr = (taille / 1000).toFixed(2);
+                typeSize = 'Mo';
+              }
+              else {
+                tailleStr = taille.toFixed(2);
+                typeSize = 'Ko';
+              }
+
+              //-----------condition on type-----------
+              let type = "";
+              if (t.recipientsMails != null && t.recipientsMails != '' && t.recipientsMails != undefined) {
+                type = 'Courriel';
+              }
+              else {
+                type = 'Lien';
+              }
+
+              //var str = t.recipientsMails.join(", ");
+              //let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
+
+
+              //---------add to mat-table-------------
+              this.empList.push({
+                dateEnvoi: t.timestamp, type: type, objet: t.subject,
+                taille: tailleStr, finValidite: t.validUntilDate, destinataires: t.recipientsMails,
+                enclosureId: t.enclosureId, typeSize: typeSize
+              });
+
+              this.dataSource.data = this.empList;
+            });
+
           }
-          else {
-            tailleStr = taille.toFixed(2);
-            typeSize = 'Ko';
-          }
-
-          //-----------condition on type-----------
-          let type = "";
-          if (t.recipientsMails != null && t.recipientsMails != '' && t.recipientsMails != undefined) {
-            type = 'Courriel';
-          }
-          else {
-            type = 'Lien';
-          }
-
-          //var str = t.recipientsMails.join(", ");
-          //let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
-
-
-          //---------add to mat-table-------------
-          this.empList.push({
-            dateEnvoi: t.timestamp, type: type, objet: t.subject,
-            taille: tailleStr, finValidite: t.validUntilDate, destinataires: t.recipientsMails,
-            enclosureId: t.enclosureId, typeSize: typeSize
-          });
-
-          this.dataSource.data = this.empList;
-        });
-
-      },
-      error => {
-        this.navigateToConnect();
-        console.error(error);
-      });
+        },
+        error: (err) => {
+          console.error(err);
+          this.navigateToConnect();
+        }
+      }
+    );
   }
 
   //----------traduction----------
@@ -171,6 +183,10 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  ngOnDestroy() {
+    this.responsiveSubscription.unsubscribe();
   }
 
 }
