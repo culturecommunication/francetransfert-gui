@@ -21,7 +21,7 @@
           <mat-header-cell *matHeaderCellDef> {{'Date_Envoi' | translate}}</mat-header-cell>
           <mat-cell *matCellDef="let element" attr.data-label="{{'Date_Envoi' | translate}}"> {{element.dateEnvoi |
             date:
-            'short': '' : translate.currentLang}} </mat-cell>
+            'shortDate': '' : translate.currentLang}} </mat-cell>
         </ng-container>
 
         <!-- Type Column -->
@@ -50,7 +50,7 @@
           <mat-header-cell *matHeaderCellDef> {{'Fin_Validité' | translate}}</mat-header-cell>
           <mat-cell *matCellDef="let element" attr.data-label="{{'Fin_Validité' | translate}}"> {{element.finValidite |
             date:
-            'short': '' : translate.currentLang}} </mat-cell>
+            'shortDate': '' : translate.currentLang}} </mat-cell>
         </ng-container>
 
         <!-- Destinataires Column -->
