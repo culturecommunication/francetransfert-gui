@@ -38,6 +38,83 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
     this.getAndInitTranslations();
   }
 
+  navigateToConnect() {
+    this.loginService.logout();
+  }
+
+  navigateToLogin() {
+    this._router.navigate(['/connect']);
+  }
+
+  ngOnInit(): void {
+
+    if (!this.loginService.isLoggedIn()) {
+      this.navigateToConnect();
+    }
+    //---------------get infos--------------
+    this._adminService.getPlisSent(
+      {
+        senderMail: this.loginService.tokenInfo.getValue().senderMail,
+        senderToken: this.loginService.tokenInfo.getValue().senderToken
+      }
+
+    ).pipe(take(1)).subscribe(
+      fileInfos => {
+        fileInfos.forEach(t => {
+          //----------size of files------------
+
+          //TODO MOVE THIS TO BACK
+          let size = t.rootFiles.map(n => n.size);
+          let sizeDir = t.rootDirs.map(n => n.totalSize);
+
+          let tailleFiles = size.reduce((a, b) => a + b, 0) / 1024;
+          let tailleDirs = sizeDir.reduce((a, b) => a + b, 0) / 1024;
+          let taille = tailleDirs + tailleFiles;
+          let tailleStr = "";
+          let typeSize = 'Go';
+          if (taille >= 1100000) {
+            tailleStr = (taille / 1000000).toFixed(2);
+            typeSize = 'Go';
+
+          } else if (taille >= 1100) {
+            tailleStr = (taille / 1000).toFixed(2);
+            typeSize = 'Mo';
+          }
+          else {
+            tailleStr = taille.toFixed(2);
+            typeSize = 'Ko';
+          }
+
+          //-----------condition on type-----------
+          let type = "";
+          if (t.recipientsMails != null && t.recipientsMails != '' && t.recipientsMails != undefined) {
+            type = 'Courriel';
+          }
+          else {
+            type = 'Lien';
+          }
+
+          //var str = t.recipientsMails.join(", ");
+          //let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
+
+
+          //---------add to mat-table-------------
+          this.empList.push({
+            dateEnvoi: t.timestamp, type: type, objet: t.subject,
+            taille: tailleStr, finValidite: t.validUntilDate, destinataires: t.recipientsMails,
+            enclosureId: t.enclosureId, typeSize: typeSize
+          });
+
+          this.dataSource.data = this.empList;
+        });
+
+      },
+      error => {
+        this.navigateToConnect();
+        console.error(error);
+      });
+  }
+
   //----------traduction----------
   getAndInitTranslations() {
     this.translate.get(['ITEMS_PER_PAGE', 'NEXT_PAGE', 'PREVIOUS_PAGE', 'OF_LABEL', 'LAST_PAGE', 'FIRST_PAGE']).subscribe(translation => {
@@ -82,70 +159,8 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
     });
   }
 
-  ngOnInit(): void {
-
-    if (!this.loginService.isLoggedIn()) {
-      this._router.navigate(['/connect']);
-    }
-    //---------------get infos--------------
-    this._adminService.getPlisSent(
-      {
-        senderMail: this.loginService.tokenInfo.getValue().senderMail,
-        senderToken: this.loginService.tokenInfo.getValue().senderToken
-      }
-
-    ).pipe(take(1)).subscribe(
-      fileInfos => {
-        fileInfos.forEach(t => {
-          //----------size of files------------
-
-          //TODO MOVE THIS TO BACK
-
-          let files = t.rootFiles.map(n => n.name);
-          let size = t.rootFiles.map(n => n.size);
-          let sizeDir = t.rootDirs.map(n => n.totalSize);
-
-          let tailleFiles = size.reduce((a, b) => a + b, 0) / 1024;
-          let tailleDirs = sizeDir.reduce((a, b) => a + b, 0) / 1024;
-          let taille = tailleDirs + tailleFiles;
-          let tailleStr = "";
-          let typeSize = 'Go';
-          if (taille >= 1100000) {
-            tailleStr = (taille / 1000000).toFixed(2);
-            typeSize = 'Go';
-
-          } else if (taille >= 1100) {
-            tailleStr = (taille / 1000).toFixed(2);
-            typeSize = 'Mo';
-          }
-          else {
-            tailleStr = taille.toFixed(2);
-            typeSize = 'Ko';
-          }
-
-          //-----------condition on type-----------
-          let type = "";
-          if (t.recipientsMails != null && t.recipientsMails != '' && t.recipientsMails != undefined) {
-            type = 'Courriel';
-          }
-          else {
-            type = 'Lien';
-          }
-
-          var str = t.recipientsMails.join(", ");
-          let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
-
-          //---------add to mat-table-------------
-          this.empList.push({
-            dateEnvoi: t.timestamp, type: type, objet: t.subject,
-            taille: tailleStr, finValidite: t.validUntilDate, destinataires: destinataires,
-            enclosureId: t.enclosureId, typeSize: typeSize
-          });
-
-          this.dataSource.data = this.empList;
-        });
-
-      });
+  backToHome() {
+    this._router.navigate(['/upload']);
   }
 
   ngAfterViewInit() {
