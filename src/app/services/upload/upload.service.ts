@@ -135,9 +135,9 @@ export class UploadService {
     if (file.path.length === 0) {
       data.files.push({ name: file.name, size: file.size, fid: file.fid });
     } else {
-      const parent = file.path.split('/')[0];
-      file.path = file.path.replace(`${parent}/`, '');
-      file.path = file.path.replace(`${parent}`, '');
+      const pathArray = file.path.split('/');
+      const parent = pathArray[0];
+      file.path = pathArray.slice(1).join('/');
       if (this._dirIndex(data.dirs, parent) !== -1) {
         data.dirs[this._dirIndex(data.dirs, parent)].totalSize =
           data.dirs[this._dirIndex(data.dirs, parent)].totalSize + file.size;
@@ -156,7 +156,7 @@ export class UploadService {
   }
 
   private _dirIndex(tab: Array<any>, name: string): number {
-    return tab.findIndex(dir => dir.name == name);
+    return tab.findIndex(dir => dir.name == name || dir.name == name + '/');
   }
 
   private handleError(operation: string) {

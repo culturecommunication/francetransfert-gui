@@ -84,12 +84,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       this.checkConnect = checkConnect;
     });
 
-
-    /* this.languageSelectionService.selectedLanguage.subscribe(langueCourriels => {
-      this.langueCourriels = langueCourriels.code;
-      console.log("langue upload:", this.langueCourriels)
-    }); */
-
   }
 
   ngAfterViewInit() {
