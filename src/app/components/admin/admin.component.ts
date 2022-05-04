@@ -184,7 +184,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         const body = {
           "enclosureId": this.params['enclosure'],
           "token": this.params['token'] ? this.params['token'] : this.loginService.tokenInfo.getValue().senderToken,
-          "newRecipient": dest,
+          "newRecipient": dest.recipientMail,
           "senderMail": this.loginService.tokenInfo.getValue() ? this.loginService.tokenInfo.getValue().senderMail : null,
         }
         this._adminService.deleteRecipient(body).
@@ -284,7 +284,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(response => {
         if (response) {
-          this.fileInfos.recipientsMails.push(email);
+          this.fileInfos.recipientsMails.push({ recipientMail: email, numberOfDownloadPerRecipient: 0 });
           for (let i = 0; i < this.fileInfos.deletedRecipients.length; i++) {
             if (this.fileInfos.deletedRecipients[i] === email) {
               this.fileInfos.deletedRecipients.splice(i, 1);

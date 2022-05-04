@@ -13,6 +13,12 @@
     flex-wrap: wrap;
   }
 
+  .center-vertical {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+  }
+
   .error-message {
     display: flex;
     font-size: larger;

@@ -7,5 +7,4 @@ export class PliModel {
   finValidite: string;
   destinataires?: Array<String>;
   enclosureId: string;
-  typeSize: string;
 }

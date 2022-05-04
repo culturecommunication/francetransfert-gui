@@ -103,15 +103,15 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
                   type = 'Lien';
                 }
 
-                const destinataires = t.recipientsMails.join(", ");
+                const destinataires = t.recipientsMails.map(n => n.recipientMail).join(", ");
                 //let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
 
 
                 //---------add to mat-table-------------
                 this.empList.push({
                   dateEnvoi: t.timestamp, type: type, objet: t.subject,
-                  taille: tailleStr, finValidite: t.validUntilDate, destinataires: destinataires,
-                  enclosureId: t.enclosureId, typeSize: typeSize
+                  taille: t.totalSize, finValidite: t.validUntilDate, destinataires: destinataires,
+                  enclosureId: t.enclosureId
                 });
 
                 this.dataSource.data = this.empList;
