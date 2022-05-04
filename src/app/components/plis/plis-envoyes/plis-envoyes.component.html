@@ -34,7 +34,10 @@
         <ng-container matColumnDef="objet">
           <mat-header-cell *matHeaderCellDef class="overflow-clip-header"> {{'Objet' | translate}}</mat-header-cell>
           <mat-cell *matCellDef="let element" attr.data-label="{{'Objet' | translate}}" class="overflow-clip">
-            {{element.objet}} </mat-cell>
+            <div class="overflow-clip">
+              {{element.objet}}
+            </div>
+          </mat-cell>
         </ng-container>
 
 
