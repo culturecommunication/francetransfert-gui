@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ft-end-message',
@@ -14,7 +15,8 @@ export class EndMessageComponent implements OnInit {
   @Output() backToHomeEvent: EventEmitter<any> = new EventEmitter();
   @Input() publicLink: boolean = false;
 
-  constructor(private _router: Router) { }
+  constructor(private _router: Router,
+    public translate: TranslateService,) { }
 
   ngOnInit(): void {
   }

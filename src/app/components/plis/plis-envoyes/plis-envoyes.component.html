@@ -1,0 +1,98 @@
+<div class="plis-envoyes">
+
+  <div *ngIf="!isLoggedIn()">
+    <div class="error-message">{{'Se_connecter' | translate}}</div>
+  </div>
+
+  <div *ngIf="isLoggedIn()">
+    <p>{{'Liste_Plis' | translate}}</p>
+
+    <mat-form-field appearance="standard">
+      <mat-label>{{'Filtrer' | translate}}</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. jean.dupond@domaine.fr" #input>
+    </mat-form-field>
+
+    <div>
+      <mat-table [dataSource]="dataSource" matSort class="mat-width" matSort matSortActive="dateEnvoi"
+        matSortDirection="desc">
+
+        <!-- Date d'envoi Column -->
+        <ng-container matColumnDef="dateEnvoi" class="padding">
+          <mat-header-cell *matHeaderCellDef> {{'Date_Envoi' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Date_Envoi' | translate}}"> {{element.dateEnvoi |
+            date:
+            'shortDate': '' : translate.currentLang}} </mat-cell>
+        </ng-container>
+
+        <!-- Type Column -->
+        <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef> {{'Type' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Type' | translate}}"> {{element.type}} </mat-cell>
+        </ng-container>
+
+        <!-- Objet Column -->
+        <ng-container matColumnDef="objet">
+          <mat-header-cell *matHeaderCellDef class="overflow-clip-header"> {{'Objet' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Objet' | translate}}">
+            <div class="overflow-clip">
+              {{element.objet}}
+            </div>
+          </mat-cell>
+        </ng-container>
+
+
+        <!-- Taille Column -->
+        <ng-container matColumnDef="taille">
+          <mat-header-cell *matHeaderCellDef> {{'Taille' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Taille' | translate}}">{{element.taille}}</mat-cell>
+        </ng-container>
+
+        <!-- Fin de validité Column -->
+        <ng-container matColumnDef="finValidite">
+          <mat-header-cell *matHeaderCellDef> {{'Fin_Validité' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Fin_Validité' | translate}}"> {{element.finValidite |
+            date:
+            'shortDate': '' : translate.currentLang}} </mat-cell>
+        </ng-container>
+
+        <!-- Destinataires Column -->
+        <ng-container matColumnDef="destinataires">
+          <mat-header-cell *matHeaderCellDef> {{'Liste_Destinataires' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Liste_Destinataires' | translate}}">
+            <div class="overflow-clip">
+              {{element.destinataires}}
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Token Column -->
+        <ng-container matColumnDef="token">
+          <mat-header-cell *matHeaderCellDef> {{'Action' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Action' | translate}}">
+            <mat-icon matTooltip="{{'Details' | translate}}" style="color: black;cursor: pointer;"
+              (click)="navigateTo(element.enclosureId)" attr.aria-label="{{'Details' | translate}}">edit</mat-icon>
+
+            <!-- (click)="navigateTo(element.enclosureId, element.token)"   -->
+            <!-- [routerLink]="['/admin', element.enclosureId]"
+          [state]="{ receiverToken: element.token }" -->
+
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+        attr.aria-label="{{'Elément_Récurrent' | translate}}">
+      </mat-paginator>
+    </div>
+
+  </div>
+
+  <div class="end-message-card-actions">
+    <button mat-button class="end-message-card-actions-btn" (click)="backToHome()">{{'Accueil' |
+      translate}}</button>
+  </div>
+
+</div>

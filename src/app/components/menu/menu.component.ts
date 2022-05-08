@@ -10,6 +10,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 export class MenuComponent implements OnInit {
 
   @Output() sidenavToggle = new EventEmitter();
+  @Output() routingCalled: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private _router: Router, private loginService: LoginService) { }
 
@@ -32,6 +33,11 @@ export class MenuComponent implements OnInit {
   logout() {
     this.loginService.logout();
     this._router.navigate(['/upload']);
+  }
+
+  routeTo(_route) {
+    this._router.navigate([_route]);
+    this.routingCalled.emit(true);
   }
 
 }
