@@ -4,6 +4,8 @@ import { UploadState } from '@flowjs/ngx-flow';
 import { timer } from 'rxjs/internal/observable/timer';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { FileManagerService } from 'src/app/services';
+import { LoginService } from 'src/app/services/login/login.service';
+
 
 @Component({
   selector: 'ft-loader',
@@ -20,9 +22,13 @@ export class LoaderComponent implements OnInit, OnDestroy {
   timerSubscription: Subscription;
   progressSubscription: Subscription;
 
-  constructor(private fileManagerService: FileManagerService) { }
+  constructor(private fileManagerService: FileManagerService,
+    private loginService: LoginService,
+    ) { }
 
   ngOnInit(): void {
+
+
     // this.observableTimer();
     this.progressSubscription = this.fileManagerService.uploadProgress.subscribe(t => {
       if (this.haveChunkError(t)) {
@@ -38,6 +44,8 @@ export class LoaderComponent implements OnInit, OnDestroy {
         console.log('Transfert Error');
       }
     });
+
+
   }
 
   observableTimer() {
@@ -70,6 +78,10 @@ export class LoaderComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  isLoggedIn(): boolean {
+    return this.loginService.isLoggedIn();
+  }
 
   haveChunkError(uploadState: UploadState): boolean {
     for (let transfer of uploadState.transfers) {

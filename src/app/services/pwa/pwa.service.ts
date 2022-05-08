@@ -24,11 +24,7 @@ export class PwaService {
     if (swUpdate.isEnabled) {
       interval(6 * 60 * 60).subscribe(() => swUpdate.checkForUpdate()
         .then(() => {
-          console.log(document.location.hostname);
           if (document.location.hostname === 'francetransfert.culture.gouv.fr') {
-            window.location.href = "https://francetransfert.numerique.gouv.fr";
-          }
-          if (document.location.hostname === 'test.ft.com') {
             window.location.href = "https://francetransfert.numerique.gouv.fr";
           }
           console.log('checking for updates');

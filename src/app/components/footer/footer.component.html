@@ -1,4 +1,4 @@
-<mat-toolbar class="footer-toolbar" *ngIf="!isMobile">
+<mat-toolbar class="footer-toolbar" *ngIf="!isMobile"  id="btmFooter" flex>
     <mat-toolbar-row class="footer-toolbar-row-bloc-marque">
         <div class="footer-toolbar-row-bloc-marque-left">
             <img class="footer-toolbar-row-bloc-marque-left-rep-fr" alt="Logo République française" aria-hidden="true"
@@ -11,7 +11,7 @@
                 </p> -->
             </div>
             <nav>
-                <ul class="footer-toolbar-row-bloc-marque-right-links">
+                <ul class="footer-toolbar-row-bloc-marque-right-links" >
                     <li>
                         <a rel="noopener noreferrer" href="https://www.legifrance.gouv.fr/" target="_blank" class="link">legifrance.gouv.fr</a>
                     </li>
@@ -32,32 +32,29 @@
         <nav>
             <ul class="footer-toolbar-row-mentions-links">
                 <li>
-                    <a routerLink="/contact" class="link" (click)="routeTo('/contact')">Contact</a>
+                    <a routerLink="/contact" class="link" (click)="routeTo('/contact')">  {{'Contact' | translate}} </a>
                 </li>
                 <span class="col-separator"></span>
                 <li>
-                    <a routerLink="/accessibilite" class="link" (click)="routeTo('/accessibilite')">Accessibilité : partiellement conforme</a>
+                    <a routerLink="/accessibilite" class="link" (click)="routeTo('/accessibilite')"> {{'Accessibilité' | translate}}</a>
                 </li>
                 <span class="col-separator"></span>
                 <li>
-                    <a routerLink="/mentions-legales"  (click)="routeTo('/mentions-legales')" class="link">Mentions légales</a>
+                    <a routerLink="/mentions-legales"  (click)="routeTo('/mentions-legales')" class="link">{{'MentionsLégales' | translate}}</a>
                 </li>
+                <!-- <span class="col-separator"></span>
+                <li>
+                    <a routerLink="politique-de-protection-des-donnees"  (click)="routeTo('/politique-de-protection-des-donnees')" class="link">  {{'Politique_Protection_Données' | translate}}</a>
+                </li> -->
                 <span class="col-separator"></span>
                 <li>
-                    <a routerLink="politique-de-protection-des-donnees"  (click)="routeTo('/politique-de-protection-des-donnees')" class="link">Politique de
-                        protection
-                        des
-                        données</a>
-                </li>
-                <span class="col-separator"></span>
-                <li>
-                  <a routerLink="/cgu"  (click)="routeTo('/cgu')" class="link">Conditions Générales d'Utilisation</a>
+                  <a routerLink="/cgu"  (click)="routeTo('/cgu')" class="link"> {{'ConditionsUtilisation' | translate}}</a>
                 </li>
             </ul>
         </nav>
         <div class="footer-toolbar-row-mentions-text">
-            <span>Sauf mention contraire, tous les textes de ce site sont sous licence etalab-2.0</span>
-            <span>Version : {{version}}</span>
+            <span> {{'Licence' | translate}}</span>
+            <span> {{'Version' | translate}} : {{version}}</span>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>

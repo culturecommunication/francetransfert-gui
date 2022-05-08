@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
+
 
 @Component({
   selector: 'ft-faq',
@@ -31,7 +33,8 @@ export class FaqComponent implements OnInit, AfterViewInit {
 
 
   constructor(private titleService: Title,
-    private router: Router) { }
+    private router: Router,
+    private translateService: TranslateService) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('France transfert - FAQ');

@@ -27,12 +27,14 @@ export const environment = {
       deleteFile: 'api-private/upload-module/delete-file',
       updateExpiredDate: 'api-private/upload-module/update-expired-date',
       fileInfos: 'api-private/upload-module/file-info',
+      fileInfosConnect: 'api-private/upload-module/file-info-connect',
       addNewRecipient: 'api-private/upload-module/add-recipient',
-      deleteRecipient: 'api-private/upload-module/delete-recipient'
+      deleteRecipient: 'api-private/upload-module/delete-recipient',
+      getPlisSent: 'api-private/upload-module/get-plis-sent'
     },
     captcha: {
       url: '/captcha/captcha/'
     }
   },
-  version: '3.3.2'
+  version: '3.4.0'
 };
