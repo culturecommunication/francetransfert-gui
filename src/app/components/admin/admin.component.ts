@@ -88,7 +88,7 @@ export class AdminComponent implements OnInit, OnDestroy {
             //let temp = this.selectedDate;
             this.maxDate.setDate(temp.getDate() + 90);
           });
-      } else if (this.params['token'] == null && this.params['enclosure']) {
+      } else if (this.loginService.isLoggedIn() && this.params['token'] == null && this.params['enclosure']) {
 
         this.enclosureId = this.params['enclosure'];
 
