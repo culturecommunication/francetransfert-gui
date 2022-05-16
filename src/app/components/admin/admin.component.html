@@ -74,7 +74,7 @@
           <mat-list-item role="listitem" class="delete"
             *ngFor="let dest of fileInfos?.recipientsMails; let index = index">
             <div class="list-elem"><span class="recipient-mail">{{dest.recipientMail}}</span>&nbsp;<span
-                class="down-count">{{dest.numberOfDownloadPerRecipient}}</span></div>
+                class="down-count">{{dest.numberOfDownloadPerRecipient}}&nbsp;{{'Téléchargement' | translate}}</span></div>
             <mat-icon matTooltip="{{'Supprimer_Destinataire' | translate}}" (click)="deleteRecipient(index, dest)"
               attr.aria-label="{{'Supprimer_Destinataire' | translate}}">delete
             </mat-icon>
