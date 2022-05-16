@@ -25,7 +25,8 @@ export const environment = {
       downloadInfosPublic: 'api-private/download-module/download-info-public',
       downloadUrlPublic: 'api-private/download-module/generate-download-url-public',
       validatePassword: 'api-private/download-module/validate-password',
-      rate: 'api-private/download-module/satisfaction'
+      rate: 'api-private/download-module/satisfaction',
+      downloadConnect: 'api-private/download-module/download-info-connect',
     },
     admin: {
       deleteFile: 'api-private/upload-module/delete-file',
@@ -34,7 +35,8 @@ export const environment = {
       fileInfosConnect: 'api-private/upload-module/file-info-connect',
       addNewRecipient: 'api-private/upload-module/add-recipient',
       deleteRecipient: 'api-private/upload-module/delete-recipient',
-      getPlisSent: 'api-private/upload-module/get-plis-sent'
+      getPlisSent: 'api-private/upload-module/get-plis-sent',
+      getPlisReceived: 'api-private/upload-module/get-plis-received'
     },
     captcha: {
       url: 'https://test-francetransfert.aot.agency/captcha/captcha/'
