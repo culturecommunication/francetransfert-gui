@@ -114,6 +114,21 @@ export class AdminService {
     );
   }
 
+  getPlisReceived(body: any): Observable<any> {
+    const treeBody = {
+      senderMail: body.receiverMail,
+      senderToken: body.senderToken,
+    };
+    return this._httpClient.post(
+      `${environment.host}${environment.apis.admin.getPlisReceived}`,
+      treeBody
+    ).pipe(map((response) => {
+      return response;
+    }),
+      catchError(this.handleError('get-plis-received'))
+    );
+  }
+
   private handleError(operation: string) {
     return (err: any) => {
       const errMsg = `error in ${operation}()`;

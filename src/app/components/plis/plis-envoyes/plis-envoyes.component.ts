@@ -70,29 +70,7 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
           next: (fileInfos) => {
             {
               fileInfos.forEach(t => {
-                //----------size of files------------
 
-                //TODO MOVE THIS TO BACK
-                let size = t.rootFiles.map(n => n.size);
-                let sizeDir = t.rootDirs.map(n => n.totalSize);
-
-                let tailleFiles = size.reduce((a, b) => a + b, 0) / 1024;
-                let tailleDirs = sizeDir.reduce((a, b) => a + b, 0) / 1024;
-                let taille = tailleDirs + tailleFiles;
-                let tailleStr = "";
-                let typeSize = 'Go';
-                if (taille >= 1100000) {
-                  tailleStr = (taille / 1000000).toFixed(2);
-                  typeSize = 'Go';
-
-                } else if (taille >= 1100) {
-                  tailleStr = (taille / 1000).toFixed(2);
-                  typeSize = 'Mo';
-                }
-                else {
-                  tailleStr = taille.toFixed(2);
-                  typeSize = 'Ko';
-                }
 
                 //-----------condition on type-----------
                 let type = "";

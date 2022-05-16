@@ -34,7 +34,6 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.loginService.logout();
     this.initForm();
     this.isLoggedIn = this.loginService.isLoggedIn();
     if (this.component === 'upload' && this.isLoggedIn == true) {

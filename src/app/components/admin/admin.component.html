@@ -83,7 +83,7 @@
             *ngFor="let dest of fileInfos?.deletedRecipients; let index = index">
             <div class="list-elem deleted">
               <span class="recipient-mail">{{dest.recipientMail}}</span>&nbsp;<span
-                class="down-count">{{dest.numberOfDownloadPerRecipient}}</span>
+                class="down-count">{{dest.numberOfDownloadPerRecipient}}&nbsp;{{'Téléchargement' | translate}}</span>
             </div>
           </mat-list-item>
         </mat-list>
