@@ -26,6 +26,7 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
   responsiveSubscription: Subscription = new Subscription();
   isMobile;
   screenWidth;
+  taillePli;
 
   constructor(public translate: TranslateService,
     private _adminService: AdminService,
@@ -84,11 +85,35 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
                 const destinataires = t.recipientsMails.map(n => n.recipientMail).join(", ");
                 //let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
 
+                typeSize
+
+                this.taillePli = t.totalSize.split(" ");
+                if(this.taillePli[1] == 'GB'){
+                  typeSize = 'Gsize';
+                  console.log("this.taillePli[1] :", this.taillePli[1])
+                }
+                else if (this.taillePli[1] == 'MB'){
+                  typeSize = 'Msize';
+                  console.log("this.taillePli[1] :", this.taillePli[1])
+
+                }else if (this.taillePli[1] == 'KB'){
+                  typeSize = 'Ksize';
+                  console.log("this.taillePli[1] :", this.taillePli[1])
+                  console.log("testsize :", testsize)
+
+
+                }else{
+                  typeSize = 'Osize';
+                  console.log("this.taillePli[1] :", this.taillePli[1])
+
+                }
+
+
 
                 //---------add to mat-table-------------
                 this.empList.push({
                   dateEnvoi: t.timestamp, type: type, objet: t.subject,
-                  taille: t.totalSize, finValidite: t.validUntilDate, destinataires: destinataires,
+                  taille: this.taillePli[0], typeSize: typeSize , finValidite: t.validUntilDate, destinataires: destinataires,
                   enclosureId: t.enclosureId
                 });
 
@@ -148,6 +173,7 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
       },
       queryParamsHandling: 'merge',
     });
+
   }
 
   backToHome() {
@@ -172,4 +198,8 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
 
 
 
+
+function testsize(arg0: string, testsize: any) {
+  throw new Error('Function not implemented.');
+}
 
