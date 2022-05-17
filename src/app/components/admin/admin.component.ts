@@ -90,9 +90,7 @@ export class AdminComponent implements OnInit, OnDestroy {
             this.maxDate.setDate(temp.getDate() + 90);
           });
       } else if (this.loginService.isLoggedIn() && this.params['token'] == null && this.params['enclosure']) {
-
         this.enclosureId = this.params['enclosure'];
-
         this._adminService
           .getFileInfosConnect({
             senderMail: this.loginService.tokenInfo.getValue().senderMail,
@@ -273,32 +271,28 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   }
 
-  resendLink(email: any){
-    console.log("email: ", email);
-    console.log("enclosure: ",this.params['enclosure'] );
-
+  resendLink(email: any) {
     const dialogRef = this.dialog.open(AdminAlertDialogComponent, { data: 'resendPli' });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        const body = {
+          "enclosureId": this.params['enclosure'],
+          "token": this.params['token'] ? this.params['token'] : this.loginService.tokenInfo.getValue().senderToken,
+          "recipient": email,
+          "senderMail": this.loginService.tokenInfo.getValue() ? this.loginService.tokenInfo.getValue().senderMail : null,
+        }
+        this._adminService
+          .resendLink(body)
+          .pipe(takeUntil(this.onDestroy$))
+          .subscribe(response => {
+            if (response) {
+              this.openSnackBarDownload(4000);
 
-    const body = {
-      "enclosureId": this.params['enclosure'],
-      "token": this.params['token'] ? this.params['token'] : this.loginService.tokenInfo.getValue().senderToken,
-      "Recipient": email,
-      "senderMail": this.loginService.tokenInfo.getValue() ? this.loginService.tokenInfo.getValue().senderMail : null,
-    }
-    this._adminService
-    .resendLink(body)
-    .pipe(takeUntil(this.onDestroy$))
-    .subscribe(response => {
-      if (response) {
-        this.openSnackBarDownload(4000);
-
+            }
+          });
       }
-    });
-    }
 
-  });
+    });
 
   }
 

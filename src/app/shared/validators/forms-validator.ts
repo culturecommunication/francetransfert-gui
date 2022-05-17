@@ -5,10 +5,6 @@ const specialCharRegexEscape = specialCharList.replace(/[-[\]{}()*+?.,\\^$|#\s]/
 const regex = new RegExp(`[${specialCharRegexEscape}]`, "g");
 const notValidChar = new RegExp(`[^${specialCharRegexEscape}a-zA-Z1-9]+`, "g");
 
-
-var not_SupportedChar = new RegExp("[^a-zA-Z0-9 !@#$%^&*()_:+-]+$");
-
-
 // Custom Validators
 export function passwordValidator(formControl: FormControl) {
   const password = formControl.value;
