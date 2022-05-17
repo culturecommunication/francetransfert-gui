@@ -93,7 +93,8 @@
         <button mat-raised-button [disabled]="!canSend" class="card-actions-btn" (click)="send()">{{'Envoyer' | translate}} </button>
       </mat-card-actions>
     </div>
-
+    <div class="after-field" [innerHTML]="'Formulaire' | translate">
+    </div>
   </div>
 
 </form>

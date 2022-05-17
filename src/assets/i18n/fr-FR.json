@@ -88,7 +88,6 @@
   "ChoixLangue": "Choix de la langue",
 
   "FAQ": "FAQ",
-  "Contact": "Contact",
   "MeConnecter": "Me connecter",
   "MeDéconnecter": "Me déconnecter",
 
@@ -376,5 +375,23 @@
   "Date_Réception": "Date de réception",
   "expediteur": "Expéditeur",
   "Nombres_Caractères_Spéciaux_Forbidden": "aucun caractère spécial non supporté",
-  "Téléchargement": " téléchargement(s)"
+  "Téléchargement": " téléchargement(s)",
+
+  "Contact": "Nous contacter",
+  "téléchargement": " téléchargement(s)",
+  "Caractères_Spéciaux_Non_Supporté": "Aucun caractère spécial non supporté",
+  "Question1Image": "<img mat-card-image alt='Pourquoi France transfert' src='assets/images/FT_France Transfert_V2.png' />",
+  "Question2Image": "<img   alt='Deux façons d'utiliser France transfert' src='assets/images/FT_Envoyer des dossiers ou des fichiers_V2.png' />",
+  "Question6Image": "<img alt='A quoi cela sert-il de se connecter' src='assets/images/FT_Être connecté à France Transfert V3.png' />",
+  "Question8Image": "<img  alt='Comment télécharger le pli qui m'est adressé' src='assets/images/FT_Telecharger un pli_V2.png' />",
+  "Question15Image": "<img  alt='Puis-je utiliser une liste de distribution' src='assets/images/FT_Utiliser une liste de diffusion_V2.png' />",
+  "Formulaire": "<span>Le ministère de la Culture, responsable du traitement, met en œuvre un traitement de données à caractère personnel vous concernant pour assurer la fourniture du service France Transfert. Pour en savoir plus sur vos droits, veuillez consulter les dispositions sur les données personnelles de nos <a class='link' rel='noopener noreferrer' href='cgu' target='_blank'> conditions générales d’utilisation</a>.</span>",
+  "Renvoyer_Lien_Téléchargement": "Renvoyer le courriel de téléchargement",
+  "Gsize": "Go",
+  "Msize": "Mo",
+  "Ksize": "Ko",
+  "Osize": "octets",
+  "Download_Success": "Les courriels ont bien été envoyés au destinataire.",
+  "Renvoyer_pli": "Vous allez envoyer de nouveau un courriel avec le lien de téléchargement et un courriel avec le mot de passe d'accès au pli.",
+  "Poursuivre_pli": "Voulez-vous poursuivre ?"
 }

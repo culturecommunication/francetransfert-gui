@@ -36,7 +36,8 @@ export const environment = {
       addNewRecipient: 'api-private/upload-module/add-recipient',
       deleteRecipient: 'api-private/upload-module/delete-recipient',
       getPlisSent: 'api-private/upload-module/get-plis-sent',
-      getPlisReceived: 'api-private/upload-module/get-plis-received'
+      getPlisReceived: 'api-private/upload-module/get-plis-received',
+      resendLink: 'api-private/upload-module/resend-download-link'
     },
     captcha: {
       url: 'https://test-francetransfert.aot.agency/captcha/captcha/'

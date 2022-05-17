@@ -1,3 +1,31 @@
+::ng-deep .mat-grid-tile-content {
+  justify-content: flex-start !important ;
+
+  .font-size {
+    display: flex;
+     justify-content: flex-end;
+     font-size: 12px;
+     padding-left: 2%;
+  }
+
+  .icon-position{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 16px;
+  }
+
+  .telechargement-position{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+
+}
+
+
+
 .admin-wrapper {
   display: flex;
   justify-content: center;
@@ -122,8 +150,11 @@
   }
 
   .down-count {
-    margin-left: auto;
+    //margin-left: auto;
+    margin-left: 20%;
   }
+
+
 }
 
 ::ng-deep .mat-snack-bar-container {
@@ -142,9 +173,10 @@
       margin-top: 10px;
       margin-bottom: 10px;
       height: 60%;
-      width: 50%;
+      width: 70%;
     }
   }
+
 }
 
 @media screen and (min-width: 480px) and (max-width: 812px) {
@@ -152,7 +184,7 @@
     .admin-card {
       margin-top: 90px;
       height: 60%;
-      width: 50%;
+      width: 80%;
     }
   }
 }
