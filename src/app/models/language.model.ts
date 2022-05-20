@@ -2,5 +2,7 @@ export interface LanguageModel {
     code: string,
     label: string,
     flagUrl: string,
-    href: string
+    href: string,
+    value: string
+
 }

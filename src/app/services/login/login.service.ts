@@ -10,16 +10,18 @@ import { environment } from 'src/environments/environment';
 export class LoginService {
 
   tokenInfo: BehaviorSubject<TokenModel> = new BehaviorSubject<any>(null);
+  connectCheck: BehaviorSubject<boolean> = new BehaviorSubject<any>(false);
 
   constructor(private _httpClient: HttpClient) { }
+
 
   logout(): any {
     this.tokenInfo.next(null);
   }
 
-  validateCode(body: any): any {
+  validateCode(body: any, currentLanguage: any): any {
     return this._httpClient.get(
-      `${environment.host}${environment.apis.upload.validateCode}?code=${body.code}&senderMail=${body.senderMail}`
+      `${environment.host}${environment.apis.upload.validateCode}?code=${body.code}&senderMail=${body.senderMail}&currentLanguage=${currentLanguage}`
     ).pipe(map((response: TokenModel) => {
       this.tokenInfo.next({
         senderMail: response.senderMail,
@@ -31,9 +33,18 @@ export class LoginService {
     );
   }
 
-  generateCode(email: any): any {
+  setLogin(loginData) {
+    if (this.connectCheck.getValue() == true) {
+      this.tokenInfo.next({
+        senderMail: loginData.senderMail,
+        senderToken: loginData.senderToken
+      });
+    }
+  }
+
+  generateCode(email: any, currentLanguage: any): any {
     return this._httpClient.get(
-      `${environment.host}${environment.apis.upload.generateCode}?senderMail=${email}`
+      `${environment.host}${environment.apis.upload.generateCode}?senderMail=${email}&currentLanguage=${currentLanguage}`
     ).pipe(map((response: TokenModel) => {
       this.tokenInfo.next(null);
       return response;

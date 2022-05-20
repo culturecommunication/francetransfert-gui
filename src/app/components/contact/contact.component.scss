@@ -55,7 +55,7 @@
       justify-content: space-between;
       display: -webkit-flex;
       flex-direction: row;
-      justify-content: end;
+      justify-content: flex-end;
       padding-top: 2.5rem;
       padding-right: 1rem;
       padding-top: 2%;
@@ -78,6 +78,17 @@
       font-size: 12px;
       padding-bottom: 4%;
     }
+
+    .after-field {
+      text-align: start;
+      color: var(--ft-mention);
+      font-size: 12px;
+      padding-bottom: 4%;
+      padding-top: 2%;
+      padding-left: 3%;
+    }
+
+
 
     .contact-header {
       width: 100%;

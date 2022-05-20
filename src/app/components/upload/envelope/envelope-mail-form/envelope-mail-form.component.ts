@@ -32,6 +32,9 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   envelopeMailForm: FormGroup;
   @Output() public onFormGroupChange = new EventEmitter<any>();
   @ViewChild('dest') dest: ElementRef;
+  @ViewChild('objet') objet: ElementRef;
+  @ViewChild('message') message: ElementRef;
+
   envelopeMailFormChangeSubscription: Subscription;
   matcher = new MyErrorStateMatcher();
   destinatairesList: string[] = [];
@@ -52,7 +55,6 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForm();
-
   }
 
   initForm() {
@@ -85,6 +87,15 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
       this.onFormGroupChange.emit({ isValid: this.envelopeMailForm.valid, values: this.envelopeMailForm.value, destinataires: this.destinatairesList })
     }
   }
+
+  enterExpediteur() {
+    this.dest.nativeElement.focus();
+  }
+
+  enterObjet() {
+    this.message.nativeElement.focus();
+  }
+
 
   onBlurDestinataires() {
     this.errorEmail = false;
@@ -161,6 +172,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   focus() {
     this.dest.nativeElement.focus();
+    //this.objet.nativeElement.focus();
   }
 
   isLoggedIn() {

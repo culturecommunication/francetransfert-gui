@@ -17,6 +17,9 @@
         -webkit-flex-direction: column;
         width: 100%;
         padding: 0px 8px;
+        &-error{
+            color: var(--ft-error);
+        }
         &-icon {
             font-size: 160px;
             margin-right: 140px;

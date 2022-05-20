@@ -2,64 +2,70 @@
   <mat-card class="admin-card">
     <mat-card-header class="admin-card-header" *ngIf="transfers">
       <mat-card-title>
-        <h2>Administration du pli</h2>
+        <h2>{{'Administration' | translate}}</h2>
       </mat-card-title>
     </mat-card-header>
     <mat-card-content class="admin-card-content">
       <div class="admin-card-content-error" *ngIf="errorMessage">
-        <span>{{errorMessage}}</span>
+        <span>{{errorMessage | translate}}</span>
       </div>
       <div class="admin-card-content-infos" *ngIf="fileInfos">
         <div class="subheader">
-          <span>Informations du pli</span>
+          <span> {{'Informations_Pli' | translate}}</span>
         </div>
         <mat-list role="list">
           <ng-container *ngIf="!(fileInfos?.recipientsMails.length != 0 || fileInfos?.deletedRecipients.length != 0)">
-            <mat-list-item role="listitem"><span>Nombre de téléchargements : {{fileInfos.downloadCount}}</span>
+            <mat-list-item role="listitem"><span>{{'Nombre_Téléchargements' |
+                translate}}{{fileInfos.downloadCount}}</span>
             </mat-list-item>
           </ng-container>
-          <mat-list-item role="listitem"><span>Emetteur : {{fileInfos.senderEmail}}</span></mat-list-item>
-          <mat-list-item role="listitem"><span>Message : {{fileInfos.message}}</span></mat-list-item>
-          <mat-list-item role="listitem"><span>Date d'émission : {{fileInfos.timestamp | date:
-              'medium'}}</span>
+          <mat-list-item role="listitem"><span>{{'Emetteur' | translate}} {{fileInfos.senderEmail}}</span>
           </mat-list-item>
-          <mat-list-item role="listitem"><span>Date de fin de validité : {{fileInfos.validUntilDate | date:
-              'medium'}}</span>
+          <mat-list-item role="listitem"><span>{{'Message' | translate}} {{fileInfos.message}}</span></mat-list-item>
+          <mat-list-item role="listitem"><span>{{'Date_Emission' | translate}}
+
+              <!-- {{fileInfos.timestamp | date: 'medium'}} -->
+              {{selectedDate | date: 'medium': '' : translate.currentLang}}
+            </span>
+          </mat-list-item>
+          <mat-list-item role="listitem"><span>{{'Date_Fin_Validité' | translate}} {{fileInfos.validUntilDate | date:
+              'medium': '' : translate.currentLang}}</span>
             <mat-form-field style="width:1px;visibility:hidden;">
               <input matInput [matDatepicker]="picker" [formControl]="validUntilDate" [min]="minDate" [max]="maxDate">
               <mat-datepicker #picker (closed)="onPickerClose()"></mat-datepicker>
             </mat-form-field>
-            <mat-icon matTooltip="Modifier la date de fin de validité" (click)="picker.open()"
-              aria-label="Modifier la date de fin de validité">edit
+            <mat-icon matTooltip="{{'Modification_Date_Fin_Validité' | translate}}" (click)="picker.open()"
+              attr.aria-label="{{'Modification_Date_Fin_Validité' | translate}}">edit
             </mat-icon>
           </mat-list-item>
-          <mat-list-item role="listitem" class="delete"><span>Supprimer le pli :</span>
-            <mat-icon matTooltip="Supprimer le pli" (click)="deleteFile()" aria-label="Supprimer le pli">delete
+          <mat-list-item role="listitem" class="delete"><span>{{'Suppression_Pli_Admin' | translate}}</span>
+            <mat-icon matTooltip="{{'Suppression_Pli_Admin' | translate}}" (click)="deleteFile()"
+              attr.aria-label="{{'Suppression_Pli_Admin' | translate}}">delete
             </mat-icon>
           </mat-list-item>
           <div *ngIf="fileInfos?.recipientsMails.length != 0 || fileInfos?.deletedRecipients.length != 0">
             <div class="admin-card-content-files">
               <div class="subheader respientHeader">
-                <span>Les destinataires : </span>
-                <mat-icon *ngIf=" !add" matTooltip="Ajouter un destinataire" style="color: black;cursor: pointer;"
-                  (click)="addRecipient()" aria-label="Ajouter un destinataire">add_box</mat-icon>
-                <mat-icon *ngIf="close" matTooltip="Terminer" style="color: black;cursor: pointer;"
-                  (click)="addRecipient()" aria-label="terminer">close</mat-icon>
+                <span>{{'Destinataires' | translate}} </span>
+                <mat-icon *ngIf=" !add" matTooltip="{{'Ajout_Destinataire' | translate}}"
+                  style="color: black;cursor: pointer;" (click)="addRecipient()"
+                  attr.aria-label="{{'Ajout_Destinataire' | translate}}">add_box</mat-icon>
+                <mat-icon *ngIf="close" matTooltip="{{'Terminer' | translate}}" style="color: black;cursor: pointer;"
+                  (click)="addRecipient()" attr.aria-label="{{'Terminer' | translate}}">close</mat-icon>
               </div>
             </div>
             <div *ngIf="add" class="addDestinataire" [ngClass]="errorValidEmail || errorEmail ? 'big-error' : ''">
               <form [formGroup]="envelopeDestForm" class="addForm">
-                <mat-form-field class="example-full-width">
-                  <mat-label>Courriel du destinataire</mat-label>
+                <mat-form-field class="full-width">
+                  <mat-label>{{'Courriel_Destinataire' | translate}}</mat-label>
                   <input id="recipientmail" name="recipientmail" formControlName="email" type="email" matInput
                     placeholder="JEAN.DUPONT@EMAIL.COM" #dest (blur)="onBlurDestinataires();"
                     (keyup.enter)="dest.blur();">
                   <mat-error role="alert" *ngIf="envelopeDestForm.controls.email.errors?.emailError">
-                    Une adresse courriel valide est requise (JEAN.DUPONT@EMAIL.COM).
+                    {{'AdresseRequis' | translate}}
                   </mat-error>
                   <mat-error role="alert" *ngIf="envelopeDestForm.controls.email.errors?.emailNotValid">
-                    Il est nécessaire que l'expéditeur ou que l'ensemble des destinataires soi(en)t un/des agent(s) de
-                    l'Etat
+                    {{'ExpéditeurNécessaire' | translate}}
                   </mat-error>
                 </mat-form-field>
               </form>
@@ -67,27 +73,35 @@
           </div>
           <mat-list-item role="listitem" class="delete"
             *ngFor="let dest of fileInfos?.recipientsMails; let index = index">
-            <span>{{dest}}</span>
-            <mat-icon matTooltip="Supprimer le destinataire" (click)="deleteRecipient(index, dest)"
-              aria-label="Supprimer le destinataire">delete
+            <div class="list-elem"><span class="recipient-mail">{{dest.recipientMail}}</span>&nbsp;<span
+                class="down-count">{{dest.numberOfDownloadPerRecipient}}&nbsp;{{'Téléchargement' | translate}}</span>
+            </div>
+            <mat-icon matTooltip="{{'Supprimer_Destinataire' | translate}}" (click)="deleteRecipient(index, dest)"
+              attr.aria-label="{{'Supprimer_Destinataire' | translate}}">delete
             </mat-icon>
+            <mat-icon matTooltip="{{'Renvoyer_Lien_Téléchargement' | translate}}"
+              (click)="resendLink(dest.recipientMail)" attr.aria-label="{{'Renvoyer_Lien_Téléchargement' | translate}}">
+              email</mat-icon>
           </mat-list-item>
           <mat-list-item role="listitem" class="delete"
             *ngFor="let dest of fileInfos?.deletedRecipients; let index = index">
-            <span style="color: red;text-decoration: line-through;">{{dest}}</span>
+            <div class="list-elem deleted">
+              <span class="recipient-mail">{{dest.recipientMail}}</span>&nbsp;<span
+                class="down-count">{{dest.numberOfDownloadPerRecipient}}&nbsp;{{'Téléchargement' | translate}}</span>
+            </div>
           </mat-list-item>
         </mat-list>
       </div>
       <div class="admin-card-content-files " *ngIf="fileInfos">
         <div class="subheader">
-          <span>Éléments du pli</span>
+          <span>{{'Éléments_Pli' | translate}}</span>
         </div>
         <ft-file-item class="file-item" *ngFor="let transfer of transfers" [transfer]="transfer" [readOnly]="true">
         </ft-file-item>
       </div>
     </mat-card-content>
     <mat-card-actions align="end" *ngIf="fileInfos">
-      <button class="admin-card-actions-btn" mat-button [routerLink]="'/upload'">Retour</button>
+      <button class="admin-card-actions-btn" mat-button (click)="previousPage()">{{'Retour' | translate}}</button>
     </mat-card-actions>
   </mat-card>
 </div>

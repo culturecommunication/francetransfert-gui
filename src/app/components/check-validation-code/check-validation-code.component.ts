@@ -25,21 +25,31 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
   error: FTErrorModel;
   hide = true;
 
+  buttonDisable = false;
+
+  isLoggedIn = false;
+
   constructor(private fb: FormBuilder, private uploadManagerService: UploadManagerService,
     private downloadManagerService: DownloadManagerService, private loginService: LoginService,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.initForm();
+    this.isLoggedIn = this.loginService.isLoggedIn();
+    if (this.component === 'upload' && this.isLoggedIn == true) {
+      this.loginService.logout();
+    }
     this.errorSubscription = this.uploadManagerService.uploadError$.subscribe(error => {
       if (error) {
         this.error = { statusCode: error.statusCode, message: error.message, codeTryCount: error.codeTryCount };
       }
+      this.buttonDisable = false;
     });
     this.errorDLSubscription = this.downloadManagerService.downloadError$.subscribe(error => {
       if (error) {
         this.error = { statusCode: error.statusCode, message: error.message, codeTryCount: error.codeTryCount };
       }
+      this.buttonDisable = false;
     });
   }
 
@@ -49,13 +59,11 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
   }
 
   initForm() {
+
     this.verificationCodeForm = this.fb.group({
       verificationCode: ['', [Validators.required]],
+      connectCheck: [true, [Validators.required]],
     });
-  }
-
-  isLoggedIn(): boolean {
-    return this.loginService.isLoggedIn();
   }
 
   // convenience getter for easy access to form fields
@@ -66,12 +74,16 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
     if (this.verificationCodeForm.invalid) {
       return;
     }
+    this.loginService.connectCheck.next(this.verificationCodeForm.get('connectCheck').value);
     if (this.component === 'upload') {
       this.transferValidated.emit(this.verificationCodeForm.get('verificationCode').value);
+      this.buttonDisable = true;
     }
     if (this.component === 'download') {
       this.dowloadValidated.emit(this.verificationCodeForm.get('verificationCode').value);
+      this.buttonDisable = true;
     }
+
   }
 
   backToHome() {

@@ -8,8 +8,9 @@ import { FTTransferModel } from 'src/app/models';
 import { DownloadManagerService, DownloadService, ResponsiveService, UploadManagerService } from 'src/app/services';
 import { FLOW_CONFIG } from 'src/app/shared/config/flow-config';
 import { Subscription } from "rxjs";
-import {SatisfactionMessageComponent} from "../satisfaction-message/satisfaction-message.component";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { SatisfactionMessageComponent } from "../satisfaction-message/satisfaction-message.component";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'ft-download',
@@ -36,23 +37,12 @@ export class DownloadComponent implements OnInit, OnDestroy {
   isMobile: boolean = false;
   screenWidth: string;
 
-  MOCK_RESPONSE_DOWNLOAD = {
-    validUntilDate: '2021-08-23',
-    senderEmail: 'r.lalanne@actongroup.com',
-    rootFiles: [
-      { name: 'fond_ecran.jpg', size: 3055454 }
-    ],
-    rootDirs: [
-      { name: 'Projet FT', totalSize: 9055454 },
-      { name: 'Références dossier', totalSize: 1011457 }
-    ]
-  };
-
   constructor(private _downloadService: DownloadService,
     private responsiveService: ResponsiveService,
     private _activatedRoute: ActivatedRoute,
     private uploadManagerService: UploadManagerService,
     private downloadManagerService: DownloadManagerService,
+    private loginService: LoginService,
     private _router: Router,
     private titleService: Title,
     private _snackBar: MatSnackBar) { }
@@ -66,10 +56,30 @@ export class DownloadComponent implements OnInit, OnDestroy {
     this._activatedRoute.queryParams.pipe(takeUntil(this.onDestroy$)).subscribe((params: Array<{ string: string }>) => {
       this.params = params;
       this.loading = true;
+      console.log("this.params['token'] : ", this.params['token'])
       if (this.params['enclosure'] && this.params['recipient'] && this.params['token']) {
         this._downloadService
           .getDownloadInfos(params)
           .pipe(takeUntil(this.onDestroy$))
+          .subscribe({
+            next: (downloadInfos) => {
+              this.downloadInfos = downloadInfos;
+              this.downloadInfos.rootFiles.map(file => {
+                this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
+              });
+              this.downloadInfos.rootDirs.map(file => {
+                this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
+              });
+            },
+            error: () => { this.loading = false },
+            complete: () => { this.loading = false; }
+          });
+      } else if (this.loginService.isLoggedIn() && this.params['recipient'] == null && this.params['enclosure'] && this.params['token'] == null) {
+        this._downloadService
+          .getDownloadInfosConnect(this.params['enclosure'],
+            this.loginService.tokenInfo.getValue().senderToken,
+            this.loginService.tokenInfo.getValue().senderMail
+          ).pipe(takeUntil(this.onDestroy$))
           .subscribe({
             next: (downloadInfos) => {
               this.downloadInfos = downloadInfos;
@@ -105,17 +115,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
             this.usingPublicLink = true;
           }
         } else {
-          if (this.params['mock']) {
-            this.downloadInfos = this.MOCK_RESPONSE_DOWNLOAD;
-            this.downloadInfos.rootFiles.map(file => {
-              this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
-            });
-            this.downloadInfos.rootDirs.map(file => {
-              this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
-            });
-          } else {
-            this._router.navigateByUrl('/error');
-          }
+          this._router.navigateByUrl('/error');
         }
       }
     });
@@ -176,7 +176,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
     if (event) {
       this._downloadService.rate({ plis: this.params['enclosure'], mail: this.downloadInfos.recipientMail, message: event.message, satisfaction: event.satisfaction }).pipe(take(1))
         .subscribe((result) => {
-          if(result){
+          if (result) {
             this.openSnackBar(4000);
           }
           this._router.navigate(['/upload']);
@@ -184,8 +184,8 @@ export class DownloadComponent implements OnInit, OnDestroy {
     }
   }
   openSnackBar(duration: number) {
-    this._snackBar.openFromComponent(SatisfactionMessageComponent,{
-      duration:duration
+    this._snackBar.openFromComponent(SatisfactionMessageComponent, {
+      duration: duration
     });
   }
 

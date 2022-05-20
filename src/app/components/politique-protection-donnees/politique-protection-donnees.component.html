@@ -1,84 +1,15 @@
 <div class="politique-protection-donnees-wrapper">
   <mat-card class="politique-protection-donnees-card">
     <mat-card-header class="politique-protection-donnees-card-header">
-      <h1 #politiquedeprotectiondesdonnees>Politique de protection des données</h1>
+      <h1 #politiquedeprotectiondesdonnees>  {{'Politique_Protection_Données_Titre' | translate}} </h1>
     </mat-card-header>
+    <h4> {{'Version' | translate}} 3.4.0</h4>
+    <span> {{'Version_Française' | translate}}</span>
     <mat-card-content class="politique-protection-donnees-card-content">
-      <h2 #droitsdespersonnes>Droits des personnes</h2>
-      <p>
-                <span>Une donnée à caractère personnel est définie de la manière suivante : toute
-                    information relative à une personne physique susceptible d'être identifiée, directement ou indirectement. Sont ainsi
-                    considérées comme données à caractère personnel, les adresses courriel personnelles et professionnelles,
-                    ainsi que les adresses IP. </span>
-        <span>Le service France transfert se conforme dans la collecte et la gestion de vos données à caractère personnel
-                    à la loi du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés,
-                    dite « Informatique et Libertés », et au règlement général sur la protection des données du 27 avril 2016 (dit « RGPD »).</span>
+      <h2 #droitsdespersonnes> {{'Droits_Personnes_Titre' | translate}} </h2>
+      <p  [innerHTML]="'Droits_Personnes_Texte' | translate">
       </p>
-      <ol>
-        <li>
-                    <span>Les données à caractère personnel qui vous sont demandées sont nécessaires pour accéder au service France transfert.
-                        Elles sont destinées au Ministère
-                        de la culture (Service du numérique) en sa qualité de responsable de traitement.
-                        La base légale du traitement est l’intérêt légitime.</span>
-        </li>
-        <li>
-                    <span>
-                        Elles seront communiquées pour ces mêmes finalités aux personnes du Ministère de la culture maintenant en condition
-                        opérationnelle le service France transfert.
-                    </span>
-        </li>
-        <li>
-                    <span>
-                        Les données à caractère personnel sont enregistrées et conservées dans les conditions décrites ci-après :
-                    </span>
-          <ul>
-            <li>
-                            <span>dans la base de données de l'application :
-                                la durée de vie du pli (30 jours par défaut, jusqu'à 90 jours selon le choix de l'expéditeur);</span>
-            </li>
-            <li>
-              <span>dans les logs de l'application : jusqu'à 12 mois (pour analyse d'un éventuel dysfonctionnement).</span>
-            </li>
-          </ul>
-        </li>
-        <li>
-                    <span>
-                        Le Ministère de la culture s’engage à prendre toutes les mesures nécessaires pour garantir la sécurité et la confidentialité
-                        de vos données, dans le respect du cadre légal. Il s’engage en outre à n’opérer aucune commercialisation
-                         des informations que vous transmettez et à ne pas les communiquer à des tiers, en dehors des cas prévus par la loi.
-                    </span>
-        </li>
-        <li>
-                    <span>
-                        En application de la Règlementation « Informatique et Libertés », vous disposez d’un droit d’accès, de rectification, d’effacement,
-                         de limitation du traitement et du droit de définir le sort de vos données après votre décès, qui s’exercent auprès du Délégué à la
-                         protection des données, en justifiant de votre identité par tout moyen :
-                    </span>
-          <ul>
-            <li>
-              <span>par courrier électronique à l’adresse suivante :
-              <a href="mailto:delegue-protection-donnees@culture.gouv.fr">delegue-protection-donnees@culture.gouv.fr</a>
-              </span>
-            </li>
-            <li>
-              <span>ou par courrier postal à l’adresse suivante :</span>
-              <p>
-                <span>Ministère de la culture</span>
-                <span>A l’attention de Monsieur le Délégué à la protection des données</span>
-                <span>182, rue Saint-Honoré</span>
-                <span>75033 Paris cedex 01</span>
-              </p>
-            </li>
-
-          </ul>
-        </li>
-        <li>
-                    <span>
-                        Si vous estimez, après nous avoir contactés, que vos droits « Informatique et Libertés » ne sont pas respectés,
-                        vous avez le droit d’introduire une réclamation auprès de la Commission Nationale de l’Informatique et des Libertés (CNIL),
-                        autorité de contrôle en charge du respect des obligations en matière de données à caractère personnel.
-                    </span>
-        </li>
+      <ol [innerHTML]="'Droits_Personnes_Liste' | translate">
       </ol>
     </mat-card-content>
   </mat-card>
