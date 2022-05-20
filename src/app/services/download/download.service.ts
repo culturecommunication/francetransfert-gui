@@ -5,13 +5,14 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 import { map } from 'rxjs/internal/operators/map';
 import { environment } from 'src/environments/environment';
 import { DownloadManagerService } from '../download-manager/download-manager.service';
+import { LoginService } from '../login/login.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DownloadService {
 
-  constructor(private _httpClient: HttpClient, private downloadManagerService: DownloadManagerService) { }
+  constructor(private _httpClient: HttpClient, private downloadManagerService: DownloadManagerService, private loginService: LoginService) { }
 
   getDownloadInfos(params: Array<{ string: string }>) {
     return this._httpClient.get(
@@ -31,8 +32,9 @@ export class DownloadService {
     }
     const body = {
       enclosure: params['enclosure'],
-      recipient: params['recipient'],
+      ...params['recipient'] ? { recipient: params['recipient'] } : { recipient: this.loginService.tokenInfo.getValue().senderMail },
       token: params['token'],
+      ...params['recipient'] ? { senderToken: null } : { senderToken: this.loginService.tokenInfo.getValue().senderToken },
       ...withPassword ? { password: escapedPassword } : { password: '' }
     };
     return this._httpClient.post(
@@ -45,6 +47,18 @@ export class DownloadService {
       catchError(this.handleError('generate-download-url'))
     );
   }
+
+  getDownloadInfosConnect(enclosureId: string, senderToken: string, recipient: string) {
+    return this._httpClient.get(
+      `${environment.host}${environment.apis.download.downloadConnect}?enclosure=${enclosureId}&token=${senderToken}&recipient=${recipient}`
+    ).pipe(map(response => {
+      this.downloadManagerService.downloadError$.next(null);
+      return response;
+    }),
+      catchError(this.handleError('download-info-connect'))
+    );
+  }
+
 
   validatePassword(_body: any): any {
     const body = {

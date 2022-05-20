@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Transfer } from '@flowjs/ngx-flow/lib/transfer';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { UploadInfosModel } from 'src/app/models';
 import { environment } from 'src/environments/environment';
@@ -31,7 +31,10 @@ export class UploadService {
       publicLink: body.publicLink,
       expireDelay: body.expiryDays,
       senderId: body.senderId,
-      senderToken: body.senderToken
+      senderToken: body.senderToken,
+      language: body.langueCourriels,
+      zipPassword: body.zipPassword,
+
     };
     return this._httpClient.post(`${environment.host}${environment.apis.upload.tree}`, treeBody).pipe(
       map((response: any) => {
@@ -69,14 +72,17 @@ export class UploadService {
       rootFiles: trMapping.files,
       rootDirs: trMapping.dirs,
       publicLink: body.publicLink,
-      expireDelay: body.expiryDays
+      expireDelay: body.expiryDays,
+      language: body.langueCourriels,
+      zipPassword: body.zipPassword,
+
     };
     return this._httpClient.post(
       `${environment.host}${environment.apis.upload.confirmationCode}?code=${body.code}&senderMail=${body.senderMail}`,
       treeBody
     ).pipe(map((response: UploadInfosModel) => {
       this.uploadManagerService.uploadError$.next(null);
-      this.loginService.tokenInfo.next({
+      this.loginService.setLogin({
         senderMail: body.senderMail,
         senderToken: response.senderToken
       });
@@ -129,9 +135,9 @@ export class UploadService {
     if (file.path.length === 0) {
       data.files.push({ name: file.name, size: file.size, fid: file.fid });
     } else {
-      const parent = file.path.split('/')[0];
-      file.path = file.path.replace(`${parent}/`, '');
-      file.path = file.path.replace(`${parent}`, '');
+      const pathArray = file.path.split('/');
+      const parent = pathArray[0];
+      file.path = pathArray.slice(1).join('/');
       if (this._dirIndex(data.dirs, parent) !== -1) {
         data.dirs[this._dirIndex(data.dirs, parent)].totalSize =
           data.dirs[this._dirIndex(data.dirs, parent)].totalSize + file.size;
@@ -150,7 +156,7 @@ export class UploadService {
   }
 
   private _dirIndex(tab: Array<any>, name: string): number {
-    return tab.findIndex(dir => dir.name == name);
+    return tab.findIndex(dir => dir.name == name || dir.name == name + '/');
   }
 
   private handleError(operation: string) {

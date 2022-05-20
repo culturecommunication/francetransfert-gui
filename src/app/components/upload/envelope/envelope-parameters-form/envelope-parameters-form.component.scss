@@ -38,7 +38,7 @@
       cursor: initial !important;
     }
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     .valid {
       color: var(--ft-succes);
     }
@@ -46,4 +46,10 @@
       color: var(--ft-error);
     }
   }
+}
+
+.lang-selection {
+  width: 100%;
+  font-size: 14px;
+  margin-top: 34px;
 }

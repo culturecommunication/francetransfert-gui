@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { map } from 'rxjs/internal/operators/map';
+import { TokenModel } from 'src/app/models/token.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,6 +14,39 @@ export class AdminService {
   adminError$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
 
   constructor(private _httpClient: HttpClient) { }
+
+  getFileInfosConnect(body: any, enclosureId: string): Observable<any> {
+    const treeBody = {
+      senderMail: body.senderMail,
+      senderToken: body.senderToken,
+    };
+    return this._httpClient.post(
+      `${environment.host}${environment.apis.admin.fileInfosConnect}?enclosure=${enclosureId}`,
+      treeBody
+    ).pipe(map(response => {
+      this.adminError$.next(null);
+      return response;
+    }),
+      catchError(this.handleError('file-info-connect'))
+    );
+  }
+
+
+  getPlisSent(body: any): Observable<any> {
+    const treeBody = {
+      senderMail: body.senderMail,
+      senderToken: body.senderToken,
+    };
+    return this._httpClient.post(
+      `${environment.host}${environment.apis.admin.getPlisSent}`,
+      treeBody
+    ).pipe(map((response) => {
+      return response;
+    }),
+      catchError(this.handleError('get-plis-sent'))
+    );
+  }
+
 
   getFileInfos(params: Array<{ string: string }>) {
     return this._httpClient.get(
@@ -25,9 +59,11 @@ export class AdminService {
     );
   }
 
-  deleteFile(params: Array<{ string: string }>) {
-    return this._httpClient.get(
-      `${environment.host}${environment.apis.admin.deleteFile}?enclosure=${params['enclosure']}&token=${params['token']}`
+  deleteFile(body) {
+
+    return this._httpClient.post(
+      `${environment.host}${environment.apis.admin.deleteFile}`,
+      body
     ).pipe(map(response => {
       this.adminError$.next(null);
       return response;
@@ -40,7 +76,8 @@ export class AdminService {
     return this._httpClient.post(`${environment.host}${environment.apis.admin.updateExpiredDate}`, {
       enclosureId: body.enclosureId,
       newDate: body.newDate,
-      token: body.token
+      token: body.token,
+      senderMail: body.senderMail,
     }).pipe(map(response => {
       this.adminError$.next(null);
       return response;
@@ -53,11 +90,12 @@ export class AdminService {
     return this._httpClient.post(`${environment.host}${environment.apis.admin.addNewRecipient}`, {
       enclosureId: body.enclosureId,
       token: body.token,
-      newRecipient: body.newRecipient
+      newRecipient: body.newRecipient,
+      senderMail: body.senderMail,
     }).pipe(map(response => {
-        this.adminError$.next(null);
-        return response;
-      }),
+      this.adminError$.next(null);
+      return response;
+    }),
       catchError(this.handleError('add-new-Recipient'))
     );
   }
@@ -66,12 +104,28 @@ export class AdminService {
     return this._httpClient.post(`${environment.host}${environment.apis.admin.deleteRecipient}`, {
       enclosureId: body.enclosureId,
       token: body.token,
-      newRecipient: body.newRecipient
+      newRecipient: body.newRecipient,
+      senderMail: body.senderMail,
     }).pipe(map(response => {
-        this.adminError$.next(null);
-        return response;
-      }),
+      this.adminError$.next(null);
+      return response;
+    }),
       catchError(this.handleError('delete-Recipient'))
+    );
+  }
+
+  getPlisReceived(body: any): Observable<any> {
+    const treeBody = {
+      senderMail: body.receiverMail,
+      senderToken: body.senderToken,
+    };
+    return this._httpClient.post(
+      `${environment.host}${environment.apis.admin.getPlisReceived}`,
+      treeBody
+    ).pipe(map((response) => {
+      return response;
+    }),
+      catchError(this.handleError('get-plis-received'))
     );
   }
 

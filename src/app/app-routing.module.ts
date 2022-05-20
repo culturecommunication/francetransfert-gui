@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DownloadComponent, UploadComponent, AccessibiliteComponent, ContactComponent, FaqComponent, MentionsLegalesComponent, AdminComponent, PolitiqueProtectionDonneesComponent } from './components';
 import { CguComponent } from './components/cgu/cgu.component';
 import { ConnectComponent } from './components/connect/connect.component';
+import { PlisComponent } from './components/plis/plis.component';
 import { DownloadGuard } from './shared/guards';
 
 const routes: Routes = [
@@ -44,6 +45,9 @@ const routes: Routes = [
   },
   {
     path: 'cgu', component: CguComponent
+  },
+  {
+    path: 'plis', component: PlisComponent
   },
   { path: '', redirectTo: 'upload', pathMatch: 'full' },
   { path: '**', redirectTo: 'upload' }
