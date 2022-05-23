@@ -2,9 +2,6 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulat
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
-import { LanguageModel } from 'src/app/models';
-import { LanguageSelectionService } from 'src/app/services';
 
 
 @Component({
@@ -34,28 +31,12 @@ export class FaqComponent implements OnInit, AfterViewInit {
   @ViewChild('deuxfaçondutiliserfrancetransfert') private deuxfaçondutiliserfrancetransfert: ElementRef;
 
 
-
-  languageList: LanguageModel[];
-  languageSelectionSubscription: Subscription;
-  currentLanguage: string;
-  language: LanguageModel;
-  langueCode: string;
   panelOpenState = false;
 
 
   constructor(private titleService: Title,
     private router: Router,
-    private translateService: TranslateService,
-    private languageSelectionService: LanguageSelectionService,
-    ) {
-      this.currentLanguage = this.translateService.currentLang;
-      console.log('currentLanguage:', this.currentLanguage)
-      // this.languageList = this.languageSelectionService.languageList;
-      // this.language =  this.languageList.find(x => x.value == this.currentLanguage);
-      // this.langueCode = this.language.code;
-      // console.log('current lang:', this.language)
-      // console.log('browser lang', this.language.code);
-     }
+    private translateService: TranslateService) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('France transfert - FAQ');

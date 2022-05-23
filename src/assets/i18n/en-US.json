@@ -125,21 +125,7 @@
   "Taille": "size",
   "Fin_Validité": "End of validity",
   "Liste_Destinataires": "Recipients",
-  "Elément_Récurrent": "Select recurring item page",
-
-  "Question1_Texte": "",
-  "Question1Image": "",
-  "Question2Image": "",
-  "Question6Image": "",
-  "Question8Image": "",
-  "Question15Image": "",
-
-  "Gsize": "GB",
-  "Msize": "MB",
-  "Ksize": "KB",
-  "Osize": "bytes"
-
-
+  "Elément_Récurrent": "Select recurring item page"
 
 
 

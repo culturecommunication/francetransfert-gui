@@ -66,8 +66,7 @@ import { PlisRecusComponent } from './components/plis/plis-recus/plis-recus.comp
 import { PlisEnvoyesComponent } from './components/plis/plis-envoyes/plis-envoyes.component';
 import { FormsModule } from '@angular/forms';
 import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { DownloadEndMessageComponent } from './components/download-end-message/download-end-message.component';
+import { MatSortModule } from '@angular/material/sort' ;
 
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeEs, 'es', localeEsExtra);
@@ -132,7 +131,6 @@ const initializer = (pwaService: PwaService) => () =>
     PlisComponent,
     PlisRecusComponent,
     PlisEnvoyesComponent,
-    DownloadEndMessageComponent,
 
   ],
   imports: [

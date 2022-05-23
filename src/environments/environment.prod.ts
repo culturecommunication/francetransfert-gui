@@ -32,8 +32,7 @@ export const environment = {
       addNewRecipient: 'api-private/upload-module/add-recipient',
       deleteRecipient: 'api-private/upload-module/delete-recipient',
       getPlisSent: 'api-private/upload-module/get-plis-sent',
-      getPlisReceived: 'api-private/upload-module/get-plis-received',
-      resendLink: 'api-private/upload-module/resend-download-link'
+      getPlisReceived: 'api-private/upload-module/get-plis-received'
     },
     captcha: {
       url: '/captcha/captcha/'
