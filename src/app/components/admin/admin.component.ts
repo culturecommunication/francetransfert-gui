@@ -50,7 +50,6 @@ export class AdminComponent implements OnInit, OnDestroy {
   isMobile: boolean = false;
 
 
-
   constructor(private _adminService: AdminService, private formBuilder: FormBuilder,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
