@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
@@ -7,9 +7,7 @@ import {TranslateService} from '@ngx-translate/core';
 @Component({
   selector: 'ft-faq',
   templateUrl: './faq.component.html',
-  styleUrls: ['./faq.component.scss'],
-  encapsulation: ViewEncapsulation.None
-
+  styleUrls: ['./faq.component.scss']
 })
 export class FaqComponent implements OnInit, AfterViewInit {
 
