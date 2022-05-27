@@ -1,335 +1,200 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Transfer } from '@flowjs/ngx-flow';
-import * as moment from 'moment';
-import { Subject, Subscription } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
-import { FTTransferModel } from 'src/app/models';
-import { AdminService, ResponsiveService, UploadService } from 'src/app/services';
-import { AdminAlertDialogComponent } from './admin-alert-dialog/admin-alert-dialog.component';
-import { MyErrorStateMatcher } from "../upload/envelope/envelope-mail-form/envelope-mail-form.component";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { AdminEndMsgComponent } from "./admin-end-msg/admin-end-msg.component";
-import { DateAdapter } from '@angular/material/core';
-import { TranslateService } from '@ngx-translate/core';
-import { Location } from '@angular/common';
-import { LoginService } from 'src/app/services/login/login.service';
+::ng-deep .mat-grid-tile-content {
+  justify-content: flex-start !important ;
 
-@Component({
-  selector: 'ft-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
-})
-export class AdminComponent implements OnInit, OnDestroy {
+  .font-size {
+    display: flex;
+     justify-content: flex-end;
+     font-size: 12px;
+     padding-left: 2%;
+  }
 
-  private onDestroy$: Subject<void> = new Subject();
-  params: Array<{ string: string }>;
-  fileInfos: any;
-  dateInfos: any;
-  transfers: Array<any> = [];
-  validUntilDate;
-  minDate = new Date();
-  maxDate = new Date();
-  errorMessage = '';
-  adminErrorsSubscription: Subscription;
-  add: boolean = false;
-  close: boolean = false;
-  emailFormControl: any;
-  matcher = new MyErrorStateMatcher();
-  envelopeMailFormChangeSubscription: Subscription;
-  errorEmail: boolean = false;
-  errorValidEmail: boolean = false;
-  senderOk: boolean = false;
-  envelopeDestForm: FormGroup;
-  public selectedDate: Date = new Date();
-  enclosureId = '';
-  responsiveSubscription: Subscription = new Subscription;
-  isMobile: boolean = false;
+  .icon-position{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 16px;
+  }
 
-
-
-  constructor(private _adminService: AdminService, private formBuilder: FormBuilder,
-    private _activatedRoute: ActivatedRoute,
-    private _router: Router,
-    private dialog: MatDialog,
-    private titleService: Title,
-    private uploadService: UploadService, private _snackBar: MatSnackBar,
-    public translate: TranslateService,
-    private location: Location,
-    private loginService: LoginService,
-    private responsiveService: ResponsiveService,
-
-  ) {
+  .telechargement-position{
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 
 
+}
 
-  onResize() {
-    this.responsiveSubscription = this.responsiveService.getMobileStatus().subscribe(isMobile => {
-      this.isMobile = isMobile;
-    });
+
+
+.admin-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: -webkit-flex;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  .big-error {
+    margin-bottom: 2.2rem;
   }
-
-  ngOnInit(): void {
-    this.onResize();
-    this.responsiveService.checkWidth();
-
-    this.initForm();
-    this.transfers = [];
-    this.titleService.setTitle('France transfert - Administration d\'un pli');
-    this._activatedRoute.queryParams.pipe(takeUntil(this.onDestroy$)).subscribe((params: Array<{ string: string }>) => {
-      this.params = params;
-
-      if (this.params['enclosure'] && this.params['token']) {
-        this._adminService
-          .getFileInfos(params)
-          .pipe(takeUntil(this.onDestroy$))
-          .subscribe(fileInfos => {
-            this.fileInfos = fileInfos;
-            this.fileInfos.rootFiles.map(file => {
-              this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
-            });
-            this.fileInfos.rootDirs.map(file => {
-              this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
-            });
-            this.validUntilDate = new FormControl(new Date(this.fileInfos.validUntilDate));
-            let temp = new Date(this.fileInfos.timestamp);
-            this.selectedDate = temp;
-            //let temp = this.selectedDate;
-            this.maxDate.setDate(temp.getDate() + 90);
-          });
-      } else if (this.loginService.isLoggedIn() && this.params['token'] == null && this.params['enclosure']) {
-
-        this.enclosureId = this.params['enclosure'];
-
-        this._adminService
-          .getFileInfosConnect({
-            senderMail: this.loginService.tokenInfo.getValue().senderMail,
-            senderToken: this.loginService.tokenInfo.getValue().senderToken,
-          }, this.enclosureId)
-          .pipe(takeUntil(this.onDestroy$))
-          .subscribe(fileInfos => {
-            this.fileInfos = fileInfos;
-            this.fileInfos.rootFiles.map(file => {
-              this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
-            });
-            this.fileInfos.rootDirs.map(file => {
-              this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
-            });
-            this.validUntilDate = new FormControl(new Date(this.fileInfos.validUntilDate));
-            let temp = new Date(this.fileInfos.timestamp);
-            this.selectedDate = temp;
-            //let temp = this.selectedDate;
-            this.maxDate.setDate(temp.getDate() + 90);
-
-          });
-      } else {
-        this._router.navigateByUrl('/error');
+  .admin-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    display: -webkit-flex;
+    -webkit-flex-direction: column;
+    -webkit-justify-content: flex-start;
+    .admin-card-header {
+      width: 100%;
+      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      -webkit-align-self: flex-start;
+      display: -webkit-flex;
+      -webkit-flex-direction: column;
+      border-bottom: 1px solid var(--ft-asset);
+      .mat-card-title {
+        font-size: 16px;
       }
-    });
-    this.adminErrorsSubscription = this._adminService.adminError$.subscribe(err => {
-      if (err === 401) {
-        this.errorMessage = 'Existence_Pli';
-      }
-    });
-  }
-
-  toArray(downloadDates: object) {
-    return Object.keys(downloadDates).map(key => downloadDates[key])
-
-  }
-
-  onPickerClose() {
-    // call api + reload
-    let formattedDate = moment(this.validUntilDate.value).format('DD-MM-yyyy');
-    const body = {
-      "enclosureId": this.params['enclosure'],
-      "token": this.params['token'] ? this.params['token'] : this.loginService.tokenInfo.getValue().senderToken,
-      "newDate": formattedDate,
-      "senderMail": this.loginService.tokenInfo.getValue() ? this.loginService.tokenInfo.getValue().senderMail : null,
     }
-    this._adminService
-      .updateExpiredDate(body)
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe(response => {
-        if (response) {
-          this.ngOnInit();
-        }
-      });
-  }
-
-  deleteFile() {
-    const dialogRef = this.dialog.open(AdminAlertDialogComponent, { data: 'deletePli' });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-
-        const body = {
-          "enclosureId": this.params['enclosure'],
-          "token": this.params['token'] ? this.params['token'] : this.loginService.tokenInfo.getValue().senderToken,
-          "senderMail": this.loginService.tokenInfo.getValue().senderMail,
-        }
-
-        this._adminService
-          .deleteFile(body)
-          .pipe(takeUntil(this.onDestroy$))
-          .subscribe(response => {
-            if (response) {
-              if (this.params['token'] == null) {
-                this.location.back();
-              }
-              else {
-                this._router.navigate(['/upload']);
-
-              }
-            }
-          });
+    .admin-card-content {
+      overflow-x: hidden;
+      overflow-y: auto;
+      width: 100%;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      display: -webkit-flex;
+      -webkit-flex-direction: column;
+      &-error {
+        color: var(--ft-error);
       }
-    });
-  }
-
-  ngOnDestroy() {
-    this.onDestroy$.next();
-    this.onDestroy$.complete();
-    this.adminErrorsSubscription.unsubscribe();
-  }
-
-  deleteRecipient(index, dest) {
-    const dialogRef = this.dialog.open(AdminAlertDialogComponent, { data: 'deleteDest' });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const body = {
-          "enclosureId": this.params['enclosure'],
-          "token": this.params['token'] ? this.params['token'] : this.loginService.tokenInfo.getValue().senderToken,
-          "newRecipient": dest.recipientMail,
-          "senderMail": this.loginService.tokenInfo.getValue() ? this.loginService.tokenInfo.getValue().senderMail : null,
+      &-infos {
+        font-size: 14px;
+        &-recipients {
+          display: flex;
+          flex-direction: column;
+          padding: 0 16px;
         }
-        this._adminService.deleteRecipient(body).
-          pipe(takeUntil(this.onDestroy$))
-          .subscribe(response => {
-            if (response) {
-              this.fileInfos.recipientsMails.splice(index, 1);
-              this.fileInfos.deletedRecipients.push(dest);
-            }
-          });;
+        ::ng-deep .mat-list-item-content {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          display: -webkit-flex;
+          -webkit-flex-direction: row;
+          -webkit-justify-content: space-between;
 
-      }
-    });
-
-  }
-
-  addRecipient() {
-    this.add = !this.add;
-    this.close = !this.close;
-    this.initForm();
-  }
-
-  onBlurDestinataires() {
-
-    if (this.emailFormControl.errors == null) {
-      this.errorEmail = false;
-      this.checkDestinataire(this.emailFormControl.value);
-    } else {
-      this.errorEmail = true;
-      this.envelopeDestForm.controls['email'].markAsTouched();
-      this.envelopeDestForm.controls['email'].setErrors({ emailError: true });
-    }
-
-  }
-
-  initForm() {
-
-    this.envelopeDestForm = this.formBuilder.group({
-      email: ['', { validators: [Validators.email], updateOn: 'blur' }],
-    });
-    this.emailFormControl = this.envelopeDestForm.get('email');
-    this.envelopeMailFormChangeSubscription = this.emailFormControl.valueChanges
-      .subscribe(() => {
-      });
-  }
-
-  checkDestinataire(email: any) {
-    let destOk = false;
-    if (this.emailFormControl.errors == null) {
-      this.errorEmail = false;
-      this.uploadService.validateMail([this.fileInfos.senderEmail]).pipe(
-        take(1)).subscribe((isValid: boolean) => {
-          this.senderOk = isValid;
-          if (!this.senderOk && !this.errorEmail) {
-            this.uploadService.validateMail([email]).pipe(
-              take(1)).subscribe((valid: boolean) => {
-                destOk = valid;
-                if (destOk) {
-                  //appeler le back;
-                  this.addNewRecipient(email);
-                  this.errorValidEmail = false;
-                  this.envelopeDestForm.controls['email'].markAsUntouched();
-                  this.envelopeDestForm.controls['email'].setErrors({ emailNotValid: false });
-
-                } else {
-                  this.envelopeDestForm.controls['email'].markAsTouched();
-                  this.envelopeDestForm.controls['email'].setErrors({ emailNotValid: true });
-                  this.errorValidEmail = true;
-                }
-              })
-          } else {
-            if (!this.errorEmail) {
-              //appeler le back
-              this.addNewRecipient(email);
-            }
+          .mat-icon {
+            cursor: pointer;
+            margin-left: auto;
           }
-        })
-    } else {
-      this.errorEmail = true;
-      this.envelopeDestForm.controls['email'].markAsUntouched();
-      this.envelopeDestForm.controls['email'].setErrors({ emailError: true });
-    }
-
-    this.envelopeDestForm.updateValueAndValidity();
-
-  }
-
-  addNewRecipient(email: any) {
-    const body = {
-      "enclosureId": this.params['enclosure'],
-      "token": this.params['token'] ? this.params['token'] : this.loginService.tokenInfo.getValue().senderToken,
-      "newRecipient": email,
-      "senderMail": this.loginService.tokenInfo.getValue() ? this.loginService.tokenInfo.getValue().senderMail : null,
-    }
-    this._adminService
-      .addNewRecipient(body)
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe(response => {
-        if (response) {
-          this.fileInfos.recipientsMails.push({ recipientMail: email, numberOfDownloadPerRecipient: 0 });
-          for (let i = 0; i < this.fileInfos.deletedRecipients.length; i++) {
-            if (this.fileInfos.deletedRecipients[i] === email) {
-              this.fileInfos.deletedRecipients.splice(i, 1);
-            }
-          }
-
-          this.envelopeDestForm.get('email').setValue('');
-          this.openSnackBar();
         }
-      });
-  }
+        .delete {
+          .mat-icon:hover {
+            color: var(--ft-error);
+          }
+        }
+        .addDestinataire {
+          padding: 0 16px;
+          .addForm {
+            min-width: 150px;
+            max-width: 500px;
+            width: 100%;
+          }
+          .full-width {
+            width: 100%;
+          }
+        }
+      }
+      &-files {
+        border-top: solid 1px var(--ft-mention);
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        display: -webkit-flex;
+        -webkit-flex-direction: column;
+        .file-item {
+          width: 100%;
+        }
+      }
 
-  openSnackBar() {
-    this._snackBar.openFromComponent(AdminEndMsgComponent, {
-      duration: 4000,
-    });
-  }
-
-  previousPage() {
-    if (this.params['token'] == null) {
-      this.location.back();
+      .subheader {
+        color: var(--ft-mention);
+        font-size: 16px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .respientHeader {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-right: 16px;
+      }
     }
-    else {
-      this._router.navigate(['/upload']);
+    .admin-card-actions-btn {
+      background-color: var(--ft-blue-france);
+      color: var(--ft-white);
+    }
+  }
+  .deleted {
+    color: var(--ft-error);
+    .recipient-mail {
+      text-decoration: line-through;
+    }
+  }
+  .list-elem {
+    max-width: 60%;
+    display: flex;
+    flex-grow: 1;
+  }
 
+  .down-count {
+    //margin-left: auto;
+    margin-left: 20%;
+  }
+
+
+}
+
+::ng-deep .mat-snack-bar-container {
+  padding: 0px !important;
+  background-color: #ffffff;
+  color: #0a0a0a;
+  border-color: #40a02b;
+  border-style: solid;
+}
+
+@media screen and (min-width: 812px) {
+  .admin-wrapper {
+    .admin-card {
+      // height: 100vh;
+      // width: 100%;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      height: 60%;
+      width: 70%;
     }
   }
 
+}
+
+@media screen and (min-width: 480px) and (max-width: 812px) {
+  .admin-wrapper {
+    .admin-card {
+      margin-top: 90px;
+      height: 60%;
+      width: 80%;
+    }
+  }
+}
+
+@media screen and (min-width: 200px) and (max-width: 480px) {
+  .admin-wrapper {
+    .admin-card {
+      margin-top: 90px;
+      height: 100%;
+      width: 100%;
+    }
+  }
 }

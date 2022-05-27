@@ -70,11 +70,11 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
           next: (fileInfos) => {
             {
               fileInfos.forEach(t => {
-              console.log("list t:", t)
+
 
                 //-----------condition on type-----------
                 let type = "";
-                if (t.publicLink == false) {
+                if (t.recipientsMails != null && t.recipientsMails != '' && t.recipientsMails != undefined) {
                   type = 'Courriel';
                 }
                 else {
@@ -82,14 +82,24 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
                 }
 
                 const destinataires = t.recipientsMails.map(n => n.recipientMail).join(", ");
-                console.log("destinataires :", destinataires)
                 //let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
 
+                const taillePli = t.totalSize.split(" ");
+                let typeSize = taillePli[0];
+                if (taillePli[1] == 'GB') {
+                  typeSize = 'Gsize';
+                } else if (taillePli[1] == 'MB') {
+                  typeSize = 'Msize';
+                } else if (taillePli[1] == 'KB') {
+                  typeSize = 'Ksize';
+                } else {
+                  typeSize = 'Osize';
+                }
 
                 //---------add to mat-table-------------
                 this.empList.push({
                   dateEnvoi: t.timestamp, type: type, objet: t.subject,
-                  taille: t.totalSize, finValidite: t.validUntilDate, destinataires: destinataires,
+                  taille: taillePli[0], typeSize: typeSize, finValidite: t.validUntilDate, destinataires: destinataires,
                   enclosureId: t.enclosureId
                 });
 
@@ -149,6 +159,7 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
       },
       queryParamsHandling: 'merge',
     });
+
   }
 
   backToHome() {
@@ -173,4 +184,8 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
 
 
 
+
+function testsize(arg0: string, testsize: any) {
+  throw new Error('Function not implemented.');
+}
 
