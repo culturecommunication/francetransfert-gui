@@ -86,20 +86,20 @@ export class AdminService {
     );
   }
 
-  resendLink(body) {
-    return this._httpClient.post(`${environment.host}${environment.apis.admin.resendLink}`, {
-      enclosureId: body.enclosureId,
-      token: body.token,
-      newRecipient: body.recipient,
-      senderMail: body.senderMail,
-    }).pipe(map(response => {
-      this.adminError$.next(null);
-      return response;
-    }),
-      catchError(this.handleError('resend-Link'))
-    );
+  // resendLink(body) {
+  //   return this._httpClient.post(`${environment.host}${environment.apis.admin.resendLink}`, {
+  //     enclosureId: body.enclosureId,
+  //     token: body.token,
+  //     newRecipient: body.recipient,
+  //     senderMail: body.senderMail,
+  //   }).pipe(map(response => {
+  //     this.adminError$.next(null);
+  //     return response;
+  //   }),
+  //     catchError(this.handleError('resend-Link'))
+  //   );
 
-  }
+  // }
 
 
   addNewRecipient(body) {
