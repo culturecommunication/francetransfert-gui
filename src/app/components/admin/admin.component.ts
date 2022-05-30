@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import { Subject, Subscription } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { FTTransferModel } from 'src/app/models';
-import { AdminService, UploadService } from 'src/app/services';
+import { AdminService, ResponsiveService, UploadService } from 'src/app/services';
 import { AdminAlertDialogComponent } from './admin-alert-dialog/admin-alert-dialog.component';
 import { MyErrorStateMatcher } from "../upload/envelope/envelope-mail-form/envelope-mail-form.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -45,7 +45,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   senderOk: boolean = false;
   envelopeDestForm: FormGroup;
   public selectedDate: Date = new Date();
-  enclosureId = '';
+  responsiveSubscription: Subscription = new Subscription;
+  isMobile: boolean = false;
 
 
 
@@ -58,12 +59,15 @@ export class AdminComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private location: Location,
     private loginService: LoginService,
-
+    private responsiveService: ResponsiveService,
   ) {
   }
 
   ngOnInit(): void {
 
+    this.responsiveSubscription = this.responsiveService.getMobileStatus().subscribe(isMobile => {
+      this.isMobile = isMobile;
+    });
 
     this.initForm();
     this.transfers = [];
@@ -90,12 +94,12 @@ export class AdminComponent implements OnInit, OnDestroy {
             this.maxDate.setDate(temp.getDate() + 90);
           });
       } else if (this.loginService.isLoggedIn() && this.params['token'] == null && this.params['enclosure']) {
-        this.enclosureId = this.params['enclosure'];
+        let enclosureId = this.params['enclosure'];
         this._adminService
           .getFileInfosConnect({
             senderMail: this.loginService.tokenInfo.getValue().senderMail,
             senderToken: this.loginService.tokenInfo.getValue().senderToken,
-          }, this.enclosureId)
+          }, enclosureId)
           .pipe(takeUntil(this.onDestroy$))
           .subscribe(fileInfos => {
             this.fileInfos = fileInfos;
@@ -174,6 +178,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.onDestroy$.next();
     this.onDestroy$.complete();
     this.adminErrorsSubscription.unsubscribe();
+    this.responsiveSubscription.unsubscribe();
   }
 
   deleteRecipient(index, dest) {
@@ -342,6 +347,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     this._snackBar.openFromComponent(DownloadEndMessageComponent, {
       duration: duration
     });
+  }
+
+  toArray(downloadDates: object) {
+    return Object.keys(downloadDates).map(key => downloadDates[key])
   }
 
 }
