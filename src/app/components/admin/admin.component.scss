@@ -1,31 +1,3 @@
-::ng-deep .mat-grid-tile-content {
-  justify-content: flex-start !important ;
-
-  .font-size {
-    display: flex;
-     justify-content: flex-end;
-     font-size: 12px;
-     padding-left: 2%;
-  }
-
-  .icon-position{
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    padding-right: 16px;
-  }
-
-  .telechargement-position{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-
-
-}
-
-
-
 .admin-wrapper {
   display: flex;
   justify-content: center;
@@ -65,6 +37,10 @@
       flex-direction: column;
       display: -webkit-flex;
       -webkit-flex-direction: column;
+
+      p {
+        height: 30px;
+      }
       &-error {
         color: var(--ft-error);
       }
@@ -92,6 +68,15 @@
           .mat-icon:hover {
             color: var(--ft-error);
           }
+
+          .overflow-clip {
+            //text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            //display: block;
+            display: flex;
+            flex-direction: row;
+          }
         }
         .addDestinataire {
           padding: 0 16px;
@@ -116,7 +101,12 @@
         -webkit-flex-direction: column;
         .file-item {
           width: 100%;
+          height: 100%;
         }
+      }
+
+      .admin-card-content-files {
+        margin-top: 15px;
       }
 
       .subheader {
@@ -132,6 +122,23 @@
         padding-right: 16px;
       }
     }
+
+    ::ng-deep .mat-list-item {
+      height: 100%;
+    }
+
+    ::ng-deep .mat-accordion {
+      width: 88%;
+    }
+
+    ::ng-deep .mat-expansion-panel {
+      border-radius: 0;
+    }
+
+    ::ng-deep .mat-expansion-panel-header {
+      color: #000;
+    }
+
     .admin-card-actions-btn {
       background-color: var(--ft-blue-france);
       color: var(--ft-white);
@@ -141,6 +148,8 @@
     color: var(--ft-error);
     .recipient-mail {
       text-decoration: line-through;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
   }
   .list-elem {
@@ -149,12 +158,28 @@
     flex-grow: 1;
   }
 
-  .down-count {
-    //margin-left: auto;
-    margin-left: 20%;
+  .recipient-mail {
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
+  .down-count {
+    margin-left: auto;
+  }
 
+  .padding-count {
+    padding-right: 8px;
+    margin-left: auto;
+  }
+
+  .float-dates {
+    float: left;
+  }
+
+  .flex-dates {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 ::ng-deep .mat-snack-bar-container {
@@ -174,9 +199,12 @@
       margin-bottom: 10px;
       height: 60%;
       width: 70%;
+
+      ::ng-deep .mat-accordion {
+        width: 88%;
+      }
     }
   }
-
 }
 
 @media screen and (min-width: 480px) and (max-width: 812px) {
@@ -184,7 +212,12 @@
     .admin-card {
       margin-top: 90px;
       height: 60%;
-      width: 80%;
+      //width: 50%;
+      width: 70%;
+
+      ::ng-deep .mat-accordion {
+        width: 84%;
+      }
     }
   }
 }
@@ -195,6 +228,10 @@
       margin-top: 90px;
       height: 100%;
       width: 100%;
+
+      ::ng-deep .mat-accordion {
+        width: 86%;
+      }
     }
   }
 }
