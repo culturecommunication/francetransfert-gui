@@ -1,4 +1,5 @@
 {
+  "numberOfQuestion": 22,
   "FAQFranceTransfert": "FAQ France Transfert",
   "Question1": "Pourquoi France transfert ?",
   "Question2": "Puis-je me servir de France transfert pour mon usage personnel ?",
@@ -416,6 +417,69 @@
   "Question22_Liste": "<li>Un courriel comprenant un lien de téléchargement spécifique au destinataire.</li><li>Un courriel comprenant le mot de passe d’accès au pli (identique pour tous les destinataires, et fourni également par courriel à l’expéditeur).</li>",
   "Question22_Texte2": "<span>Si un des destinataires de votre pli n’a reçu qu’un seul ou aucun de ces 2 courriels, vous avez la possibilité, sur la page d’administration de votre pli, de faire une réémission de ces 2 courriels en cliquant sur le pictogramme « enveloppe » pour le destinataire concerné. </span>",
   "Question32": "",
+
+
+  "questions" : [
+
+    {
+      "category" : "Généralités",
+    "entities" : [
+
+    {
+        "Question" : "Pourquoi France transfert ?",
+        "Question_Texte": "<span>France transfert est un service créé par l’Etat pour aider ses usagers (citoyens, professionnels, entreprises, associations…), partenaires ou prestataires à envoyer (aux agents de l’Etat) ou recevoir (des agents de l’Etat), des fichiers et dossiers volumineux qui ne peuvent pas transiter par les messageries électroniques.Il a été conçu et est opéré par le ministère de la Culture, et mis à la disposition de tous les ministères par la direction interministérielle du numérique (DINUM)</span><br><span>C’est un service hébergé en France (société Outscale). Les données sont donc stockées sur des serveurs français le temps qu’elles soient téléchargées par leur destinataire.</span> ",
+        "Question_Texte2" : "",
+        "Question_Liste": "",
+        "QuestionImage": "<img mat-card-image alt='Pourquoi France transfert' src='assets/images/FT_France Transfert_V2.png' />"
+
+
+    },
+    {
+      "Question" : "Puis-je me servir de France transfert pour mon usage personnel ?",
+      "Question_Texte": "<span>France transfert est réservé aux échanges de fichiers volumineux entre services de l’administration et ses usagers. Il n’est pas possible d’échanger des fichiers entre usagers.</span>",
+      "Question_Texte2" : "",
+      "Question_Liste": "",
+      "QuestionImage": "<img   alt='Deux façons d'utiliser France transfert' src='assets/images/FT_Envoyer des dossiers ou des fichiers_V2.png' />"
+
+    },
+    {
+      "Question": "Deux façons d'utiliser France transfert ?",
+      "Question_Texte": "France transfert peut être utilisé de deux façons différentes :",
+      "Question_Liste": "<li> <span>Pour un envoi courriel, accessible aux agents de l’Etat tout comme aux usagers. Cette fonctionnalité permet à un expéditeur (agent de l’Etat ou usager) de transmettre des fichiers volumineux à un ou plusieurs destinataires connus. Attention toutefois, si l’expéditeur est un usager, le ou les destinataires doivent être obligatoirement des agents de l’Etat. Il n’y pas de transfert entre usagers. </span></li><li> <span>Pour la fonctionnalité « lien », elle n’est autorisée que pour les agents de l’Etat. Elle permet de générer un lien public vers les fichiers. L’expéditeur devra transmettre ce lien avec le mot de passe aux personnes qu’il juge nécessaire. La différence réside dans le fait que les destinataires peuvent ensuite transmettre ce lien sans que l’expéditeur puisse en contrôler le téléchargement.</span> </li>",
+      "Question_Texte2": "<span>Remarque : si vous souhaitez envoyer un pli vers une boite fonctionnelle (boite de messagerie lue par plusieurs personnes), nous vous déconseillons d’utiliser la  modalité d’envoi courriel. En effet le nombre de téléchargements d’un pli est limité à 5 fois par destinataire. </span>",
+      "QuestionImage": ""
+    },
+    {
+      "Question": "",
+      "Question_Texte": "",
+      "Question_Liste": "",
+      "Question_Texte2": "",
+      "QuestionImage": ""
+    }
+  ]},
+  {
+
+
+    "category" : "Mon compte / Se connecter",
+    "entities" : [
+
+    {
+      "Question": "Puis-je utiliser France transfert sur mobile ?",
+      "Question_Texte": "Oui le service a été conçu comme une Progressive Web App et peut donc être installé comme une application (le navigateur internet invite l'utilisateur à installer France transfert comme application). ",
+      "Question_Liste": "",
+      "Question_Texte2": "",
+      "QuestionImage": ""
+    },
+    {
+      "Question": "Pourquoi me demande-t-on un code de confirmation avant de procéder à l’envoi ?",
+      "Question_Texte": "<span>Des personnes pourraient utiliser France transfert à des fins personnelles en « empruntant » l’adresse courriel d’un agent de l’Etat ou d’un usager. Pour éviter cela, un courriel contenant un code de confirmation est envoyé à l’expéditeur. Au moment de l’ajout des fichiers à transférer, il est alors demandé de saisir ce code de confirmation, dont la durée de validité est de 20 min. </span> <br><span>Par la suite, si vous vous êtes préalablement connecté et que vous décidez de renvoyer un autre pli moins de 30 min après le précédent pli, on ne vous demandera pas un nouveau code de confirmation.</span>",
+      "Question_Liste": "",
+      "Question_Texte2": "",
+      "QuestionImage": ""
+    }
+  ]}
+
+  ],
   "": "",
   "": "",
   "": ""

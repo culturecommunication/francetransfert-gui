@@ -89,11 +89,23 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
                 if (taillePli[1] == 'GB') {
                   typeSize = 'Gsize';
                 } else if (taillePli[1] == 'MB') {
-                  typeSize = 'Msize';
+
+                  this.translate.stream('Msize').subscribe(v => {
+                    typeSize = v;
+                  })
+
                 } else if (taillePli[1] == 'KB') {
-                  typeSize = 'Ksize';
+
+                  this.translate.stream('Ksize').subscribe(v => {
+                    typeSize = v;
+                  })
+
                 } else {
-                  typeSize = 'Osize';
+
+                  this.translate.stream('Osize').subscribe(v => {
+                    typeSize = v;
+                  })
+
                 }
 
                 //---------add to mat-table-------------

@@ -56,6 +56,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
     this._activatedRoute.queryParams.pipe(takeUntil(this.onDestroy$)).subscribe((params: Array<{ string: string }>) => {
       this.params = params;
       this.loading = true;
+      console.log("this.params['token'] : ", this.params['token'])
       if (this.params['enclosure'] && this.params['recipient'] && this.params['token']) {
         this._downloadService
           .getDownloadInfos(params)
