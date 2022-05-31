@@ -47,7 +47,6 @@ export class FaqComponent implements OnInit, AfterViewInit {
     private languageSelectionService: LanguageSelectionService,
     ) {
       this.currentLanguage = this.translateService.currentLang;
-      console.log('currentLanguage:', this.currentLanguage)
       // this.languageList = this.languageSelectionService.languageList;
       // this.language =  this.languageList.find(x => x.value == this.currentLanguage);
       // this.langueCode = this.language.code;

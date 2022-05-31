@@ -81,13 +81,12 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   isParamFromValid() {
     if (this.parametersFormValues && this.parametersFormValues.password && this.parametersFormValues.password != '' && this.parametersFormValues.password != null && this.parametersFormValues.password != undefined) {
-
       return minChar(this.parametersFormValues.password)
         && majChar(this.parametersFormValues.password)
         && specialChar(this.parametersFormValues.password)
         && numChar(this.parametersFormValues.password)
         && sizeControl(this.parametersFormValues.password)
-        && noSpecial(this.parametersFormValues.password);
+        && !noSpecial(this.parametersFormValues.password);
     }
     return true;
   }
