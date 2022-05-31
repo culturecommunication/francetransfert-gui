@@ -252,7 +252,6 @@ export class AdminComponent implements OnInit, OnDestroy {
                   this.errorValidEmail = false;
                   this.envelopeDestForm.controls['email'].markAsUntouched();
                   this.envelopeDestForm.controls['email'].setErrors({ emailNotValid: false });
-
                 } else {
                   this.envelopeDestForm.controls['email'].markAsTouched();
                   this.envelopeDestForm.controls['email'].setErrors({ emailNotValid: true });
@@ -288,7 +287,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         }
         this._adminService
           .resendLink(body)
-          .pipe(takeUntil(this.onDestroy$))
+          .pipe(take(1))
           .subscribe(response => {
             if (response) {
               this.openSnackBarDownload(4000);
@@ -311,7 +310,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
     this._adminService
       .addNewRecipient(body)
-      .pipe(takeUntil(this.onDestroy$))
+      .pipe(take(1))
       .subscribe(response => {
         if (response) {
           this.fileInfos.recipientsMails.push({ recipientMail: email, numberOfDownloadPerRecipient: 0 });
@@ -320,7 +319,6 @@ export class AdminComponent implements OnInit, OnDestroy {
               this.fileInfos.deletedRecipients.splice(i, 1);
             }
           }
-
           this.envelopeDestForm.get('email').setValue('');
           this.openSnackBar();
         }
@@ -350,7 +348,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   toArray(downloadDates: object) {
-    return Object.keys(downloadDates).map(key => downloadDates[key])
+    if (downloadDates && Object.keys(downloadDates).length > 0) {
+      return Object.keys(downloadDates).map(key => downloadDates[key])
+    }
   }
 
 }

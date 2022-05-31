@@ -4,20 +4,20 @@
 
 export const environment = {
   production: false,
-  host: 'http://localhost:',
+  host: 'http://localhost:8080/',
   apis: {
-    config: '8080/api-private/upload-module/config',
+    config: 'api-private/upload-module/config',
     upload: {
-      upload: '8080/api-private/upload-module/upload',
-      tree: '8080/api-private/upload-module/sender-info',
-      confirmationCode: '8080/api-private/upload-module/validate-code',
-      generateCode: '8080/api-private/confirmation-module/generate-code',
-      validateCode: '8080/api-private/confirmation-module/validate-code',
-      rate: '8080/api-private/upload-module/satisfaction',
-      validateMail: '8080/api-private/upload-module/validate-mail',
-      config: '8080/api-private/upload-module/config',
-      allowedSenderMail: '8080/api-private/upload-module/allowed-sender-mail',
-      formulaireContact: '8080/api-private/upload-module/sender-contact'
+      upload: 'api-private/upload-module/upload',
+      tree: 'api-private/upload-module/sender-info',
+      confirmationCode: 'api-private/upload-module/validate-code',
+      generateCode: 'api-private/confirmation-module/generate-code',
+      validateCode: 'api-private/confirmation-module/validate-code',
+      rate: 'api-private/upload-module/satisfaction',
+      validateMail: 'api-private/upload-module/validate-mail',
+      config: 'api-private/upload-module/config',
+      allowedSenderMail: 'api-private/upload-module/allowed-sender-mail',
+      formulaireContact: 'api-private/upload-module/sender-contact'
     },
     download: {
       download: 'api-private/download-module/download-info',
@@ -40,7 +40,7 @@ export const environment = {
       resendLink: 'api-private/upload-module/resend-download-link'
     },
     captcha: {
-      url: '8080/https://test-francetransfert.aot.agency/captcha/captcha/'
+      url: 'https://test-francetransfert.aot.agency/captcha/captcha/'
     }
   },
   version: '3.5.0'
