@@ -84,10 +84,14 @@
                         | translate}}</span>
                     </mat-panel-title>
                   </mat-expansion-panel-header>
-                  <span class="down-count float-dates">{{'Dates de téléchargement :' | translate}}</span>
+                  <span class="down-count float-dates">{{'Dates-telechargement' | translate}}</span>
                   <div class="flex-dates">
                     <span class="down-count" *ngFor="let date of toArray(dest.downloadDates)">
-                      {{date}}</span>
+                      <!-- {{date}}  -->
+                      {{date | date: 'shortDate': '' : translate.currentLang}}
+                      {{'time' | translate}}
+                        {{date | date: "HH:mm:ss": '' : translate.currentLang}}
+                    </span>
                   </div>
                 </mat-expansion-panel>
               </mat-accordion>

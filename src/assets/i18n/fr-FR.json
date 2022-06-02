@@ -416,8 +416,8 @@
   "Question22_Liste": "<li>Un courriel comprenant un lien de téléchargement spécifique au destinataire.</li><li>Un courriel comprenant le mot de passe d’accès au pli (identique pour tous les destinataires, et fourni également par courriel à l’expéditeur).</li>",
   "Question22_Texte2": "<span>Si un des destinataires de votre pli n’a reçu qu’un seul ou aucun de ces 2 courriels, vous avez la possibilité, sur la page d’administration de votre pli, de faire une réémission de ces 2 courriels en cliquant sur le pictogramme « enveloppe » pour le destinataire concerné. </span>",
   "Question32": "",
-  "": "",
-  "": "",
+  "Dates-telechargement": "Dates de téléchargement :",
+  "time": "à",
   "": ""
 
 
