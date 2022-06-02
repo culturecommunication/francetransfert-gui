@@ -17,7 +17,7 @@
         matSortDirection="desc">
 
         <!-- Date de Réception Column -->
-        <ng-container matColumnDef="dateReception" class="padding">
+        <ng-container matColumnDef="dateReception">
           <mat-header-cell *matHeaderCellDef> {{'Date_Réception' | translate}}</mat-header-cell>
           <mat-cell *matCellDef="let element" attr.data-label="{{'Date_Réception' | translate}}">
             {{element.dateReception
@@ -28,7 +28,10 @@
         <!-- Expéditeur Column -->
         <ng-container matColumnDef="expediteur">
           <mat-header-cell *matHeaderCellDef> {{'expediteur' | translate}}</mat-header-cell>
-          <mat-cell *matCellDef="let element" attr.data-label="{{'expediteur' | translate}}"> {{element.expediteur}}
+          <mat-cell *matCellDef="let element" attr.data-label="{{'expediteur' | translate}}">
+            <div class="overflow-clip">
+             {{element.expediteur}}
+            </div>
           </mat-cell>
         </ng-container>
 
@@ -63,8 +66,8 @@
         <ng-container matColumnDef="token">
           <mat-header-cell *matHeaderCellDef> {{'Action' | translate}}</mat-header-cell>
           <mat-cell *matCellDef="let element" attr.data-label="{{'Action' | translate}}">
-            <mat-icon matTooltip="{{'Details' | translate}}" style="color: black;cursor: pointer;"
-              (click)="navigateTo(element.enclosureId)" attr.aria-label="{{'Details' | translate}}">
+            <mat-icon matTooltip="{{'Télécharger_Pli' | translate}}" style="color: black;cursor: pointer;"
+              (click)="navigateTo(element.enclosureId)" attr.aria-label="{{'Télécharger_Pli' | translate}}">
               cloud_download</mat-icon>
           </mat-cell>
         </ng-container>

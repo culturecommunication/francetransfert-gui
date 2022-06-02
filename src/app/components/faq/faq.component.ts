@@ -50,7 +50,7 @@ export class FaqComponent implements OnInit, AfterViewInit {
   panelOpenState = false;
 
 
-  categorie1:any;
+  categories:any;
   categorie2:any;
   categorie3:any;
   categorie4:any;
@@ -82,8 +82,7 @@ export class FaqComponent implements OnInit, AfterViewInit {
       // console.log('current lang:', this.language)
       // console.log('browser lang', this.language.code);
 
-      this.searchableList0 = ['category']
-    this.searchableList = ['Question','Question_Texte', 'Question_Liste', 'Question_Texte2', 'QuestionImage']
+    this.searchableList = ['Question','Question_Texte1', 'Question_Liste', 'Question_Liste_Ordered', 'Question_Texte2', 'QuestionImage']
 
 
 
@@ -98,8 +97,8 @@ getListQuetion(){
 
   this.translateService.stream("questions").subscribe(v => {
 
-    this.categorie1 = v
-    console.log("this.categorie1:", this.categorie1)
+    this.categories = v
+    console.log("this.categorie1:", this.categories)
   })
 
 }

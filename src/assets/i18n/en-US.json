@@ -17,8 +17,9 @@
 
       {
         "Question" : "Why France transfer?",
-        "Question_Texte": "France transfert is a service created by the State to help its users",
+        "Question_Texte1": "France transfert is a service created by the State to help its users",
         "Question_Texte2" : "",
+        "Question_Liste_Ordered": "",
         "Question_Liste": "",
         "QuestionImage": ""
 
@@ -26,8 +27,9 @@
     },
     {
       "Question" : "Can I use France transfert for my personal use?",
-      "Question_Texte": "<span>How can I easily find my sent and received letters l’administration et ses usagers. Il n’est pas possible d’échanger des fichiers entre usagers.</span>",
+      "Question_Texte1": "<span>How can I easily find my sent and received letters l’administration et ses usagers. Il n’est pas possible d’échanger des fichiers entre usagers.</span>",
       "Question_Texte2" : "",
+      "Question_Liste_Ordered": "",
       "Question_Liste": "",
       "QuestionImage": ""
 
@@ -35,15 +37,17 @@
     },
     {
       "Question": "Deux façons d'utiliser France transfert ?",
-      "Question_Texte": "France transfert peut être utilisé de deux façons différentes :",
+      "Question_Texte1": "France transfert peut être utilisé de deux façons différentes :",
       "Question_Liste": "<li> <span>Pour un envoi courriel, accessible aux agents de l’Etat tout comme aux usagers. Cette fonctionnalité permet à un expéditeur (agent de l’Etat ou usager) de transmettre des fichiers volumineux à un ou plusieurs destinataires connus. Attention toutefois, si l’expéditeur est un usager, le ou les destinataires doivent être obligatoirement des agents de l’Etat. Il n’y pas de transfert entre usagers. </span></li><li> <span>Pour la fonctionnalité « lien », elle n’est autorisée que pour les agents de l’Etat. Elle permet de générer un lien public vers les fichiers. L’expéditeur devra transmettre ce lien avec le mot de passe aux personnes qu’il juge nécessaire. La différence réside dans le fait que les destinataires peuvent ensuite transmettre ce lien sans que l’expéditeur puisse en contrôler le téléchargement.</span> </li>",
+      "Question_Liste_Ordered": "",
       "Question_Texte2": "<span>Remarque : si vous souhaitez envoyer un pli vers une boite fonctionnelle (boite de messagerie lue par plusieurs personnes), nous vous déconseillons d’utiliser la  modalité d’envoi courriel. En effet le nombre de téléchargements d’un pli est limité à 5 fois par destinataire. </span>",
       "QuestionImage": ""
     },
     {
       "Question": "",
-      "Question_Texte": "",
+      "Question_Texte1": "",
       "Question_Liste": "",
+      "Question_Liste_Ordered": "",
       "Question_Texte2": "",
       "QuestionImage": ""
     }
@@ -55,8 +59,9 @@
     "entities" : [
       {
         "Question" : "Can I use France transfert for my personal use?",
-        "Question_Texte": "<span>How can I easily find my sent and received letters l’administration et ses usagers. Il n’est pas possible d’échanger des fichiers entre usagers.</span>",
+        "Question_Texte1": "<span>How can I easily find my sent and received letters l’administration et ses usagers. Il n’est pas possible d’échanger des fichiers entre usagers.</span>",
         "Question_Texte2" : "",
+        "Question_Liste_Ordered": "",
         "Question_Liste": "",
         "QuestionImage": ""
 
@@ -64,8 +69,9 @@
       },
       {
         "Question": "Two ways to use France Transfer?",
-        "Question_Texte": "France transfert peut être utilisé de deux façons différentes :",
+        "Question_Texte1": "France transfert peut être utilisé de deux façons différentes :",
         "Question_Liste": "<li> <span>What is the point of 'connectingCette fonctionnalité permet à un expéditeur (agent de l’Etat ou usager) de transmettre des fichiers volumineux à un ou plusieurs destinataires connus. Attention toutefois, si l’expéditeur est un usager, le ou les destinataires doivent être obligatoirement des agents de l’Etat. Il n’y pas de transfert entre usagers. </span></li><li> <span>Pour la fonctionnalité « lien », elle n’est autorisée que pour les agents de l’Etat. Elle permet de générer un lien public vers les fichiers. L’expéditeur devra transmettre ce lien avec le mot de passe aux personnes qu’il juge nécessaire. La différence réside dans le fait que les destinataires peuvent ensuite transmettre ce lien sans que l’expéditeur puisse en contrôler le téléchargement.</span> </li>",
+        "Question_Liste_Ordered": "",
         "Question_Texte2": "<span>What is the round 'backpack' dot at the bottom right of France Transfer used for (boite de messagerie lue par plusieurs personnes), nous vous déconseillons d’utiliser la  modalité d’envoi courriel. En effet le nombre de téléchargements d’un pli est limité à 5 fois par destinataire. </span>",
         "QuestionImage": ""
       }

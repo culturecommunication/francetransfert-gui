@@ -8,14 +8,7 @@
     }
   }
 
-  .mat-column-destinataires {
-    display: flex;
-    flex-wrap: wrap;
-    align-self: center;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-  }
+
 
   .center-vertical {
     display: inline-block;
@@ -32,24 +25,6 @@
     align-content: center;
     justify-content: center;
     color: var(--ft-error);
-  }
-
-  mat-cell > span.truncate-text {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .overflow-ellipsis {
-    text-overflow: ellipsis;
-    width: 100px;
-  }
-
-  .overflow-clip {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    display: block;
   }
 
   @media screen and (min-width: 640px) {
@@ -69,6 +44,7 @@
     }
 
     .mat-column-objet {
+      flex-basis: 7.1rem;
       flex-grow: 2;
       align-self: center;
       align-items: center;
@@ -76,12 +52,16 @@
       justify-content: center;
     }
 
-    .mat-column-destinataires {
-      display: flex;
-      flex-wrap: wrap;
-      overflow: auto;
-      flex-grow: 3;
-      max-height: 15vh;
+    .mat-column-expediteur {
+      flex-basis: 2.1rem;
+      align-self: center;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
+
+    .mat-column-dateReception {
+      flex-basis: 2.1rem;
       align-self: center;
       align-items: center;
       align-content: center;
@@ -99,7 +79,7 @@
 
     .mat-column-finValidite {
       flex-grow: 0;
-      flex-basis: 5.1rem;
+      flex-basis: 13rem;
       align-self: center;
       align-items: center;
       align-content: center;
@@ -114,7 +94,66 @@
       align-content: center;
       justify-content: center;
     }
+
+    .mat-column-taille {
+      flex-grow: 0;
+      flex-basis: 8rem;
+      align-self: center;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
+
+    .mat-column-token {
+      flex-basis: 3rem;
+
+    }
+
   }
+
+  mat-cell > span.truncate-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .overflow-ellipsis {
+    text-overflow: ellipsis;
+    width: 100px;
+  }
+
+  .overflow-clip {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+    width: 80%;
+  }
+
+  @media screen and (min-width: 640px) and (max-width: 790px) {
+    .mat-column-token {
+      flex-basis: 3.5rem;
+    }
+    .mat-column-dateReception {
+      flex-grow: 0;
+      flex-basis: 5.1rem;
+      align-self: center;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
+
+
+    .mat-column-finValidite {
+      flex-grow: 0;
+      flex-basis: 7rem;
+      align-self: center;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
+  }
+
 
   @media screen and (max-width: 640px) {
     .mat-table {
