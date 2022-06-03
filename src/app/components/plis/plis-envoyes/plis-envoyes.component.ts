@@ -85,7 +85,6 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
                 //let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
 
                 const taillePli = t.totalSize.split(" ");
-console.log("taillePli", taillePli)
                 //---------add to mat-table-------------
                 this.empList.push({
                   dateEnvoi: t.timestamp, type: type, objet: t.subject,

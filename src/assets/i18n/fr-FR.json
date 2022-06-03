@@ -391,7 +391,7 @@
   "GB": "Go",
   "MB": "Mo",
   "KB": "Ko",
-  "bytes": "octets",
+  "B": "octets",
   "Download_Success": "Les courriels ont bien été envoyés au destinataire.",
   "Renvoyer_pli": "Vous allez envoyer de nouveau un courriel avec le lien de téléchargement et un courriel avec le mot de passe d'accès au pli.",
   "Poursuivre_pli": "Voulez-vous poursuivre ?",

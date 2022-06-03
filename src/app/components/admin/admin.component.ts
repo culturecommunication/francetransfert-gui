@@ -114,7 +114,6 @@ export class AdminComponent implements OnInit, OnDestroy {
             this.selectedDate = temp;
             //let temp = this.selectedDate;
             this.maxDate.setDate(temp.getDate() + 90);
-            console.log("this.fileInfos : ", this.fileInfos)
           });
       } else {
         this._router.navigateByUrl('/error');
