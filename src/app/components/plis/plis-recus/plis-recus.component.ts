@@ -84,11 +84,15 @@ export class PlisRecusComponent {
             fileInfos => {
               fileInfos.forEach(t => {
 
+
+                const taillePli = t.totalSize.split(" ");
+
+
                 //---------add to mat-table-------------
                 this.empList.push({
                   dateReception: t.timestamp,
                   expediteur: t.senderEmail, objet: t.subject,
-                  taille: t.totalSize, finValidite: t.validUntilDate,
+                  taille: taillePli[0], typeSize: taillePli[1], finValidite: t.validUntilDate,
                   enclosureId: t.enclosureId
                 });
 

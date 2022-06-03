@@ -88,9 +88,9 @@
                   <div class="flex-dates">
                     <span class="down-count" *ngFor="let date of toArray(dest.downloadDates)">
                       <!-- {{date}}  -->
-                      {{date | date: 'shortDate': '' : translate.currentLang}}
+                      {{date.value | date: 'shortDate': '' : translate.currentLang}}
                       {{'time' | translate}}
-                        {{date | date: "HH:mm:ss": '' : translate.currentLang}}
+                        {{date.value | date: "HH:mm:ss": '' : translate.currentLang}}
                     </span>
                   </div>
                 </mat-expansion-panel>

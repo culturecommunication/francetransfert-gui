@@ -44,7 +44,7 @@
         <!-- Taille Column -->
         <ng-container matColumnDef="taille">
           <mat-header-cell *matHeaderCellDef> {{'Taille' | translate}}</mat-header-cell>
-          <mat-cell *matCellDef="let element" attr.data-label="{{'Taille' | translate}}">{{element.taille}} {{ element.typeSize | translate}} </mat-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Taille' | translate}}">{{element.taille}} {{element.typeSize | translate}} </mat-cell>
         </ng-container>
 
         <!-- Fin de validité Column -->

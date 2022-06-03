@@ -349,7 +349,11 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   toArray(downloadDates: object) {
     if (downloadDates && Object.keys(downloadDates).length > 0) {
-      return Object.keys(downloadDates).map(key => downloadDates[key])
+
+      return Object.keys(downloadDates).map(key =>  ({ value: downloadDates[key]})).sort((a, b) => {
+        return <any>new Date(a.value) - <any>new Date(b.value);
+      });
+
     }
   }
 

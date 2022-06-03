@@ -80,21 +80,10 @@ export class PlisEnvoyesComponent {
                 //let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
 
                 const taillePli = t.totalSize.split(" ");
-                let typeSize = taillePli[0];
-                if (taillePli[1] == 'GB') {
-                  typeSize = 'Gsize';
-                } else if (taillePli[1] == 'MB') {
-                  typeSize = 'Msize';
-                } else if (taillePli[1] == 'KB') {
-                  typeSize = 'Ksize';
-                } else {
-                  typeSize = 'Osize';
-                }
-
                 //---------add to mat-table-------------
                 this.empList.push({
                   dateEnvoi: t.timestamp, type: type, objet: t.subject,
-                  taille: taillePli[0], typeSize: typeSize, finValidite: t.validUntilDate, destinataires: destinataires,
+                  taille: taillePli[0], typeSize: taillePli[1], finValidite: t.validUntilDate, destinataires: destinataires,
                   enclosureId: t.enclosureId
                 });
 
