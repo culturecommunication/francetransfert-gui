@@ -26,6 +26,8 @@
     "@ngx-translate/core": "14.0.0",
     "@ngx-translate/http-loader": "7.0.0",
     "@types/flowjs": "2.13.8",
+    "angular-auth-oidc-client": "^14.0.1",
+    "angular-oauth2-oidc": "^13.0.1",
     "file-saver": "2.0.5",
     "material-icons": "1.11.7",
     "moment": "2.29.4",
