@@ -4,7 +4,7 @@ def version = new Version()
 
 node {
 
-      properties([disableConcurrentBuilds()])
+    properties([disableConcurrentBuilds()])
 
     println "============================"
     println "Branche: " + env.BRANCH_NAME
@@ -22,8 +22,10 @@ node {
     gitlabCommitStatus('build')
     {
         stage('Build') {
-            sh 'npm install'
-			sh 'npm run build'
+            lock('build-front') {
+                sh 'npm install'
+                sh 'npm run build'
+            }
         }
     }
     
