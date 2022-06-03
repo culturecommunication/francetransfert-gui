@@ -122,34 +122,13 @@ export class PlisRecusComponent extends MatPaginatorIntl {
 
 
                 const taillePli = t.totalSize.split(" ");
-                let typeSize = taillePli[0];
-                if (taillePli[1] == 'GB') {
-                  typeSize = 'Gsize';
-                } else if (taillePli[1] == 'MB') {
 
-                  this.translate.stream('Msize').subscribe(v => {
-                    typeSize = v;
-                  })
-
-                } else if (taillePli[1] == 'KB') {
-
-                  this.translate.stream('Ksize').subscribe(v => {
-                    typeSize = v;
-                  })
-
-                } else {
-
-                  this.translate.stream('Osize').subscribe(v => {
-                    typeSize = v;
-                  })
-
-                }
 
                 //---------add to mat-table-------------
                 this.empList.push({
                   dateReception: t.timestamp,
                   expediteur: t.senderEmail, objet: t.subject,
-                  taille: taillePli[0], typeSize: typeSize, finValidite: t.validUntilDate,
+                  taille: taillePli[0], typeSize: taillePli[1], finValidite: t.validUntilDate,
                   enclosureId: t.enclosureId
                 });
 

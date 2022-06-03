@@ -83,34 +83,13 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
 
                 const destinataires = t.recipientsMails.map(n => n.recipientMail).join(", ");
                 //let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
+
                 const taillePli = t.totalSize.split(" ");
-                let typeSize = taillePli[0];
-                if (taillePli[1] == 'GB') {
-                  typeSize = 'Gsize';
-                } else if (taillePli[1] == 'MB') {
-
-                  this.translate.stream('Msize').subscribe(v => {
-                    typeSize = v;
-                  })
-
-                } else if (taillePli[1] == 'KB') {
-
-                  this.translate.stream('Ksize').subscribe(v => {
-                    typeSize = v;
-                  })
-
-                } else {
-
-                  this.translate.stream('Osize').subscribe(v => {
-                    typeSize = v;
-                  })
-
-                }
-
+console.log("taillePli", taillePli)
                 //---------add to mat-table-------------
                 this.empList.push({
                   dateEnvoi: t.timestamp, type: type, objet: t.subject,
-                  taille: taillePli[0], typeSize: typeSize, finValidite: t.validUntilDate, destinataires: destinataires,
+                  taille: taillePli[0], typeSize: taillePli[1], finValidite: t.validUntilDate, destinataires: destinataires,
                   enclosureId: t.enclosureId
                 });
 
