@@ -6,4 +6,6 @@ export class PliRecuModel {
   finValidite: string;
   expediteur?: string;
   enclosureId: string;
+  typeSize: string;
+
 }
