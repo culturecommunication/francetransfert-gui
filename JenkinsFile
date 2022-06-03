@@ -24,7 +24,7 @@ node {
         stage('Build') {
             lock('build-front') {
                 sh 'npm install'
-                sh 'npm run build'
+                sh 'npm --max_old_space_size=1024 run build'
             }
         }
     }
