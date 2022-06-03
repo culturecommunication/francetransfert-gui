@@ -16,7 +16,7 @@ export class EndMessageComponent implements OnInit {
   @Input() publicLink: boolean = false;
 
   constructor(private _router: Router,
-    public translate: TranslateService,) { }
+    private _translate: TranslateService,) { }
 
   ngOnInit(): void {
   }
@@ -27,6 +27,10 @@ export class EndMessageComponent implements OnInit {
     } else {
       this._router.navigate(['/upload']);
     }
+  }
+
+  get translate(): TranslateService {
+    return this._translate;
   }
 
 }

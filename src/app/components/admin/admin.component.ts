@@ -56,7 +56,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private titleService: Title,
     private uploadService: UploadService, private _snackBar: MatSnackBar,
-    public translate: TranslateService,
+    private _translate: TranslateService,
     private location: Location,
     private loginService: LoginService,
     private responsiveService: ResponsiveService,
@@ -351,6 +351,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     if (downloadDates && Object.keys(downloadDates).length > 0) {
       return Object.keys(downloadDates).map(key => downloadDates[key])
     }
+  }
+
+  get translate(): TranslateService {
+    return this._translate;
   }
 
 }

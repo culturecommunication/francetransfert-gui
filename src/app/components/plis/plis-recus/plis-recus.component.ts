@@ -14,14 +14,13 @@ import { PliRecuModel } from 'src/app/models/pli-recu.model';
   templateUrl: './plis-recus.component.html',
   styleUrls: ['./plis-recus.component.scss']
 })
-export class PlisRecusComponent extends MatPaginatorIntl {
+export class PlisRecusComponent {
 
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   responsiveSubscription: Subscription = new Subscription;
-  OF_LABEL: any;
   empList: PliRecuModel[] = [];
   displayedColumns: string[] = ['dateReception', 'expediteur', 'objet', 'taille', 'finValidite', 'token'];
   dataSource = new MatTableDataSource<PliRecuModel>(this.empList);
@@ -29,49 +28,14 @@ export class PlisRecusComponent extends MatPaginatorIntl {
   lengthScreen: any;
   screenWidth: string;
 
-  constructor(public translate: TranslateService,
+  constructor(
     private _adminService: AdminService,
     private loginService: LoginService,
     private _router: Router,
-    private responsiveService: ResponsiveService
+    private responsiveService: ResponsiveService,
+    private _translate: TranslateService,
   ) {
-    super();
-    this.translate.onLangChange.subscribe((e: Event) => {
-      this.getAndInitTranslations();
-    });
-    this.getAndInitTranslations();
   }
-
-
-
-
-  //----------traduction----------
-  getAndInitTranslations() {
-    this.translate.get(['ITEMS_PER_PAGE', 'NEXT_PAGE', 'PREVIOUS_PAGE', 'OF_LABEL', 'LAST_PAGE', 'FIRST_PAGE']).subscribe(translation => {
-      this.itemsPerPageLabel = translation['ITEMS_PER_PAGE'];
-      this.nextPageLabel = translation['NEXT_PAGE'];
-      this.previousPageLabel = translation['PREVIOUS_PAGE'];
-      this.lastPageLabel = translation['LAST_PAGE'];
-      this.firstPageLabel = translation['FIRST_PAGE'];
-      this.OF_LABEL = translation['OF_LABEL'];
-      this.changes.next();
-    });
-  }
-
-
-
-
-
-
-  getRangeLabel = (page: number, pageSize: number, length: number) => {
-    if (length === 0 || pageSize === 0) {
-      return `0 ${this.OF_LABEL} ${length}`;
-    }
-    length = Math.max(length, 0);
-    const startIndex = page * pageSize;
-    const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-    return `${startIndex + 1} - ${endIndex} ${this.OF_LABEL} ${length}`;
-  };
 
 
 
@@ -177,10 +141,13 @@ export class PlisRecusComponent extends MatPaginatorIntl {
     return this.loginService.isLoggedIn();
   }
 
+  get translate(): TranslateService {
+    return this._translate;
+  }
 
-  // ngOnDestroy() {
-  //   this.responsiveSubscription.unsubscribe();
-  // }
+  ngOnDestroy() {
+    this.responsiveSubscription.unsubscribe();
+  }
 
 }
 
