@@ -45,12 +45,6 @@
     width: 100px;
   }
 
-  .overflow-clip {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    display: block;
-  }
 
   @media screen and (min-width: 640px) {
     // .overflow-clip {
@@ -59,6 +53,14 @@
     //   padding: 0.2em 0;
     //   overflow: auto;
     // }
+    .overflow-clip {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      display: block;
+      width: 80%;
+      text-align: center
+    }
 
     .mat-width {
       width: 112%;
@@ -69,6 +71,7 @@
     }
 
     .mat-column-objet {
+      flex-basis: 5rem;
       flex-grow: 2;
       align-self: center;
       align-items: center;
@@ -77,6 +80,7 @@
     }
 
     .mat-column-destinataires {
+      flex-basis: 5rem;
       display: flex;
       flex-wrap: wrap;
       overflow: auto;
@@ -99,6 +103,20 @@
 
     .mat-column-finValidite {
       flex-grow: 0;
+      flex-basis: 10rem;
+      align-self: center;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
+
+    .mat-column-token {
+      flex-basis: 5rem;
+
+    }
+
+    .mat-column-type {
+      flex-grow: 0;
       flex-basis: 5.1rem;
       align-self: center;
       align-items: center;
@@ -106,9 +124,42 @@
       justify-content: center;
     }
 
-    .mat-column-type {
+    .mat-column-taille {
       flex-grow: 0;
-      flex-basis: 3.5rem;
+      flex-basis: 5.1rem;
+      align-self: center;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
+  }
+
+  @media screen and (min-width: 640px) and (max-width: 790px) {
+
+    .overflow-clip {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      display: block;
+      width: 80%;
+      text-align: center
+    }
+
+    .mat-column-token {
+      flex-basis: 6.5rem;
+    }
+    .mat-column-dateEnvoi {
+      flex-grow: 0;
+      flex-basis: 5rem;
+      align-self: center;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
+
+    .mat-column-finValidite {
+      flex-grow: 0;
+      flex-basis: 5rem;
       align-self: center;
       align-items: center;
       align-content: center;
@@ -167,6 +218,14 @@
     }
     .mat-table .mat-cell:first-child {
       margin-top: 4%;
+    }
+
+    .overflow-clip {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      display: block;
+      width: 80%;
     }
   }
 }

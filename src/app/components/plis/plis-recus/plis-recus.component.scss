@@ -88,6 +88,22 @@
       justify-content: center;
     }
 
+    .mat-column-expediteur {
+      flex-basis: 2.1rem;
+      align-self: center;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
+
+    .mat-column-dateReception {
+      flex-basis: 2.1rem;
+      align-self: center;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
+
     .mat-column-dateEnvoi {
       flex-grow: 0;
       flex-basis: 5.1rem;
@@ -99,7 +115,7 @@
 
     .mat-column-finValidite {
       flex-grow: 0;
-      flex-basis: 6.5rem;
+      flex-basis: 13rem;
       align-self: center;
       align-items: center;
       align-content: center;
@@ -114,7 +130,46 @@
       align-content: center;
       justify-content: center;
     }
+
+    .mat-column-taille {
+      flex-grow: 0;
+      flex-basis: 8rem;
+      align-self: center;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
+
+    .mat-column-token {
+      flex-basis: 3rem;
+
+    }
   }
+
+  @media screen and (min-width: 640px) and (max-width: 790px) {
+    .mat-column-token {
+      flex-basis: 3.5rem;
+    }
+    .mat-column-dateReception {
+      flex-grow: 0;
+      flex-basis: 5.1rem;
+      align-self: center;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
+
+
+    .mat-column-finValidite {
+      flex-grow: 0;
+      flex-basis: 7rem;
+      align-self: center;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
+  }
+
 
   @media screen and (max-width: 640px) {
     .mat-table {
