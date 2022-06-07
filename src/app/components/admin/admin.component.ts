@@ -78,7 +78,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       if (this.params['enclosure'] && this.params['token']) {
         this._adminService
           .getFileInfos(params)
-          .pipe(takeUntil(this.onDestroy$))
+          .pipe(take(1))
           .subscribe(fileInfos => {
             this.fileInfos = fileInfos;
             this.fileInfos.rootFiles.map(file => {
@@ -100,7 +100,7 @@ export class AdminComponent implements OnInit, OnDestroy {
             senderMail: this.loginService.tokenInfo.getValue().senderMail,
             senderToken: this.loginService.tokenInfo.getValue().senderToken,
           }, enclosureId)
-          .pipe(takeUntil(this.onDestroy$))
+          .pipe(take(1))
           .subscribe(fileInfos => {
             this.fileInfos = fileInfos;
             this.fileInfos.rootFiles.map(file => {
@@ -137,7 +137,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
     this._adminService
       .updateExpiredDate(body)
-      .pipe(takeUntil(this.onDestroy$))
+      .pipe(take(1))
       .subscribe(response => {
         if (response) {
           this.ngOnInit();
@@ -153,12 +153,12 @@ export class AdminComponent implements OnInit, OnDestroy {
         const body = {
           "enclosureId": this.params['enclosure'],
           "token": this.params['token'] ? this.params['token'] : this.loginService.tokenInfo.getValue().senderToken,
-          "senderMail": this.loginService.tokenInfo.getValue().senderMail,
+          "senderMail": this.loginService.tokenInfo.getValue() ? this.loginService.tokenInfo.getValue().senderMail : null,
         }
 
         this._adminService
           .deleteFile(body)
-          .pipe(takeUntil(this.onDestroy$))
+          .pipe(take(1))
           .subscribe(response => {
             if (response) {
               if (this.params['token'] == null) {
@@ -192,7 +192,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           "senderMail": this.loginService.tokenInfo.getValue() ? this.loginService.tokenInfo.getValue().senderMail : null,
         }
         this._adminService.deleteRecipient(body).
-          pipe(takeUntil(this.onDestroy$))
+          pipe(take(1))
           .subscribe(response => {
             if (response) {
               this.fileInfos.recipientsMails.splice(index, 1);
