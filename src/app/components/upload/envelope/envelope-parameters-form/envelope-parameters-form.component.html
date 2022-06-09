@@ -64,6 +64,15 @@
             </ng-template>
             {{'Nombres_Caractères_Spéciaux' | translate}}
         </div>
+        <div class="error-container">
+            <mat-icon attr.aria-label="{{'Valide' | translate}}" class="valid" *ngIf="!noSpecial();else error_size">
+                check</mat-icon>
+            <ng-template #error_size>
+                <mat-icon attr.aria-label="{{'Erreur' | translate}}" class="invalid">error</mat-icon>
+            </ng-template>
+            {{'Nombres_Caractères_Spéciaux_Forbidden' | translate}}
+        </div>
+
     </div>
 
 

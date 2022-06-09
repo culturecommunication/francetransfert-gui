@@ -15,11 +15,10 @@ import { Subscription } from 'rxjs/internal/Subscription';
   templateUrl: './plis-envoyes.component.html',
   styleUrls: ['./plis-envoyes.component.scss']
 })
-export class PlisEnvoyesComponent extends MatPaginatorIntl {
+export class PlisEnvoyesComponent {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  OF_LABEL: any;
   empList: PliModel[] = [];
   displayedColumns: string[] = ['dateEnvoi', 'type', 'objet', 'taille', 'finValidite', 'destinataires', 'token'];
   dataSource = new MatTableDataSource<PliModel>(this.empList);
@@ -27,17 +26,13 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
   isMobile;
   screenWidth;
 
-  constructor(public translate: TranslateService,
+  constructor(
     private _adminService: AdminService,
     private loginService: LoginService,
     private _router: Router,
     private responsiveService: ResponsiveService,
+    private _translate: TranslateService
   ) {
-    super();
-    this.translate.onLangChange.subscribe((e: Event) => {
-      this.getAndInitTranslations();
-    });
-    this.getAndInitTranslations();
   }
 
   navigateToConnect() {
@@ -70,29 +65,7 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
           next: (fileInfos) => {
             {
               fileInfos.forEach(t => {
-                //----------size of files------------
 
-                //TODO MOVE THIS TO BACK
-                let size = t.rootFiles.map(n => n.size);
-                let sizeDir = t.rootDirs.map(n => n.totalSize);
-
-                let tailleFiles = size.reduce((a, b) => a + b, 0) / 1024;
-                let tailleDirs = sizeDir.reduce((a, b) => a + b, 0) / 1024;
-                let taille = tailleDirs + tailleFiles;
-                let tailleStr = "";
-                let typeSize = 'Go';
-                if (taille >= 1100000) {
-                  tailleStr = (taille / 1000000).toFixed(2);
-                  typeSize = 'Go';
-
-                } else if (taille >= 1100) {
-                  tailleStr = (taille / 1000).toFixed(2);
-                  typeSize = 'Mo';
-                }
-                else {
-                  tailleStr = taille.toFixed(2);
-                  typeSize = 'Ko';
-                }
 
                 //-----------condition on type-----------
                 let type = "";
@@ -106,11 +79,11 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
                 const destinataires = t.recipientsMails.map(n => n.recipientMail).join(", ");
                 //let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
 
-
+                const taillePli = t.totalSize.split(" ");
                 //---------add to mat-table-------------
                 this.empList.push({
                   dateEnvoi: t.timestamp, type: type, objet: t.subject,
-                  taille: t.totalSize, finValidite: t.validUntilDate, destinataires: destinataires,
+                  taille: taillePli[0], typeSize: taillePli[1], finValidite: t.validUntilDate, destinataires: destinataires,
                   enclosureId: t.enclosureId
                 });
 
@@ -128,36 +101,10 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
     }
   }
 
-  //----------traduction----------
-  getAndInitTranslations() {
-    this.translate.get(['ITEMS_PER_PAGE', 'NEXT_PAGE', 'PREVIOUS_PAGE', 'OF_LABEL', 'LAST_PAGE', 'FIRST_PAGE']).subscribe(translation => {
-      this.itemsPerPageLabel = translation['ITEMS_PER_PAGE'];
-      this.nextPageLabel = translation['NEXT_PAGE'];
-      this.previousPageLabel = translation['PREVIOUS_PAGE'];
-      this.lastPageLabel = translation['LAST_PAGE'];
-      this.firstPageLabel = translation['FIRST_PAGE'];
-      this.OF_LABEL = translation['OF_LABEL'];
-      this.changes.next();
-    });
-  }
-
 
   isLoggedIn() {
     return this.loginService.isLoggedIn();
   }
-
-
-
-  getRangeLabel = (page: number, pageSize: number, length: number) => {
-    if (length === 0 || pageSize === 0) {
-      return `0 ${this.OF_LABEL} ${length}`;
-    }
-    length = Math.max(length, 0);
-    const startIndex = page * pageSize;
-    const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-    return `${startIndex + 1} - ${endIndex} ${this.OF_LABEL} ${length}`;
-  };
-
 
 
 
@@ -170,6 +117,7 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
       },
       queryParamsHandling: 'merge',
     });
+
   }
 
   backToHome() {
@@ -186,12 +134,13 @@ export class PlisEnvoyesComponent extends MatPaginatorIntl {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  get translate(): TranslateService {
+    return this._translate;
+  }
+
   ngOnDestroy() {
     this.responsiveSubscription.unsubscribe();
   }
 
 }
-
-
-
 

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login/login.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'ft-menu',
@@ -11,8 +12,11 @@ export class MenuComponent implements OnInit {
 
   @Output() sidenavToggle = new EventEmitter();
   @Output() routingCalled: EventEmitter<boolean> = new EventEmitter();
+  version: string;
 
-  constructor(private _router: Router, private loginService: LoginService) { }
+  constructor(private _router: Router, private loginService: LoginService) {
+    this.version = environment.version;
+   }
 
   ngOnInit(): void {
   }

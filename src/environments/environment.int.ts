@@ -30,11 +30,12 @@ export const environment = {
       fileInfosConnect: 'api-private/upload-module/file-info-connect',
       addNewRecipient: 'api-private/upload-module/add-recipient',
       deleteRecipient: 'api-private/upload-module/delete-recipient',
-      getPlisSent: 'api-private/upload-module/get-plis-sent'
+      getPlisSent: 'api-private/upload-module/get-plis-sent',
+      downloadConnect: 'api-private/download-module/download-info-connect',
     },
     captcha: {
       url: '/captcha/captcha/'
     }
   },
-  version: '3.4.1'
+  version: '3.5.0'
 };

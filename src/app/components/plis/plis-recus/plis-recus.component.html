@@ -1,4 +1,90 @@
+<div class="plis-recu">
 
- <br>
- <br>
- <p>Fonctionnalité à venir dans une prochaine version</p>
+  <div *ngIf="!isLoggedIn()">
+    <div class="error-message">{{'Se_connecter' | translate}}</div>
+  </div>
+
+  <div *ngIf="isLoggedIn()">
+    <p>{{'Liste_Plis_Reçus' | translate}}</p>
+
+    <mat-form-field appearance="standard">
+      <mat-label>{{'Filtrer' | translate}}</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. jean.dupond@domaine.fr" #input>
+    </mat-form-field>
+
+    <div class="example-container mat-elevation-z8">
+      <mat-table [dataSource]="dataSource" matSort class="mat-width" matSort matSortActive="dateReception"
+        matSortDirection="desc">
+
+        <!-- Date de Réception Column -->
+        <ng-container matColumnDef="dateReception" class="padding">
+          <mat-header-cell *matHeaderCellDef> {{'Date_Réception' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Date_Réception' | translate}}">
+            {{element.dateReception
+            | date:
+            'shortDate': '' : translate.currentLang}} </mat-cell>
+        </ng-container>
+
+        <!-- Expéditeur Column -->
+        <ng-container matColumnDef="expediteur">
+          <mat-header-cell *matHeaderCellDef> {{'expediteur' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'expediteur' | translate}}">
+            <div class="overflow-clip">
+              {{element.expediteur}}
+              </div>
+          </mat-cell>
+        </ng-container>
+
+
+
+        <!-- Objet Column -->
+        <ng-container matColumnDef="objet">
+          <mat-header-cell *matHeaderCellDef class="overflow-clip-header"> {{'Objet' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Objet' | translate}}">
+            <div class="overflow-clip">
+              {{element.objet}}
+            </div>
+          </mat-cell>
+        </ng-container>
+
+
+        <!-- Taille Column -->
+        <ng-container matColumnDef="taille">
+          <mat-header-cell *matHeaderCellDef> {{'Taille' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Taille' | translate}}"> {{element.taille}}  {{element.typeSize | translate}}</mat-cell>
+        </ng-container>
+
+        <!-- Fin de validité Column -->
+        <ng-container matColumnDef="finValidite">
+          <mat-header-cell *matHeaderCellDef> {{'Fin_Validité' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Fin_Validité' | translate}}"> {{element.finValidite |
+            date:
+            'shortDate': '' : translate.currentLang}} </mat-cell>
+        </ng-container>
+
+        <!-- Token Column -->
+        <ng-container matColumnDef="token">
+          <mat-header-cell *matHeaderCellDef> {{'Action' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Action' | translate}}">
+            <mat-icon matTooltip="{{'téléchargement-pli' | translate}}" style="color: black;cursor: pointer;"
+              (click)="navigateTo(element.enclosureId)" attr.aria-label="{{'téléchargement-pli' | translate}}">
+              cloud_download</mat-icon>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+        attr.aria-label="{{'Elément_Récurrent' | translate}}">
+      </mat-paginator>
+    </div>
+
+  </div>
+
+  <div class="end-message-card-actions">
+    <button mat-button class="end-message-card-actions-btn" (click)="backToHome()">{{'Accueil' |
+      translate}}</button>
+  </div>
+</div>

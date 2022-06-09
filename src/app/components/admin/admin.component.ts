@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import { Subject, Subscription } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { FTTransferModel } from 'src/app/models';
-import { AdminService, UploadService } from 'src/app/services';
+import { AdminService, ResponsiveService, UploadService } from 'src/app/services';
 import { AdminAlertDialogComponent } from './admin-alert-dialog/admin-alert-dialog.component';
 import { MyErrorStateMatcher } from "../upload/envelope/envelope-mail-form/envelope-mail-form.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -17,6 +17,7 @@ import { DateAdapter } from '@angular/material/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Location } from '@angular/common';
 import { LoginService } from 'src/app/services/login/login.service';
+import { DownloadEndMessageComponent } from '../download-end-message/download-end-message.component';
 
 @Component({
   selector: 'ft-admin',
@@ -44,7 +45,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   senderOk: boolean = false;
   envelopeDestForm: FormGroup;
   public selectedDate: Date = new Date();
-  enclosureId = '';
+  responsiveSubscription: Subscription = new Subscription;
+  isMobile: boolean = false;
 
 
 
@@ -54,15 +56,18 @@ export class AdminComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private titleService: Title,
     private uploadService: UploadService, private _snackBar: MatSnackBar,
-    public translate: TranslateService,
+    private _translate: TranslateService,
     private location: Location,
     private loginService: LoginService,
-
+    private responsiveService: ResponsiveService,
   ) {
   }
 
   ngOnInit(): void {
 
+    this.responsiveSubscription = this.responsiveService.getMobileStatus().subscribe(isMobile => {
+      this.isMobile = isMobile;
+    });
 
     this.initForm();
     this.transfers = [];
@@ -73,7 +78,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       if (this.params['enclosure'] && this.params['token']) {
         this._adminService
           .getFileInfos(params)
-          .pipe(takeUntil(this.onDestroy$))
+          .pipe(take(1))
           .subscribe(fileInfos => {
             this.fileInfos = fileInfos;
             this.fileInfos.rootFiles.map(file => {
@@ -88,16 +93,14 @@ export class AdminComponent implements OnInit, OnDestroy {
             //let temp = this.selectedDate;
             this.maxDate.setDate(temp.getDate() + 90);
           });
-      } else if (this.params['token'] == null && this.params['enclosure']) {
-
-        this.enclosureId = this.params['enclosure'];
-
+      } else if (this.loginService.isLoggedIn() && this.params['token'] == null && this.params['enclosure']) {
+        let enclosureId = this.params['enclosure'];
         this._adminService
           .getFileInfosConnect({
             senderMail: this.loginService.tokenInfo.getValue().senderMail,
             senderToken: this.loginService.tokenInfo.getValue().senderToken,
-          }, this.enclosureId)
-          .pipe(takeUntil(this.onDestroy$))
+          }, enclosureId)
+          .pipe(take(1))
           .subscribe(fileInfos => {
             this.fileInfos = fileInfos;
             this.fileInfos.rootFiles.map(file => {
@@ -134,7 +137,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
     this._adminService
       .updateExpiredDate(body)
-      .pipe(takeUntil(this.onDestroy$))
+      .pipe(take(1))
       .subscribe(response => {
         if (response) {
           this.ngOnInit();
@@ -150,12 +153,12 @@ export class AdminComponent implements OnInit, OnDestroy {
         const body = {
           "enclosureId": this.params['enclosure'],
           "token": this.params['token'] ? this.params['token'] : this.loginService.tokenInfo.getValue().senderToken,
-          "senderMail": this.loginService.tokenInfo.getValue().senderMail,
+          "senderMail": this.loginService.tokenInfo.getValue() ? this.loginService.tokenInfo.getValue().senderMail : null,
         }
 
         this._adminService
           .deleteFile(body)
-          .pipe(takeUntil(this.onDestroy$))
+          .pipe(take(1))
           .subscribe(response => {
             if (response) {
               if (this.params['token'] == null) {
@@ -175,6 +178,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.onDestroy$.next();
     this.onDestroy$.complete();
     this.adminErrorsSubscription.unsubscribe();
+    this.responsiveSubscription.unsubscribe();
   }
 
   deleteRecipient(index, dest) {
@@ -188,7 +192,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           "senderMail": this.loginService.tokenInfo.getValue() ? this.loginService.tokenInfo.getValue().senderMail : null,
         }
         this._adminService.deleteRecipient(body).
-          pipe(takeUntil(this.onDestroy$))
+          pipe(take(1))
           .subscribe(response => {
             if (response) {
               this.fileInfos.recipientsMails.splice(index, 1);
@@ -248,7 +252,6 @@ export class AdminComponent implements OnInit, OnDestroy {
                   this.errorValidEmail = false;
                   this.envelopeDestForm.controls['email'].markAsUntouched();
                   this.envelopeDestForm.controls['email'].setErrors({ emailNotValid: false });
-
                 } else {
                   this.envelopeDestForm.controls['email'].markAsTouched();
                   this.envelopeDestForm.controls['email'].setErrors({ emailNotValid: true });
@@ -272,6 +275,32 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   }
 
+  resendLink(email: any) {
+    const dialogRef = this.dialog.open(AdminAlertDialogComponent, { data: 'resendPli' });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const body = {
+          "enclosureId": this.params['enclosure'],
+          "token": this.params['token'] ? this.params['token'] : this.loginService.tokenInfo.getValue().senderToken,
+          "recipient": email,
+          "senderMail": this.loginService.tokenInfo.getValue() ? this.loginService.tokenInfo.getValue().senderMail : null,
+        }
+        this._adminService
+          .resendLink(body)
+          .pipe(take(1))
+          .subscribe(response => {
+            if (response) {
+              this.openSnackBarDownload(4000);
+
+            }
+          });
+      }
+
+    });
+
+  }
+
+
   addNewRecipient(email: any) {
     const body = {
       "enclosureId": this.params['enclosure'],
@@ -281,7 +310,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
     this._adminService
       .addNewRecipient(body)
-      .pipe(takeUntil(this.onDestroy$))
+      .pipe(take(1))
       .subscribe(response => {
         if (response) {
           this.fileInfos.recipientsMails.push({ recipientMail: email, numberOfDownloadPerRecipient: 0 });
@@ -290,7 +319,6 @@ export class AdminComponent implements OnInit, OnDestroy {
               this.fileInfos.deletedRecipients.splice(i, 1);
             }
           }
-
           this.envelopeDestForm.get('email').setValue('');
           this.openSnackBar();
         }
@@ -311,6 +339,26 @@ export class AdminComponent implements OnInit, OnDestroy {
       this._router.navigate(['/upload']);
 
     }
+  }
+
+  openSnackBarDownload(duration: number) {
+    this._snackBar.openFromComponent(DownloadEndMessageComponent, {
+      duration: duration
+    });
+  }
+
+  toArray(downloadDates: object) {
+    if (downloadDates && Object.keys(downloadDates).length > 0) {
+
+      return Object.keys(downloadDates).map(key =>  ({ value: downloadDates[key]})).sort((a, b) => {
+        return <any>new Date(a.value) - <any>new Date(b.value);
+      });
+
+    }
+  }
+
+  get translate(): TranslateService {
+    return this._translate;
   }
 
 }

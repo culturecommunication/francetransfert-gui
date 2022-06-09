@@ -1,8 +1,15 @@
-.faq-question {
-  cursor: pointer;
-}
-
 .faq-wrapper {
+  .faq-question {
+    cursor: pointer;
+  }
+
+  .mat-expansion-panel-header {
+    height: max-content;
+  }
+
+  .mat-expansion-panel-header.mat-expanded {
+    height: max-content;
+  }
   width: 100%;
   background-color: var(--ft-white);
   .faq-card {
@@ -23,6 +30,11 @@
         display: block;
         margin: 5px;
       }
+
+      ::ng-deep .imagefaq {
+        display: flex;
+        justify-content: center;
+      }
     }
   }
   ::ng-deep .mat-expansion-panel-header {
@@ -35,6 +47,14 @@
     .faq-card {
       height: 100%;
     }
+    ::ng-deep .imagefaq {
+      display: flex;
+      justify-content: center;
+      img {
+        max-width: 50vw;
+        max-height: 50%;
+      }
+    }
   }
 }
 
@@ -44,6 +64,16 @@
     overflow-y: auto;
     .faq-card {
       margin-top: 90px;
+    }
+
+    ::ng-deep .imagefaq {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      img {
+        max-width: 80vw;
+        max-height: 80%;
+      }
     }
   }
 }
@@ -56,6 +86,15 @@
       margin-top: 90px;
       ::ng-deep .mat-card-header-text {
         margin: 0 0 !important;
+      }
+    }
+    ::ng-deep .imagefaq {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      img {
+        max-width: 90vw;
+        max-height: 90%;
       }
     }
   }

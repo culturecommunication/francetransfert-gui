@@ -20,4 +20,16 @@
     <button class="btn" mat-button [mat-dialog-close]="true" cdkFocusInitial> {{'Supprimer' | translate}}</button>
   </mat-dialog-actions>
 </div>
+<div *ngIf="data == 'resendPli'">
+  <h2 mat-dialog-title> {{'Etes_Vous_Sûr' | translate}}</h2>
+  <mat-dialog-content class="mat-typography">
+    <h3> {{'Renvoyer_pli' | translate}}</h3>
+    <p>{{'Poursuivre_pli' | translate}}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button class="btn" mat-button [mat-dialog-close]="true" cdkFocusInitial> {{'Oui' | translate}}</button>
+    <button class="btn" mat-button mat-dialog-close> {{'Non' | translate}}</button>
+
+  </mat-dialog-actions>
+</div>
 

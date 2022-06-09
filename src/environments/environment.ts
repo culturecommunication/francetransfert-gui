@@ -4,43 +4,46 @@
 
 export const environment = {
   production: false,
-  host: 'http://localhost:8080/',
+  host: 'http://localhost:',
   apis: {
-    config: 'api-private/upload-module/config',
+    config: '8081/api-private/upload-module/config',
     upload: {
-      upload: 'api-private/upload-module/upload',
-      tree: 'api-private/upload-module/sender-info',
-      confirmationCode: 'api-private/upload-module/validate-code',
-      generateCode: 'api-private/confirmation-module/generate-code',
-      validateCode: 'api-private/confirmation-module/validate-code',
-      rate: 'api-private/upload-module/satisfaction',
-      validateMail: 'api-private/upload-module/validate-mail',
-      config: 'api-private/upload-module/config',
-      allowedSenderMail: 'api-private/upload-module/allowed-sender-mail',
-      formulaireContact: 'api-private/upload-module/sender-contact'
+      upload: '8080/api-private/upload-module/upload',
+      tree: '8080/api-private/upload-module/sender-info',
+      confirmationCode: '8080/api-private/upload-module/validate-code',
+      generateCode: '8080/api-private/confirmation-module/generate-code',
+      validateCode: '8080/api-private/confirmation-module/validate-code',
+      rate: '8080/api-private/upload-module/satisfaction',
+      validateMail: '8080/api-private/upload-module/validate-mail',
+      config: '8080/api-private/upload-module/config',
+      allowedSenderMail: '8080/api-private/upload-module/allowed-sender-mail',
+      formulaireContact: '8080/api-private/upload-module/sender-contact'
     },
     download: {
-      download: 'api-private/download-module/download-info',
-      downloadUrl: 'api-private/download-module/generate-download-url',
-      downloadInfosPublic: 'api-private/download-module/download-info-public',
-      downloadUrlPublic: 'api-private/download-module/generate-download-url-public',
-      validatePassword: 'api-private/download-module/validate-password',
-      rate: 'api-private/download-module/satisfaction'
+      download: '8081/api-private/download-module/download-info',
+      downloadUrl: '8081/api-private/download-module/generate-download-url',
+      downloadInfosPublic: '8081/api-private/download-module/download-info-public',
+      downloadUrlPublic: '8081/api-private/download-module/generate-download-url-public',
+      validatePassword: '8081/api-private/download-module/validate-password',
+      rate: '8081/api-private/download-module/satisfaction',
+      downloadConnect: '8081/api-private/download-module/download-info-connect',
     },
     admin: {
-      deleteFile: 'api-private/upload-module/delete-file',
-      updateExpiredDate: 'api-private/upload-module/update-expired-date',
-      fileInfos: 'api-private/upload-module/file-info',
-      fileInfosConnect: 'api-private/upload-module/file-info-connect',
-      addNewRecipient: 'api-private/upload-module/add-recipient',
-      deleteRecipient: 'api-private/upload-module/delete-recipient',
-      getPlisSent: 'api-private/upload-module/get-plis-sent'
+      deleteFile: '8080/api-private/upload-module/delete-file',
+      updateExpiredDate: '8080/api-private/upload-module/update-expired-date',
+      fileInfos: '8080/api-private/upload-module/file-info',
+      fileInfosConnect: '8080/api-private/upload-module/file-info-connect',
+      addNewRecipient: '8080/api-private/upload-module/add-recipient',
+      deleteRecipient: '8080/api-private/upload-module/delete-recipient',
+      getPlisSent: '8080/api-private/upload-module/get-plis-sent',
+      getPlisReceived: '8080/api-private/upload-module/get-plis-received',
+      resendLink: '8080/api-private/upload-module/resend-download-link'
     },
     captcha: {
       url: 'https://test-francetransfert.aot.agency/captcha/captcha/'
     }
   },
-  version: '3.4.1'
+  version: '3.5.0'
 };
 
 /*
