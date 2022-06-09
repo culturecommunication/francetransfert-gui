@@ -9,6 +9,7 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ResponsiveService, UploadManagerService } from 'src/app/services';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
@@ -24,7 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   screenWidth: string;
 
   constructor(private responsiveService: ResponsiveService, private loginService: LoginService,
-    private _router: Router) { }
+    private _router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.onResize();
@@ -71,6 +72,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   routeTo(_route) {
+    this.authService.login(),
     this._router.navigate([_route]);
     this.routingCalled.emit(true);
   }

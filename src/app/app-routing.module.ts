@@ -27,7 +27,7 @@ const routes: Routes = [
     ]
   },
   {
-    path:"connect", component: ConnectComponent
+    path: "connect", component: ConnectComponent
   },
   {
     path: 'admin', component: AdminComponent
@@ -42,7 +42,7 @@ const routes: Routes = [
     path: 'faq', component: FaqComponent
   },
   {
-    path:"contact", component: ContactComponent
+    path: "contact", component: ContactComponent
   },
   {
     path: 'mentions-legales', component: MentionsLegalesComponent
@@ -61,7 +61,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { initialNavigation: 'disabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -54,7 +54,7 @@
             </li>
             <li *ngIf="!isLoggedIn()">
               <mat-icon aria-hidden="true">person_outline</mat-icon>
-              <a routerLink="/connect" class="link" (click)="routeTo('/connect')"> {{'MeConnecter' | translate}}</a>
+              <a class="link" (click)="routeTo('/connect')"> {{'MeConnecter' | translate}}</a>
             </li>
           </ul>
         </nav>
