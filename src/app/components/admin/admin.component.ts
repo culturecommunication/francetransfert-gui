@@ -60,6 +60,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     private location: Location,
     private loginService: LoginService,
     private responsiveService: ResponsiveService,
+    private adminService: AdminService
   ) {
   }
 
@@ -359,6 +360,18 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   get translate(): TranslateService {
     return this._translate;
+  }
+
+
+  DupliquerDestinataires(){
+    this.adminService.setDestinatairesList({
+      destinataires: this.fileInfos.recipientsMails.map(ed => {
+        return ed.recipientMail;
+      }),
+
+    });
+      this._router.navigate(['/upload']);
+
   }
 
 }

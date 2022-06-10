@@ -8,7 +8,7 @@ import { map } from 'rxjs/internal/operators/map';
 import { debounceTime, distinctUntilChanged, take, takeUntil } from 'rxjs/operators';
 import { MailingListManagerComponent } from 'src/app/components';
 import { MailInfosModel } from 'src/app/models';
-import { UploadManagerService, UploadService } from 'src/app/services';
+import { AdminService, UploadManagerService, UploadService } from 'src/app/services';
 import { saveAs } from 'file-saver';
 import { QuotaAsyncValidator } from 'src/app/shared/validators/quota-validator';
 import { MailAsyncValidator } from 'src/app/shared/validators/mail-validator';
@@ -44,6 +44,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   focusInput: boolean = false;
   listDest: any;
   list: any;
+  destinatairesInfo: any;
 
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
@@ -51,13 +52,28 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     private uploadService: UploadService,
     private router: Router,
     private dialog: MatDialog,
-    private cdr: ChangeDetectorRef) { }
+    private cdr: ChangeDetectorRef,
+    private adminService: AdminService) { }
 
   ngOnInit(): void {
     this.initForm();
+
+
   }
 
   initForm() {
+
+    this.adminService.currentDestinatairesInfo.subscribe(destinatairesInfo =>
+      this.destinatairesInfo = destinatairesInfo ? destinatairesInfo.destinataires : null
+      );
+
+      if(this.destinatairesInfo){
+      this.destinatairesInfo.map(ed => {
+        this.destinatairesList.push(ed);
+      })
+      this.adminService.cleanDestinatairesList();
+      }
+
     this.envelopeMailForm = this.fb.group({
       from: [this.mailFormValues?.from, { validators: [Validators.required, Validators.email], asyncValidators: [QuotaAsyncValidator.createValidator(this.uploadService)], updateOn: 'blur' }],
       to: ['', { validators: [Validators.email], updateOn: 'blur' }],
