@@ -3,10 +3,12 @@
     <mat-card-header class="faq-card-header">
       <h1 #faq>{{'FAQFranceTransfert' | translate}}</h1>
     </mat-card-header>
-    <h4> {{'Version' | translate}} 3.4.0</h4>
+    <h4> {{'Version' | translate}} 3.5.0</h4>
     <span> {{'Version_Française' | translate}}</span>
     <mat-card-content class="faq-card-content">
-      <!-- test -->
+
+
+      <h2>{{'catégorie1' | translate}}</h2>
       <mat-accordion>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -17,6 +19,7 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <p [innerHTML]="'Question1_Texte' | translate"></p>
+          <div class="imagefaq" [innerHTML]="'Question1Image' | translate"></div>
         </mat-expansion-panel>
 
 
@@ -30,6 +33,75 @@
           </mat-expansion-panel-header>
           <p [innerHTML]="'Question2_Texte' | translate"></p>
         </mat-expansion-panel>
+
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
+                {{'Question4' | translate}}
+              </h3>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <span> {{'Question4_Texte' | translate}}
+          </span><br>
+        </mat-expansion-panel>
+
+<!--  -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
+                {{'Question19' | translate}}
+              </h3>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+        <p [innerHTML]="'Question19_Texte' | translate"> </p>
+        </mat-expansion-panel>
+
+
+<!--  -->
+      <br>
+      <h2>{{'catégorie2' | translate}}</h2>
+
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h3>
+              {{'Question6' | translate}}
+            </h3>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>
+          <span> {{'Question6_Texte1' | translate}}</span>
+        </p>
+
+        <ul [innerHTML]="'Question6_Liste' | translate"></ul>
+
+        <p [innerHTML]="'Question6_Texte2' | translate"> </p>
+        <div class="imagefaq" [innerHTML]="'Question6Image' | translate"></div>
+      </mat-expansion-panel>
+
+
+      <!--  -->
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h3>
+              {{'Question20' | translate}}
+            </h3>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p [innerHTML]="'Question20_Texte' | translate"> </p>
+        <ul [innerHTML]="'Question20_Liste' | translate"></ul>
+      </mat-expansion-panel>
+
+
+      <br>
+      <h2>{{'catégorie3' | translate}}</h2>
+
 
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -45,31 +117,10 @@
           <ul [innerHTML]="'Question3_Liste' | translate">
           </ul>
           <p [innerHTML]="'Question3_Texte2' | translate"></p>
+          <div class="imagefaq" [innerHTML]="'Question2Image' | translate"></div>
+
         </mat-expansion-panel>
 
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question18' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question18_Texte' | translate">
-          </p>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question4' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <span> {{'Question4_Texte' | translate}}
-          </span><br>
-        </mat-expansion-panel>
 
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -82,25 +133,6 @@
           <p [innerHTML]="'Question5_Texte' | translate">
           </p>
         </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question6' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p>
-            <span> {{'Question6_Texte1' | translate}}</span>
-          </p>
-
-          <ul [innerHTML]="'Question6_Liste' | translate"></ul>
-
-          <p [innerHTML]="'Question6_Texte2' | translate"> </p>
-        </mat-expansion-panel>
-
-
 
 
         <mat-expansion-panel>
@@ -121,14 +153,116 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
+                {{'Question18' | translate}}
+              </h3>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p [innerHTML]="'Question18_Texte' | translate">
+          </p>
+        </mat-expansion-panel>
+
+
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
+                {{'Question13' | translate}}
+              </h3>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p [innerHTML]="'Question13_Texte' | translate">
+          </p>
+        </mat-expansion-panel>
+
+
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
+                {{'Question14' | translate}}
+              </h3>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p [innerHTML]="'Question14_Texte' | translate">
+          </p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
+                {{'Question15' | translate}}
+              </h3>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p [innerHTML]="'Question15_Texte' | translate">
+          </p>
+          <div class="imagefaq" [innerHTML]="'Question15Image' | translate"></div>
+        </mat-expansion-panel>
+
+
+
+      <br>
+      <h2>{{'catégorie4' | translate}}</h2>
+
+
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
                 {{'Question8' | translate}}
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <p [innerHTML]="'Question8_Texte' | translate">
           </p>
+          <div class="imagefaq"  [innerHTML]="'Question8Image' | translate"></div>
         </mat-expansion-panel>
 
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
+                {{'Question10' | translate}}
+              </h3>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p [innerHTML]="'Question10_Texte' | translate">
+          </p>
+        </mat-expansion-panel>
+
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
+                {{'Question11' | translate}}
+              </h3>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p [innerHTML]="'Question11_Texte' | translate">
+          </p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
+                {{'Question12' | translate}}
+              </h3>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p [innerHTML]="'Question12_Texte' | translate">
+          </p>
+        </mat-expansion-panel>
+
+
+      <br>
+      <h2>{{'catégorie5' | translate}}</h2>
 
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -151,78 +285,35 @@
         </mat-expansion-panel>
 
 
-
-
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
-                {{'Question10' | translate}}
+                {{'Question21' | translate}}
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p [innerHTML]="'Question10_Texte' | translate">
+          <p  [innerHTML]="'Question21_Texte1' | translate">
+          </p>
+          <ul [innerHTML]="'Question21_Liste' | translate">
+          </ul>
+          <p  [innerHTML]="'Question21_Texte2' | translate">
           </p>
         </mat-expansion-panel>
 
-
-
-
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
-                {{'Question11' | translate}}
+                {{'Question22' | translate}}
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p [innerHTML]="'Question11_Texte' | translate">
+          <p  [innerHTML]="'Question22_Texte1' | translate">
           </p>
-        </mat-expansion-panel>
-
-
-
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question12' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question12_Texte' | translate">
-          </p>
-        </mat-expansion-panel>
-
-
-
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question13' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question13_Texte' | translate">
-          </p>
-        </mat-expansion-panel>
-
-
-
-
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question14' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question14_Texte' | translate">
+          <ol [innerHTML]="'Question22_Liste' | translate">
+          </ol>
+          <p  [innerHTML]="'Question22_Texte2' | translate">
           </p>
         </mat-expansion-panel>
 
@@ -231,21 +322,10 @@
 
 
 
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question15' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question15_Texte' | translate">
-          </p>
-        </mat-expansion-panel>
 
 
-
-
+        <br>
+        <h2>{{'catégorie6' | translate}}</h2>
 
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -258,11 +338,6 @@
           <p [innerHTML]="'Question16_Texte' | translate">
           </p>
         </mat-expansion-panel>
-
-
-
-
-
 
         <mat-expansion-panel>
           <mat-expansion-panel-header>

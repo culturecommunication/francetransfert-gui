@@ -86,6 +86,22 @@ export class AdminService {
     );
   }
 
+  resendLink(body) {
+    return this._httpClient.post(`${environment.host}${environment.apis.admin.resendLink}`, {
+      enclosureId: body.enclosureId,
+      token: body.token,
+      newRecipient: body.recipient,
+      senderMail: body.senderMail,
+    }).pipe(map(response => {
+      this.adminError$.next(null);
+      return response;
+    }),
+      catchError(this.handleError('resend-Link'))
+    );
+
+  }
+
+
   addNewRecipient(body) {
     return this._httpClient.post(`${environment.host}${environment.apis.admin.addNewRecipient}`, {
       enclosureId: body.enclosureId,
@@ -111,6 +127,21 @@ export class AdminService {
       return response;
     }),
       catchError(this.handleError('delete-Recipient'))
+    );
+  }
+
+  getPlisReceived(body: any): Observable<any> {
+    const treeBody = {
+      senderMail: body.receiverMail,
+      senderToken: body.senderToken,
+    };
+    return this._httpClient.post(
+      `${environment.host}${environment.apis.admin.getPlisReceived}`,
+      treeBody
+    ).pipe(map((response) => {
+      return response;
+    }),
+      catchError(this.handleError('get-plis-received'))
     );
   }
 

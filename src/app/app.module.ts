@@ -52,10 +52,10 @@ import { InfoMsgComponent } from './components/info-msg/info-msg.component';
 import { AdminEndMsgComponent } from './components/admin/admin-end-msg/admin-end-msg.component';
 import { ConnectComponent } from './components/connect/connect.component';
 import { ConnectEndMessageComponent } from './components/connect-end-message/connect-end-message.component';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
-import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import localeEn from '@angular/common/locales/en';
 import localeEs from '@angular/common/locales/es';
 import localeEsExtra from '@angular/common/locales/extra/es';
@@ -65,8 +65,10 @@ import { PlisComponent } from './components/plis/plis.component';
 import { PlisRecusComponent } from './components/plis/plis-recus/plis-recus.component';
 import { PlisEnvoyesComponent } from './components/plis/plis-envoyes/plis-envoyes.component';
 import { FormsModule } from '@angular/forms';
-import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort' ;
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { DownloadEndMessageComponent } from './components/download-end-message/download-end-message.component';
+import { CustomPaginatorService } from './shared/custom-paginator/custom-paginator.service';
 
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeEs, 'es', localeEsExtra);
@@ -74,7 +76,6 @@ registerLocaleData(localeFr, 'fr', localeFrExtra);
 
 
 export function HttpLoaderFactory(http: HttpClient) {
-  //return new TranslateHttpLoader(http);
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
@@ -131,10 +132,10 @@ const initializer = (pwaService: PwaService) => () =>
     PlisComponent,
     PlisRecusComponent,
     PlisEnvoyesComponent,
+    DownloadEndMessageComponent,
 
   ],
   imports: [
-
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
@@ -153,15 +154,17 @@ const initializer = (pwaService: PwaService) => () =>
     FormsModule,
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
     })
   ],
   providers: [
-    {provide: MatPaginatorIntl,
-      useClass: PlisEnvoyesComponent},
+    {
+      provide: MatPaginatorIntl,
+      useClass: CustomPaginatorService
+    },
     { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
     DatePipe,
     FileMultipleSizePipe,
@@ -183,6 +186,5 @@ const initializer = (pwaService: PwaService) => () =>
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private translate: TranslateService) {
-  // translate.setDefaultLang('fr');
-}}
+
+}

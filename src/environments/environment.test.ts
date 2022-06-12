@@ -17,18 +17,20 @@ export const environment = {
       downloadInfosPublic: 'api-private/download-module/download-info-public',
       downloadUrlPublic: 'api-private/download-module/generate-download-url-public',
       validatePassword: 'api-private/download-module/validate-password',
-      rate: 'api-private/download-module/satisfaction'
+      rate: 'api-private/download-module/satisfaction',
+      downloadConnect: 'api-private/download-module/download-info-connect',
     },
     admin: {
       deleteFile: 'api-private/upload-module/delete-file',
       updateExpiredDate: 'api-private/upload-module/update-expired-date',
       fileInfos: 'api-private/upload-module/file-info',
       fileInfosConnect: 'api-private/upload-module/file-info-connect',
-      getPlisSent: 'api-private/upload-module/get-plis-sent'
+      getPlisSent: 'api-private/upload-module/get-plis-sent',
+      getPlisReceived: 'api-private/upload-module/get-plis-received'
     },
     captcha: {
       url: '/captcha/captcha/'
     }
   },
-  version: '3.4.1'
+  version: '3.5.0'
 };

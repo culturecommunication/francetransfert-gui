@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { ParametersModel } from 'src/app/models';
 import * as moment from 'moment';
 import { UploadManagerService, UploadService } from 'src/app/services';
-import { majChar, minChar, numChar, passwordValidator, sizeControl, specialChar } from 'src/app/shared/validators/forms-validator';
+import { noSpecial, majChar, minChar, numChar, passwordValidator, sizeControl, specialChar } from 'src/app/shared/validators/forms-validator';
 import { LanguageModel } from 'src/app/models';
 
 import { LanguageSelectionService } from 'src/app/services';
@@ -101,6 +101,10 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
 
   specialChar() {
     return specialChar(this.envelopeParametersForm.get('password').value);
+  }
+
+  noSpecial() {
+    return noSpecial(this.envelopeParametersForm.get('password').value);
   }
 
   // convenience getter for easy access to form fields
