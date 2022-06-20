@@ -62,12 +62,14 @@ node {
 
             if(jsonObject["version"].contains('-')){
                 if(env.BRANCH_NAME.startsWith('demo') || env.BRANCH_NAME.startsWith('develop')){
-                    sh 'cd dist'
-                    sh 'npm publish dist --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture/'
+                    dir("dist"){
+                        sh 'npm publish . --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture/'
+                    }
                 }
             } else {
-                sh 'cd dist'
-                sh 'npm publish dist --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture-release/'
+                dir("dist"){
+                    sh 'npm publish . --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture-release/'
+                }
             }            
 
             if(env.BRANCH_NAME.startsWith('develop')){
