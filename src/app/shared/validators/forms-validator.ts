@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 const specialCharList = "!@#$%^&*()_-:+";
 const specialCharRegexEscape = specialCharList.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 const regex = new RegExp(`[${specialCharRegexEscape}]`, "g");
-const notValidChar = new RegExp(`[^${specialCharRegexEscape}a-zA-Z1-9]+`, "g");
+const notValidChar = new RegExp(`[^${specialCharRegexEscape}a-zA-Z0-9]+`, "g");
 
 // Custom Validators
 export function passwordValidator(formControl: FormControl) {
