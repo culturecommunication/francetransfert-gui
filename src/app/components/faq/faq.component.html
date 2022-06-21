@@ -3,408 +3,42 @@
     <mat-card-header class="faq-card-header">
       <h1 #faq>{{'FAQFranceTransfert' | translate}}</h1>
     </mat-card-header>
-    <h4> {{'Version' | translate}} 3.4.0</h4>
+    <h4> {{'Version' | translate}} 3.5.0</h4>
     <span> {{'Version_Française' | translate}}</span>
     <mat-card-content class="faq-card-content">
       <!-- test -->
       <mat-form-field class="example-full-width">
-      <span matPrefix> </span>
-      <input type="tel" matInput placeholder="Filtrer" name= "Filtrer" [(ngModel)]= "queryString" id="search" >
-      <button matSuffix mat-button><mat-icon >search</mat-icon></button>
+        <span matPrefix> </span>
+        <input type="tel" matInput placeholder="Filtrer" name="Filtrer" [(ngModel)]="queryString" id="search">
+        <button matSuffix mat-button>
+          <mat-icon>search</mat-icon>
+        </button>
       </mat-form-field>
 
 
-        <mat-accordion   *ngFor="let category of categorie1">
-          <h2>{{ category.category}}</h2>
+      <mat-accordion *ngFor="let category of categories">
+        <h2>{{ category.category}}</h2>
 
 
-          <mat-expansion-panel  *ngFor="let question of category.entities | FilterQuestionsPipe: queryString : searchableList ">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <h3>
-                  {{ question.Question}}
-
-                  <!-- {{title}} -->
-                </h3>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <p [innerHTML]="question.Question_Texte" ></p>
-            <ul [innerHTML]="question.Question_Liste">
-            </ul>
-            <p [innerHTML]="question.Question_Texte2"></p>
-            <div [innerHTML]="question.QuestionImage"></div>
-          </mat-expansion-panel>
-
-<!--
-
-      <br>
-      <h2>{{'catégorie2' | translate}}</h2>
-
-
-
-        <mat-expansion-panel  *ngFor="let question of categorie2 | FilterPipe: queryString : searchableList ">
+        <mat-expansion-panel
+          *ngFor="let question of category.entities | FilterQuestionsPipe: queryString : searchableList">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
-                {{ question.title }}
+                {{ question.Question}}
               </h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p [innerHTML]="question.text" ></p>
-          <ul [innerHTML]="question.list">
+          <p [innerHTML]="question.Question_Texte1"></p>
+          <ul [innerHTML]="question.Question_Liste">
           </ul>
-          <p [innerHTML]="question.text2"></p>
-          <div [innerHTML]="question.image"></div>
-        </mat-expansion-panel>
-
-
-        <br>
-      <h2>{{'catégorie3' | translate}}</h2>
-        <mat-expansion-panel  *ngFor="let question of categorie3 | FilterPipe: queryString : searchableList ">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{ question.title }}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="question.text" ></p>
-          <ul [innerHTML]="question.list">
-          </ul>
-          <p [innerHTML]="question.text2"></p>
-          <div [innerHTML]="question.image"></div>
-        </mat-expansion-panel>
-
-
-
-        <br>
-      <h2>{{'catégorie4' | translate}}</h2>
-        <mat-expansion-panel  *ngFor="let question of categorie4 | FilterPipe: queryString : searchableList ">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{ question.title }}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="question.text" ></p>
-          <ul [innerHTML]="question.list">
-          </ul>
-          <p [innerHTML]="question.text2"></p>
-          <div [innerHTML]="question.image"></div>
-        </mat-expansion-panel>
-
-
-        <br>
-      <h2>{{'catégorie5' | translate}}</h2>
-        <mat-expansion-panel  *ngFor="let question of categorie5 | FilterPipe: queryString : searchableList ">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{ question.title }}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="question.text" ></p>
-          <ul [innerHTML]="question.list">
-          </ul>
-          <p [innerHTML]="question.text2"></p>
-          <div [innerHTML]="question.image"></div>
-        </mat-expansion-panel>
-
-
-
-        <br>
-      <h2>{{'catégorie6' | translate}}</h2>
-        <mat-expansion-panel  *ngFor="let question of categorie6 | FilterPipe: queryString : searchableList ">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{ question.title }}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="question.text" ></p>
-          <ul [innerHTML]="question.list">
-          </ul>
-          <p [innerHTML]="question.text2"></p>
-          <div [innerHTML]="question.image"></div>
-        </mat-expansion-panel>
-
-
- -->
-
-
-      <!-- <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question1' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question1_Texte' | translate"></p>
-          <div class="imagefaq" [innerHTML]="'Question1Image' | translate"></div>
-        </mat-expansion-panel>
-
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question2' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question2_Texte' | translate"></p>
-          <div [innerHTML]="'Question2Image' | translate"></div>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question3' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p>
-            <span>{{'Question3_Texte1' | translate}} </span>
-          </p>
-          <ul [innerHTML]="'Question3_Liste' | translate">
-          </ul>
-          <p [innerHTML]="'Question3_Texte2' | translate"></p>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question18' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question18_Texte' | translate">
-          </p>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question4' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <span> {{'Question4_Texte' | translate}}
-          </span><br>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question5' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question5_Texte' | translate">
-          </p>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question6' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p>
-            <span> {{'Question6_Texte1' | translate}}</span>
-          </p>
-
-          <ul [innerHTML]="'Question6_Liste' | translate"></ul>
-
-          <p [innerHTML]="'Question6_Texte2' | translate"> </p>
-          <div [innerHTML]="'Question6Image' | translate"></div>
-        </mat-expansion-panel>
-
-
-
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question7' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question7_Texte' | translate">
-          </p>
-        </mat-expansion-panel>
-
-
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question8' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question8_Texte' | translate">
-          </p>
-          <div class="imagefaq"  [innerHTML]="'Question8Image' | translate"></div>
-        </mat-expansion-panel>
-
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question9' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p>
-            <span> {{'Question9_Texte1' | translate}}
-            </span>
-          </p>
-          <ol [innerHTML]="'Question9_Liste' | translate">
+          <ol [innerHTML]="question.Question_Liste_Ordered">
           </ol>
-          <p>
-            <span> {{'Question9_Texte2' | translate}}
-            </span>
-          </p>
+          <p [innerHTML]="question.Question_Texte2"></p>
+          <div [innerHTML]="question.QuestionImage"></div>
         </mat-expansion-panel>
 
 
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question10' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question10_Texte' | translate">
-          </p>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question11' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question11_Texte' | translate">
-          </p>
-        </mat-expansion-panel>
-
-
-
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question12' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question12_Texte' | translate">
-          </p>
-        </mat-expansion-panel>
-
-
-
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question13' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question13_Texte' | translate">
-          </p>
-        </mat-expansion-panel>
-
-
-
-
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question14' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question14_Texte' | translate">
-          </p>
-        </mat-expansion-panel>
-
-
-
-
-
-
-
-
-        <br>
-        <h2>{{'catégorie6' | translate}}</h2>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question15' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question15_Texte' | translate">
-          </p>
-          <div [innerHTML]="'Question15Image' | translate"></div>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question16' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question16_Texte' | translate">
-          </p>
-        </mat-expansion-panel>
-
-
-
-
-
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3>
-                {{'Question17' | translate}}
-              </h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p [innerHTML]="'Question17_Texte' | translate">
-          </p>
-        </mat-expansion-panel>
- -->
       </mat-accordion>
 
     </mat-card-content>

@@ -17,7 +17,7 @@
         matSortDirection="desc">
 
         <!-- Date de Réception Column -->
-        <ng-container matColumnDef="dateReception" class="padding">
+        <ng-container matColumnDef="dateReception">
           <mat-header-cell *matHeaderCellDef> {{'Date_Réception' | translate}}</mat-header-cell>
           <mat-cell *matCellDef="let element" attr.data-label="{{'Date_Réception' | translate}}">
             {{element.dateReception
@@ -30,8 +30,13 @@
           <mat-header-cell *matHeaderCellDef> {{'expediteur' | translate}}</mat-header-cell>
           <mat-cell *matCellDef="let element" attr.data-label="{{'expediteur' | translate}}">
             <div class="overflow-clip">
-              {{element.expediteur}}
-              </div>
+              <<<<<<< HEAD {{element.expediteur}} </div>
+                =======
+                {{element.expediteur}}
+            </div>
+            >>>>>>> 687571b (modifications : format de la date de téléchargement - faq (taille des images - textes -
+            filter) - enlever la partie agentConnect - enlever les langues de traduction du drop-down list -
+            modification de l'affichage des listes des plis)
           </mat-cell>
         </ng-container>
 
@@ -51,7 +56,8 @@
         <!-- Taille Column -->
         <ng-container matColumnDef="taille">
           <mat-header-cell *matHeaderCellDef> {{'Taille' | translate}}</mat-header-cell>
-          <mat-cell *matCellDef="let element" attr.data-label="{{'Taille' | translate}}"> {{element.taille}}  {{element.typeSize | translate}}</mat-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Taille' | translate}}"> {{element.taille}}
+            {{element.typeSize | translate}}</mat-cell>
         </ng-container>
 
         <!-- Fin de validité Column -->

@@ -1,3 +1,7 @@
+table {
+  width: 100%;
+}
+
 .plis-envoyes {
   margin-top: 2em;
   .end-message-card-actions {
@@ -45,7 +49,6 @@
     width: 100px;
   }
 
-
   @media screen and (min-width: 640px) {
     // .overflow-clip {
     //   text-overflow: ellipsis;
@@ -59,7 +62,11 @@
       white-space: nowrap;
       display: block;
       width: 80%;
-      text-align: center
+      text-align: center;
+    }
+
+    .mat-table .mat-header-cell {
+      text-overflow: ellipsis;
     }
 
     .mat-width {
@@ -112,7 +119,6 @@
 
     .mat-column-token {
       flex-basis: 5rem;
-
     }
 
     .mat-column-type {
@@ -135,14 +141,13 @@
   }
 
   @media screen and (min-width: 640px) and (max-width: 790px) {
-
     .overflow-clip {
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
       display: block;
       width: 80%;
-      text-align: center
+      text-align: center;
     }
 
     .mat-column-token {
