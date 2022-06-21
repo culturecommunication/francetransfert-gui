@@ -8,7 +8,7 @@ import { map } from 'rxjs/internal/operators/map';
 import { debounceTime, distinctUntilChanged, take, takeUntil } from 'rxjs/operators';
 import { MailingListManagerComponent } from 'src/app/components';
 import { MailInfosModel } from 'src/app/models';
-import { UploadManagerService, UploadService } from 'src/app/services';
+import { AdminService, UploadManagerService, UploadService } from 'src/app/services';
 import { saveAs } from 'file-saver';
 import { QuotaAsyncValidator } from 'src/app/shared/validators/quota-validator';
 import { MailAsyncValidator } from 'src/app/shared/validators/mail-validator';
@@ -42,8 +42,6 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   senderOk = false;
   errorEmail = false;
   focusInput: boolean = false;
-  listDest: any;
-  list: any;
 
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
@@ -51,13 +49,28 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     private uploadService: UploadService,
     private router: Router,
     private dialog: MatDialog,
-    private cdr: ChangeDetectorRef) { }
+    private cdr: ChangeDetectorRef,
+    private adminService: AdminService) { }
 
   ngOnInit(): void {
     this.initForm();
+
+
   }
 
   initForm() {
+
+    this.adminService.currentDestinatairesInfo.pipe(take(1)).subscribe(destinatairesInfo => {
+      if (destinatairesInfo && destinatairesInfo.destinataires && destinatairesInfo.destinataires.length > 0) {
+        destinatairesInfo.destinataires.map(ed => {
+          this.destinatairesList.push(ed);
+        })
+        this.adminService.cleanDestinatairesList();
+      }
+    });
+
+
+
     this.envelopeMailForm = this.fb.group({
       from: [this.mailFormValues?.from, { validators: [Validators.required, Validators.email], asyncValidators: [QuotaAsyncValidator.createValidator(this.uploadService)], updateOn: 'blur' }],
       to: ['', { validators: [Validators.email], updateOn: 'blur' }],
@@ -185,8 +198,8 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   copyListDestinataires(val: any) {
     if (val.indexOf("<") > 0 && val.indexOf(">") > 0) {
-      this.list = this.envelopeMailForm.get('to').value.split(/</);
-      this.list.forEach(d => {
+      let list = this.envelopeMailForm.get('to').value.split(/</);
+      list.forEach(d => {
         if (d.indexOf(">") > 0) {
           this.destinatairesList.push(d.split(/>/)[0]);
         }

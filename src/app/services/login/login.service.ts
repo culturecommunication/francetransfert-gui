@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, catchError, BehaviorSubject } from 'rxjs';
+import { PliDestinataires } from 'src/app/models/pli-destinataires.model';
 import { TokenModel } from 'src/app/models/token.model';
 import { environment } from 'src/environments/environment';
 
@@ -11,6 +12,7 @@ export class LoginService {
 
   tokenInfo: BehaviorSubject<TokenModel> = new BehaviorSubject<any>(null);
   connectCheck: BehaviorSubject<boolean> = new BehaviorSubject<any>(false);
+
 
   constructor(private _httpClient: HttpClient) { }
 
@@ -41,6 +43,7 @@ export class LoginService {
       });
     }
   }
+
 
   generateCode(email: any, currentLanguage: any): any {
     return this._httpClient.get(

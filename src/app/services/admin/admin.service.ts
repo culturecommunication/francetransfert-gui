@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { map } from 'rxjs/internal/operators/map';
+import { PliDestinataires } from 'src/app/models/pli-destinataires.model';
 import { TokenModel } from 'src/app/models/token.model';
 import { environment } from 'src/environments/environment';
+import { LoginService } from '../login/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +14,10 @@ import { environment } from 'src/environments/environment';
 export class AdminService {
 
   adminError$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
+  currentDestinatairesInfo: BehaviorSubject<PliDestinataires> = new BehaviorSubject<PliDestinataires>(null);
 
-  constructor(private _httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient,
+    private loginService: LoginService) { }
 
   getFileInfosConnect(body: any, enclosureId: string): Observable<any> {
     const treeBody = {
@@ -144,6 +148,20 @@ export class AdminService {
       catchError(this.handleError('get-plis-received'))
     );
   }
+
+  setDestinatairesList(destinatairesData) {
+    if (this.loginService.isLoggedIn()) {
+      this.currentDestinatairesInfo.next({
+        destinataires: destinatairesData.destinataires,
+      });
+    }
+  }
+
+  cleanDestinatairesList() {
+    this.currentDestinatairesInfo.next(null);
+  }
+
+
 
   private handleError(operation: string) {
     return (err: any) => {
