@@ -42,9 +42,6 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   senderOk = false;
   errorEmail = false;
   focusInput: boolean = false;
-  listDest: any;
-  list: any;
-  destinatairesInfo: any;
 
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
@@ -64,9 +61,8 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   initForm() {
 
     this.adminService.currentDestinatairesInfo.pipe(take(1)).subscribe(destinatairesInfo => {
-      this.destinatairesInfo = destinatairesInfo ? destinatairesInfo.destinataires : null;
-      if (this.destinatairesInfo) {
-        this.destinatairesInfo.map(ed => {
+      if (destinatairesInfo && destinatairesInfo.destinataires && destinatairesInfo.destinataires.length > 0) {
+        destinatairesInfo.destinataires.map(ed => {
           this.destinatairesList.push(ed);
         })
         this.adminService.cleanDestinatairesList();
@@ -202,8 +198,8 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   copyListDestinataires(val: any) {
     if (val.indexOf("<") > 0 && val.indexOf(">") > 0) {
-      this.list = this.envelopeMailForm.get('to').value.split(/</);
-      this.list.forEach(d => {
+      let list = this.envelopeMailForm.get('to').value.split(/</);
+      list.forEach(d => {
         if (d.indexOf(">") > 0) {
           this.destinatairesList.push(d.split(/>/)[0]);
         }
