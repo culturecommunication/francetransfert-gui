@@ -14,8 +14,7 @@ import { LoginService } from '../login/login.service';
 export class AdminService {
 
   adminError$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
-  destinatairesInfo: BehaviorSubject<PliDestinataires> = new BehaviorSubject<any>(null);
-  currentDestinatairesInfo = this.destinatairesInfo.asObservable();
+  currentDestinatairesInfo: BehaviorSubject<PliDestinataires> = new BehaviorSubject<PliDestinataires>(null);
 
   constructor(private _httpClient: HttpClient,
     private loginService: LoginService) { }
@@ -152,14 +151,14 @@ export class AdminService {
 
   setDestinatairesList(destinatairesData) {
     if (this.loginService.isLoggedIn()) {
-      this.destinatairesInfo.next({
+      this.currentDestinatairesInfo.next({
         destinataires: destinatairesData.destinataires,
       });
     }
   }
 
   cleanDestinatairesList() {
-    this.destinatairesInfo.next(null);
+    this.currentDestinatairesInfo.next(null);
   }
 
 

@@ -63,16 +63,17 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
 
   initForm() {
 
-    this.adminService.currentDestinatairesInfo.subscribe(destinatairesInfo =>
-      this.destinatairesInfo = destinatairesInfo ? destinatairesInfo.destinataires : null
-      );
-
-      if(this.destinatairesInfo){
-      this.destinatairesInfo.map(ed => {
-        this.destinatairesList.push(ed);
-      })
-      this.adminService.cleanDestinatairesList();
+    this.adminService.currentDestinatairesInfo.pipe(take(1)).subscribe(destinatairesInfo => {
+      this.destinatairesInfo = destinatairesInfo ? destinatairesInfo.destinataires : null;
+      if (this.destinatairesInfo) {
+        this.destinatairesInfo.map(ed => {
+          this.destinatairesList.push(ed);
+        })
+        this.adminService.cleanDestinatairesList();
       }
+    });
+
+
 
     this.envelopeMailForm = this.fb.group({
       from: [this.mailFormValues?.from, { validators: [Validators.required, Validators.email], asyncValidators: [QuotaAsyncValidator.createValidator(this.uploadService)], updateOn: 'blur' }],
