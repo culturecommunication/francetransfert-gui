@@ -25,6 +25,30 @@
     color: var(--ft-error);
   }
 
+  mat-cell > span.truncate-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  mat-cell > span.truncate-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .overflow-ellipsis {
+    text-overflow: ellipsis;
+    width: 100px;
+  }
+
+  .overflow-clip {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+  }
+
   @media screen and (min-width: 640px) {
     // .overflow-clip {
     //   text-overflow: ellipsis;

@@ -40,7 +40,7 @@ export const environment = {
       resendLink: '8080/api-private/upload-module/resend-download-link'
     },
     captcha: {
-      url: '8080/https://test-francetransfert.aot.agency/captcha/captcha/'
+      url: 'https://test-francetransfert.aot.agency/captcha/captcha/'
     }
   },
   version: '3.6.0'
