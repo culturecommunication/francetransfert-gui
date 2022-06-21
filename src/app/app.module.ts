@@ -69,6 +69,9 @@ import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginato
 import { MatSortModule } from '@angular/material/sort';
 import { DownloadEndMessageComponent } from './components/download-end-message/download-end-message.component';
 import { CustomPaginatorService } from './shared/custom-paginator/custom-paginator.service';
+// search module
+import { FilterPipe } from './shared/pipes/FilterPipe.pipe';
+import { FilterQuestionsPipe } from './shared/pipes/FilterQuestionsPipe.pipe';
 
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeEs, 'es', localeEsExtra);
@@ -86,6 +89,8 @@ const initializer = (pwaService: PwaService) => () =>
 
 @NgModule({
   declarations: [
+    FilterQuestionsPipe,
+    FilterPipe,
     AppComponent,
     HeaderComponent,
     MenuComponent,

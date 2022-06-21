@@ -17,7 +17,7 @@
         matSortDirection="desc">
 
         <!-- Date de Réception Column -->
-        <ng-container matColumnDef="dateReception" class="padding">
+        <ng-container matColumnDef="dateReception">
           <mat-header-cell *matHeaderCellDef> {{'Date_Réception' | translate}}</mat-header-cell>
           <mat-cell *matCellDef="let element" attr.data-label="{{'Date_Réception' | translate}}">
             {{element.dateReception
@@ -31,7 +31,7 @@
           <mat-cell *matCellDef="let element" attr.data-label="{{'expediteur' | translate}}">
             <div class="overflow-clip">
               {{element.expediteur}}
-              </div>
+            </div>
           </mat-cell>
         </ng-container>
 
@@ -51,7 +51,8 @@
         <!-- Taille Column -->
         <ng-container matColumnDef="taille">
           <mat-header-cell *matHeaderCellDef> {{'Taille' | translate}}</mat-header-cell>
-          <mat-cell *matCellDef="let element" attr.data-label="{{'Taille' | translate}}"> {{element.taille}}  {{element.typeSize | translate}}</mat-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Taille' | translate}}"> {{element.taille}}
+            {{element.typeSize | translate}}</mat-cell>
         </ng-container>
 
         <!-- Fin de validité Column -->

@@ -1,17 +1,26 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
-import { LanguageModel } from 'src/app/models';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { BehaviorSubject, map, Subscription } from 'rxjs';
+import { LanguageModel, CategoryModel } from 'src/app/models';
 import { LanguageSelectionService } from 'src/app/services';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/internal/Observable';
+
 
 
 @Component({
   selector: 'ft-faq',
   templateUrl: './faq.component.html',
-  styleUrls: ['./faq.component.scss']
+  styleUrls: ['./faq.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+
+
+
 })
+
+
 export class FaqComponent implements OnInit, AfterViewInit {
 
   @ViewChild('faq') private faqFragment: ElementRef;
@@ -41,21 +50,46 @@ export class FaqComponent implements OnInit, AfterViewInit {
   panelOpenState = false;
 
 
+  categories: any;
+
+  queryString;
+  searchableList: string[];
+  searchableList0: string[];
+  public currentLang: string;
+
+
   constructor(private titleService: Title,
     private router: Router,
     private translateService: TranslateService,
     private languageSelectionService: LanguageSelectionService,
-    ) {
-      this.currentLanguage = this.translateService.currentLang;
-      // this.languageList = this.languageSelectionService.languageList;
-      // this.language =  this.languageList.find(x => x.value == this.currentLanguage);
-      // this.langueCode = this.language.code;
-      // console.log('current lang:', this.language)
-      // console.log('browser lang', this.language.code);
-     }
+    private route: ActivatedRoute,
+  ) {
 
+    this.getListQuetion();
+    this.currentLanguage = this.translateService.currentLang;
+    // this.languageList = this.languageSelectionService.languageList;
+    // this.language =  this.languageList.find(x => x.value == this.currentLanguage);
+    // this.langueCode = this.language.code;
+    // console.log('current lang:', this.language)
+    // console.log('browser lang', this.language.code);
+
+    this.searchableList = ['Question', 'Question_Texte1', 'Question_Liste', 'Question_Liste_Ordered', 'Question_Texte2', 'QuestionImage']
+
+
+
+  }
   ngOnInit(): void {
     this.titleService.setTitle('France transfert - FAQ');
+
+  }
+
+
+  getListQuetion() {
+
+    this.translateService.stream("questions").subscribe(v => {
+      this.categories = v
+    })
+
   }
 
   ngAfterViewInit(): void {
@@ -117,5 +151,7 @@ export class FaqComponent implements OnInit, AfterViewInit {
         break;
     }
   }
+
+
 
 }

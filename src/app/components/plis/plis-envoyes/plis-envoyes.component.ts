@@ -77,7 +77,6 @@ export class PlisEnvoyesComponent {
                 }
 
                 const destinataires = t.recipientsMails.map(n => n.recipientMail).join(", ");
-                //let destinataires = str.length > 150 ? str.substr(0, 150) + '...' : str;
 
                 const taillePli = t.totalSize.split(" ");
                 //---------add to mat-table-------------
