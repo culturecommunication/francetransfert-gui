@@ -1,3 +1,4 @@
+export { CategoryModel } from './category.model';
 export { LanguageModel } from './language.model';
 export { FTTransferModel } from './ft-transfer.model';
 export { EnvelopeInfosModel, MailInfosModel, LinkInfosModel, ParametersModel } from './envelope-infos.model';

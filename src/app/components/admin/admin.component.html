@@ -123,6 +123,9 @@
             <mat-icon matTooltip="{{'Supprimer_Destinataire' | translate}}" (click)="deleteRecipient(index, dest)"
               attr.aria-label="{{'Supprimer_Destinataire' | translate}}">delete
             </mat-icon>
+            <mat-icon matTooltip="{{'Renvoyer_Lien_Téléchargement' | translate}}"
+              (click)="resendLink(dest.recipientMail)" attr.aria-label="{{'Renvoyer_Lien_Téléchargement' | translate}}">
+              email</mat-icon>
           </mat-list-item>
 
 

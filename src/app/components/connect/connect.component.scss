@@ -1,3 +1,39 @@
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.resize-image{
+  width: 50%;
+}
+
+.question-parameters{
+  color: #428bca;
+  margin-top: 5px;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+}
+
+
+.row-position {
+  color:#283644;
+  background-color:#283644;
+  height: 2px;
+  width: 45%;
+  border-width: 0;
+}
+
+.or {
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
+
 .connect-container {
   height: 100%;
   width: 100%;
