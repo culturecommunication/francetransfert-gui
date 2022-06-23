@@ -1,7 +1,9 @@
 <mat-card class="check-validation-code-card" *ngIf="component === 'upload'">
     <form [formGroup]="verificationCodeForm" class="verification-code-form-container">
         <mat-card-content class="check-validation-code-card-content">
-            <mat-icon class="check-validation-code-card-content-icon" aria-hidden="true">lock_outline</mat-icon>
+            <div class="check-validation-code-card-content-icon-container">
+                <mat-icon class="check-validation-code-card-content-icon" aria-hidden="true">lock_outline</mat-icon>
+            </div>
             <div class="check-validation-code-card-content-text">
                 <span class="check-validation-code-card-content-text-title">{{'Vérification Adresse' | translate}}</span>
                 <span class="check-validation-code-card-content-text-sub" *ngIf="isLoggedIn">{{'Session Expiré' | translate}}</span>
@@ -48,7 +50,9 @@
 <mat-card class="check-validation-code-card" *ngIf="component === 'download'">
     <form [formGroup]="verificationCodeForm" class="verification-code-form-container">
         <mat-card-content class="check-validation-code-card-content">
-            <mat-icon class="check-validation-code-card-content-icon" aria-hidden="true">lock_outline</mat-icon>
+            <div class="check-validation-code-card-content-icon-container">
+                <mat-icon class="check-validation-code-card-content-icon" aria-hidden="true">lock_outline</mat-icon>
+            </div>
             <div class="check-validation-code-card-content-text">
                 <span class="check-validation-code-card-content-text-title">{{'AccèsSécurisé' | translate}}</span>
                 <span class="check-validation-code-card-content-text-sub">{{'Mot_Passe_Téléchargement' | translate}}</span>
