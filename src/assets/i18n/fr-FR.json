@@ -647,11 +647,11 @@
       "Type_Pli": "Type de pli",
       "entities": [
         {
-          "value": "remove_red_eye",
+          "value": "edit",
           "viewValue": "Plis actifs"
         },
         {
-          "value": "edit",
+          "value": "remove_red_eye",
           "viewValue": "Plis archivés"
         },
         {

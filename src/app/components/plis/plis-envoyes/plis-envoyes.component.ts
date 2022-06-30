@@ -28,7 +28,7 @@ export class PlisEnvoyesComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   empList: PliModel[] = [];
-  displayedColumns: string[] = ['dateEnvoi', 'type', 'objet', 'taille', 'finValidite', 'destinataires','expired'];
+  displayedColumns: string[] = ['dateEnvoi', 'type', 'objet', 'taille', 'finValidite', 'destinataires', 'expired'];
   dataSource = new MatTableDataSource<PliModel>(this.empList);
   responsiveSubscription: Subscription = new Subscription();
   isMobile;
@@ -36,10 +36,10 @@ export class PlisEnvoyesComponent {
 
   destinatairesFilter = new FormControl();
   expiredFilter = new FormControl();
-  filteredValues = { dateEnvoi:'', type:'', objet:'', finValidite:'', destinataires:'', expired:'' };
+  filteredValues = { dateEnvoi: '', type: '', objet: '', finValidite: '', destinataires: '', expired: '' };
 
   selectedValue: string;
-  types : any;
+  types: any;
 
   constructor(
     private _adminService: AdminService,
@@ -50,7 +50,7 @@ export class PlisEnvoyesComponent {
   ) {
     this.getListTypes();
 
-}
+  }
 
   navigateToConnect() {
     this.loginService.logout();
@@ -94,10 +94,10 @@ export class PlisEnvoyesComponent {
                 }
                 //-----------condition on expired-----------
                 let expired = "";
-                if (t.expired){
+                if (t.expired) {
                   expired = 'remove_red_eye';
                 }
-                else{
+                else {
                   expired = 'edit';
                 }
 
@@ -115,7 +115,6 @@ export class PlisEnvoyesComponent {
               });
 
             }
-            console.log("fileInfo:", fileInfos)
           },
           error: (err) => {
             console.error(err);
@@ -125,44 +124,39 @@ export class PlisEnvoyesComponent {
       );
     }
 
+    this.destinatairesFilter.valueChanges.subscribe((nameFilterValue) => {
+      this.filteredValues['type'] = nameFilterValue;
+      this.filteredValues['objet'] = nameFilterValue;
+      this.filteredValues['destinataires'] = nameFilterValue;
+      this.dataSource.filter = JSON.stringify(this.filteredValues);
+    });
 
-
-      this.destinatairesFilter.valueChanges.subscribe((nameFilterValue) => {
-
-        this.filteredValues['type'] = nameFilterValue;
-        this.filteredValues['objet'] = nameFilterValue;
-        this.filteredValues['destinataires'] = nameFilterValue;
-        this.dataSource.filter = JSON.stringify(this.filteredValues);
-      });
-
-      this.expiredFilter.valueChanges.subscribe((weightFilterValue) => {
-        this.filteredValues['expired'] = weightFilterValue;
-        this.dataSource.filter = JSON.stringify(this.filteredValues);
-      });
+    this.expiredFilter.valueChanges.subscribe((expiredFilterValue) => {
+      this.filteredValues['expired'] = expiredFilterValue;
+      this.dataSource.filter = JSON.stringify(this.filteredValues);
+    });
 
     this.dataSource.filterPredicate = this.customFilterPredicate();
   }
 
   getListTypes() {
-
-    this._translate.stream("typePli").subscribe(v => {
+    this._translate.stream("typePli").pipe(take(1)).subscribe(v => {
       this.types = v
-      console.log("this.types", this.types.entities.value )
-    })
+    });
   }
 
 
   customFilterPredicate() {
-    const myFilterPredicate = function(data: PliModel, filter:string) :boolean {
+    const myFilterPredicate = function (data: PliModel, filter: string): boolean {
       let searchString = JSON.parse(filter);
       let nameFound = data.destinataires.toString().trim().toLowerCase().indexOf(searchString.destinataires.toLowerCase()) !== -1
-      || data.type.toString().trim().toLowerCase().indexOf(searchString.type.toLowerCase()) !== -1
-      || data.objet.toString().trim().toLowerCase().indexOf(searchString.objet.toLowerCase()) !== -1;
+        || data.type.toString().trim().toLowerCase().indexOf(searchString.type.toLowerCase()) !== -1
+        || data.objet.toString().trim().toLowerCase().indexOf(searchString.objet.toLowerCase()) !== -1;
       let positionFound = data.expired.toString().trim().toLowerCase().indexOf(searchString.expired.toLowerCase()) !== -1
       if (searchString.topFilter) {
-          return nameFound || positionFound
+        return nameFound || positionFound
       } else {
-          return nameFound && positionFound
+        return nameFound && positionFound
       }
     }
     return myFilterPredicate;

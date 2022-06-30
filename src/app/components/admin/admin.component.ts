@@ -93,7 +93,6 @@ export class AdminComponent implements OnInit, OnDestroy {
             this.selectedDate = temp;
             //let temp = this.selectedDate;
             this.maxDate.setDate(temp.getDate() + 90);
-            console.log("archive: ", this.fileInfos)
           });
       } else if (this.loginService.isLoggedIn() && this.params['token'] == null && this.params['enclosure']) {
         let enclosureId = this.params['enclosure'];
@@ -116,7 +115,6 @@ export class AdminComponent implements OnInit, OnDestroy {
             this.selectedDate = temp;
             //let temp = this.selectedDate;
             this.maxDate.setDate(temp.getDate() + 90);
-            console.log("archive: ", this.fileInfos)
           });
       } else {
         this._router.navigateByUrl('/error');
@@ -355,7 +353,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   toArray(downloadDates: object) {
     if (downloadDates && Object.keys(downloadDates).length > 0) {
 
-      return Object.keys(downloadDates).map(key =>  ({ value: downloadDates[key]})).sort((a, b) => {
+      return Object.keys(downloadDates).map(key => ({ value: downloadDates[key] })).sort((a, b) => {
         return <any>new Date(a.value) - <any>new Date(b.value);
       });
 
@@ -367,14 +365,14 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
 
-  DupliquerDestinataires(){
+  DupliquerDestinataires() {
     this.adminService.setDestinatairesList({
       destinataires: this.fileInfos.recipientsMails.map(ed => {
         return ed.recipientMail;
       }),
 
     });
-      this._router.navigate(['/upload']);
+    this._router.navigate(['/upload']);
 
   }
 
