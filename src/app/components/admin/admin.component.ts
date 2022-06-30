@@ -119,12 +119,14 @@ export class AdminComponent implements OnInit, OnDestroy {
       } else {
         this._router.navigateByUrl('/error');
       }
+
     });
     this.adminErrorsSubscription = this._adminService.adminError$.subscribe(err => {
       if (err === 401) {
         this.errorMessage = 'Existence_Pli';
       }
     });
+
   }
 
   onPickerClose() {
@@ -351,7 +353,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   toArray(downloadDates: object) {
     if (downloadDates && Object.keys(downloadDates).length > 0) {
 
-      return Object.keys(downloadDates).map(key =>  ({ value: downloadDates[key]})).sort((a, b) => {
+      return Object.keys(downloadDates).map(key => ({ value: downloadDates[key] })).sort((a, b) => {
         return <any>new Date(a.value) - <any>new Date(b.value);
       });
 
@@ -363,14 +365,14 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
 
-  DupliquerDestinataires(){
+  DupliquerDestinataires() {
     this.adminService.setDestinatairesList({
       destinataires: this.fileInfos.recipientsMails.map(ed => {
         return ed.recipientMail;
       }),
 
     });
-      this._router.navigate(['/upload']);
+    this._router.navigate(['/upload']);
 
   }
 

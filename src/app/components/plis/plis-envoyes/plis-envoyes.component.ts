@@ -9,6 +9,14 @@ import { PliModel } from 'src/app/models/pli.model';
 import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { FormControl } from '@angular/forms';
+
+
+interface Type {
+  value: string;
+  viewValue: string;
+}
+
 
 @Component({
   selector: 'ft-plis-envoyes',
@@ -20,11 +28,18 @@ export class PlisEnvoyesComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   empList: PliModel[] = [];
-  displayedColumns: string[] = ['dateEnvoi', 'type', 'objet', 'taille', 'finValidite', 'destinataires', 'token'];
+  displayedColumns: string[] = ['dateEnvoi', 'type', 'objet', 'taille', 'finValidite', 'destinataires', 'expired'];
   dataSource = new MatTableDataSource<PliModel>(this.empList);
   responsiveSubscription: Subscription = new Subscription();
   isMobile;
   screenWidth;
+
+  destinatairesFilter = new FormControl();
+  expiredFilter = new FormControl();
+  filteredValues = { dateEnvoi: '', type: '', objet: '', finValidite: '', destinataires: '', expired: '' };
+
+  selectedValue: string;
+  types: any;
 
   constructor(
     private _adminService: AdminService,
@@ -33,6 +48,8 @@ export class PlisEnvoyesComponent {
     private responsiveService: ResponsiveService,
     private _translate: TranslateService
   ) {
+    this.getListTypes();
+
   }
 
   navigateToConnect() {
@@ -75,6 +92,14 @@ export class PlisEnvoyesComponent {
                 else {
                   type = 'Lien';
                 }
+                //-----------condition on expired-----------
+                let expired = "";
+                if (t.expired) {
+                  expired = 'remove_red_eye';
+                }
+                else {
+                  expired = 'edit';
+                }
 
                 const destinataires = t.recipientsMails.map(n => n.recipientMail).join(", ");
 
@@ -83,7 +108,7 @@ export class PlisEnvoyesComponent {
                 this.empList.push({
                   dateEnvoi: t.timestamp, type: type, objet: t.subject,
                   taille: taillePli[0], typeSize: taillePli[1], finValidite: t.validUntilDate, destinataires: destinataires,
-                  enclosureId: t.enclosureId
+                  enclosureId: t.enclosureId, expired: expired,
                 });
 
                 this.dataSource.data = this.empList;
@@ -98,8 +123,44 @@ export class PlisEnvoyesComponent {
         }
       );
     }
+
+    this.destinatairesFilter.valueChanges.subscribe((nameFilterValue) => {
+      this.filteredValues['type'] = nameFilterValue;
+      this.filteredValues['objet'] = nameFilterValue;
+      this.filteredValues['destinataires'] = nameFilterValue;
+      this.dataSource.filter = JSON.stringify(this.filteredValues);
+    });
+
+    this.expiredFilter.valueChanges.subscribe((expiredFilterValue) => {
+      this.filteredValues['expired'] = expiredFilterValue;
+      this.dataSource.filter = JSON.stringify(this.filteredValues);
+    });
+
+    this.dataSource.filterPredicate = this.customFilterPredicate();
   }
 
+  getListTypes() {
+    this._translate.stream("typePli").pipe(take(1)).subscribe(v => {
+      this.types = v
+    });
+  }
+
+
+  customFilterPredicate() {
+    const myFilterPredicate = function (data: PliModel, filter: string): boolean {
+      let searchString = JSON.parse(filter);
+      let nameFound = data.destinataires.toString().trim().toLowerCase().indexOf(searchString.destinataires.toLowerCase()) !== -1
+        || data.type.toString().trim().toLowerCase().indexOf(searchString.type.toLowerCase()) !== -1
+        || data.objet.toString().trim().toLowerCase().indexOf(searchString.objet.toLowerCase()) !== -1;
+      let positionFound = data.expired.toString().trim().toLowerCase().indexOf(searchString.expired.toLowerCase()) !== -1
+      if (searchString.topFilter) {
+        return nameFound || positionFound
+      } else {
+        return nameFound && positionFound
+      }
+    }
+    return myFilterPredicate;
+  }
 
   isLoggedIn() {
     return this.loginService.isLoggedIn();
@@ -128,10 +189,16 @@ export class PlisEnvoyesComponent {
     this.dataSource.sort = this.sort;
   }
 
+  filterType(filterValue: string) {
+    console.log("value", filterValue)
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
 
   get translate(): TranslateService {
     return this._translate;

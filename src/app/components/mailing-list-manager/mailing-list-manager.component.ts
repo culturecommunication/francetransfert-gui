@@ -26,18 +26,17 @@ export class MailingListManagerComponent implements OnInit {
 
   loadMailingListFromFile(e) {
     this.file = e.target.files[0];
-    if(e.target.files[0].type.startsWith("text/")){
-    this.success = true;
-    console.log(e.target.files[0].type);
+    if (e.target.files[0].type.startsWith("text/")) {
+      this.success = true;
       let fileReader = new FileReader();
       fileReader.readAsText(this.file);
       fileReader.onload = (e) => {
         this.parseMailingListFile(fileReader.result);
       }
     }
-    else{
+    else {
       this.success = false;
-      }
+    }
 
   }
 

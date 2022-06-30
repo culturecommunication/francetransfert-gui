@@ -78,7 +78,7 @@
         </div>
         <div class="card-actions evenly">
           <button type="button" mat-raised-button attr.aria-label="{{'Annuler' | translate}}"
-            class="card-actions-btn color" (click)="cancel($event)"> {{'ANNULER' | translate}}</button>
+            class="card-actions-btn color" (click)="cancel($event)"> {{'Annuler' | translate}}</button>
           <button type="submit" mat-raised-button attr.aria-label="{{'Valider' | translate}}"
             class="card-actions-btn color" [disabled]="!form.valid || (error && !error?.codeTryCount)"
             (click)="validateCode($event)"> {{'VALIDER' | translate}}</button>
