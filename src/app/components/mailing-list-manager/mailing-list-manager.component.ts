@@ -11,6 +11,7 @@ export class MailingListManagerComponent implements OnInit {
 
   file: any;
   errorMessage;
+  success = true;
 
   constructor(private dialogRef: MatDialogRef<MailingListManagerComponent>,
     private mailingListService: MailingListService) { }
@@ -25,11 +26,19 @@ export class MailingListManagerComponent implements OnInit {
 
   loadMailingListFromFile(e) {
     this.file = e.target.files[0];
-    let fileReader = new FileReader();
-    fileReader.readAsText(this.file);
-    fileReader.onload = (e) => {
-      this.parseMailingListFile(fileReader.result);
+    if(e.target.files[0].type.startsWith("text/")){
+    this.success = true;
+    console.log(e.target.files[0].type);
+      let fileReader = new FileReader();
+      fileReader.readAsText(this.file);
+      fileReader.onload = (e) => {
+        this.parseMailingListFile(fileReader.result);
+      }
     }
+    else{
+      this.success = false;
+      }
+
   }
 
   private parseMailingListFile(_data) {
