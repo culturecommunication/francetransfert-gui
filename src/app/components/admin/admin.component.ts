@@ -93,6 +93,7 @@ export class AdminComponent implements OnInit, OnDestroy {
             this.selectedDate = temp;
             //let temp = this.selectedDate;
             this.maxDate.setDate(temp.getDate() + 90);
+            console.log("archive: ", this.fileInfos)
           });
       } else if (this.loginService.isLoggedIn() && this.params['token'] == null && this.params['enclosure']) {
         let enclosureId = this.params['enclosure'];
@@ -115,16 +116,19 @@ export class AdminComponent implements OnInit, OnDestroy {
             this.selectedDate = temp;
             //let temp = this.selectedDate;
             this.maxDate.setDate(temp.getDate() + 90);
+            console.log("archive: ", this.fileInfos)
           });
       } else {
         this._router.navigateByUrl('/error');
       }
+
     });
     this.adminErrorsSubscription = this._adminService.adminError$.subscribe(err => {
       if (err === 401) {
         this.errorMessage = 'Existence_Pli';
       }
     });
+
   }
 
   onPickerClose() {

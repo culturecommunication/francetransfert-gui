@@ -8,4 +8,5 @@ export class PliModel {
   finValidite: string;
   destinataires?: Array<String>;
   enclosureId: string;
+  expired: string;
 }

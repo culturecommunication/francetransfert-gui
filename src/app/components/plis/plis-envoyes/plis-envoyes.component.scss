@@ -8,6 +8,18 @@
     }
   }
 
+  ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 1.9875em;
+  }
+
+  ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #fafafa;
+  }
+
+  ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 2.25em;
+  }
+
   .mat-column-destinataires {
     display: flex;
     flex-wrap: wrap;
@@ -52,6 +64,11 @@
     //   padding: 0.2em 0;
     //   overflow: auto;
     // }
+
+    .space {
+      padding-left: 2%;
+    }
+
     .overflow-clip {
       text-overflow: ellipsis;
       overflow: hidden;
@@ -113,7 +130,7 @@
       justify-content: center;
     }
 
-    .mat-column-token {
+    .mat-column-expired {
       flex-basis: 5rem;
     }
 
@@ -137,6 +154,11 @@
   }
 
   @media screen and (min-width: 640px) and (max-width: 790px) {
+    .container {
+      display: flex;
+      flex-direction: column;
+    }
+
     .overflow-clip {
       text-overflow: ellipsis;
       overflow: hidden;
@@ -146,7 +168,7 @@
       text-align: center;
     }
 
-    .mat-column-token {
+    .mat-column-expired {
       flex-basis: 6.5rem;
     }
     .mat-column-dateEnvoi {
@@ -169,6 +191,11 @@
   }
 
   @media screen and (max-width: 640px) {
+    .container {
+      display: flex;
+      flex-direction: column;
+    }
+
     .mat-table {
       border: 0;
       vertical-align: middle;
