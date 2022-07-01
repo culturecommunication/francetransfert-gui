@@ -1,3 +1,10 @@
+/*
+  * Copyright (c) Ministère de la Culture (2022) 
+  * 
+  * SPDX-License-Identifier: MIT 
+  * License-Filename: LICENSE.txt 
+  */
+
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LinkInfosModel, MailInfosModel, ParametersModel } from 'src/app/models';

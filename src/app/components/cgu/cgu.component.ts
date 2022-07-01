@@ -1,3 +1,10 @@
+/*
+  * Copyright (c) Ministère de la Culture (2022) 
+  * 
+  * SPDX-License-Identifier: MIT 
+  * License-Filename: LICENSE.txt 
+  */
+
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
