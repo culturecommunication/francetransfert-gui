@@ -15,8 +15,9 @@ export class MentionsLegalesComponent implements OnInit, AfterViewInit {
   @ViewChild('liens') private liensFragment: ElementRef;
   @ViewChild('developpement') private developpementFragment: ElementRef;
   @ViewChild('hebergement') private hebergementFragment: ElementRef;
+  @ViewChild('traductions') private traductionsFragment: ElementRef;
 
-  constructor(private titleService: Title, 
+  constructor(private titleService: Title,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -49,6 +50,9 @@ export class MentionsLegalesComponent implements OnInit, AfterViewInit {
         break;
       case 'hebergement':
         this.hebergementFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        break;
+      case 'traductions':
+        this.traductionsFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
         break;
     }
   }
