@@ -26,3 +26,7 @@ Une Foire Aux Questions est disponible ici : https://francetransfert.numerique.g
 Il est également possible de contacter le support Utilisateurs dont le niveau 1 est assuré par la DINUM : https://francetransfert.numerique.gouv.fr/contact
 
 Enfin pour les agents de l’Etat, il y a un salon "France transfert" dans TCHAP qui vous permettra de suivre les évolutions ou d’échanger avec les autres membres. Vous êtes libres de vous y abonner.
+
+# Contributions
+
+Les Issues et Pull Request sont les bienvenus mais il n'y a pas d'engagement de l'équipe produit France transfert à les traiter.
