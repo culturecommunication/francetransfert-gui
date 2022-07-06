@@ -1,3 +1,10 @@
+/*
+  * Copyright (c) Ministère de la Culture (2022) 
+  * 
+  * SPDX-License-Identifier: MIT 
+  * License-Filename: LICENSE.txt 
+  */
+
 import { Component, Input, OnInit } from '@angular/core';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { DownloadManagerService } from 'src/app/services/download-manager/download-manager.service';
