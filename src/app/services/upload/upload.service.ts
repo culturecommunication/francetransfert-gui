@@ -1,9 +1,17 @@
+/*
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
+  */
+
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Transfer } from '@flowjs/ngx-flow/lib/transfer';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { UploadInfosModel } from 'src/app/models';
+import { TokenModel } from 'src/app/models/token.model';
 import { environment } from 'src/environments/environment';
 import { LoginService } from '../login/login.service';
 import { UploadManagerService } from '../upload-manager/upload-manager.service';
@@ -12,6 +20,9 @@ import { UploadManagerService } from '../upload-manager/upload-manager.service';
   providedIn: 'root'
 })
 export class UploadService {
+
+  tokenInfo: BehaviorSubject<TokenModel> = new BehaviorSubject<any>(null);
+  public langueCourriels = new BehaviorSubject('langueCourriels');
 
   constructor(private _httpClient: HttpClient,
     private uploadManagerService: UploadManagerService,
@@ -54,11 +65,16 @@ export class UploadService {
     );
   }
 
+  setLangueCourriels(langueCourriels) {
+    this.langueCourriels.next(langueCourriels);
+  }
+
   allowedSenderMail(mail: any): Observable<any> {
     return this._httpClient.post(`${environment.host}${environment.apis.upload.allowedSenderMail}`, mail).pipe(
       catchError(this.handleError('senderMailNotAllowed'))
     );
   }
+
 
   validateCode(body: any): any {
     const trMapping = this._mappingTree(body.transfers);

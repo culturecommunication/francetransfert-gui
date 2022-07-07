@@ -1,3 +1,10 @@
+/*
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
+  */
+
 import Flow from '@flowjs/flow.js';
 import { environment as env } from '../../../environments/environment';
 export const FLOW_CONFIG: Flow.FlowOptions = {

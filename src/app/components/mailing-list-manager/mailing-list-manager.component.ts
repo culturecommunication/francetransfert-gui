@@ -1,6 +1,15 @@
+/*
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
+  */
+
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MailingListService } from 'src/app/services';
+import { DestinatairesEndMessageComponent } from '../destinataires-end-message/destinataires-end-message.component';
 
 @Component({
   selector: 'ft-mailing-list-manager',
@@ -11,10 +20,10 @@ export class MailingListManagerComponent implements OnInit {
 
   file: any;
   errorMessage;
-  success = true;
 
   constructor(private dialogRef: MatDialogRef<MailingListManagerComponent>,
-    private mailingListService: MailingListService) { }
+    private mailingListService: MailingListService,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.errorMessage = '';
@@ -25,10 +34,9 @@ export class MailingListManagerComponent implements OnInit {
   }
 
   loadMailingListFromFile(e) {
+    console.log("test")
     this.file = e.target.files[0];
     if(e.target.files[0].type.startsWith("text/")){
-    this.success = true;
-    console.log(e.target.files[0].type);
       let fileReader = new FileReader();
       fileReader.readAsText(this.file);
       fileReader.onload = (e) => {
@@ -36,9 +44,16 @@ export class MailingListManagerComponent implements OnInit {
       }
     }
     else{
-      this.success = false;
+      this.openSnackBar(4000);
+      this.dialogRef.close({ event: 'loadMailingListFromFile' });
       }
 
+  }
+
+  openSnackBar(duration: number) {
+    this._snackBar.openFromComponent(DestinatairesEndMessageComponent, {
+      duration: duration
+    });
   }
 
   private parseMailingListFile(_data) {

@@ -1,3 +1,10 @@
+/*
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
+  */
+
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -41,7 +48,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   backToHome() {
     if (this._router.url.includes('upload')) {
-      window.location.reload();
+      this._router.navigate(['/upload']);
+      //window.location.reload();
     } else {
       this._router.navigate(['/upload']);
     }

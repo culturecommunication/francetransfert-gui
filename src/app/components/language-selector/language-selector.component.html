@@ -1,13 +1,14 @@
+
+
 <div class="lang-selection">
   <mat-form-field>
       <mat-label> {{'ChoixLangue' | translate}}</mat-label>
-    <select matNativeControl class="language-select" (change)="selectLanguage($event)">
-      <!-- [(ngModel)]="selectedOption" -->
-          <option *ngFor="let lang of languageList" [ngClass]="lang.code" [value]="lang.value">
+      <!-- langue d'affichage des courriels -->
+      <mat-select matNativeControl   [(value)]="language"   (selectionChange)="selectLanguage($event.value)" class="language-select" >
+          <mat-option *ngFor="let lang of languageList" [value]="lang.value"  [ngClass]="lang.code">
               <span>{{ lang.label }}</span>
-          </option>
-      </select>
+          </mat-option>
+      </mat-select>
   </mat-form-field>
 </div>
-
 

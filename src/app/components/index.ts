@@ -1,3 +1,10 @@
+/*
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
+  */
+
 export { PwaPromptInstallComponent, PwaPromptUpdateComponent } from './pwa';
 export { HeaderComponent } from "./header/header.component";
 export { MenuComponent } from "./menu/menu.component";

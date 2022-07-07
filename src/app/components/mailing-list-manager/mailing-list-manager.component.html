@@ -1,5 +1,5 @@
 
-<div *ngIf="success"><h2 mat-dialog-title>Liste de contacts</h2>
+<div><h2 mat-dialog-title>Liste de contacts</h2>
 <mat-dialog-content class="mat-typography">
   <!-- <h3>Cette action supprimera définitivement votre pli et le rendra inaccessible.</h3> -->
   <span>{{'ImportationListeContacts' | translate}}</span>
@@ -15,11 +15,7 @@
 </mat-dialog-actions>
 </div>
 
-<div  *ngIf="!success" class="fr-alert fr-alert--success">
-  <div class="fr-alert--success fr-alert--success-icon" style="text-align: center">
-    <mat-icon  class="fr-alert__icon" >cancel</mat-icon>
-  </div>
-  <div class="fr-alert--success-text" >
-    <p class="fr-alert__message" >{{'Veuiller importer une liste de contacts depuis un fichier text' | translate}}</p>
-  </div>
-</div>
+
+
+
+

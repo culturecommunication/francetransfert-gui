@@ -636,5 +636,9 @@
   ],
 
   "Renvoyer_Lien_Téléchargement": "Réémettre les courriels de téléchargement au destinataire",
-  "Télécharger_Pli": "Télécharger le pli"
+  "Télécharger_Pli": "Télécharger le pli",
+
+
+  "Retour": "Retour",
+  "Importation_Erreur": "Veuiller importer une liste de contacts depuis un fichier CSV."
 }

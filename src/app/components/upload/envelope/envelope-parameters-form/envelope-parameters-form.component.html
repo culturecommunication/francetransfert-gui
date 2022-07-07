@@ -78,20 +78,18 @@
 
 
 
-
-
     <div class="lang-selection">
-        <mat-form-field>
-            <mat-label> {{'Langue_Affichage_Courriels' | translate}}</mat-label>
-            <!-- langue d'affichage des courriels -->
-            <mat-select matNativeControl formControlName="langueCourriels" class="language-select"
-                [compareWith]="compareFunction" disableOptionCentering>
-                <mat-option *ngFor="let lang of languageList" [value]="lang" [ngClass]="lang.code">
-                    <span>{{ lang.label }}</span>
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+      <mat-form-field>
+          <mat-label> {{'Langue_Affichage_Courriels' | translate}}</mat-label>
+          <!-- langue d'affichage des courriels -->
+          <mat-select matNativeControl  [(value)]="language" class="language-select" [compareWith]="compareFunction" disableOptionCentering  (selectionChange)="selectLanguage($event.value)">
+              <mat-option *ngFor="let lang of languageList" [value]="lang"  [ngClass]="language.code">
+                  <span>{{ lang.label }}</span>
+              </mat-option>
+          </mat-select>
+      </mat-form-field>
     </div>
+
 
 
     <mat-checkbox formControlName="zipPassword">

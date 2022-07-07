@@ -1,3 +1,10 @@
+/*
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
+  */
+
 
 import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -72,6 +79,7 @@ import { CustomPaginatorService } from './shared/custom-paginator/custom-paginat
 // search module
 import { FilterPipe } from './shared/pipes/FilterPipe.pipe';
 import { FilterQuestionsPipe } from './shared/pipes/FilterQuestionsPipe.pipe';
+import { DestinatairesEndMessageComponent } from './components/destinataires-end-message/destinataires-end-message.component';
 
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeEs, 'es', localeEsExtra);
@@ -138,6 +146,7 @@ const initializer = (pwaService: PwaService) => () =>
     PlisRecusComponent,
     PlisEnvoyesComponent,
     DownloadEndMessageComponent,
+    DestinatairesEndMessageComponent,
 
   ],
   imports: [

@@ -1,3 +1,10 @@
+/*
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
+  */
+
 import { Injectable } from '@angular/core';
 import { UploadState } from '@flowjs/ngx-flow';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
