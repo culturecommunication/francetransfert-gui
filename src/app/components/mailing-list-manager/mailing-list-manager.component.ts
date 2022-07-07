@@ -45,7 +45,6 @@ export class MailingListManagerComponent implements OnInit {
     }
     else{
       this.openSnackBar(4000);
-      this.dialogRef.close({ event: 'loadMailingListFromFile' });
       }
 
   }

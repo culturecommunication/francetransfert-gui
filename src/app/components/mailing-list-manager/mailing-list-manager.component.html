@@ -1,8 +1,8 @@
 
-<div><h2 mat-dialog-title>Liste de contacts</h2>
+<div><h2 mat-dialog-title>{{'ImportationListeContacts' | translate}}</h2>
+
 <mat-dialog-content class="mat-typography">
   <!-- <h3>Cette action supprimera définitivement votre pli et le rendra inaccessible.</h3> -->
-  <span>{{'ImportationListeContacts' | translate}}</span>
   <span> {{'ImportationListeContactsText' | translate}} ";"</span>
   <span *ngIf="errorMessage !== ''" class="error" role="alert">{{errorMessage}}</span>
 </mat-dialog-content>

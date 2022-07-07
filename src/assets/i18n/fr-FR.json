@@ -115,7 +115,7 @@
 
   "CréationTransfert": "Création de votre transfert...",
 
-  "ImportationListeContacts": "Importer une liste de contacts ?",
+  "ImportationListeContacts": "Importer une liste de contacts",
   "ImportationListeContactsText": "Vous pouvez importer une liste de contacts depuis un fichier contenant les adresses courriel que vous souhaitez utiliser séparées par un caractère ",
   "Fichier": "Depuis un fichier",
   "FichierType": "Fichier",

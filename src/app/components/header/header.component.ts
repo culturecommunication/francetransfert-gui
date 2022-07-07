@@ -48,8 +48,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   backToHome() {
     if (this._router.url.includes('upload')) {
-      this._router.navigate(['/upload']);
-      //window.location.reload();
+      //this._router.navigate(['/upload']);
+      window.location.reload();
+      //this._router.navigate(['/']);
+
     } else {
       this._router.navigate(['/upload']);
     }
