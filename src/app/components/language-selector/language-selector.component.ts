@@ -1,16 +1,16 @@
 /*
-  * Copyright (c) Ministère de la Culture (2022) 
-  * 
-  * SPDX-License-Identifier: MIT 
-  * License-Filename: LICENSE.txt 
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
   */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, Inject, LOCALE_ID } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LanguageModel } from 'src/app/models';
 import { LanguageSelectionService, UploadService } from 'src/app/services';
 import { TranslateService } from '@ngx-translate/core';
-import { DateAdapter } from '@angular/material/core';
+import { DateAdapter} from '@angular/material/core';
 
 @Component({
   selector: 'ft-language-selector',
@@ -24,22 +24,28 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
   defaultLanguage: LanguageModel;
   languageList: LanguageModel[];
   selectedOption: string;
+  language: string;
+
 
 
   constructor(private languageSelectionService: LanguageSelectionService,
     public translateService: TranslateService,
-    private dateAdapter: DateAdapter<Date>
+    private dateAdapter: DateAdapter<Date>,
+    private uploadService: UploadService,
+
   ) {
     //translateService.setDefaultLang("en-US")
     translateService.setDefaultLang("fr-FR");
     translateService.use('fr-FR');
+    this.language = 'fr-FR'
 
   }
 
 
-  public selectLanguage(event: any) {
-    this.translateService.use(event.target.value);
-    this.dateAdapter.setLocale(event.target.value);
+  public selectLanguage(value: any) {
+    this.translateService.use(value);
+    this.dateAdapter.setLocale(value);
+    this.uploadService.setLangueCourriels(value);
   }
 
   ngOnInit(): void {
