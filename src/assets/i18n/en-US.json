@@ -466,7 +466,48 @@
 
   "Retour": "Back"
 
+    {
+      "category": "Information and user feedback",
+      "entities": [
+        {
+          "Question": "What is the user questionnaire for ?",
+          "Question_Texte1": "<span>The questionnaire is anonymous and used for statistical and improvement purposes only. </span><br><span>If you complete the questionnaire, the rating you leave is recorded for statistical purposes only. You can leave comments to tell us what you think about the service.</span><br><span>The product team will review the comments but cannot commit to responding individually or implementing any suggestions.</span>",
+          "Question_Liste": "",
+          "Question_Liste_Ordered": "",
+          "Question_Texte2": "",
+          "QuestionImage": ""
+        },
+        {
+          "Question": "Where can I find more information about France Transfert ?",
+          "Question_Texte1": "<span>For officials, there is a “France Transfert” room in Tchap to keep track of developments and communicate with other members. You can sign up to it. </span><br> <span>You can also write to France Transfert’s support team via the “Contact” form (at the bottom of the page or in the menu on the mobile version). </span>",
+          "Question_Liste": "",
+          "Question_Liste_Ordered": "",
+          "Question_Texte2": "",
+          "QuestionImage": ""
+        }
+      ]
+    }
+  ],
 
+  "typePli": [
+    {
+      "Type_Pli": "Type of pli",
+      "entities": [
+        {
+          "value": "remove_red_eye",
+          "viewValue": ""
+        },
+        {
+          "value": "edit",
+          "viewValue": ""
+        },
+        {
+          "value": "",
+          "viewValue": ""
+        }
+      ]
+    }
+  ]
 }
 
 

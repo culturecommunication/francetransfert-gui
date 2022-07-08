@@ -7,10 +7,22 @@
   <div *ngIf="isLoggedIn()">
     <p>{{'Liste_Plis' | translate}}</p>
 
-    <mat-form-field appearance="standard">
-      <mat-label>{{'Filtrer' | translate}}</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. jean.dupond@domaine.fr" #input>
-    </mat-form-field>
+
+    <div class="container">
+      <mat-form-field>
+        <mat-label>{{'Filtrer' | translate}}</mat-label>
+        <input matInput class="form-field" [formControl]="destinatairesFilter" placeholder="Ex. jean.dupond@domaine.fr">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="space" *ngFor="let type of types">
+        <mat-label>{{type.Type_Pli}}</mat-label>
+        <mat-select [formControl]="expiredFilter">
+          <mat-option *ngFor="let typeVal of type.entities" [value]="typeVal.value">
+            {{typeVal.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
     <div>
       <mat-table [dataSource]="dataSource" matSort class="mat-width" matSort matSortActive="dateEnvoi"
@@ -27,7 +39,8 @@
         <!-- Type Column -->
         <ng-container matColumnDef="type">
           <mat-header-cell *matHeaderCellDef> {{'Type' | translate}}</mat-header-cell>
-          <mat-cell *matCellDef="let element" attr.data-label="{{'Type' | translate}}"> {{element.type}} </mat-cell>
+          <mat-cell *matCellDef="let element" attr.data-label="{{'Type' | translate}}"> {{element.type | translate}}
+          </mat-cell>
         </ng-container>
 
         <!-- Objet Column -->
@@ -67,15 +80,13 @@
         </ng-container>
 
         <!-- Token Column -->
-        <ng-container matColumnDef="token">
+        <ng-container matColumnDef="expired">
           <mat-header-cell *matHeaderCellDef> {{'Action' | translate}}</mat-header-cell>
           <mat-cell *matCellDef="let element" attr.data-label="{{'Action' | translate}}">
-            <mat-icon matTooltip="{{'Details' | translate}}" style="color: black;cursor: pointer;"
-              (click)="navigateTo(element.enclosureId)" attr.aria-label="{{'Details' | translate}}">edit</mat-icon>
 
-            <!-- (click)="navigateTo(element.enclosureId, element.token)"   -->
-            <!-- [routerLink]="['/admin', element.enclosureId]"
-          [state]="{ receiverToken: element.token }" -->
+            <mat-icon matTooltip="{{'Details' | translate}}" style="color: black;cursor: pointer;"
+              (click)="navigateTo(element.enclosureId)" attr.aria-label="{{'Details' | translate}}">{{element.expired}}
+            </mat-icon>
 
           </mat-cell>
         </ng-container>

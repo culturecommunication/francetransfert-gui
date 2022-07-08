@@ -1,8 +1,8 @@
 /*
-  * Copyright (c) Ministère de la Culture (2022)
-  *
-  * SPDX-License-Identifier: MIT
-  * License-Filename: LICENSE.txt
+  * Copyright (c) Ministère de la Culture (2022) 
+  * 
+  * SPDX-License-Identifier: MIT 
+  * License-Filename: LICENSE.txt 
   */
 
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';

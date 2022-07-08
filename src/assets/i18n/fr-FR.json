@@ -374,12 +374,10 @@
   "Liste_Plis_Reçus": "Liste des plis que j’ai reçus et toujours actifs​",
   "Date_Réception": "Date de réception",
   "expediteur": "Expéditeur",
-  "Nombres_Caractères_Spéciaux_Forbidden": "aucun caractère spécial non supporté",
+  "Nombres_Caractères_Spéciaux_Forbidden": "Aucun caractère spécial non supporté",
   "Téléchargement": " téléchargement(s)",
 
   "Contact": "Nous contacter",
-  "téléchargement": " téléchargement(s)",
-  "Caractères_Spéciaux_Non_Supporté": "Aucun caractère spécial non supporté",
   "Question1Image": "<img mat-card-image alt='Pourquoi France transfert' src='assets/images/FT_France Transfert_V2.png' />",
   "Question2Image": "<img   alt='Deux façons d'utiliser France transfert' src='assets/images/FT_Envoyer des dossiers ou des fichiers_V2.png' />",
   "Question6Image": "<img alt='A quoi cela sert-il de se connecter' src='assets/images/FT_Être connecté à France Transfert V3.png' />",
@@ -421,7 +419,12 @@
   "téléchargement-pli": "Télécharger le pli",
   "Dupliquer-destinataires": "Dupliquer les destinataires",
 
-  "Numéro-version": "3.5.0",
+  "Dupliquer-destinataires": "Dupliquer les destinataires",
+  "CGU-Version": "3.5.0",
+  "Faq-Version": "3.5.0",
+  "Accessibilite-Version": "3.4.0",
+  "Mentions-légales-Version": "3.4.0",
+  "Politique-protection-donnees-Version": "3.4.0",
 
   "questions": [
     {
