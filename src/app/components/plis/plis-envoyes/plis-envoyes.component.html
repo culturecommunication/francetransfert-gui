@@ -84,8 +84,8 @@
           <mat-header-cell *matHeaderCellDef> {{'Action' | translate}}</mat-header-cell>
           <mat-cell *matCellDef="let element" attr.data-label="{{'Action' | translate}}">
 
-            <mat-icon matTooltip="{{'Details' | translate}}" style="color: black;cursor: pointer;"
-              (click)="navigateTo(element.enclosureId)" attr.aria-label="{{'Details' | translate}}">{{element.expired}}
+            <mat-icon matTooltip= {{element.matTooltip}} style="color: black;cursor: pointer;"
+              (click)="navigateTo(element.enclosureId)" attr.aria-label={{element.matTooltip}}>{{element.expired}}
             </mat-icon>
 
           </mat-cell>

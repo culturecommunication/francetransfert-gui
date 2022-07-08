@@ -330,7 +330,6 @@
 
   "Ajout_Destinataire": "Ajouter un destinataire",
   "Terminer": "Terminer",
-  "Details": "Administrer le pli",
   "Ouvrir_Menu": "Ouvrir le menu",
   "Retour_Accueil": "Retour à l'accueil",
   "Valide": "Valide",
@@ -384,7 +383,6 @@
   "Question8Image": "<img  alt='Comment télécharger le pli qui m'est adressé' src='assets/images/FT_Telecharger un pli_V2.png' />",
   "Question15Image": "<img  alt='Puis-je utiliser une liste de distribution' src='assets/images/FT_Utiliser une liste de diffusion_V2.png' />",
   "Formulaire": "<span>Le ministère de la Culture, responsable du traitement, met en œuvre un traitement de données à caractère personnel vous concernant pour assurer la fourniture du service France Transfert. Pour en savoir plus sur vos droits, veuillez consulter les dispositions sur les données personnelles de nos <a class='link' rel='noopener noreferrer' href='cgu' target='_blank'> conditions générales d’utilisation</a>.</span>",
-  "Renvoyer_Lien_Téléchargement": "Réémettre les courriels de téléchargement",
 
   "GB": "Go",
   "MB": "Mo",
@@ -419,7 +417,6 @@
   "téléchargement-pli": "Télécharger le pli",
   "Dupliquer-destinataires": "Dupliquer les destinataires",
 
-  "Dupliquer-destinataires": "Dupliquer les destinataires",
   "CGU-Version": "3.5.0",
   "Faq-Version": "3.5.0",
   "Accessibilite-Version": "3.4.0",
@@ -640,8 +637,30 @@
 
   "Renvoyer_Lien_Téléchargement": "Réémettre les courriels de téléchargement au destinataire",
   "Télécharger_Pli": "Télécharger le pli",
+  "Date_Archive": "Date de fin d'archivage :",
+  "Historique": "Détail du pli",
+  "typePli": [
+    {
+      "Type_Pli": "Type de pli",
+      "entities": [
+        {
+          "value": "edit",
+          "viewValue": "Plis actifs"
+        },
+        {
+          "value": "remove_red_eye",
+          "viewValue": "Plis archivés"
+        },
+        {
+          "value": "",
+          "viewValue": "Tous"
+        }
+      ]
+    }
+  ],
 
+  "Details_Oeil": "Consulter le pli",
+  "Details_Edit": "Administrer le pli",
+  "Object": "Objet :"
 
-  "Retour": "Retour",
-  "Importation_Erreur": "Veuiller importer une liste de contacts depuis un fichier CSV."
 }

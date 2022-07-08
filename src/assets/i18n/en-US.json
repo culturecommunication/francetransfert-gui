@@ -495,19 +495,23 @@
       "entities": [
         {
           "value": "remove_red_eye",
-          "viewValue": ""
+          "viewValue": "Active packages"
         },
         {
           "value": "edit",
-          "viewValue": ""
+          "viewValue": "Archived packages"
         },
         {
           "value": "",
-          "viewValue": ""
+          "viewValue": "All"
         }
       ]
     }
-  ]
+  ],
+
+  "Historique": "Package's detail",
+  "Object": "Re. :"
+
 }
 
 
