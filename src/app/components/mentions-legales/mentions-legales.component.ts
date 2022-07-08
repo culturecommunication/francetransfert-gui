@@ -1,8 +1,8 @@
 /*
-  * Copyright (c) Ministère de la Culture (2022) 
-  * 
-  * SPDX-License-Identifier: MIT 
-  * License-Filename: LICENSE.txt 
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
   */
 
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
@@ -22,6 +22,7 @@ export class MentionsLegalesComponent implements OnInit, AfterViewInit {
   @ViewChild('liens') private liensFragment: ElementRef;
   @ViewChild('developpement') private developpementFragment: ElementRef;
   @ViewChild('hebergement') private hebergementFragment: ElementRef;
+  @ViewChild('traductions') private traductionsFragment: ElementRef;
 
   constructor(private titleService: Title,
     private router: Router) { }
@@ -56,6 +57,9 @@ export class MentionsLegalesComponent implements OnInit, AfterViewInit {
         break;
       case 'hebergement':
         this.hebergementFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        break;
+        case 'traductions':
+          this.traductionsFragment.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
         break;
     }
   }
