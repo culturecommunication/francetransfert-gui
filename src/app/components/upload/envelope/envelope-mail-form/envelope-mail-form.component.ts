@@ -41,6 +41,8 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
   @ViewChild('dest') dest: ElementRef;
   @ViewChild('objet') objet: ElementRef;
   @ViewChild('message') message: ElementRef;
+  @ViewChild('myFileInput') myFileInput;
+
 
   envelopeMailFormChangeSubscription: Subscription;
   matcher = new MyErrorStateMatcher();
@@ -129,6 +131,7 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
           this.focus();
         }
       }
+
     } else if (this.envelopeMailForm.get('to').value && this.envelopeMailForm.get('to').hasError('email') && this.envelopeMailForm.get('to').value.indexOf('<') >= 0) {
       this.copyListDestinataires(this.envelopeMailForm.get('to').value);
       this.envelopeMailForm.get('to').setValue('');
@@ -166,9 +169,9 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
     window.open(url, '_blank');
   }
 
+
   openMailingListManager() {
     const dialogRef = this.dialog.open(MailingListManagerComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.event === 'loadMailingListFromLocalStorage') {
@@ -184,9 +187,15 @@ export class EnvelopeMailFormComponent implements OnInit, OnDestroy {
           this.onBlurDestinataires();
         }
 
+        //result.event.target.value = "";
+
+
         }
+
       }
     });
+
+
   }
 
 

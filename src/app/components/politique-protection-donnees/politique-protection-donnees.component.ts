@@ -19,7 +19,7 @@ export class PolitiqueProtectionDonneesComponent implements OnInit, AfterViewIni
   @ViewChild('politiquedeprotectiondesdonnees') private politiquedeprotectiondesdonneesFragment: ElementRef;
   @ViewChild('droitsdespersonnes') private droitsdespersonnesFragment: ElementRef;
 
-  constructor(private titleService: Title, 
+  constructor(private titleService: Title,
     private router: Router) { }
 
   ngOnInit(): void {

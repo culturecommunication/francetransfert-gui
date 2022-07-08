@@ -23,7 +23,7 @@ export class MentionsLegalesComponent implements OnInit, AfterViewInit {
   @ViewChild('developpement') private developpementFragment: ElementRef;
   @ViewChild('hebergement') private hebergementFragment: ElementRef;
 
-  constructor(private titleService: Title, 
+  constructor(private titleService: Title,
     private router: Router) { }
 
   ngOnInit(): void {

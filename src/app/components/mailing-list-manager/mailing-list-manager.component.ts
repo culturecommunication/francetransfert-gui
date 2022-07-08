@@ -7,7 +7,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MailingListService } from 'src/app/services';
+import { DestinatairesEndMessageComponent } from '../destinataires-end-message/destinataires-end-message.component';
 
 @Component({
   selector: 'ft-mailing-list-manager',
@@ -18,10 +20,10 @@ export class MailingListManagerComponent implements OnInit {
 
   file: any;
   errorMessage;
-  success = true;
 
   constructor(private dialogRef: MatDialogRef<MailingListManagerComponent>,
-    private mailingListService: MailingListService) { }
+    private mailingListService: MailingListService,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.errorMessage = '';
@@ -32,19 +34,25 @@ export class MailingListManagerComponent implements OnInit {
   }
 
   loadMailingListFromFile(e) {
+    console.log("test")
     this.file = e.target.files[0];
-    if (e.target.files[0].type.startsWith("text/")) {
-      this.success = true;
+    if(e.target.files[0].type.startsWith("text/")){
       let fileReader = new FileReader();
       fileReader.readAsText(this.file);
       fileReader.onload = (e) => {
         this.parseMailingListFile(fileReader.result);
       }
     }
-    else {
-      this.success = false;
-    }
+    else{
+      this.openSnackBar(4000);
+      }
 
+  }
+
+  openSnackBar(duration: number) {
+    this._snackBar.openFromComponent(DestinatairesEndMessageComponent, {
+      duration: duration
+    });
   }
 
   private parseMailingListFile(_data) {

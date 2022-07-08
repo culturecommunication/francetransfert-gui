@@ -115,7 +115,7 @@
 
   "CréationTransfert": "Création de votre transfert...",
 
-  "ImportationListeContacts": "Importer une liste de contacts ?",
+  "ImportationListeContacts": "Importer une liste de contacts",
   "ImportationListeContactsText": "Vous pouvez importer une liste de contacts depuis un fichier contenant les adresses courriel que vous souhaitez utiliser séparées par un caractère ",
   "Fichier": "Depuis un fichier",
   "FichierType": "Fichier",
@@ -640,25 +640,8 @@
 
   "Renvoyer_Lien_Téléchargement": "Réémettre les courriels de téléchargement au destinataire",
   "Télécharger_Pli": "Télécharger le pli",
-  "Date_Archive": "Date de fin d'archivage :",
-  "Historique": "Historique du pli",
-  "typePli": [
-    {
-      "Type_Pli": "Type de pli",
-      "entities": [
-        {
-          "value": "edit",
-          "viewValue": "Plis actifs"
-        },
-        {
-          "value": "remove_red_eye",
-          "viewValue": "Plis archivés"
-        },
-        {
-          "value": "",
-          "viewValue": "Tous"
-        }
-      ]
-    }
-  ]
+
+
+  "Retour": "Retour",
+  "Importation_Erreur": "Veuiller importer une liste de contacts depuis un fichier CSV."
 }

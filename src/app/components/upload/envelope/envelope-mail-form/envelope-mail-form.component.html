@@ -28,8 +28,8 @@
             <mat-icon class="icon-btn" aria-hidden="true" matSuffix
                 matTooltip="{{'TooltipExpéditeurCourriel' | translate}}">
                 info_outline</mat-icon>
-            <mat-icon class="icon-btn" aria-hidden="true" matSuffix matTooltip="{{'ListeContacts' | translate}}"
-                (click)="openMailingListManager()">list_alt
+            <mat-icon class="icon-btn" #myFileInput aria-hidden="true" matSuffix matTooltip="{{'ListeContacts' | translate}}"
+            (click)="openMailingListManager()" >list_alt
             </mat-icon>
 
             <mat-error role="alert" *ngIf="f.to.errors?.required">{{'DestinataireRequis' | translate}}</mat-error>

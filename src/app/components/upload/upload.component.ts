@@ -52,7 +52,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   enclosureId: string = '';
   canReset: boolean = false;
   showCode: boolean = false;
-
+  langueCourriels: any;
   constructor(private responsiveService: ResponsiveService,
     private uploadManagerService: UploadManagerService,
     private downloadManagerService: DownloadManagerService,
@@ -90,6 +90,11 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.loginSubscription = this.loginService.connectCheck.subscribe(checkConnect => {
       this.checkConnect = checkConnect;
     });
+
+    this.uploadService.langueCourriels.subscribe(langueCourriels => {
+      this.langueCourriels = langueCourriels;
+    });
+
 
   }
 
@@ -202,6 +207,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   onTransferValidated(event) {
     if (event) {
       // this.uploadValidated = true;
+
       this.validateCode(event);
 
     }
@@ -244,7 +250,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async upload(): Promise<any> {
     let transfers: UploadState = await this.uploadManagerService.getRxValue(this.fileManagerService.transfers.getValue());
-
+console.log("this.languageSelectionService.selectedLanguage.getValue().code :", this.langueCourriels)
     this.uploadService
       .sendTree({
         transfers: transfers.transfers,
@@ -257,7 +263,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false },
         ...this.loginService.tokenInfo.getValue()?.senderToken ? { senderToken: this.loginService.tokenInfo.getValue()?.senderToken } : {},
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.zipPassword ? { zipPassword: this.uploadManagerService.envelopeInfos.getValue().parameters.zipPassword } : { zipPassword: false },
-        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.langueCourriels ? { langueCourriels: this.uploadManagerService.envelopeInfos.getValue().parameters.langueCourriels.code } : { langueCourriels: this.languageSelectionService.selectedLanguage.getValue().code },
+        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.langueCourriels ? { langueCourriels: this.uploadManagerService.envelopeInfos.getValue().parameters.langueCourriels.code } : { langueCourriels: this.langueCourriels},
       })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
@@ -278,6 +284,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       });
   }
+
 
   async validateCode(code?: string): Promise<any> {
     let transfers: UploadState = await this.uploadManagerService.getRxValue(this.fileManagerService.transfers.getValue());

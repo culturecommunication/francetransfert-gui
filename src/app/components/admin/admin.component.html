@@ -189,7 +189,7 @@
       </div>
     </mat-card-content>
     <mat-card-actions class="admin-card-actions" *ngIf="fileInfos">
-      <button type="button" mat-raised-button class="admin-card-actions-btn"
+      <button *ngIf="(fileInfos?.recipientsMails.length != 0 || fileInfos?.deletedRecipients.length != 0)" type="button" mat-raised-button class="admin-card-actions-btn"
           (click)="DupliquerDestinataires()">{{'Dupliquer-destinataires' | translate}}</button>
       <button type="button" mat-raised-button class="admin-card-actions-btn"
           (click)="previousPage()">{{'Retour' | translate}}</button>
