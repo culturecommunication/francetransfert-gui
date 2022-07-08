@@ -23,7 +23,7 @@ export class LanguageSelectionService {
     this.languageList = [
       { code: 'fr', label: 'Français', flagUrl: './assets/flags/flag_fr.svg', href: `${rootHref[1]}/fr/`, value: 'fr-FR' },
       { code: 'en', label: 'English', flagUrl: './assets/flags/flag_en.svg', href: `${rootHref[1]}/en/`, value: 'en-US' },
-      // { code: 'de', label: 'Deutsch', flagUrl: './assets/flags/flag_de.svg', href: `${rootHref[1]}/de/`, value: 'de-de' },
+      //{ code: 'de', label: 'Deutsch', flagUrl: './assets/flags/flag_de.svg', href: `${rootHref[1]}/de/`, value: 'de-de' },
       //{ code: 'es', label: 'Español', flagUrl: './assets/flags/flag_es.svg', href: `${rootHref[1]}/es/`, value: 'es-ES' }
     ];
     this.selectedLanguage.next(this.languageList[0]);

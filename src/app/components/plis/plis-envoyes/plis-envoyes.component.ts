@@ -1,8 +1,8 @@
 /*
-  * Copyright (c) Ministère de la Culture (2022) 
-  * 
-  * SPDX-License-Identifier: MIT 
-  * License-Filename: LICENSE.txt 
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
   */
 
 import { Component, ViewChild } from '@angular/core';
@@ -101,11 +101,18 @@ export class PlisEnvoyesComponent {
                 }
                 //-----------condition on expired-----------
                 let expired = "";
+                let matTooltip = "";
                 if (t.expired) {
                   expired = 'remove_red_eye';
+                  this.translate.stream('Details_Oeil').subscribe(v => {
+                    matTooltip = v;
+                  })
                 }
                 else {
                   expired = 'edit';
+                  this.translate.stream('Details_Edit').subscribe(v => {
+                    matTooltip = v;
+                  })
                 }
 
                 const destinataires = t.recipientsMails.map(n => n.recipientMail).join(", ");
@@ -115,7 +122,7 @@ export class PlisEnvoyesComponent {
                 this.empList.push({
                   dateEnvoi: t.timestamp, type: type, objet: t.subject,
                   taille: taillePli[0], typeSize: taillePli[1], finValidite: t.validUntilDate, destinataires: destinataires,
-                  enclosureId: t.enclosureId, expired: expired,
+                  enclosureId: t.enclosureId, expired: expired, matTooltip: matTooltip
                 });
 
                 this.dataSource.data = this.empList;

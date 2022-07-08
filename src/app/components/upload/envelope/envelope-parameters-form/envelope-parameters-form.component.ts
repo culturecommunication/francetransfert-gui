@@ -42,12 +42,18 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
   zipPassword: boolean = false;
   checked: boolean = false;
 
+
   constructor(private fb: FormBuilder,
     private uploadManagerService: UploadManagerService,
     private languageSelectionService: LanguageSelectionService,
     public translateService: TranslateService,
+    private uploadService: UploadService,
+
   ) {
+    this.currentLanguage = this.translateService.currentLang;
     this.languageList = this.languageSelectionService.languageList;
+    this.language =  this.languageList.find(x => x.value == this.currentLanguage);
+
   }
 
 
@@ -130,6 +136,11 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
   compareFunction(a: any, b: any) {
     return a.code == b.code;
   }
+
+  public selectLanguage(value){
+    this.uploadService.setLangueCourriels(value.value);
+  }
+
 
 }
 
