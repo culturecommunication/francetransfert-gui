@@ -1,8 +1,8 @@
 /*
-  * Copyright (c) Ministère de la Culture (2022) 
-  * 
-  * SPDX-License-Identifier: MIT 
-  * License-Filename: LICENSE.txt 
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
   */
 
 
@@ -80,6 +80,7 @@ import { CustomPaginatorService } from './shared/custom-paginator/custom-paginat
 import { FilterPipe } from './shared/pipes/FilterPipe.pipe';
 import { FilterQuestionsPipe } from './shared/pipes/FilterQuestionsPipe.pipe';
 import { DestinatairesEndMessageComponent } from './components/destinataires-end-message/destinataires-end-message.component';
+import { FileUnitPipe } from './shared/pipes/file-unit.pipe';
 
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeEs, 'es', localeEsExtra);
@@ -122,6 +123,7 @@ const initializer = (pwaService: PwaService) => () =>
     FileNamePipe,
     FileSizePipe,
     FileTypePipe,
+    FileUnitPipe,
     TransfersMappingPipe,
     LoaderComponent,
     EnvelopeParametersFormComponent,

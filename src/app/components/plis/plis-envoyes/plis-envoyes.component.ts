@@ -90,7 +90,6 @@ export class PlisEnvoyesComponent {
             {
               fileInfos.forEach(t => {
 
-
                 //-----------condition on type-----------
                 let type = "";
                 if (t.recipientsMails != null && t.recipientsMails != '' && t.recipientsMails != undefined) {

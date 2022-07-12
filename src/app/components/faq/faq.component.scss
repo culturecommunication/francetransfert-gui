@@ -31,7 +31,7 @@
         margin: 5px;
       }
 
-      ::ng-deep .imagefaq {
+      .imagefaq {
         display: flex;
         justify-content: center;
       }
@@ -46,15 +46,16 @@
   .faq-wrapper {
     .faq-card {
       height: 100%;
-    }
-    ::ng-deep .imagefaq {
-      display: flex;
-      justify-content: center;
-      img {
-        max-width: 50vw;
-        max-height: 50%;
+      .imagefaq {
+        display: flex;
+        justify-content: center;
+        img {
+          max-width: 50vw;
+          max-height: 50%;
+        }
       }
     }
+
   }
 }
 
@@ -66,7 +67,7 @@
       margin-top: 90px;
     }
 
-    ::ng-deep .imagefaq {
+    .imagefaq {
       display: flex;
       justify-content: center;
       height: 100%;
@@ -88,7 +89,7 @@
         margin: 0 0 !important;
       }
     }
-    ::ng-deep .imagefaq {
+    .imagefaq {
       display: flex;
       justify-content: center;
       height: 100%;
