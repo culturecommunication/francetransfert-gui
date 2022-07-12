@@ -190,7 +190,7 @@
   "CréationTransfert": "Creating your package...",
 
   "ImportationListeContacts": "Import a contact list",
-  "ImportationListeContactsText": "You can import a list of contacts from a CSV file containing the email addresses you want to use separated by a semicolon (;). ",
+  "ImportationListeContactsText": "You can import a list of contacts from a CSV file containing the email addresses you want to use separated by a semicolon  ",
   "Fichier": "From a file",
   "FichierType": "File",
 
@@ -711,29 +711,39 @@
       ]
     }
   ],
-
-  "typePli": [
+  "Historique": "Package's detail",
+  "typePli" : [
     {
-      "Type_Pli": "Type of pli",
-      "entities": [
+      "Type_Pli": "Type of package",
+      "entities" : [
+
         {
+
           "value": "remove_red_eye",
-          "viewValue": ""
+          "viewValue":  "Active package"
         },
         {
+
           "value": "edit",
-          "viewValue": ""
+          "viewValue": "Archived package"
+
         },
         {
+
           "value": "",
-          "viewValue": ""
-        }
-      ]
+          "viewValue": "All"
+
+        }]
     }
   ],
   "Traductions": "Translations",
   "Traductions_Text": "The translation of the France Transfert website into English was carried out by the Translation Department of the Ministry of Europe and Foreign Affairs.",
-  "Historique": "Package's detail",
-  "Object": "Re. :"
+  "Object": "Re. :",
+  "Details_Oeil": "View the package",
+  "Details_Edit": "Administer package",
+  "GB": "GB",
+  "Importation_Erreur": "Please import a list of contacts from a CSV file",
+  "Retour": "Back"
+
 
 }

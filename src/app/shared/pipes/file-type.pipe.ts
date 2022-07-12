@@ -1,8 +1,8 @@
 /*
-  * Copyright (c) Ministère de la Culture (2022) 
-  * 
-  * SPDX-License-Identifier: MIT 
-  * License-Filename: LICENSE.txt 
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
   */
 
 import { Pipe, PipeTransform } from '@angular/core';
@@ -42,12 +42,7 @@ export class FileTypePipe implements PipeTransform {
 
       let segments: Array<string> = filename.split('.');
       if (segments.length > 1) {
-
-        if (this.langueSelected == 'en-US') {
-          type = ` ${segments[segments.length - 1]} ` + `${this.translate.instant('FichierType')}`;
-        } else {
-          type = `${this.translate.instant('FichierType')}` + ` ${segments[segments.length - 1]}`;
-        }
+          type = ` ${segments[segments.length - 1]}`;
       }
       else {
         type = null;

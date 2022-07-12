@@ -24,11 +24,11 @@
   "Question3_Liste": "<li> <span>Pour un envoi courriel, accessible aux agents de l’Etat tout comme aux usagers. Cette fonctionnalité permet à un expéditeur (agent de l’Etat ou usager) de transmettre des fichiers volumineux à un ou plusieurs destinataires connus. Attention toutefois, si l’expéditeur est un usager, le ou les destinataires doivent être obligatoirement des agents de l’Etat. Il n’y pas de transfert entre usagers. </span></li><li> <span>Pour la fonctionnalité « lien », elle n’est autorisée que pour les agents de l’Etat. Elle permet de générer un lien public vers les fichiers. L’expéditeur devra transmettre ce lien avec le mot de passe aux personnes qu’il juge nécessaire. La différence réside dans le fait que les destinataires peuvent ensuite transmettre ce lien sans que l’expéditeur puisse en contrôler le téléchargement.</span> </li>",
   "Question3_Texte2": "<span>Remarque : si vous souhaitez envoyer un pli vers une boite fonctionnelle (boite de messagerie lue par plusieurs personnes), nous vous déconseillons d’utiliser la  modalité d’envoi courriel. En effet le nombre de téléchargements d’un pli est limité à 5 fois par destinataire. </span>",
   "Question4_Texte": "Oui le service a été conçu comme une Progressive Web App et peut donc être installé comme une application (le navigateur internet invite l'utilisateur à installer France transfert comme application). ",
-  "Question5_Texte": "<span>Des personnes pourraient utiliser France transfert à des fins personnelles en « empruntant » l’adresse courriel d’un agent de l’Etat ou d’un usager. Pour éviter cela, un courriel contenant un code de confirmation est envoyé à l’expéditeur. Au moment de l’ajout des fichiers à transférer, il est alors demandé de saisir ce code de confirmation, dont la durée de validité est de 20 min. </span> <br><span>Par la suite, si vous vous êtes préalablement connecté et que vous décidez de renvoyer un autre pli moins de 30 min après le précédent pli, on ne vous demandera pas un nouveau code de confirmation.</span>",
+  "Question5_Texte": "<span>Des personnes pourraient utiliser France transfert à des fins personnelles en « empruntant » l’adresse courriel d’un agent de l’Etat ou d’un usager. Pour éviter cela, un courriel contenant un code de confirmation est envoyé à l’expéditeur. Au moment de l’ajout des fichiers à transférer, il est alors demandé de saisir ce code de confirmation, dont la durée de validité est de 20 min. </span><span>Par la suite, si vous vous êtes préalablement connecté et que vous décidez de renvoyer un autre pli moins de 30 min après le précédent pli, on ne vous demandera pas un nouveau code de confirmation.</span>",
   "Question6_Texte1": "Vous pouvez décider de vous connecter à France transfert avant un envoi de pli ou au moment de l’envoi de votre pli en cliquant sur la case « Rester connecté(e) ».",
   "Question6_Liste": "<li><span>La connexion consiste à confirmer que vous êtes bien le propriétaire de l’adresse courriel indiquée comme expéditeur du pli : un code de confirmation est envoyé par courriel et vous disposez de 20 min pour le saisir. </span></li> <li> <span> Une fois que vous êtes connecté, il n’est plus nécessaire de saisir votre adresse courriel en tant qu’expéditeur lors d’un nouveau pli. </span> </li> <li> <span>  La connexion est valable 30 min, et reste active tant que vous envoyez un pli dans cet intervalle. Passé ce délai, et sans nouveau pli créé, il faudra de nouveau passer par l’étape de connexion.</span></li>",
   "Question6_Texte2": "<span>La connexion ne nécessite pas la création d’un compte utilisateur, il s’agit uniquement d’un moyen de vérification via le code de confirmation de votre adresse courriel en tant qu’expéditeur et d’une facilité vous évitant de faire cette vérification à chaque pli. </span> <span>Si vous êtes déjà connecté et que vous souhaitez utiliser une autre adresse courriel en tant qu’expéditeur, il suffit de cliquer sur « Se déconnecter ». Vous pourrez alors passer par le processus de connexion, soit à l’envoi de votre prochain pli, soit en ayant au préalable cliqué sur « Se connecter ».</span><br> <span>Attention toutefois, si vous ouvrez France transfert dans un nouvel onglet ou rafraichissez la page de France transfert, les informations de connexion sont effacées. </span><br> <span>Vous pouvez aussi décider de ne pas vous connecter, dans ce cas vous devrez systématiquement saisir un code de confirmation à chaque envoi de pli. </span>",
-  "Question7_Texte": "<span>Une fois les fichiers envoyés vers France transfert, ils subissent une analyse antivirale qui peut conduire à leur suppression. </span><br> <span>Si l’analyse s’est bien passée, un courriel de confirmation d’envoi est transmis à l’expéditeur ainsi que le mot de passe associé à ce pli. Les destinataires reçoivent un courriel avec un lien de téléchargement et un mot de passe dans un courriel séparé. </span><br> <span>Si l'analyse antivirale prend du temps (pli de grosse volumétrie) alors l'envoi du courriel de confirmation peut tarder à arriver. Dans tous les cas l'expéditeur reçoit un courriel soit d'erreur (si problème de sécurité), soit de confirmation (dans ce cas les destinataires reçoivent eux aussi chacun un courriel avec les instructions de téléchargement).</span>",
+  "Question7_Texte": "<span>Une fois les fichiers envoyés vers France transfert, ils subissent une analyse antivirale qui peut conduire à leur suppression. </span><span>Si l’analyse s’est bien passée, un courriel de confirmation d’envoi est transmis à l’expéditeur ainsi que le mot de passe associé à ce pli. Les destinataires reçoivent un courriel avec un lien de téléchargement et un mot de passe dans un courriel séparé. </span><span>Si l'analyse antivirale prend du temps (pli de grosse volumétrie) alors l'envoi du courriel de confirmation peut tarder à arriver. Dans tous les cas l'expéditeur reçoit un courriel soit d'erreur (si problème de sécurité), soit de confirmation (dans ce cas les destinataires reçoivent eux aussi chacun un courriel avec les instructions de téléchargement).</span>",
   "Question8_Texte": "<span>Lorsque l’envoi du pli est effectué, un courriel de confirmation d’envoi avec le détail concernant les fichiers qui composent le pli est transmis à l’expéditeur ainsi que le mot de passe associé à ce pli.</span><br> <span>Les destinataires reçoivent un courriel avec un lien de téléchargement et un autre courriel contenant le mot de passe à saisir pour pouvoir télécharger.</span> <br><span>Si jamais France transfert refuse le mot de passe saisi, vérifiez qu’en le copiant collant cela n’ait pas ajouté un espace à la fin du mot de passe (utilisez le pictogramme « œil » pour afficher le mot de passe en clair).</span>",
   "Question9_Texte1": "Vous vous êtes trompés dans votre liste de destinataires ? Plusieurs possibilités s’offrent à vous depuis la page d’administration du pli (lien d’administration reçu dans le courriel de confirmation d’envoi du pli) et selon vos besoins :",
   "Question9_Liste": "<li> Supprimer le pli : le pli est intégralement supprimé, plus aucun destinataire ne peut télécharger son contenu désormais.</li><li>Supprimer un ou des destinataires : le lien de téléchargement de ce(s) destinataire(s) est désormais révoqué et ne pourra plus être utilisé désormais pour le téléchargement de vos fichiers.</li><li>Ajouter un destinataire : vous avez la possibilité d’ajouter manuellement un ou plusieurs destinataires au pli. Comme les destinataires originaux, ils recevront un courriel avec le lien d’accès au pli et un courriel avec le mot de passe pour accéder à la page de téléchargement du pli. </li>",
@@ -37,7 +37,7 @@
   "Question11_Texte": "<span>Les fichiers sont supprimés après expiration du délai de validité du pli (par défaut à 30 jours). Il n’y a pas de suppression automatique du pli quand tous les destinataires l’ont téléchargé car un destinataire pourrait avoir besoin de nouveau de télécharger le pli.</span>",
   "Question12_Texte": "<span>Les fichiers sont téléchargés par votre navigateur. En fonction de son paramétrage, il se peut qu’ils aillent directement dans le dossier « téléchargements » ou bien que la question de l’emplacement vous soit posée.</span>",
   "Question13_Texte": "<span>France transfert permet d’envoyer jusqu’à 20 Go de fichiers et dossiers par transfert en faisant attention que chacun des fichiers respecte la taille maximale de 2Go.</span>",
-  "Question14_Texte": "<span>Toutes les extensions communes de fichiers sont téléchargeables sur France transfert, sauf, pour des raisons de sécurité, certains fichiers exécutables ou scripts informatiques qui pourraient contenir des virus.</span><br> <span>Liste des extensions de fichiers interdites : </span><br> <span>« ade, adp, app, asp, aspx, asx, bas, bat, cer, chm, cmd, cnt, com, cpl, crt, csh, der, diagcab, exe, fxp, gadget, grp, hlp, hpj, hta, htc, inf, ins, isp, its, jar, jnlp, js, jse, ksh, lnk, mad, maf, mag, mam, maq, mar, mas, mat, mau, mav, maw, mcf, mda, mdb, mde, mdt, mdw, mdz, msc, msh, msh1, msh2, mshxml, msh1xml, msh2xml, msi, msp, mst, msu, ops, osd, pcd, pif, pl, plg, prf, prg, printerexport, ps1, ps1xml, ps2, ps2xml, psc1, psc2, psd1, psdm1, pst, py, pyc, pyo, pyw, pyz, pyzw, reg, scf, scr, sct, shb, shs, theme, tmp, url, vb, vbe, vbp, vbs, vhd, vhdx, vsmacros, vsw, webpnp, website, ws, wsc, wsf, wsh, xbap, xll, xnk »</span><br> <span>Lorsque vous envoyez un fichier, assurez-vous néanmoins que votre destinataire puisse lire vos documents.</span>",
+  "Question14_Texte": "<span>Toutes les extensions communes de fichiers sont téléchargeables sur France transfert, sauf, pour des raisons de sécurité, certains fichiers exécutables ou scripts informatiques qui pourraient contenir des virus.</span><span>Liste des extensions de fichiers interdites : </span><span>« ade, adp, app, asp, aspx, asx, bas, bat, cer, chm, cmd, cnt, com, cpl, crt, csh, der, diagcab, exe, fxp, gadget, grp, hlp, hpj, hta, htc, inf, ins, isp, its, jar, jnlp, js, jse, ksh, lnk, mad, maf, mag, mam, maq, mar, mas, mat, mau, mav, maw, mcf, mda, mdb, mde, mdt, mdw, mdz, msc, msh, msh1, msh2, mshxml, msh1xml, msh2xml, msi, msp, mst, msu, ops, osd, pcd, pif, pl, plg, prf, prg, printerexport, ps1, ps1xml, ps2, ps2xml, psc1, psc2, psd1, psdm1, pst, py, pyc, pyo, pyw, pyz, pyzw, reg, scf, scr, sct, shb, shs, theme, tmp, url, vb, vbe, vbp, vbs, vhd, vhdx, vsmacros, vsw, webpnp, website, ws, wsc, wsf, wsh, xbap, xll, xnk »</span><br> <span>Lorsque vous envoyez un fichier, assurez-vous néanmoins que votre destinataire puisse lire vos documents.</span>",
   "Question15_Texte": "<span>Pour envoyer vos fichiers à plusieurs destinataires différents en une seule opération, il est possible d’importer un fichier de type csv (en respectant le séparateur « ; » entre chaque courriel) comportant la liste des destinataires. Pour ce faire cliquer sur le pictogramme situé à droite du champ « Destinataire(s) ». </span><br> <span>Vous pouvez générer un fichier csv de vos destinataires en cliquant sur le pictogramme situé à droite de vos destinataires. Charge à vous de le stocker puis de le réutiliser pour préremplir automatiquement la liste des destinataires de votre prochain pli. </span>",
   "Question16_Texte": "<span>Le questionnaire est anonyme. Il sera utilisé à des fins statistiques et d’améliorations. </span><br><span>Si vous remplissez le questionnaire de satisfaction, la note que vous laissez est enregistrée à des fins exclusives de statistiques. Les commentaires éventuellement laissés vous permettent de vous exprimer de manière libre sur le service.</span><br><span>L’équipe produit examinera les commentaires mais ne peut s’engager, ni à y répondre individuellement, ni à mettre en œuvre les suggestions proposées.</span>",
   "Question17_Texte": "<span>Pour les agents de l’Etat, il y a un salon « France transfert » dans TCHAP qui vous permettra de  suivre les évolutions ou d’échanger avec les autres membres. Vous pouvez vous y abonner. </span><br> <span>Vous pouvez également utiliser le formulaire de contact « Nous contacter » (en bas de page ou dans le menu de la version mobile).</span>",
@@ -116,7 +116,7 @@
   "CréationTransfert": "Création de votre transfert...",
 
   "ImportationListeContacts": "Importer une liste de contacts",
-  "ImportationListeContactsText": "Vous pouvez importer une liste de contacts depuis un fichier contenant les adresses courriel que vous souhaitez utiliser séparées par un caractère ",
+  "ImportationListeContactsText": "Vous pouvez importer une liste de contacts depuis un fichier contenant les adresses courriel que vous souhaitez utiliser séparées par un caractère",
   "Fichier": "Depuis un fichier",
   "FichierType": "Fichier",
 
@@ -387,7 +387,7 @@
   "GB": "Go",
   "MB": "Mo",
   "KB": "Ko",
-  "B": "octets",
+  "B": "Octets",
   "Download_Success": "Les courriels ont bien été envoyés au destinataire.",
   "Renvoyer_pli": "Vous allez envoyer de nouveau un courriel avec le lien de téléchargement et un courriel avec le mot de passe d'accès au pli.",
   "Poursuivre_pli": "Voulez-vous poursuivre ?",
@@ -469,12 +469,12 @@
           "Question_Texte1": "Vous pouvez décider de vous connecter à France transfert avant un envoi de pli ou au moment de l’envoi de votre pli en cliquant sur la case « Rester connecté(e) ».",
           "Question_Liste": "<li><span>La connexion consiste à confirmer que vous êtes bien le propriétaire de l’adresse courriel indiquée comme expéditeur du pli : un code de confirmation est envoyé par courriel et vous disposez de 20 min pour le saisir. </span></li> <li> <span> Une fois que vous êtes connecté, il n’est plus nécessaire de saisir votre adresse courriel en tant qu’expéditeur lors d’un nouveau pli. </span> </li> <li> <span>  La connexion est valable 30 min, et reste active tant que vous envoyez un pli dans cet intervalle. Passé ce délai, et sans nouveau pli créé, il faudra de nouveau passer par l’étape de connexion.</span></li>",
           "Question_Liste_Ordered": "",
-          "Question_Texte2": "<span>La connexion ne nécessite pas la création d’un compte utilisateur, il s’agit uniquement d’un moyen de vérification via le code de confirmation de votre adresse courriel en tant qu’expéditeur et d’une facilité vous évitant de faire cette vérification à chaque pli. </span> <span>Si vous êtes déjà connecté et que vous souhaitez utiliser une autre adresse courriel en tant qu’expéditeur, il suffit de cliquer sur « Se déconnecter ». Vous pourrez alors passer par le processus de connexion, soit à l’envoi de votre prochain pli, soit en ayant au préalable cliqué sur « Se connecter ».</span><br> <span>Attention toutefois, si vous ouvrez France transfert dans un nouvel onglet ou rafraichissez la page de France transfert, les informations de connexion sont effacées. </span><br> <span>Vous pouvez aussi décider de ne pas vous connecter, dans ce cas vous devrez systématiquement saisir un code de confirmation à chaque envoi de pli. </span>",
+          "Question_Texte2": "<span>La connexion ne nécessite pas la création d’un compte utilisateur, il s’agit uniquement d’un moyen de vérification via le code de confirmation de votre adresse courriel en tant qu’expéditeur et d’une facilité vous évitant de faire cette vérification à chaque pli. </span> <span>Si vous êtes déjà connecté et que vous souhaitez utiliser une autre adresse courriel en tant qu’expéditeur, il suffit de cliquer sur « Se déconnecter ». Vous pourrez alors passer par le processus de connexion, soit à l’envoi de votre prochain pli, soit en ayant au préalable cliqué sur « Se connecter ».</span><span>Attention toutefois, si vous ouvrez France transfert dans un nouvel onglet ou rafraichissez la page de France transfert, les informations de connexion sont effacées. </span><span>Vous pouvez aussi décider de ne pas vous connecter, dans ce cas vous devrez systématiquement saisir un code de confirmation à chaque envoi de pli. </span>",
           "QuestionImage": "<img alt='A quoi cela sert-il de se connecter' src='assets/images/FT_Être connecté à France Transfert V3.png' />"
         },
         {
           "Question": "Comment retrouver facilement mes plis envoyés et reçus ? ",
-          "Question_Texte1": "<span>Une fois connecté(e) vous pouvez cliquer sur « Mon compte » puis « Mes plis » depuis l’entête de la page France transfert ou depuis le menu de l’application en version mobile. </span><br><span>Sur la page « Mes plis », vous avez ainsi accès :</span>",
+          "Question_Texte1": "<span>Une fois connecté(e) vous pouvez cliquer sur « Mon compte » puis « Mes plis » depuis l’entête de la page France transfert ou depuis le menu de l’application en version mobile. </span><span>Sur la page « Mes plis », vous avez ainsi accès :</span>",
           "Question_Liste": "<li>Au récapitulatif des plis que vous avez émis et qui sont encore actifs (non supprimés)<ul><li>En cliquant sur le pictogramme en fin de ligne (colonne « Action »), vous pouvez accéder facilement à la page d’administration de votre pli.</li></ul><li>Au récapitulatif des plis que vous avez reçus et qui sont encore actifs (non supprimés)<ul><li>En cliquant sur le pictogramme en fin de ligne (colonne « Action »), vous pouvez accéder à la page de téléchargement du pli en vous munissant au préalable du mot de passe associé au pli que vous aviez reçu par courriel. </li></ul></li>",
           "Question_Liste_Ordered": "",
           "Question_Texte2": "",
@@ -536,7 +536,7 @@
         },
         {
           "Question": "Puis-je utiliser une liste de distribution ?",
-          "Question_Texte1": "<span>Pour envoyer vos fichiers à plusieurs destinataires différents en une seule opération, il est possible d’importer un fichier de type csv (en respectant le séparateur « ; » entre chaque courriel) comportant la liste des destinataires. Pour ce faire cliquer sur le pictogramme situé à droite du champ « Destinataire(s) ». </span><br> <span>Vous pouvez générer un fichier csv de vos destinataires en cliquant sur le pictogramme situé à droite de vos destinataires. Charge à vous de le stocker puis de le réutiliser pour préremplir automatiquement la liste des destinataires de votre prochain pli. </span>",
+          "Question_Texte1": "<span>Pour envoyer vos fichiers à plusieurs destinataires différents en une seule opération, il est possible d’importer un fichier de type csv (en respectant le séparateur « ; » entre chaque courriel) comportant la liste des destinataires. Pour ce faire cliquer sur le pictogramme situé à droite du champ « Destinataire(s) ». </span><span>Vous pouvez générer un fichier csv de vos destinataires en cliquant sur le pictogramme situé à droite de vos destinataires. Charge à vous de le stocker puis de le réutiliser pour préremplir automatiquement la liste des destinataires de votre prochain pli. </span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
           "Question_Texte2": "",
@@ -550,7 +550,7 @@
       "entities": [
         {
           "Question": "Comment télécharger le pli qui m’est adressé ?",
-          "Question_Texte1": "<span>Lorsque l’envoi du pli est effectué, un courriel de confirmation d’envoi avec le détail concernant les fichiers qui composent le pli est transmis à l’expéditeur ainsi que le mot de passe associé à ce pli.</span><br> <span>Les destinataires reçoivent un courriel avec un lien de téléchargement et un autre courriel contenant le mot de passe à saisir pour pouvoir télécharger.</span> <br><span>Si jamais France transfert refuse le mot de passe saisi, vérifiez qu’en le copiant collant cela n’ait pas ajouté un espace à la fin du mot de passe (utilisez le pictogramme « œil » pour afficher le mot de passe en clair).</span>",
+          "Question_Texte1": "<span>Lorsque l’envoi du pli est effectué, un courriel de confirmation d’envoi avec le détail concernant les fichiers qui composent le pli est transmis à l’expéditeur ainsi que le mot de passe associé à ce pli.</span><span>Les destinataires reçoivent un courriel avec un lien de téléchargement et un autre courriel contenant le mot de passe à saisir pour pouvoir télécharger.</span><span>Si jamais France transfert refuse le mot de passe saisi, vérifiez qu’en le copiant collant cela n’ait pas ajouté un espace à la fin du mot de passe (utilisez le pictogramme « œil » pour afficher le mot de passe en clair).</span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
           "Question_Texte2": "",
@@ -558,7 +558,7 @@
         },
         {
           "Question": "Combien de fois les destinataires peuvent-ils télécharger les fichiers que j’ai envoyé ?",
-          "Question_Texte1": "<span>Chaque destinataire dispose d’un lien de téléchargement unique pour accéder au téléchargement du pli. Avec ce lien, chaque destinataire peut télécharger jusqu’à 5 fois le contenu du pli. </span><br><span>Cela permet aux destinataires de récupérer plusieurs fois les fichiers si nécessaire (exemple : si le destinataire les a supprimés de son poste par exemple et qu’il en aurait de nouveau besoin). </span><br><span>Si un destinataire a dépassé cette limite de 5 téléchargements du même pli, il sera nécessaire de lui renvoyer les fichiers via un nouveau pli. Cela peut être nécessaire de procéder ainsi également si le destinataire a « verrouillé » son lien de téléchargement en saisissant plus de 5 fois un mauvais mot de passe pour accéder à la page de téléchargement. </span>",
+          "Question_Texte1": "<span>Chaque destinataire dispose d’un lien de téléchargement unique pour accéder au téléchargement du pli. Avec ce lien, chaque destinataire peut télécharger jusqu’à 5 fois le contenu du pli. </span><span>Cela permet aux destinataires de récupérer plusieurs fois les fichiers si nécessaire (exemple : si le destinataire les a supprimés de son poste par exemple et qu’il en aurait de nouveau besoin). </span><span>Si un destinataire a dépassé cette limite de 5 téléchargements du même pli, il sera nécessaire de lui renvoyer les fichiers via un nouveau pli. Cela peut être nécessaire de procéder ainsi également si le destinataire a « verrouillé » son lien de téléchargement en saisissant plus de 5 fois un mauvais mot de passe pour accéder à la page de téléchargement. </span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
           "Question_Texte2": "",
@@ -617,7 +617,7 @@
       "entities": [
         {
           "Question": "À quoi sert le questionnaire de satisfaction ?",
-          "Question_Texte1": "<span>Le questionnaire est anonyme. Il sera utilisé à des fins statistiques et d’améliorations. </span><br><span>Si vous remplissez le questionnaire de satisfaction, la note que vous laissez est enregistrée à des fins exclusives de statistiques. Les commentaires éventuellement laissés vous permettent de vous exprimer de manière libre sur le service.</span><br><span>L’équipe produit examinera les commentaires mais ne peut s’engager, ni à y répondre individuellement, ni à mettre en œuvre les suggestions proposées.</span>",
+          "Question_Texte1": "<span>Le questionnaire est anonyme. Il sera utilisé à des fins statistiques et d’améliorations. </span><span>Si vous remplissez le questionnaire de satisfaction, la note que vous laissez est enregistrée à des fins exclusives de statistiques. Les commentaires éventuellement laissés vous permettent de vous exprimer de manière libre sur le service.</span><br><span>L’équipe produit examinera les commentaires mais ne peut s’engager, ni à y répondre individuellement, ni à mettre en œuvre les suggestions proposées.</span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
           "Question_Texte2": "",
@@ -625,7 +625,7 @@
         },
         {
           "Question": "Où puis-je trouver d’autres informations sur France transfert ?",
-          "Question_Texte1": "<span>Pour les agents de l’Etat, il y a un salon « France transfert » dans TCHAP qui vous permettra de  suivre les évolutions ou d’échanger avec les autres membres. Vous pouvez vous y abonner. </span><span>Vous pouvez également utiliser le formulaire de contact. </span>",
+          "Question_Texte1": "<span>Pour les agents de l’Etat, il y a un salon « France transfert » dans TCHAP qui vous permettra de  suivre les évolutions ou d’échanger avec les autres membres. Vous pouvez vous y abonner. </span><br> <span>Vous pouvez également utiliser le formulaire de contact « Nous contacter » (en bas de page ou dans le menu de la version mobile).</span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
           "Question_Texte2": "",
@@ -639,29 +639,36 @@
   "Télécharger_Pli": "Télécharger le pli",
   "Date_Archive": "Date de fin d'archivage :",
   "Historique": "Détail du pli",
-  "typePli": [
+  "typePli" : [
     {
       "Type_Pli": "Type de pli",
-      "entities": [
+      "entities" : [
+
         {
-          "value": "edit",
-          "viewValue": "Plis actifs"
-        },
-        {
+
           "value": "remove_red_eye",
-          "viewValue": "Plis archivés"
+          "viewValue":  "Plis actifs"
         },
         {
+
+          "value": "edit",
+          "viewValue": "Plis archivés"
+
+        },
+        {
+
           "value": "",
           "viewValue": "Tous"
-        }
-      ]
+
+        }]
     }
   ],
   "Traductions": "Traductions",
   "Traductions_Text": "La traduction du site en anglais de France transfert a été réalisée par le Département de la traduction du Ministère de l’Europe et des Affaires étrangères.",
   "Details_Oeil": "Consulter le pli",
   "Details_Edit": "Administrer le pli",
-  "Object": "Objet :"
+  "Object": "Objet :",
+  "Retour": "Retour",
+  "Importation_Erreur": "Veuillez importer une liste de contacts depuis un fichier CSV"
 
 }
