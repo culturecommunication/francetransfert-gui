@@ -59,9 +59,9 @@
 <mat-card class="list-elements-card" *ngIf="component === 'download'">
     <mat-card-header class="list-elements-card-header" *ngIf="transfers">
         <mat-card-title *ngIf="transfers.length === 1"><span>{{transfers.length}} {{'élément' | translate}} {{filesSize |
-                filesize}}</span>
+                filesize}} {{unitSize}}</span>
         </mat-card-title>
-        <mat-card-title *ngIf="transfers.length > 1"><span>{{transfers.length}} {{'éléments' | translate}} {{filesSize | filesize}}</span>
+        <mat-card-title *ngIf="transfers.length > 1"><span>{{transfers.length}} {{'éléments' | translate}} {{filesSize | filesize}} {{unitSize}}</span>
         </mat-card-title>
     </mat-card-header>
     <mat-card-content class="list-elements-card-content">

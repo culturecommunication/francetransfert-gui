@@ -268,7 +268,7 @@
   "CGU_Titre": "Terms and Conditions of Use",
   "Préambule": "Preamble",
   "Intro": "<span>These Terms and Conditions of Use, valid indefinitely, apply to any user of the online service available at francetransfert.numerique.gouv.fr. They are applied in accordance with Article L. 112-8 of the French Code on Relations Between the Public and the Administration (right to administration via electronic means). </span> <span>By checking the box when sending, you certify that you have read and accepted the France Transfert Terms and Conditions of Use on this page. </span> <span>You will be asked to accept the Terms and Conditions of Use again in the event of extension of the services offered by France Transfert leading to changes to the Terms and Conditions of Use.</span>",
-  "Présentation_Service": "1. Presentation of athe service",
+  "Présentation_Service": "1. Presentation of the service",
   "Présentation_Service_Texte": "<span>France Transfert (the Service) is a service created by the State (the State) to help its users (citizens, professionals, companies, associations, etc.), partners or providers to exchange large files and folders from officials that cannot be sent by email. </span> <br><span>It was designed and is operated by the Ministry of Culture (the Ministry) and made available to all ministries by the Interministerial Digital Directorate (DINUM). </span><br><span>The current version of the Service does not allow the transfer of files or folders larger than 2 GB. A later version will significantly increase this size. </span><br><span>The Service can be used to send a set of files or folders totalling up to 20 GB, as long as no file or folder exceeds 2 GB individually. </span><br><span>The Service is not designed: </span>",
   "Présentation_Service_List": "<li><span>For the administrative procedures of minors;</span></li> <li><span>For procedures requiring the collection of data subject to Article 6 (I) of Act 78-17 of 6 January 1978 on Data Processing, Data Files and Individual Liberties (sensitive data).</span></li>",
   "Service_Mis_A_Disposition": "The Service is provided with no express or tacit warranties other than those provided herein.",
@@ -497,7 +497,7 @@
   "CGU-Version": "3.5.0",
   "Faq-Version": "3.5.0",
   "Accessibilite-Version": "3.4.0",
-  "Mentions-légales-Version": "3.4.0",
+  "Mentions-légales-Version": "3.6.0",
   "Politique-protection-donnees-Version": "3.4.0",
 
   "questions": [
@@ -714,18 +714,18 @@
   "Historique": "Package's detail",
   "typePli" : [
     {
-      "Type_Pli": "Type of package",
+      "Type_Pli": "Status of package",
       "entities" : [
 
         {
 
           "value": "remove_red_eye",
-          "viewValue":  "Active package"
+          "viewValue":  "Archived package"
         },
         {
 
           "value": "edit",
-          "viewValue": "Archived package"
+          "viewValue": "Active package"
 
         },
         {
@@ -743,7 +743,10 @@
   "Details_Edit": "Administer package",
   "GB": "GB",
   "Importation_Erreur": "Please import a list of contacts from a CSV file",
-  "Retour": "Back"
+  "Retour": "Back",
+  "Date_Archive": "Archiving end date :",
+  "CodeReçu":"Code received"
+
 
 
 }
