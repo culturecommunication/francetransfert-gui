@@ -38,6 +38,8 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
     translateService.setDefaultLang("fr-FR");
     translateService.use('fr-FR');
     this.language = 'fr-FR'
+    this.uploadService.setLangueCourriels('fr-FR');
+
 
   }
 
