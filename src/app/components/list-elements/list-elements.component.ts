@@ -69,7 +69,13 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.transfers.forEach(t => {
         this.filesSize += t.size;
       });
+      this.newUnit = this.pipe.transform(this.filesSize);
+      this.translate.stream(this.newUnit).subscribe(v => {
+        this.unitSize = v;
+      })
     }
+
+
 
   }
 
