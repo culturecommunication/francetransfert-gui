@@ -153,7 +153,7 @@ export class PlisEnvoyesComponent {
   }
 
   getListTypes() {
-    this._translate.stream("typePli").pipe(take(1)).subscribe(v => {
+    this._translate.stream("typePli").subscribe(v => {
       this.types = v
     });
   }
