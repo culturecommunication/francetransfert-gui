@@ -25,7 +25,7 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
   languageList: LanguageModel[];
   selectedOption: string;
   language: string;
-
+  checkValidation: any;
 
 
   constructor(private languageSelectionService: LanguageSelectionService,
@@ -37,17 +37,23 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
     //translateService.setDefaultLang("en-US")
     translateService.setDefaultLang("fr-FR");
     translateService.use('fr-FR');
-    this.language = 'fr-FR'
+    this.language = 'fr-FR';
     this.uploadService.setLangueCourriels('fr-FR');
 
 
-  }
+    }
 
 
   public selectLanguage(value: any) {
     this.translateService.use(value);
     this.dateAdapter.setLocale(value);
+    this.uploadService.checkValidation.subscribe(checkValidation => {
+      this.checkValidation = checkValidation;
+    });
+
+    if( this.checkValidation == false){
     this.uploadService.setLangueCourriels(value);
+    }
   }
 
   ngOnInit(): void {

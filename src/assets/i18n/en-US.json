@@ -430,7 +430,7 @@
   "OF_LABEL": "on",
 
   "Filtrer": "Filter",
-  "Liste_Plis": "List of sent packages that are still active ",
+  "Liste_Plis": "List of sent packages ",
   "Se_connecter": "You have been logged out. Please log in again to access your packages.",
   "Date_Envoi": "Date of sending",
   "Type": "Type",
@@ -745,7 +745,8 @@
   "Importation_Erreur": "Please import a list of contacts from a CSV file",
   "Retour": "Back",
   "Date_Archive": "Archiving end date :",
-  "CodeReçu":"Code received"
+  "CodeReçu":"Code received",
+  "Nombre d'essais maximum atteint": "Maximum number of trials reached"
 
 
 

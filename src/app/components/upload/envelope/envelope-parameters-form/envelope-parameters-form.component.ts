@@ -1,8 +1,8 @@
 /*
-  * Copyright (c) Ministère de la Culture (2022) 
-  * 
-  * SPDX-License-Identifier: MIT 
-  * License-Filename: LICENSE.txt 
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
   */
 
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
@@ -50,9 +50,11 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
     private uploadService: UploadService,
 
   ) {
-    this.currentLanguage = this.translateService.currentLang;
+
     this.languageList = this.languageSelectionService.languageList;
-    this.language =  this.languageList.find(x => x.value == this.currentLanguage);
+    this.uploadService.langueCourriels.subscribe(langueCourriels => {
+      this.language =  this.languageList.find(x => x.value == langueCourriels);
+    });
 
   }
 

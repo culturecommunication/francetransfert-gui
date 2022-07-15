@@ -103,13 +103,13 @@ export class PlisEnvoyesComponent {
                 let matTooltip = "";
                 if (t.expired) {
                   expired = 'remove_red_eye';
-                  this.translate.stream('Details_Oeil').subscribe(v => {
+                  this._translate.stream('Details_Oeil').subscribe(v => {
                     matTooltip = v;
                   })
                 }
                 else {
                   expired = 'edit';
-                  this.translate.stream('Details_Edit').subscribe(v => {
+                  this._translate.stream('Details_Edit').subscribe(v => {
                     matTooltip = v;
                   })
                 }

@@ -355,7 +355,7 @@
   "OF_LABEL": "sur",
 
   "Filtrer": "Filtrer",
-  "Liste_Plis": "Liste des plis que j’ai envoyés et toujours actifs ",
+  "Liste_Plis": "Liste des plis que j’ai envoyés ",
   "Se_connecter": "Vous avez été déconnecté(e). Merci de vous connecter de nouveau pour accéder à vos plis.",
   "Date_Envoi": "Date d'envoi",
   "Type": "Type",
@@ -672,6 +672,7 @@
   "Object": "Objet :",
   "Retour": "Retour",
   "Importation_Erreur": "Veuillez importer une liste de contacts depuis un fichier CSV",
-  "CodeReçu":"Code reçu"
+  "CodeReçu":"Code reçu",
+  "Nombre d'essais maximum atteint": "Nombre d'essais maximum atteint"
 
 }

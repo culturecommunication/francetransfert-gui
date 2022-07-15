@@ -23,6 +23,7 @@ export class UploadService {
 
   tokenInfo: BehaviorSubject<TokenModel> = new BehaviorSubject<any>(null);
   public langueCourriels = new BehaviorSubject('langueCourriels');
+  public checkValidation = new BehaviorSubject(false);
 
   constructor(private _httpClient: HttpClient,
     private uploadManagerService: UploadManagerService,
@@ -63,6 +64,10 @@ export class UploadService {
       }),
       catchError(this.handleError('validateMail'))
     );
+  }
+
+  setCheckValidation(checkValidation) {
+    this.checkValidation.next(checkValidation);
   }
 
   setLangueCourriels(langueCourriels) {

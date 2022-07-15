@@ -1,14 +1,14 @@
 /*
-  * Copyright (c) Ministère de la Culture (2022) 
-  * 
-  * SPDX-License-Identifier: MIT 
-  * License-Filename: LICENSE.txt 
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
   */
 
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LinkInfosModel, MailInfosModel, ParametersModel } from 'src/app/models';
-import { FileManagerService, UploadManagerService } from 'src/app/services';
+import { FileManagerService, UploadManagerService, UploadService } from 'src/app/services';
 import { LoginService } from 'src/app/services/login/login.service';
 import { majChar, minChar, numChar, sizeControl, specialChar, noSpecial } from 'src/app/shared/validators/forms-validator';
 
@@ -36,6 +36,7 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   constructor(private fileManagerService: FileManagerService,
     private uploadManagerService: UploadManagerService,
     private loginService: LoginService,
+    private uploadService: UploadService,
     private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
@@ -110,15 +111,22 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
     });
   }
 
-
-
-
   triggerShowParameters() {
+
+    this.showParameters = !this.showParameters;
+
+  }
+
+
+  triggerShowParametersValider() {
+
+    this.uploadService.setCheckValidation(true);
     this.showParameters = !this.showParameters;
 
   }
 
   startUpload() {
+    this.uploadService.setCheckValidation(false);
     this.uploadStarted.next(true);
   }
 
