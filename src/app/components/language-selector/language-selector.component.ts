@@ -56,7 +56,6 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
     if (this.checkValidation == false) {
       this.uploadService.setLangueCourriels(value);
     }
-    this.uploadService.setLangueCourriels(value);
     localStorage.setItem('language', value);
   }
 
