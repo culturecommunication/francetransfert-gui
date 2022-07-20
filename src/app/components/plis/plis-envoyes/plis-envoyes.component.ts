@@ -92,11 +92,11 @@ export class PlisEnvoyesComponent {
 
                 //-----------condition on type-----------
                 let type = "";
-                if (t.recipientsMails != null && t.recipientsMails != '' && t.recipientsMails != undefined) {
-                  type = 'Courriel';
+                if (t.publicLink) {
+                  type = 'Lien';
                 }
                 else {
-                  type = 'Lien';
+                  type = 'Courriel';
                 }
                 //-----------condition on expired-----------
                 let expired = "";
