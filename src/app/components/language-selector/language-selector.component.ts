@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 import { LanguageModel } from 'src/app/models';
 import { LanguageSelectionService, UploadService } from 'src/app/services';
 import { TranslateService } from '@ngx-translate/core';
-import { DateAdapter} from '@angular/material/core';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'ft-language-selector',
@@ -21,6 +21,7 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
 
   public selectedDate: Date = new Date();
   languageSelectionSubscription: Subscription;
+  checkValidationSubscription: Subscription;
   defaultLanguage: LanguageModel;
   languageList: LanguageModel[];
   selectedOption: string;
@@ -41,18 +42,18 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
     this.uploadService.setLangueCourriels('fr-FR');
 
 
-    }
+  }
 
 
   public selectLanguage(value: any) {
     this.translateService.use(value);
     this.dateAdapter.setLocale(value);
-    this.uploadService.checkValidation.subscribe(checkValidation => {
+    this.checkValidationSubscription = this.uploadService.checkValidation.subscribe(checkValidation => {
       this.checkValidation = checkValidation;
     });
 
-    if( this.checkValidation == false){
-    this.uploadService.setLangueCourriels(value);
+    if (this.checkValidation == false) {
+      this.uploadService.setLangueCourriels(value);
     }
   }
 
@@ -66,5 +67,6 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.languageSelectionSubscription.unsubscribe();
+    this.checkValidationSubscription.unsubscribe();
   }
 }

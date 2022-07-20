@@ -37,7 +37,7 @@ export class PlisEnvoyesComponent {
   empList: PliModel[] = [];
   displayedColumns: string[] = ['dateEnvoi', 'type', 'objet', 'taille', 'finValidite', 'destinataires', 'expired'];
   dataSource = new MatTableDataSource<PliModel>(this.empList);
-  responsiveSubscription: Subscription = new Subscription();
+  subscriptions: Subscription[] = [];
   isMobile;
   screenWidth;
 
@@ -69,10 +69,10 @@ export class PlisEnvoyesComponent {
 
   ngOnInit(): void {
 
-    this.responsiveSubscription = this.responsiveService.getMobileStatus().subscribe(isMobile => {
+    this.subscriptions.push(this.responsiveService.getMobileStatus().subscribe(isMobile => {
       this.isMobile = isMobile;
       this.screenWidth = this.responsiveService.screenWidth;
-    });
+    }));
 
     if (!this.loginService.isLoggedIn()) {
       this.navigateToConnect();
@@ -103,13 +103,13 @@ export class PlisEnvoyesComponent {
                 let matTooltip = "";
                 if (t.expired) {
                   expired = 'remove_red_eye';
-                  this._translate.stream('Details_Oeil').subscribe(v => {
+                  this._translate.stream('Details_Oeil').pipe(take(1)).subscribe(v => {
                     matTooltip = v;
                   })
                 }
                 else {
                   expired = 'edit';
-                  this._translate.stream('Details_Edit').subscribe(v => {
+                  this._translate.stream('Details_Edit').pipe(take(1)).subscribe(v => {
                     matTooltip = v;
                   })
                 }
@@ -137,17 +137,17 @@ export class PlisEnvoyesComponent {
       );
     }
 
-    this.destinatairesFilter.valueChanges.subscribe((nameFilterValue) => {
+    this.subscriptions.push(this.destinatairesFilter.valueChanges.subscribe((nameFilterValue) => {
       this.filteredValues['type'] = nameFilterValue;
       this.filteredValues['objet'] = nameFilterValue;
       this.filteredValues['destinataires'] = nameFilterValue;
       this.dataSource.filter = JSON.stringify(this.filteredValues);
-    });
+    }));
 
-    this.expiredFilter.valueChanges.subscribe((expiredFilterValue) => {
+    this.subscriptions.push(this.expiredFilter.valueChanges.subscribe((expiredFilterValue) => {
       this.filteredValues['expired'] = expiredFilterValue;
       this.dataSource.filter = JSON.stringify(this.filteredValues);
-    });
+    }));
 
     this.dataSource.filterPredicate = this.customFilterPredicate();
   }
@@ -203,7 +203,6 @@ export class PlisEnvoyesComponent {
   }
 
   filterType(filterValue: string) {
-    console.log("value", filterValue)
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
@@ -218,7 +217,9 @@ export class PlisEnvoyesComponent {
   }
 
   ngOnDestroy() {
-    this.responsiveSubscription.unsubscribe();
+    this.subscriptions.forEach(x => {
+      x.unsubscribe();
+    });
   }
 
 }

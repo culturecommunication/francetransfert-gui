@@ -20,7 +20,7 @@ import { FileUnitPipe } from 'src/app/shared/pipes';
   selector: 'ft-list-elements',
   templateUrl: './list-elements.component.html',
   styleUrls: ['./list-elements.component.scss'],
-  providers: [ FileUnitPipe ]
+  providers: [FileUnitPipe]
 })
 export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -43,7 +43,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
   unauthorizedFile: string;
   file: string = '';
   uploadSubscription: Subscription;
-  newUnit : any;
+  newUnit: any;
   unitSize: string;
 
 
@@ -53,7 +53,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
     private translate: TranslateService,
     private _snackBar: MatSnackBar,
     private pipe: FileUnitPipe,
-    ) {
+  ) {
 
     this.configService.getConfig().pipe(take(1)).subscribe((config: any) => {
       this.mimetype = config.mimeType;
@@ -70,7 +70,7 @@ export class ListElementsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.filesSize += t.size;
       });
       this.newUnit = this.pipe.transform(this.filesSize);
-      this.translate.stream(this.newUnit).subscribe(v => {
+      this.translate.stream(this.newUnit).pipe(take(1)).subscribe(v => {
         this.unitSize = v;
       })
     }

@@ -40,6 +40,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
   fileManagerSubscription: Subscription = new Subscription;
   transfertSubscription: Subscription = new Subscription;
   loginSubscription: Subscription = new Subscription;
+  langSubscription: Subscription = new Subscription;
   senderEmail: string;
   availabilityDate: Date;
   availabilityDays: number;
@@ -91,7 +92,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
       this.checkConnect = checkConnect;
     });
 
-    this.uploadService.langueCourriels.subscribe(langueCourriels => {
+    this.langSubscription = this.uploadService.langueCourriels.subscribe(langueCourriels => {
       this.langueCourriels = langueCourriels;
     });
 
@@ -262,7 +263,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
         ...this.uploadManagerService.envelopeInfos.getValue().type === 'link' ? { publicLink: true } : { publicLink: false },
         ...this.loginService.tokenInfo.getValue()?.senderToken ? { senderToken: this.loginService.tokenInfo.getValue()?.senderToken } : {},
         ...this.uploadManagerService.envelopeInfos.getValue().parameters?.zipPassword ? { zipPassword: this.uploadManagerService.envelopeInfos.getValue().parameters.zipPassword } : { zipPassword: false },
-        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.langueCourriels ? { langueCourriels: this.uploadManagerService.envelopeInfos.getValue().parameters.langueCourriels.code } : { langueCourriels: this.langueCourriels},
+        ...this.uploadManagerService.envelopeInfos.getValue().parameters?.langueCourriels ? { langueCourriels: this.uploadManagerService.envelopeInfos.getValue().parameters.langueCourriels.code } : { langueCourriels: this.langueCourriels },
       })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((result: any) => {
@@ -350,5 +351,6 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
     this.fileManagerSubscription.unsubscribe();
     this.transfertSubscription.unsubscribe();
     this.loginSubscription.unsubscribe();
+    this.langSubscription.unsubscribe();
   }
 }

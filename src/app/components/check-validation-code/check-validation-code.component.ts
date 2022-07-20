@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { FTErrorModel } from 'src/app/models';
 import { DownloadManagerService, UploadManagerService } from 'src/app/services';
 import { LoginService } from 'src/app/services/login/login.service';
@@ -50,7 +51,7 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
     }
     this.errorSubscription = this.uploadManagerService.uploadError$.subscribe(error => {
       if (error) {
-        this.translate.stream(error.message).subscribe(v => {
+        this.translate.stream(error.message).pipe(take(1)).subscribe(v => {
           this.errorMessage = v;
         })
         this.error = { statusCode: error.statusCode, message: this.errorMessage, codeTryCount: error.codeTryCount };
@@ -59,7 +60,7 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
     });
     this.errorDLSubscription = this.downloadManagerService.downloadError$.subscribe(error => {
       if (error) {
-        this.translate.stream(error.message).subscribe(v => {
+        this.translate.stream(error.message).pipe(take(1)).subscribe(v => {
           this.errorMessage = v;
         })
         this.error = { statusCode: error.statusCode, message: this.errorMessage, codeTryCount: error.codeTryCount };
@@ -108,7 +109,7 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
   cancel() {
     const dialogRef = this.dialog.open(ConfirmAlertDialogComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().pipe(take(1)).subscribe(result => {
       if (result) {
         this.transferCancelled.emit(true);
       }
