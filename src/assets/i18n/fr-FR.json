@@ -403,7 +403,7 @@
   "Question19_Texte": "<span>Cette pastille est l’outil Rizomo utilisable par les agents de l’Etat.</span><span> Si son emplacement vous dérange, vous avez la possibilité de la déplacer ailleurs dans l’écran. </span><br><span>Rizomo permet aux agents de l’Etat d’avoir un raccourci vers les applications collaboratives interministérielles et prochainement, aux applications de leur organisation. </span><span>Pour accéder à Rizomo il suffit de cliquer sur la pastille « sac à dos ».</span>",
   "Question20": "Comment retrouver facilement mes plis envoyés et reçus ? ",
   "Question20_Texte": "<span>Une fois connecté(e) vous pouvez cliquer sur « Mon compte » puis « Mes plis » depuis l’entête de la page France transfert ou depuis le menu de l’application en version mobile. </span><br><span>Sur la page « Mes plis », vous avez ainsi accès :</span>",
-  "Question20_Liste": "<li>Au récapitulatif des plis que vous avez émis et qui sont encore actifs (non supprimés)<ul><li>En cliquant sur le pictogramme en fin de ligne (colonne « Action »), vous pouvez accéder facilement à la page d’administration de votre pli.</li></ul><li>Au récapitulatif des plis que vous avez reçus et qui sont encore actifs (non supprimés)<ul><li>En cliquant sur le pictogramme en fin de ligne (colonne « Action »), vous pouvez accéder à la page de téléchargement du pli en vous munissant au préalable du mot de passe associé au pli que vous aviez reçu par courriel. </li></ul></li>",
+  "Question20_Liste": "<li>Au récapitulatif des plis que vous avez émis<ul><li>En cliquant sur le pictogramme en fin de ligne (colonne « Action »), vous pouvez accéder facilement à la page d’administration de votre pli (si le pli est actif) ou à la page de consultation du pli (si le pli est archivé).</li></ul><li>Au récapitulatif des plis que vous avez reçus et qui sont encore actifs (non supprimés)<ul><li>En cliquant sur le pictogramme en fin de ligne (colonne « Action »), vous pouvez accéder à la page de téléchargement du pli en vous munissant au préalable du mot de passe associé au pli que vous aviez reçu par courriel. </li></ul></li>",
   "Question21": "Quelles informations de suivi des téléchargements je dispose ?",
   "Question21_Texte1": "<span>En tant qu’expéditeur d’un pli, vous êtes informé(e) des téléchargements effectués par les destinataires de votre pli :</span>",
   "Question21_Liste": "<li>Par courriel chaque jour où au moins un téléchargement a lieu.</li><li>Sur la page d’administration de votre pli : le nombre et les dates de téléchargements sont indiqués.</li>",
@@ -419,7 +419,7 @@
   "Dupliquer-destinataires": "Dupliquer les destinataires",
 
   "CGU-Version": "3.5.0",
-  "Faq-Version": "3.5.0",
+  "Faq-Version": "3.6.0",
   "Accessibilite-Version": "3.4.0",
   "Mentions-légales-Version": "3.6.0",
   "Politique-protection-donnees-Version": "3.4.0",
@@ -476,7 +476,7 @@
         {
           "Question": "Comment retrouver facilement mes plis envoyés et reçus ? ",
           "Question_Texte1": "<span>Une fois connecté(e) vous pouvez cliquer sur « Mon compte » puis « Mes plis » depuis l’entête de la page France transfert ou depuis le menu de l’application en version mobile. </span><span>Sur la page « Mes plis », vous avez ainsi accès :</span>",
-          "Question_Liste": "<li>Au récapitulatif des plis que vous avez émis et qui sont encore actifs (non supprimés)<ul><li>En cliquant sur le pictogramme en fin de ligne (colonne « Action »), vous pouvez accéder facilement à la page d’administration de votre pli.</li></ul><li>Au récapitulatif des plis que vous avez reçus et qui sont encore actifs (non supprimés)<ul><li>En cliquant sur le pictogramme en fin de ligne (colonne « Action »), vous pouvez accéder à la page de téléchargement du pli en vous munissant au préalable du mot de passe associé au pli que vous aviez reçu par courriel. </li></ul></li>",
+          "Question_Liste": "<li>Au récapitulatif des plis que vous avez émis<ul><li>En cliquant sur le pictogramme en fin de ligne (colonne « Action »), vous pouvez accéder facilement à la page d’administration de votre pli (si le pli est actif) ou à la page de consultation du pli (si le pli est archivé).</li></ul><li>Au récapitulatif des plis que vous avez reçus et qui sont encore actifs (non supprimés)<ul><li>En cliquant sur le pictogramme en fin de ligne (colonne « Action »), vous pouvez accéder à la page de téléchargement du pli en vous munissant au préalable du mot de passe associé au pli que vous aviez reçu par courriel. </li></ul></li>",
           "Question_Liste_Ordered": "",
           "Question_Texte2": "",
           "QuestionImage": ""
@@ -542,6 +542,14 @@
           "Question_Liste_Ordered": "",
           "Question_Texte2": "",
           "QuestionImage": "<img  alt='Puis-je utiliser une liste de distribution' src='assets/images/FT_Utiliser une liste de diffusion_V2.png' />"
+        },
+        {
+          "Question": "Que devient mon pli après expiration du délai de validité ?",
+          "Question_Texte1": "<span>Une fois la date de validité du pli passée (par défaut 30 jours après l’envoi du pli) :</span>",
+          "Question_Liste": "<li> <span>si le pli n'a pas été téléchargé par au moins un destinataire, l’expéditeur reçoit un courriel lui indiquant les destinataires qui n’ont pas téléchargé le pli </span></li> <li> <span>les fichiers du pli sont automatiquement supprimés et les liens de téléchargement des destinataires (ou le lien de téléchargement public) ne sont donc plus opérationnels </span></li> <li> <span>le pli est dit « archivé » : <ul><li> il reste accessible depuis « Mon compte / Mes plis » (nécessite de se connecter) et permet à l’expéditeur de continuer d’avoir accès aux informations du pli (liste des destinataires, nombre de téléchargements, noms des fichiers contenus dans le pli) ;  </li></ul> <ul><li>il sera définitivement supprimé de France transfert 12 mois après sa création (se référer à la date de fin d’archivage pour rappel)</li></ul></span></li>",
+          "Question_Liste_Ordered": "",
+          "Question_Texte2": "<span>Toutefois, pour le moment, en cas de suppression manuelle du pli par l’expéditeur (donc avant sa fin de validité), le pli est complètement supprimé de France transfert et n’est donc pas « archivé ».</span>",
+          "QuestionImage": ""
         }
       ]
     },
@@ -629,6 +637,14 @@
           "Question_Texte1": "<span>Pour les agents de l’Etat, il y a un salon « France transfert » dans TCHAP qui vous permettra de  suivre les évolutions ou d’échanger avec les autres membres. Vous pouvez vous y abonner. </span><br> <span>Vous pouvez également utiliser le formulaire de contact « Nous contacter » (en bas de page ou dans le menu de la version mobile).</span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
+          "Question_Texte2": "",
+          "QuestionImage": ""
+        },
+        {
+          "Question": "Que faire si j’ai une page de blocage « Access denied - UBIKA Cloud Protector » ?",
+          "Question_Texte1": "<span>Le ministère de la Culture a mis en place un WAF (Web Application Firewall) qui protège France transfert d'un certain nombre d'attaques provenant d'Internet.</span><span>Ce composant de sécurité est censé être transparent pour les utilisateurs de France transfert dans le cas d'un usage classique.  Si toutefois il arrivait que le WAF détecte à tort une menace lors d'une action pourtant légitime, vous devriez normalement tomber face à une page de blocage « Access denied – UBIKA Cloud Protector ».</span><span>Dans ce cas, les consignes à suivre sont les suivantes :</span>",
+          "Question_Liste": "",
+          "Question_Liste_Ordered": "<li>Copiez les informations indiquées dans la partie 'Additional information'.</li><li>Cliquez sur le bouton bleu 'Request access' => cela enverra une notification à l'équipe technique de France transfert en fournissant des informations techniques sur le blocage.</li><li>Retournez sur France transfert et allez sur la page 'Nous contacter' pour adresser un message à l'équipe de support en fournissant dans votre message les informations issues de la rubrique 'Additional information' (copiées préalablement) => cela permettra à l'équipe technique de France transfert de prendre contact avec vous via l'adresse courriel indiquée dans le formulaire de contact pour comprendre pourquoi le blocage s'est produit et ainsi mener les actions de paramétrage complémentaire au niveau du WAF pour éviter que ce blocage ne se reproduise.</li>",
           "Question_Texte2": "",
           "QuestionImage": ""
         }

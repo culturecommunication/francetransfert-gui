@@ -36,10 +36,11 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
 
   ) {
     //translateService.setDefaultLang("en-US")
-    translateService.setDefaultLang("fr-FR");
-    translateService.use('fr-FR');
-    this.language = 'fr-FR';
-    this.uploadService.setLangueCourriels('fr-FR');
+
+    translateService.setDefaultLang(localStorage.getItem('language') ? localStorage.getItem('language') : "fr-FR");
+    translateService.use(localStorage.getItem('language') ? localStorage.getItem('language') : "fr-FR");
+    this.language = localStorage.getItem('language') ? localStorage.getItem('language') : "fr-FR"
+    this.uploadService.setLangueCourriels(localStorage.getItem('language') ? localStorage.getItem('language') : "fr-FR");
 
 
   }
@@ -55,6 +56,7 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
     if (this.checkValidation == false) {
       this.uploadService.setLangueCourriels(value);
     }
+    localStorage.setItem('language', value);
   }
 
   ngOnInit(): void {
