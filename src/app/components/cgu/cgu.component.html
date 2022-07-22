@@ -4,7 +4,7 @@
         <mat-card-header class="cgu-card-header">
             <h1 #cgu> {{'CGU_Titre' | translate}}</h1>
         </mat-card-header>
-        <h4> {{'Version' | translate}} {{'Numéro-version' | translate}}</h4>
+        <h4> {{'Version' | translate}} {{'CGU-Version' | translate}}</h4>
         <span> {{'Version_Française' | translate}}</span>
         <mat-card-content class="cgu-card-content">
             <h3 #preambule> {{'Préambule' | translate}}</h3>
@@ -57,8 +57,15 @@
                 <ul  [innerHTML]="'Données_Sensibles_Liste' | translate">
 
                 </ul>
-                <p [innerHTML]="'Données_Sensibles_Texte2' | translate">
+
+                  <div id="bloc1"> <span [innerHTML]="'Données_Sensibles_Texte2' | translate"></span></div>
+                  <div id="bloc2"> <a rel='noopener noreferrer' [href]='sanitizedUrl' target='_blank'>
+                    https://www.ssi.gouv.fr/administration/qualification/zed/</a>).</div>
+
+
+                <p [innerHTML]="'Données_Sensibles_Texte3' | translate">
                 </p>
+
 <span></span><br>
 
 

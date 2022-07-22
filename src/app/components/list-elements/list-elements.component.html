@@ -6,7 +6,7 @@
     <mat-card-header class="list-elements-card-header" *ngIf="(flow.transfers$ | async).transfers.length > 0">
         <mat-card-title *ngIf="(flow.transfers$ | async).transfers.length === 1">
             <span>{{(flow.transfers$ |
-                async).transfers.length}} {{'élément' | translate}} {{filesSize | filesize}} / {{filesSizeLimit | filesize}}</span>
+                async).transfers.length}} {{'élément' | translate}} {{filesSize | filesize}} {{unitSize}} / {{filesSizeLimit | filesize}}  {{"GB" | translate}}</span>
             <mat-icon *ngIf="screenWidth === 'sm' && !expanded" (click)="expandList()"  attr.aria-label="{{'Afficher_Liste' | translate}}">
                 expand_less</mat-icon>
             <mat-icon *ngIf="screenWidth === 'sm' && expanded" (click)="expandList()" attr.aria-label="{{'Masquer_Liste' | translate}}">
@@ -14,7 +14,7 @@
         </mat-card-title>
         <mat-card-title *ngIf="(flow.transfers$ | async).transfers.length > 1">
             <span>{{(flow.transfers$ |
-                async).transfers.length}} {{'éléments' | translate}} {{filesSize | filesize}} / {{filesSizeLimit | filesize}}</span>
+                async).transfers.length}} {{'éléments' | translate}} {{filesSize | filesize}} {{unitSize}} / {{filesSizeLimit | filesize}} {{"GB"| translate}}</span>
             <mat-icon *ngIf="screenWidth === 'sm'  && !expanded" (click)="expandList()"  attr.aria-label="{{'Afficher_Liste' | translate}}">
                 expand_less</mat-icon>
             <mat-icon *ngIf="screenWidth === 'sm' && expanded" (click)="expandList()" attr.aria-label="{{'Masquer_Liste' | translate}}">
@@ -59,9 +59,9 @@
 <mat-card class="list-elements-card" *ngIf="component === 'download'">
     <mat-card-header class="list-elements-card-header" *ngIf="transfers">
         <mat-card-title *ngIf="transfers.length === 1"><span>{{transfers.length}} {{'élément' | translate}} {{filesSize |
-                filesize}}</span>
+                filesize}} {{unitSize}}</span>
         </mat-card-title>
-        <mat-card-title *ngIf="transfers.length > 1"><span>{{transfers.length}} {{'éléments' | translate}} {{filesSize | filesize}}</span>
+        <mat-card-title *ngIf="transfers.length > 1"><span>{{transfers.length}} {{'éléments' | translate}} {{filesSize | filesize}} {{unitSize}}</span>
         </mat-card-title>
     </mat-card-header>
     <mat-card-content class="list-elements-card-content">

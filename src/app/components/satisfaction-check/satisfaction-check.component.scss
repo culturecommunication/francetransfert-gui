@@ -7,6 +7,9 @@
   -webkit-flex-direction: column;
   -webkit-justify-content: center;
   -webkit-align-items: center;
+  .satisfaction-check-card-content-icon {
+    overflow: visible;
+  }
   .satisfaction-check-form-container {
     width: 100%;
     height: 100%;
@@ -38,6 +41,11 @@
         .satisfaction-check-faces-icon {
           font-size: 40px;
           margin-left: 15px;
+          height: 40px;
+          width: 40px;
+          display: flex;
+          align-items: center;
+          align-self: center;
         }
         .satisfaction-check-faces-text {
           margin-top: 20px;

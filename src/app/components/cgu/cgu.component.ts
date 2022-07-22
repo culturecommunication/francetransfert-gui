@@ -1,5 +1,12 @@
+/*
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
+  */
+
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,13 +26,15 @@ export class CguComponent implements OnInit, AfterViewInit {
   @ViewChild('securite') private securiteFragment: ElementRef;
   @ViewChild('contact') private  contact: ElementRef;
   @ViewChild('validite') private validiteFragment: ElementRef;
-
+  sanitizedUrl: any;
 
   constructor(private titleService: Title,
+    private sanitizer:DomSanitizer,
     private router: Router) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('France transfert - CGU');
+    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustUrl('https://www.ssi.gouv.fr/administration/qualification/zed/');
   }
 
   ngAfterViewInit(): void {

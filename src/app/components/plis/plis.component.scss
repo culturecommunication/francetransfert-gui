@@ -23,12 +23,16 @@
   .envelope-card-content {
     padding: 16px;
       .envelope-card-tab-group {
+
+        ::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+          padding: 3px!important;
+         }
           ::ng-deep .mat-tab-label-content {
               width: 100%;
               justify-content: flex-start;
               -webkit-justify-content: flex-start;
               font-weight: bold;
-              font-size: 20px;
+              font-size: 16px;
               line-height: 28px;
           }
           ::ng-deep .mat-ink-bar {
@@ -45,6 +49,24 @@
       overflow-x: clip;
   }
 }
+
+
+@media screen and (max-width: 278px) {
+  .envelope-card {
+      height: 100%;
+      .envelope-card-content {
+          height: 100%;
+          overflow: auto;
+          .envelope-card-tab-group {
+                ::ng-deep .mat-tab-label-content {
+                    font-size: 15px;
+                }
+
+          }
+      }
+  }
+}
+
 
 @media screen and (min-width: 812px) {
   .envelope-card {

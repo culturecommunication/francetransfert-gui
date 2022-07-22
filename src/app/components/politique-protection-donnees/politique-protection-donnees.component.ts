@@ -1,3 +1,10 @@
+/*
+  * Copyright (c) Ministère de la Culture (2022) 
+  * 
+  * SPDX-License-Identifier: MIT 
+  * License-Filename: LICENSE.txt 
+  */
+
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -12,7 +19,7 @@ export class PolitiqueProtectionDonneesComponent implements OnInit, AfterViewIni
   @ViewChild('politiquedeprotectiondesdonnees') private politiquedeprotectiondesdonneesFragment: ElementRef;
   @ViewChild('droitsdespersonnes') private droitsdespersonnesFragment: ElementRef;
 
-  constructor(private titleService: Title, 
+  constructor(private titleService: Title,
     private router: Router) { }
 
   ngOnInit(): void {

@@ -1,6 +1,28 @@
 <form [formGroup]="loginForm" class="connect-container">
   <div class="card-formulaire">
     <div class="connect-parameters">
+
+
+<!--
+        <a href="https://fca.integ01.dev-agentconnect.fr/api/v2/authorize" target="_blank" class="center">
+
+        <img alt="Logo France transfert" aria-hidden="true" class="resize-image"
+        src="assets/images/AgentConnect.png" />
+      </a>
+
+      <a href="https://agentconnect.gouv.fr/" target="_blank"  class="question-parameters" >Qu'est ce que Agent Connect?</a>
+
+
+      <div class="or">
+        <div class="row-position"></div>
+        <p>Ou</p>
+        <div class="row-position"></div>
+
+      </div> -->
+
+
+
+
       <div class="connect-header">
         <span> {{'CourrielConnect' | translate}}</span>
       </div>
@@ -40,7 +62,7 @@
         </div>
         <div class="field-contact">
           <mat-form-field>
-            <mat-label>Code reçu </mat-label>
+            <mat-label>{{'CodeReçu' | translate}} </mat-label>
             <input id="codeReceived" #codeReceived id="codeReceived" name="code" formControlName="code" matInput
               placeholder="Code" autocomplete="off">
           </mat-form-field>
@@ -56,10 +78,10 @@
         </div>
         <div class="card-actions evenly">
           <button type="button" mat-raised-button attr.aria-label="{{'Annuler' | translate}}"
-            class="card-actions-btn color" (click)="cancel($event)"> {{'ANNULER' | translate}}</button>
+            class="card-actions-btn color" (click)="cancel($event)"> {{'Annuler' | translate}}</button>
           <button type="submit" mat-raised-button attr.aria-label="{{'Valider' | translate}}"
             class="card-actions-btn color" [disabled]="!form.valid || (error && !error?.codeTryCount)"
-            (click)="validateCode($event)"> {{'VALIDER' | translate}}</button>
+            (click)="validateCode($event)"> {{'Valider' | translate}}</button>
         </div>
       </ng-container>
 

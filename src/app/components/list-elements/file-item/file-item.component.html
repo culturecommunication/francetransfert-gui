@@ -9,12 +9,12 @@
         </div>
         <div class="upload-item-details-sub">
             <span class="upload-item-details-size">
-                {{ transfer.size | filesize }}
+              {{ transfer.size | filesize }}  {{unitSize}}
             </span>
             <span>-</span>
             <span *ngIf="!transfer.folder" class="upload-item-details-type">
               <!-- {{transfer.name  ? (transfer.name  | filetype) : !null}} -->
-              {{ transfer.name | filetype }}
+              {{'FichierType' | translate}} : {{ transfer.name | filetype }}
             </span>
             <span *ngIf="transfer.folder" class="upload-item-details-type">
                  {{'Dossier' | translate}}

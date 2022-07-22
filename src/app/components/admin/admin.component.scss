@@ -139,10 +139,19 @@
       color: #000;
     }
 
-    .admin-card-actions-btn {
-      background-color: var(--ft-blue-france);
-      color: var(--ft-white);
-    }
+    .admin-card-actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      display: -webkit-flex;
+      -webkit-flex-direction: row;
+      -webkit-justify-content: space-between;
+    padding-top: 0.5rem;
+      .admin-card-actions-btn {
+          background-color: var(--ft-blue-france);
+          color: var(--ft-white);
+      }
+  }
   }
   .deleted {
     color: var(--ft-error);
