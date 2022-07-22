@@ -60,7 +60,7 @@ import { AdminEndMsgComponent } from './components/admin/admin-end-msg/admin-end
 import { ConnectComponent } from './components/connect/connect.component';
 import { ConnectEndMessageComponent } from './components/connect-end-message/connect-end-message.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import localeEn from '@angular/common/locales/en';
@@ -81,6 +81,8 @@ import { FilterPipe } from './shared/pipes/FilterPipe.pipe';
 import { FilterQuestionsPipe } from './shared/pipes/FilterQuestionsPipe.pipe';
 import { DestinatairesEndMessageComponent } from './components/destinataires-end-message/destinataires-end-message.component';
 import { FileUnitPipe } from './shared/pipes/file-unit.pipe';
+
+import { CustomDateAdapter } from './shared/custom-DateAdapter/custom-date-adapter';
 
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeEs, 'es', localeEsExtra);
@@ -182,6 +184,8 @@ const initializer = (pwaService: PwaService) => () =>
       useClass: CustomPaginatorService
     },
     { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
+    { provide: DateAdapter,
+      useClass: CustomDateAdapter },
     DatePipe,
     FileMultipleSizePipe,
     FileNamePipe,

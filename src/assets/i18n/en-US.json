@@ -395,7 +395,7 @@
   "Oui": "Yes",
 
   "Délai_Validité": "Validity period ",
-  "Nombres_Caractères": "12 characters minimum 20 characters maximum",
+  "Nombres_Caractères": "12 characters minimum - 20 characters maximum",
   "Nombres_Lettres_Minuscules": "At least 3 lower case letters (a-z, no accents)",
   "Nombres_Lettres_Majuscules": "At least 3 upper case letters (A-Z, no accents)",
   "Nombres_chiffres": "At least 3 numbers",
@@ -505,7 +505,7 @@
       "category": "General",
       "entities": [
         {
-          "Question": "Why use France Transfert ?",
+          "Question": "Why use France Transfert?",
           "Question_Texte1": "<span>France Transfert is a service created by the government to help its users (citizens, professionals, companies, associations, etc.), partners and service provides exchange large files and folders that cannot be sent by email with government personnel.It was designed and is operated by the Ministry of Culture, and made available to all ministries by the Interministerial Digital Directorate (DINUM).</span><br><span>The service is hosted in France by Outscale. The data is stored on French servers until it is downloaded by the recipient.</span> ",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -513,7 +513,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "Can I use France Transfert for personal use ?",
+          "Question": "Can I use France Transfert for personal use?",
           "Question_Texte1": "<span>France Transfert is reserved for exchanging large files between government services and their users. It is not possible to exchange files between users.</span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -521,7 +521,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "Can I use France Transfert on a mobile ?",
+          "Question": "Can I use France Transfert on a mobile?",
           "Question_Texte1": "Yes. France Transfert was designed as a Progressive Web App and can therefore be installed as an application (the web browser will invite you to do so). ",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -529,7 +529,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "What does the round “rucksack” button at the bottom-right of France Transfert do ?",
+          "Question": "What does the round “rucksack” button at the bottom-right of France Transfert do?",
           "Question_Texte1": "<span>The button is the Rizomo tool for officials.</span><span> If it gets in the way, you can move it elsewhere on the screen. </span><br><span>Rizomo provides officials with a shortcut to collaborative interministerial applications, and will soon offer links to their own organization’s applications. </span><span>To access Rizomo, simply click on the “rucksack” button.</span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -542,7 +542,7 @@
       "category": "My account / Log in",
       "entities": [
         {
-          "Question": "What is the point of « logging in » ?",
+          "Question": "What is the point of “logging in”?",
           "Question_Texte1": "You can decide to log in to France Transfert before or when sending a package by clicking on “Stay connected”. ",
           "Question_Liste": "<li><span>Logging in confirms that you are the owner of the email address indicated as the sender of the package: a confirmation code is sent by email and you have 20 minutes to enter it. </span></li> <li> <span> Once you are logged in, you no longer need to enter your email address again to send another package. </span> </li> <li> <span>  You will remain logged in for 30 min and can send another package during that period. If you do not create another package before the end of that period, you will have to log in again.</span></li>",
           "Question_Liste_Ordered": "",
@@ -550,7 +550,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "Where can I find the packages I have sent and received ?",
+          "Question": "Where can I find the packages I have sent and received?",
           "Question_Texte1": "<span>Once connected, you can click on “My account” and then “My packages” from the header of the France Transfert page or the application menu on the mobile version. </span><br><span>On the “My packages” page you can access:</span>",
           "Question_Liste": "<li>The list of sent packages<ul><li>By clicking on the icon at the end of the line (“Action” column), you can easily reach the administration page for your package (if it's still active) or the details page (if it has been archived).</li></ul><li>The list of received packages that are still active (not deleted)<ul><li>By clicking on the icon at the end of the line (“Action” column), you can reach the package’s download page. Have the package password that you received by email ready. </li></ul></li>",
           "Question_Liste_Ordered": "",
@@ -564,7 +564,7 @@
       "category": "Send package",
       "entities": [
         {
-          "Question": "What can France Transfert do ?",
+          "Question": "What can France Transfert do?",
           "Question_Texte1": "France Transfert can be used in two different ways:",
           "Question_Liste": "<li> <span>Email delivery, accessible to both officials and users. This feature allows senders (officials or users) to send large files to one or more known recipients. However, if the sender is a user, recipients must be officials. It is not possible to exchange files between users. </span></li><li> <span>The “link” feature is only available to officials. It generates a public link to the files. The sender then sends the link and password to the appropriate recipients. The difference is that recipients can then share the link without the sender being able to control when it is downloaded.</span> </li>",
           "Question_Liste_Ordered": "",
@@ -572,7 +572,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "Why do I have to provide a confirmation code to send a file ?",
+          "Question": "Why do I have to provide a confirmation code to send a file?",
           "Question_Texte1": "<span>People could use France Transfert for personal use by “borrowing” the email address of an official or user. To avoid this, the sender will receive an email containing a confirmation code. When you add the files to transfer, you will have to enter the confirmation code, which is valid 20 minutes. </span> <br><span>If you have logged in and decide to send another package less than 30 min after the previous one, you will not be asked for a new confirmation code.</span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -580,7 +580,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "What happens after I send my files ?",
+          "Question": "What happens after I send my files?",
           "Question_Texte1": "<span>Once files are submitted to France Transfert, they are scanned for viruses and may be deleted if necessary. </span><br> <span>If the scan goes well, a confirmation email is sent to the sender, along with the password to download the package. Recipients receive an email with a download link and a password in a separate email. </span><br> <span>If the virus scan is long (large packages) then the confirmation email may take a long time to arrive. The sender receives an email either to inform them of an error (such as a security issue) or to confirm delivery (in which case recipients also receive an email with download instructions).</span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -588,7 +588,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "Is there a usage limit ?",
+          "Question": "Is there a usage limit?",
           "Question_Texte1": "There is a daily limit of 5 packages per non-official sending address.",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -596,7 +596,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "Is there a file size limit on France Transfer ?",
+          "Question": "Is there a file size limit on France Transfer?",
           "Question_Texte1": "<span>France Transfert allows you to send up to 20 GB of files and folders per package, so long as no file exceeds 2 GB.</span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -604,7 +604,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "What file extensions are allowed on France Transfert ?",
+          "Question": "What file extensions are allowed on France Transfert?",
           "Question_Texte1": "<span>All common file extensions are accepted on France Transfert except, for security reasons, certain executable files and computer scripts that could contain viruses.</span><br> <span>List of prohibited file extensions: </span><br> <span>“ade, adp, app, asp, aspx, asx, bas, bat, cer, chm, cmd, cnt, com, cpl, crt, csh, der, diagcab, exe, fxp, gadget, grp, hlp, hpj, hta, htc, inf, ins, isp, its, jar, jnlp, js, jse, ksh, lnk, mad, maf, mag, mam, maq, mar, mas, mat, mau, mav, maw, mcf, mda, mdb, mde, mdt, mdw, mdz, msc, msh, msh1, msh2, mshxml, msh1xml, msh2xml, msi, msp, mst, msu, ops, osd, pcd, pif, pl, plg, prf, prg, printerexport, ps1, ps1xml, ps2, ps2xml, psc1, psc2, psd1, psdm1, pst, py, pyc, pyo, pyw, pyz, pyzw, reg, scf, scr, sct, shb, shs, theme, tmp, url, vb, vbe, vbp, vbs, vhd, vhdx, vsmacros, vsw, webpnp, website, ws, wsc, wsf, wsh, xbap, xll, xnk”.</span><br> <span>When you send a file, do make sure your recipient can open it.</span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -612,7 +612,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "Can I use a list of addresses ?",
+          "Question": "Can I use a list of addresses?",
           "Question_Texte1": "<span>To send a package to several recipients at once, you can upload a CSV file containing their addresses (using the semicolon (;) separator). To do this, click on the pictogram to the right of the “Recipients” field. </span><br> <span>You can generate a CSV file from your recipients by clicking on the pictogram to the right of the address list. You can store and use it to automatically complete the recipient list for your next package. </span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -626,7 +626,7 @@
       "category": "Download package",
       "entities": [
         {
-          "Question": "How do I download a package addressed to me ?",
+          "Question": "How do I download a package addressed to me?",
           "Question_Texte1": "<span>When the package is sent, a confirmation email with details of the package files is sent to the sender, as is the password to download the package.</span><br> <span>Recipients receive an email with a download link and a password in a separate email.</span> <br><span>If the password is not accepted, check that no trailing space was copied with it (use the eye pictogram to display the password).</span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -634,7 +634,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "How many times can recipients download files I send ?",
+          "Question": "How many times can recipients download files I send?",
           "Question_Texte1": "<span>Each recipient has their own link to download the package. With this link, each recipient can download the package 5 times. </span><br><span>This allows recipients to download the files again if they need to (in case of deletion from their computer, for example). </span><br><span>If a recipient exceeds the 5-download limit, a new package will have to be sent. This may also be necessary if the recipient has “locked” their link by entering the wrong download password more than 5 times. </span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -642,7 +642,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "What happens to the files I send after they have been downloaded by my chosen recipients",
+          "Question": "What happens to the files I send after they have been downloaded by my chosen recipients?",
           "Question_Texte1": "<span>Files are deleted after the package’s validity period (default 30 days) has expired. Packages are not deleted automatically once all recipients have downloaded them, as recipients may need to download them again.</span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -650,7 +650,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "Where do downloaded files go ?",
+          "Question": "Where do downloaded files go?",
           "Question_Texte1": "<span>The files are downloaded via your browser. Depending on its configuration, they may go directly to the “Downloads” folder, or you may be asked to decide where to save them.</span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -663,7 +663,7 @@
       "category": "Administer package",
       "entities": [
         {
-          "Question": "Made a mistake in the list of recipients but I already sent my package. What can I do ?",
+          "Question": "Made a mistake in the list of recipients but I already sent my package. What can I do?",
           "Question_Texte1": "Did you make a mistake entering recipients? Several options are available from the package administration page (administration link received in the delivery confirmation email), depending on your needs:",
           "Question_Liste": "",
           "Question_Liste_Ordered": "<li> Delete the package: the package is completely deleted, and no recipients can download it anymore.</li><li>Delete one or more recipients: the download links of selected recipients are revoked and can no longer be used to download files.</li><li>Add a recipient: you can manually add one or more package recipients. Like the original recipients, they will receive an email with a download link and a password in a separate email. </li>",
@@ -671,7 +671,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "What information do I have to keep track of downloads ?",
+          "Question": "What information do I have to keep track of downloads?",
           "Question_Texte1": "<span>As sender, you are informed of downloads of your package by recipients:</span>",
           "Question_Liste": "<li>By email, every day that one or more downloads take place.</li><li>On the package administration page, which lists how many downloads have taken place and when.</li>",
           "Question_Liste_Ordered": "",
@@ -679,7 +679,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "Has a recipient not received the email from France Transfert? ?",
+          "Question": "Has a recipient not received the email from France Transfert?",
           "Question_Texte1": "<span>When you send a package using the “email” function, France Transfert sends two emails to each recipient: </span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "<li>An email with a specific download link for each recipient,</li><li>An email with the package download password (identical for each recipient, and also sent to the sender by email).</li>",
@@ -693,7 +693,7 @@
       "category": "Information and user feedback",
       "entities": [
         {
-          "Question": "What is the user questionnaire for ?",
+          "Question": "What is the user questionnaire for?",
           "Question_Texte1": "<span>The questionnaire is anonymous and used for statistical and improvement purposes only. </span><br><span>If you complete the questionnaire, the rating you leave is recorded for statistical purposes only. You can leave comments to tell us what you think about the service.</span><br><span>The product team will review the comments but cannot commit to responding individually or implementing any suggestions.</span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -701,7 +701,7 @@
           "QuestionImage": ""
         },
         {
-          "Question": "Where can I find more information about France Transfert ?",
+          "Question": "Where can I find more information about France Transfert?",
           "Question_Texte1": "<span>For officials, there is a “France Transfert” room in Tchap to keep track of developments and communicate with other members. You can sign up to it. </span><br> <span>You can also write to France Transfert’s support team via the “Contact” form (at the bottom of the page or in the menu on the mobile version). </span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
@@ -737,7 +737,7 @@
     }
   ],
   "Traductions": "Translations",
-  "Traductions_Text": "The translation of the France Transfert website into English was carried out by the Translation Department of the Ministry of Europe and Foreign Affairs.",
+  "Traductions_Text": "The translation of the France Transfert website into English was carried out by the Translation Department of the Ministry for Europe and Foreign Affairs.",
   "Object": "Re. :",
   "Details_Oeil": "View the package",
   "Details_Edit": "Administer package",
