@@ -1,49 +1,32 @@
-# FrancetransfertUpdownGui
+France transfert
+================
 
-v2 de l'app front FranceTransfert
-> refonte socle/structure v1
-> PWA
+France transfert est un service créé par l’Etat pour aider ses usagers (citoyens, professionnels, entreprises, associations…), partenaires ou prestataires à envoyer (aux agents de l’Etat) ou recevoir (des agents de l’Etat), des fichiers et dossiers volumineux qui ne peuvent pas transiter par les messageries électroniques. Il a été conçu et est opéré par le ministère de la Culture, et mis à la disposition de tous les ministères par la direction interministérielle du numérique (DINUM). 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.4.
+# Fonctionnalités
 
-## Development server
+Les principales fonctionnalités d'ores et déjà développées permettent :
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Echange de plis pouvant atteindre 20 Go, composés de fichiers avec une taille de 2 Go maximum;
+* Vérification lors du premier envoi avec le code de confirmation (valide 20 min), l’usager est connecté par défaut avec une session active de 30 minutes : adresse mèl expéditeur pré-renseigné, pas de saisie de nouveau code de confirmation pour l’envoi d’un pli;
+* Si connecté, l’usager a accès à son historique des plis envoyés actifs ainsi que ceux reçus;
+* Administration du pli : 
+ * * Pouvoir supprimer le pli,
+ * * Ajouter/supprimer un destinataire,
+ * * Avoir le nombre de téléchargements par destinataire ainsi que l’horodatage des téléchargements;
+* La validité du pli peut être paramétrée d’un jour à 90 jours;
+* Le mot de passe d’accès au pli peut être personnalisé par l’expéditeur;
+* Mise en place de la pastille SNAP (Rizomo).
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Documentation et support utilisateurs
 
-## Build Test ENV
+Une Foire Aux Questions est disponible ici : https://francetransfert.numerique.gouv.fr/faq
 
-Run `ng build --congfiuration test` to build the project. The build artifacts will be stored in the `dist/` directory.
+Il est également possible de contacter le support Utilisateurs dont le niveau 1 est assuré par la DINUM : https://francetransfert.numerique.gouv.fr/contact
 
-## Build Intégration ENV
+Enfin pour les agents de l’Etat, il y a un salon "France transfert" dans TCHAP qui vous permettra de suivre les évolutions ou d’échanger avec les autres membres. Vous êtes libres de vous y abonner.
 
-Run `ng build --congfiuration integration` to build the project. The build artifacts will be stored in the `dist/` directory.
+# Contributions
 
-## Build Production ENV
-
-Run `ng build --congfiuration production` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-
-## Versionning
-
-Pour monter en version l'application, tirer une branche de développement depuis develop et mettre à jour le numéro de version (objet 'version') dans les fichiers suivants:
-
-- package.json
-- src/environments/environment*.ts
-
-Une fois le développement validé dans la branche de développement, effectuer une pull request sur develop et faire les tests d'intégration.
-Une fois les tests d'intégration validés, créer une branche de release nommée comme le numéro de version depuis develop. C'est cette branche qui sera déployée.
+Les Issues et Pull Request sont les bienvenus mais il n'y a pas d'engagement de l'équipe produit France transfert à les traiter.

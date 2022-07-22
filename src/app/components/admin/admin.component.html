@@ -2,7 +2,8 @@
   <mat-card class="admin-card">
     <mat-card-header class="admin-card-header" *ngIf="transfers">
       <mat-card-title>
-        <h2>{{'Administration' | translate}}</h2>
+        <h2  *ngIf="!fileInfos?.expired">{{'Administration' | translate}}</h2>
+        <h2  *ngIf="fileInfos?.expired">{{'Historique' | translate}}</h2>
       </mat-card-title>
     </mat-card-header>
     <mat-card-content class="admin-card-content">
@@ -21,6 +22,8 @@
           </ng-container>
           <mat-list-item role="listitem"><span>{{'Emetteur' | translate}} {{fileInfos.senderEmail}}</span>
           </mat-list-item>
+          <mat-list-item role="listitem"><span>{{'Object' | translate}} {{fileInfos.subject}}</span>
+          </mat-list-item>
           <mat-list-item role="listitem"><span>{{'Message' | translate}} {{fileInfos.message}}</span></mat-list-item>
           <mat-list-item role="listitem"><span>{{'Date_Emission' | translate}}
 
@@ -28,9 +31,9 @@
               {{selectedDate | date: 'medium': '' : translate.currentLang}}
             </span>
           </mat-list-item>
-          <mat-list-item role="listitem"><span>{{'Date_Fin_Validité' | translate}} {{fileInfos.validUntilDate | date:
+          <mat-list-item  *ngIf="!fileInfos?.expired" role="listitem"><span>{{'Date_Fin_Validité' | translate}} {{fileInfos.validUntilDate | date:
               'medium': '' : translate.currentLang}}</span>
-            <mat-form-field style="width:1px;visibility:hidden;">
+            <mat-form-field  style="width:1px;visibility:hidden;">
               <input matInput [matDatepicker]="picker" [formControl]="validUntilDate" [min]="minDate" [max]="maxDate">
               <mat-datepicker #picker (closed)="onPickerClose()"></mat-datepicker>
             </mat-form-field>
@@ -38,8 +41,13 @@
               attr.aria-label="{{'Modification_Date_Fin_Validité' | translate}}">edit
             </mat-icon>
           </mat-list-item>
-          <mat-list-item role="listitem" class="delete"><span>{{'Suppression_Pli_Admin' | translate}}</span>
-            <mat-icon matTooltip="{{'Suppression_Pli_Admin' | translate}}" (click)="deleteFile()"
+
+          <mat-list-item  *ngIf="fileInfos?.expired" role="listitem"><span>{{'Date_Archive' | translate}} {{fileInfos.archiveUntilDate | date:
+            'medium': '' : translate.currentLang}}</span>
+          </mat-list-item>
+
+          <mat-list-item  *ngIf="!fileInfos?.expired" role="listitem" class="delete"><span>{{'Suppression_Pli_Admin' | translate}}</span>
+            <mat-icon  matTooltip="{{'Suppression_Pli_Admin' | translate}}" (click)="deleteFile()"
               attr.aria-label="{{'Suppression_Pli_Admin' | translate}}">delete
             </mat-icon>
           </mat-list-item>
@@ -47,10 +55,10 @@
             <div class="admin-card-content-files">
               <div class="subheader respientHeader">
                 <span>{{'Destinataires' | translate}} </span>
-                <mat-icon *ngIf=" !add" matTooltip="{{'Ajout_Destinataire' | translate}}"
+                <mat-icon *ngIf="!fileInfos?.expired && !add" matTooltip="{{'Ajout_Destinataire' | translate}}"
                   style="color: black;cursor: pointer;" (click)="addRecipient()"
                   attr.aria-label="{{'Ajout_Destinataire' | translate}}">add_box</mat-icon>
-                <mat-icon *ngIf="close" matTooltip="{{'Terminer' | translate}}" style="color: black;cursor: pointer;"
+                <mat-icon *ngIf="!fileInfos?.expired && close" matTooltip="{{'Terminer' | translate}}" style="color: black;cursor: pointer;"
                   (click)="addRecipient()" attr.aria-label="{{'Terminer' | translate}}">close</mat-icon>
               </div>
             </div>
@@ -117,10 +125,10 @@
                 </mat-expansion-panel>
               </mat-accordion>
             </ng-container>
-            <mat-icon matTooltip="{{'Renvoyer_Lien_Téléchargement' | translate}}"
+            <mat-icon *ngIf="!fileInfos?.expired" matTooltip="{{'Renvoyer_Lien_Téléchargement' | translate}}"
               (click)="resendLink(dest.recipientMail)" attr.aria-label="{{'Renvoyer_Lien_Téléchargement' | translate}}">
               email</mat-icon>
-            <mat-icon matTooltip="{{'Supprimer_Destinataire' | translate}}" (click)="deleteRecipient(index, dest)"
+            <mat-icon *ngIf="!fileInfos?.expired" matTooltip="{{'Supprimer_Destinataire' | translate}}" (click)="deleteRecipient(index, dest)"
               attr.aria-label="{{'Supprimer_Destinataire' | translate}}">delete
             </mat-icon>
           </mat-list-item>
@@ -182,8 +190,11 @@
         </ft-file-item>
       </div>
     </mat-card-content>
-    <mat-card-actions align="end" *ngIf="fileInfos">
-      <button class="admin-card-actions-btn" mat-button (click)="previousPage()">{{'Retour' | translate}}</button>
-    </mat-card-actions>
+    <mat-card-actions class="admin-card-actions" *ngIf="fileInfos">
+      <button *ngIf="(fileInfos?.recipientsMails.length != 0 || fileInfos?.deletedRecipients.length != 0)" type="button" mat-raised-button class="admin-card-actions-btn"
+          (click)="DupliquerDestinataires()">{{'Dupliquer-destinataires' | translate}}</button>
+      <button type="button" mat-raised-button class="admin-card-actions-btn"
+          (click)="previousPage()">{{'Retour' | translate}}</button>
+      </mat-card-actions>
   </mat-card>
 </div>

@@ -23,7 +23,7 @@ node {
     {
         stage('Build') {
             lock('build-front') {
-                sh 'npm install'
+                sh 'npm install --force'
                 sh 'export NODE_OPTIONS="--max-old-space-size=1024"'
                 sh 'npm --max_old_space_size=1024 run build'
             }
@@ -62,10 +62,14 @@ node {
 
             if(jsonObject["version"].contains('-')){
                 if(env.BRANCH_NAME.startsWith('demo') || env.BRANCH_NAME.startsWith('develop')){
-                    sh 'npm publish dist --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture/'
+                    dir("dist"){
+                        sh 'npm publish . --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture/'
+                    }
                 }
             } else {
-                sh 'npm publish dist --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture-release/'
+                dir("dist"){
+                    sh 'npm publish . --registry https://pic-culture.actontechnology.com/nexus/repository/npm-culture-release/'
+                }
             }            
 
             if(env.BRANCH_NAME.startsWith('develop')){

@@ -1,7 +1,16 @@
+/*
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
+  */
+
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { FTErrorModel } from 'src/app/models';
 import { DownloadManagerService, UploadManagerService } from 'src/app/services';
 import { LoginService } from 'src/app/services/login/login.service';
@@ -24,13 +33,14 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
   errorDLSubscription: Subscription = new Subscription();
   error: FTErrorModel;
   hide = true;
-
+  errorMessage: any;
   buttonDisable = false;
 
   isLoggedIn = false;
 
   constructor(private fb: FormBuilder, private uploadManagerService: UploadManagerService,
     private downloadManagerService: DownloadManagerService, private loginService: LoginService,
+    private translate: TranslateService,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -41,13 +51,19 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
     }
     this.errorSubscription = this.uploadManagerService.uploadError$.subscribe(error => {
       if (error) {
-        this.error = { statusCode: error.statusCode, message: error.message, codeTryCount: error.codeTryCount };
+        this.translate.stream(error.message).pipe(take(1)).subscribe(v => {
+          this.errorMessage = v;
+        })
+        this.error = { statusCode: error.statusCode, message: this.errorMessage, codeTryCount: error.codeTryCount };
       }
       this.buttonDisable = false;
     });
     this.errorDLSubscription = this.downloadManagerService.downloadError$.subscribe(error => {
       if (error) {
-        this.error = { statusCode: error.statusCode, message: error.message, codeTryCount: error.codeTryCount };
+        this.translate.stream(error.message).pipe(take(1)).subscribe(v => {
+          this.errorMessage = v;
+        })
+        this.error = { statusCode: error.statusCode, message: this.errorMessage, codeTryCount: error.codeTryCount };
       }
       this.buttonDisable = false;
     });
@@ -93,7 +109,7 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
   cancel() {
     const dialogRef = this.dialog.open(ConfirmAlertDialogComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().pipe(take(1)).subscribe(result => {
       if (result) {
         this.transferCancelled.emit(true);
       }

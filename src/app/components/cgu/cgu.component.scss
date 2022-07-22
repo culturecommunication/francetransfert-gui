@@ -1,7 +1,13 @@
+
+#bloc1, #bloc2
+{
+    display:inline;
+}
+
 .cgu-wrapper {
     width: 100%;
     background-color: var(--ft-white);
-    .cgu-card {        
+    .cgu-card {
         &-header {
         }
         &-content {
@@ -24,7 +30,7 @@
 }
 
 @media screen and (min-width: 812px) {
-    .cgu-wrapper {        
+    .cgu-wrapper {
         .cgu-card {
             height: 100%;
         }

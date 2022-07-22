@@ -1,3 +1,10 @@
+/*
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
+  */
+
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/internal/Subscription';
@@ -39,8 +46,16 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
     private uploadManagerService: UploadManagerService,
     private languageSelectionService: LanguageSelectionService,
     public translateService: TranslateService,
+    private uploadService: UploadService,
+    private _adapter: DateAdapter<any>
+
   ) {
+
     this.languageList = this.languageSelectionService.languageList;
+    this.uploadService.langueCourriels.subscribe(langueCourriels => {
+      this.language =  this.languageList.find(x => x.value == langueCourriels);
+    });
+    this._adapter.setLocale(this.translateService.currentLang);
   }
 
 
@@ -123,6 +138,11 @@ export class EnvelopeParametersFormComponent implements OnInit, OnDestroy {
   compareFunction(a: any, b: any) {
     return a.code == b.code;
   }
+
+  public selectLanguage(value){
+    this.uploadService.setLangueCourriels(value.value);
+  }
+
 
 }
 

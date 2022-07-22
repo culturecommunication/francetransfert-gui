@@ -8,15 +8,6 @@
     }
   }
 
-  .mat-column-destinataires {
-    display: flex;
-    flex-wrap: wrap;
-    align-self: center;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-  }
-
   .center-vertical {
     display: inline-block;
     vertical-align: middle;
@@ -32,6 +23,12 @@
     align-content: center;
     justify-content: center;
     color: var(--ft-error);
+  }
+
+  mat-cell > span.truncate-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   mat-cell > span.truncate-text {
@@ -69,6 +66,7 @@
     }
 
     .mat-column-objet {
+      flex-basis: 7.1rem;
       flex-grow: 2;
       align-self: center;
       align-items: center;
@@ -76,12 +74,16 @@
       justify-content: center;
     }
 
-    .mat-column-destinataires {
-      display: flex;
-      flex-wrap: wrap;
-      overflow: auto;
-      flex-grow: 3;
-      max-height: 15vh;
+    .mat-column-expediteur {
+      flex-basis: 2.1rem;
+      align-self: center;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
+
+    .mat-column-dateReception {
+      flex-basis: 2.1rem;
       align-self: center;
       align-items: center;
       align-content: center;
@@ -142,7 +144,6 @@
 
     .mat-column-token {
       flex-basis: 3rem;
-
     }
   }
 
@@ -159,7 +160,6 @@
       justify-content: center;
     }
 
-
     .mat-column-finValidite {
       flex-grow: 0;
       flex-basis: 7rem;
@@ -169,7 +169,6 @@
       justify-content: center;
     }
   }
-
 
   @media screen and (max-width: 640px) {
     .mat-table {

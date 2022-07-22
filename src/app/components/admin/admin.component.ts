@@ -1,3 +1,10 @@
+/*
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
+  */
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -60,6 +67,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     private location: Location,
     private loginService: LoginService,
     private responsiveService: ResponsiveService,
+    private adminService: AdminService
   ) {
   }
 
@@ -118,12 +126,14 @@ export class AdminComponent implements OnInit, OnDestroy {
       } else {
         this._router.navigateByUrl('/error');
       }
+
     });
     this.adminErrorsSubscription = this._adminService.adminError$.subscribe(err => {
       if (err === 401) {
         this.errorMessage = 'Existence_Pli';
       }
     });
+
   }
 
   onPickerClose() {
@@ -350,7 +360,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   toArray(downloadDates: object) {
     if (downloadDates && Object.keys(downloadDates).length > 0) {
 
-      return Object.keys(downloadDates).map(key =>  ({ value: downloadDates[key]})).sort((a, b) => {
+      return Object.keys(downloadDates).map(key => ({ value: downloadDates[key] })).sort((a, b) => {
         return <any>new Date(a.value) - <any>new Date(b.value);
       });
 
@@ -359,6 +369,18 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   get translate(): TranslateService {
     return this._translate;
+  }
+
+
+  DupliquerDestinataires() {
+    this.adminService.setDestinatairesList({
+      destinataires: this.fileInfos.recipientsMails.map(ed => {
+        return ed.recipientMail;
+      }),
+
+    });
+    this._router.navigate(['/upload']);
+
   }
 
 }
