@@ -18,7 +18,6 @@ import { DestinatairesEndMessageComponent } from '../destinataires-end-message/d
 })
 export class MailingListManagerComponent implements OnInit {
 
-  file: any;
   errorMessage;
 
   constructor(private dialogRef: MatDialogRef<MailingListManagerComponent>,
@@ -34,10 +33,10 @@ export class MailingListManagerComponent implements OnInit {
   }
 
   loadMailingListFromFile(e) {
-    this.file = e.target.files[0];
+    const file = e.target.files[0];
     if (e.target.files[0].type.startsWith("text/") || (e.target.files[0].type == "application/vnd.ms-excel" && (e.target.files[0].name.endsWith(".csv") || e.target.files[0].name.endsWith(".txt")))) {
       let fileReader = new FileReader();
-      fileReader.readAsText(this.file);
+      fileReader.readAsText(file);
       fileReader.onload = (e) => {
         this.parseMailingListFile(fileReader.result);
       }
