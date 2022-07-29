@@ -164,7 +164,11 @@ export class DownloadComponent implements OnInit, OnDestroy {
 
   onDownloadValidated(event) {
     this.password = event;
-    this._downloadService.validatePassword({ enclosureId: this.params['enclosure'], password: this.password, recipientId: this.params['recipient'] }).pipe(take(1))
+    let recipient;
+    if (!this.usingPublicLink) {
+      recipient = this.params['recipient'] ? this.params['recipient'] : this.loginService.tokenInfo?.getValue()?.senderMail;
+    }
+    this._downloadService.validatePassword({ enclosureId: this.params['enclosure'], password: this.password, recipientId: recipient }).pipe(take(1))
       .subscribe((response) => {
         if (response.valid) {
           this.downloadValidated = true;

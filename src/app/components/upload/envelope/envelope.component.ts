@@ -20,7 +20,6 @@ import { majChar, minChar, numChar, sizeControl, specialChar, noSpecial } from '
 export class EnvelopeComponent implements OnInit, OnDestroy {
 
   @Output() uploadStarted: EventEmitter<boolean> = new EventEmitter();
-  selectedTab: string = 'Courriel';
   selectedTabIndex: number = 0;
   canSend: boolean = false;
   mailFormValid: boolean = false;
@@ -65,7 +64,6 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   }
 
   onSelectedTabChange(event) {
-    this.selectedTab = event.tab.textLabel;
     this.selectedTabIndex = event.index;
     this.checkCanSend();
   }
@@ -73,13 +71,13 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
   onMailFormGroupChangeEvent(event) {
     this.mailFormValues = event.values;
     this.mailFormValues.to = event.destinataires;
-    this.mailFormValid = event.isValid && this.selectedTab === 'Courriel';
+    this.mailFormValid = event.isValid && this.selectedTabIndex === 0;
     this.checkCanSend();
   }
 
   onLinkFormGroupChangeEvent(event) {
     this.linkFormValues = event.values;
-    this.linkFormValid = event.isValid && this.selectedTab === 'Lien';
+    this.linkFormValid = event.isValid && this.selectedTabIndex === 1;
     this.checkCanSend();
   }
 
@@ -101,10 +99,10 @@ export class EnvelopeComponent implements OnInit, OnDestroy {
 
   checkCanSend() {
     this.fileManagerServiceSubscription = this.fileManagerService.hasFiles.subscribe(hasFiles => {
-      if (this.selectedTab === 'Courriel') {
+      if (this.selectedTabIndex === 0) {
         this.canSend = hasFiles && this.mailFormValid;
       } else {
-        if (this.selectedTab === 'Lien') {
+        if (this.selectedTabIndex === 1) {
           this.canSend = hasFiles && this.linkFormValid;
         }
       }
