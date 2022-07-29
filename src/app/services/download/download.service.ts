@@ -71,7 +71,7 @@ export class DownloadService {
     const body = {
       enclosureId: _body.enclosureId,
       password: _body.password,
-      recipientId: _body.recipientId
+      ..._body.recipientId ? { recipientId: _body.recipientId } : { recipientId: this.loginService.tokenInfo.getValue().senderMail },
     };
     return this._httpClient.post(
       `${environment.host}${environment.apis.download.validatePassword}`,
