@@ -22,7 +22,7 @@
     "@angular/router": "14.1.0",
     "@angular/service-worker": "14.1.0",
     "@flowjs/flow.js": "2.14.1",
-    "@flowjs/ngx-flow": "0.5.0",
+    "@flowjs/ngx-flow": "0.6.0",
     "@ngx-translate/core": "14.0.0",
     "@ngx-translate/http-loader": "7.0.0",
     "@types/flowjs": "2.13.8",
