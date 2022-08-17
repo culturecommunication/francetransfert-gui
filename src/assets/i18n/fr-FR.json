@@ -61,7 +61,7 @@
   "LienRéservé": "le lien est réservé aux agents de l'ETAT, merci d'utiliser la fonctionnalité Courriel",
   "QotaDépassé": "Le quota quotidien d'envoi de l'expéditeur est dépassé",
   "Message": "Message :",
-  "CGU": "J'accepte les <a class='link' rel='noopener noreferrer' href='cgu' target='_blank'> CGU</a> et je n'envoie pas de données à caractère personnel ou sensibles non chiffrées au préalable",
+  "CGU": "J'ai pris connaissance des <a class='link' rel='noopener noreferrer' href='cgu' target='_blank'>CGU</a> et je n'envoie pas de données sensibles, telles que définies à l'article 4.2, non chiffrées au préalable.",
 
   "TooltipExpéditeurLien": "l'expéditeur peut être un agent de l'administration française ou un particulier.",
   "Expéditeur": "Expéditeur",
@@ -307,7 +307,8 @@
   "Prêt_Partez": "Prêt ? Partez !",
   "Jours_Restants1": "Il vous reste ",
   "Jours_Restants2": " jours pour télécharger le transfert.",
-  "Acceptation_CGU": " J'accepte les <span class='link' (click)='routeToInNewWindow('/cgu')'>CGU</span>",
+  "Acceptation_CGU": " J'ai pris connaissance des   <a class='link' rel='noopener noreferrer' href='cgu' target='_blank'>CGU</a>.",
+
   "Télécharger": "Télécharger",
 
   "Ajouter_Ecran_Accueil": "Ajouter à l'écran d'accueil",

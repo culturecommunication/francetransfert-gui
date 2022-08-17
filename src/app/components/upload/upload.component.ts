@@ -251,6 +251,7 @@ export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async upload(): Promise<any> {
     let transfers: UploadState = await this.uploadManagerService.getRxValue(this.fileManagerService.transfers.getValue());
+    console.log("transfers:", transfers.transfers)
     this.uploadService
       .sendTree({
         transfers: transfers.transfers,
