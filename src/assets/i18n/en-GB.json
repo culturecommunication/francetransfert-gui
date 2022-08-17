@@ -135,7 +135,7 @@
   "LienRéservé": "Links are only available to officials. Please use the Email delivery option.",
   "QotaDépassé": "Daily package limit exceeded",
   "Message": "Message:",
-  "CGU": "I accept the <a class='link' rel='noopener noreferrer' href='cgu' target='_blank'>Terms and Conditions of Use</a> and my package does not contain any unencrypted personal or sensitive data.",
+  "CGU": "I have read the <a class='link' rel='noopener noreferrer' href='cgu' target='_blank'>Terms and Conditions of Use</a> and I will not send sensitive data, as defined in article 4.2, without first encrypting them.",
 
   "TooltipExpéditeurLien": "The sender may be a French official or an individual.",
   "Expéditeur": "Sender",
@@ -381,7 +381,7 @@
   "Prêt_Partez": "Ready? Go!",
   "Jours_Restants1": "You have ",
   "Jours_Restants2": " days left to download the package.",
-  "Acceptation_CGU": " I accept the <span class='link' (click)='routeToInNewWindow('/cgu')'>Terms and Conditions of Use</span>",
+  "Acceptation_CGU": " I have read the <a class='link' rel='noopener noreferrer' href='cgu' target='_blank'>Terms and Conditions of Use</a>.",
   "Télécharger": "Download",
 
   "Ajouter_Ecran_Accueil": "Add to Home screen",
