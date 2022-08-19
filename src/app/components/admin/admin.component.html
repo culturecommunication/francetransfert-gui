@@ -46,10 +46,10 @@
             'medium': '' : translate.currentLang}}</span>
           </mat-list-item>
 
-          <mat-list-item  *ngIf="!fileInfos?.expired" role="listitem" class="delete"><span>{{'Suppression_Pli_Admin' | translate}}</span>
-            <mat-icon  matTooltip="{{'Suppression_Pli_Admin' | translate}}" (click)="deleteFile()"
-              attr.aria-label="{{'Suppression_Pli_Admin' | translate}}">delete
-            </mat-icon>
+          <mat-list-item  *ngIf="!fileInfos?.expired" role="listitem" class="delete"><span>{{'Archiver_pli' | translate}}</span>
+            <mat-icon  matTooltip="{{'Archiver_pli' | translate}}" (click)="deleteFile()"
+            attr.aria-label="{{'Archiver_pli' | translate}}">archive
+          </mat-icon>
           </mat-list-item>
           <div *ngIf="fileInfos?.recipientsMails.length != 0 || fileInfos?.deletedRecipients.length != 0">
             <div class="admin-card-content-files">

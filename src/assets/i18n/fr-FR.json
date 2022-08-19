@@ -279,7 +279,10 @@
 
   "Etes_Vous_Sûr": "Etes-vous sûr ?",
   "Suppression_Pli": "Cette action supprimera définitivement votre pli et le rendra inaccessible.",
+  "Archivage_Pli": "Cette action archivera définitivement votre pli et le rendra inaccessible.",
   "Supprimer": "Supprimer",
+  "Archiver": "Archiver",
+  "Archiver_pli": "Archiver le pli",
   "Suppression_Destinataire": "Êtes vous sûr(e) de vouloir supprimer ce destinataire ?",
   "Lien_Téléchargement": "Son lien de téléchargement reçu par courriel ne permettra plus de télécharger le pli.",
 

@@ -171,13 +171,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           .pipe(take(1))
           .subscribe(response => {
             if (response) {
-              if (this.params['token'] == null) {
-                this.location.back();
-              }
-              else {
-                this._router.navigate(['/upload']);
-
-              }
+              this.location.back();
             }
           });
       }

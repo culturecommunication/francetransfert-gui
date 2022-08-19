@@ -1,12 +1,12 @@
 <div *ngIf="data == 'deletePli'">
 <h2 mat-dialog-title> {{'Etes_Vous_Sûr' | translate}} </h2>
 <mat-dialog-content class="mat-typography">
-  <h3> {{'Suppression_Pli' | translate}}</h3>
+  <h3> {{'Archivage_Pli' | translate}}</h3>
   <p>{{'Poursuivre' | translate}}</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button class="btn" mat-button mat-dialog-close> {{'Annuler' | translate}}</button>
-  <button class="btn" mat-button [mat-dialog-close]="true" cdkFocusInitial> {{'Supprimer' | translate}}</button>
+  <button class="btn" mat-button [mat-dialog-close]="true" cdkFocusInitial> {{'Archiver' | translate}}</button>
 </mat-dialog-actions>
 </div>
 <div *ngIf="data == 'deleteDest'">
