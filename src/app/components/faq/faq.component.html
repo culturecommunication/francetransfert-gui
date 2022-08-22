@@ -16,13 +16,15 @@
       </mat-form-field>
 
 
-      <mat-accordion *ngFor="let category of categories">
+      <mat-accordion *ngFor="let category of categories; index as i">
         <h2>{{ category.category}}</h2>
 
 
-        <mat-expansion-panel
-          *ngFor="let question of category.entities | FilterQuestionsPipe: queryString : searchableList">
-          <mat-expansion-panel-header>
+      <mat-expansion-panel
+          *ngFor="let question of category.entities | FilterQuestionsPipe: queryString : searchableList; index as j"
+          [expanded]="stateJ === j && stateI === i" (opened)="setState(i, j)">
+
+      <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>
                 {{ question.Question}}

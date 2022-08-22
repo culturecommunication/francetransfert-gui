@@ -63,6 +63,8 @@ export class FaqComponent implements OnInit, AfterViewInit {
   searchableList: string[];
   searchableList0: string[];
   public currentLang: string;
+  stateI: any;
+  stateJ: any;
 
 
   constructor(private titleService: Title,
@@ -154,6 +156,10 @@ export class FaqComponent implements OnInit, AfterViewInit {
     }
   }
 
+  setState(i: number, j: number) {
+    this.stateI = i;
+    this.stateJ = j;
+  }
 
 
 }
