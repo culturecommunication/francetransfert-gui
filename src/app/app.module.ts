@@ -38,7 +38,7 @@ import { DragDropFileUploadDirective } from './shared/directives/drag-drop-file-
 import { FlowInjectionToken, NgxFlowModule } from '@flowjs/ngx-flow';
 import Flow from '@flowjs/flow.js';
 import { FileItemComponent } from './components/list-elements/file-item/file-item.component';
-import { FileMultipleSizePipe, FileNamePipe, FileSizePipe, FileTypePipe, TransfersMappingPipe } from './shared/pipes';
+import { FileMultipleSizePipe, FileNamePipe, FileSizePipe, FileTypePipe, TransfersMappingPipe, CustomDatePipe } from './shared/pipes';
 import { LoaderComponent } from './components/loader/loader.component';
 import { EnvelopeParametersFormComponent } from './components/upload/envelope/envelope-parameters-form/envelope-parameters-form.component';
 import { CheckValidationCodeComponent } from './components/check-validation-code/check-validation-code.component';
@@ -127,6 +127,7 @@ const initializer = (pwaService: PwaService) => () =>
     FileTypePipe,
     FileUnitPipe,
     TransfersMappingPipe,
+    CustomDatePipe,
     LoaderComponent,
     EnvelopeParametersFormComponent,
     CheckValidationCodeComponent,

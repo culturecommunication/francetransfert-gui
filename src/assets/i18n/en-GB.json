@@ -221,9 +221,9 @@
   "Licence": "Unless otherwise stated, all texts on this site are licensed under Etalab-2.0 ",
   "Version": "Version",
 
-  "Terminé": "Completed ",
+  "Terminé": "Completed!",
   "MessageAttenteLien": "Give us a minute. Your package has reached our servers. We are now analysing it and you will receive the download link by email soon. It will be available until",
-  "EnvoiPli": "Send a new package ",
+  "EnvoiPli": "Send a new package?",
   "MessageAttente": "Give us a minute. Your package has reached our servers. We are now analysing it and you will receive the confirmation email soon. It will be available until ",
   "Oups": "Oops",
   "ErreurTransfertPli": "Error transferring your package. Please try again.<br/>If the problem persists, please report it via the contact form or questionnaire.",
@@ -235,11 +235,11 @@
   "Existence_Pli": "The requested package does not exist.",
   "Pli_Corrompu": "The package is corrupted. Please ask the sender to send it again.",
   "Erreur_Récupération_Pli": "Inexistent or deleted package. Please contact the sender.",
-  "Accès_Pli_Sécurisé": "Access to secure package ",
+  "Accès_Pli_Sécurisé": "Access to secure package!",
 
   "MessageSuccès": "<p class='fr-alert__title' style='font-weight: bolder;font-size: 14px'>Questionnaire submitted.</p><p>Thank you for your opinion.</p>",
 
-  "BienPassé": "Everything went well",
+  "BienPassé": "Did everything go well?",
   "VotreAvis": "What do you think of France Transfert?",
   "Pas bien": "Poor",
   "Moyen": "Acceptable",
@@ -256,13 +256,16 @@
   "CodeVérification": "Verification code",
   "Saisie_Code_Vérification": "Please enter your verification code.",
   "Rester_Connecté": "Stay connected",
-  "AccèsSécurisé": "Access to secure package",
+  "AccèsSécurisé": "Access to secure package!",
   "Mot_Passe_Téléchargement": "A password is required to download this package.",
   "Mot_Passe_Invalide": "Invalid password.",
   "Mot_de_Passe": "Password",
   "Saisie_Mot_passe": "Please enter the password.",
   "Etes_vous_sûr": "Are you sure ",
   "AnnulationPli": "This action will cancel your package.",
+  "Archivage_Pli": "This action will archive your package and make any download impossible.",
+  "Archiver": "Archive",
+  "Archiver_pli": "Archive package",
   "Poursuivre": "Continue?",
   "Continuer": "Continue",
   "CGU_Titre": "Terms and Conditions of Use",
@@ -618,6 +621,14 @@
           "Question_Liste_Ordered": "",
           "Question_Texte2": "",
           "QuestionImage": ""
+        },
+        {
+          "Question": "What happens to my package after the validity period expires?",
+          "Question_Texte1": "<span>Once the validity period has expired (by default, 30 days after sending):</span>",
+          "Question_Liste": "<li> <span>If the package has not been downloaded by at least one addressee, the sender receives an email indicating that the addressees have not downloaded the package </span></li> <li> <span>The package files are automatically deleted and the download links sent to addressees (or the public download link) will no longer work</span></li> <li> <span>The package is “archived”:<ul><li>It remains accessible via “My Account” / “My packages” (login required) and enables the sender to retain access to package information (addressee list, number of downloads, names of package files);</li></ul> <ul><li>It will be permanently deleted from France Transfert 12 months after creation (date of archive expiry)</li></ul></span></li>",
+          "Question_Liste_Ordered": "",
+          "Question_Texte2": "<span>However, currently, in the event of manual deletion of the package by the sender (prior to package expiry), the package is completely deleted from France Transfert and not “archived”.</span>",
+          "QuestionImage": ""
         }
       ]
     },
@@ -705,6 +716,14 @@
           "Question_Texte1": "<span>For officials, there is a “France Transfert” room in Tchap to keep track of developments and communicate with other members. You can sign up to it. </span><br> <span>You can also write to France Transfert’s support team via the “Contact” form (at the bottom of the page or in the menu on the mobile version). </span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
+          "Question_Texte2": "",
+          "QuestionImage": ""
+        },
+        {
+          "Question": "What should I do if an “Access denied – UBIKA Cloud Protector” page appears?",
+          "Question_Texte1": "<span>The Ministry of Culture has set up a Web Application Firewall (WAF) to protect France Transfert from certain attacks over the Internet.</span><span>This security system should be invisible for users of France Transfert in normal use. However, the WAF may wrongly detect a threat during legitimate use, in which case an “Access denied – UBIKA Cloud Protector” page should appear.</span><span>In this case, you should:</span>",
+          "Question_Liste": "",
+          "Question_Liste_Ordered": "<li>Copy the information displayed under “Additional information”.</li><li>Click on the blue “Request access” button. This will send a notification to the France</li><li>Return to France Transfert and use the “Contact us” page to send a message to the support team, providing the “Additional information” copied earlier. This will enable the France Transfert technical team to contact you via the email address given in the contact form to identify why your access was blocked and take extra WAF configuration steps to avoid repetition of the problem.</li>",
           "Question_Texte2": "",
           "QuestionImage": ""
         }

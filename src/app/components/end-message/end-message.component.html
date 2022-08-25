@@ -2,11 +2,11 @@
   <mat-card-content class="end-message-card-content">
       <img class="end-message-card-content-icon" alt="Logo France transfert" src="assets/logos/monogramme_ft.png" />
       <div *ngIf="!uploadFailed" class="end-message-card-content-text">
-          <span class="end-message-card-content-text-title"> {{'Terminé' | translate}}  !</span>
-          <span *ngIf="publicLink" class="end-message-card-content-text-sub"> {{'MessageAttenteLien' | translate}}  {{ availabilityDate | date:'mediumDate': '' : translate.currentLang}}.
-                {{'EnvoiPli' | translate}} ?</span>
-        <span *ngIf="!publicLink" class="end-message-card-content-text-sub"> {{'MessageAttente' | translate}}  {{ availabilityDate | date:'mediumDate': '' : translate.currentLang }}.
-              {{'EnvoiPli' | translate}} ?</span>
+          <span class="end-message-card-content-text-title"> {{'Terminé' | translate}}</span>
+          <span *ngIf="publicLink" class="end-message-card-content-text-sub"> {{'MessageAttenteLien' | translate}}  {{ availabilityDate | customDate : 'd MMMM y'}}.
+                {{'EnvoiPli' | translate}}</span>
+        <span *ngIf="!publicLink" class="end-message-card-content-text-sub"> {{'MessageAttente' | translate}}  {{ availabilityDate | customDate : 'd MMMM y'}}.
+              {{'EnvoiPli' | translate}}</span>
       </div>
       <div role="alert" *ngIf="uploadFailed" class="end-message-card-content-text mat-error">
           <span class="mat-error end-message-card-content-text-title"> {{'Oups' | translate}} !</span>

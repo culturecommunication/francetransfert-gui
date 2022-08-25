@@ -147,9 +147,9 @@
   "Licence": "Sauf mention contraire, tous les textes de ce site sont sous licence etalab-2.0 ",
   "Version": "Version",
 
-  "Terminé": "Terminé ",
+  "Terminé": "Terminé !",
   "MessageAttenteLien": "Encore un peu de patience, votre pli est bien arrivé sur nos serveurs, le temps de l'analyser et vous recevrez ensuite le lien de téléchargement par courriel. Il sera disponible jusqu’au",
-  "EnvoiPli": "Envoyer un nouveau pli ",
+  "EnvoiPli": "Envoyer un nouveau pli ?",
   "MessageAttente": "Encore un peu de patience, votre pli est bien arrivé sur nos serveurs, le temps de l'analyser et vous recevrez ensuite un courriel de confirmation. Il sera disponible jusqu’au ",
   "Oups": "Oups",
   "ErreurTransfertPli": "Une erreur est survenue pendant le transfert de votre pli. Merci de réessayer.<br />Si le problème persiste n'hésitez pas à le remonter via le formulaire de contact ou de satisfaction.",
@@ -161,11 +161,11 @@
   "Existence_Pli": "Le pli demandé n'existe pas.",
   "Pli_Corrompu": "Le pli a été corrompu, merci de voir avec l'expéditeur pour vous le renvoyer.",
   "Erreur_Récupération_Pli": "Pli inexistant ou supprimé, merci de voir avec l'expéditeur de votre pli.",
-  "Accès_Pli_Sécurisé": "Accès au pli sécurisé ",
+  "Accès_Pli_Sécurisé": "Accès au pli sécurisé !",
 
   "MessageSuccès": "<p class='fr-alert__title' style='font-weight: bolder;font-size: 14px'>Succès de l'envoi</p><p>Merci pour votre contribution, votre avis a été pris en compte.</p>",
 
-  "BienPassé": "Tout s’est bien passé",
+  "BienPassé": "Tout s’est bien passé ?",
   "VotreAvis": "Donnez votre avis sur France transfert",
   "Pas bien": "Pas bien",
   "Moyen": "Moyen",
@@ -279,7 +279,7 @@
 
   "Etes_Vous_Sûr": "Etes-vous sûr ?",
   "Suppression_Pli": "Cette action supprimera définitivement votre pli et le rendra inaccessible.",
-  "Archivage_Pli": "Cette action archivera définitivement votre pli et le rendra inaccessible.",
+  "Archivage_Pli": "Cette action archivera votre pli et rendra impossible tout téléchargement.",
   "Supprimer": "Supprimer",
   "Archiver": "Archiver",
   "Archiver_pli": "Archiver le pli",
