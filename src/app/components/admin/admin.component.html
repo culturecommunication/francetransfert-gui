@@ -42,7 +42,7 @@
             </mat-icon>
           </mat-list-item>
 
-          <mat-list-item  *ngIf="fileInfos?.expired" role="listitem"><span>{{'Date_Archive' | translate}} {{fileInfos.archiveUntilDate | date:
+          <mat-list-item  *ngIf="fileInfos?.expired && fileInfos.archiveUntilDate != '2000-01-31'" role="listitem"><span>{{'Date_Archive' | translate}} {{fileInfos.archiveUntilDate | date:
             'medium': '' : translate.currentLang}}</span>
           </mat-list-item>
 
