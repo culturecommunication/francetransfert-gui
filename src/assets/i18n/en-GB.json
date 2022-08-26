@@ -498,7 +498,7 @@
 
   "Dupliquer-destinataires": "Duplicate recipients",
   "CGU-Version": "3.5.0",
-  "Faq-Version": "3.5.0",
+  "Faq-Version": "3.6.0",
   "Accessibilite-Version": "3.4.0",
   "Mentions-légales-Version": "3.6.0",
   "Politique-protection-donnees-Version": "3.4.0",
@@ -627,7 +627,7 @@
           "Question_Texte1": "<span>Once the validity period has expired (by default, 30 days after sending):</span>",
           "Question_Liste": "<li> <span>If the package has not been downloaded by at least one addressee, the sender receives an email indicating that the addressees have not downloaded the package </span></li> <li> <span>The package files are automatically deleted and the download links sent to addressees (or the public download link) will no longer work</span></li> <li> <span>The package is “archived”:<ul><li>It remains accessible via “My Account” / “My packages” (login required) and enables the sender to retain access to package information (addressee list, number of downloads, names of package files);</li></ul> <ul><li>It will be permanently deleted from France Transfert 12 months after creation (date of archive expiry)</li></ul></span></li>",
           "Question_Liste_Ordered": "",
-          "Question_Texte2": "<span>However, currently, in the event of manual deletion of the package by the sender (prior to package expiry), the package is completely deleted from France Transfert and not “archived”.</span>",
+          "Question_Texte2": "",
           "QuestionImage": ""
         }
       ]
@@ -723,7 +723,7 @@
           "Question": "What should I do if an “Access denied – UBIKA Cloud Protector” page appears?",
           "Question_Texte1": "<span>The Ministry of Culture has set up a Web Application Firewall (WAF) to protect France Transfert from certain attacks over the Internet.</span><span>This security system should be invisible for users of France Transfert in normal use. However, the WAF may wrongly detect a threat during legitimate use, in which case an “Access denied – UBIKA Cloud Protector” page should appear.</span><span>In this case, you should:</span>",
           "Question_Liste": "",
-          "Question_Liste_Ordered": "<li>Copy the information displayed under “Additional information”.</li><li>Click on the blue “Request access” button. This will send a notification to the France</li><li>Return to France Transfert and use the “Contact us” page to send a message to the support team, providing the “Additional information” copied earlier. This will enable the France Transfert technical team to contact you via the email address given in the contact form to identify why your access was blocked and take extra WAF configuration steps to avoid repetition of the problem.</li>",
+          "Question_Liste_Ordered": "<li>Copy the information displayed under “Additional information”.</li><li>Click on the blue “Request access” button. This will send a notification to the France Transfert technical team with technical information on the blockage.</li><li>Return to France Transfert and use the “Contact us” page to send a message to the support team, providing the “Additional information” copied earlier. This will enable the France Transfert technical team to contact you via the email address given in the contact form to identify why your access was blocked and take extra WAF configuration steps to avoid repetition of the problem.</li>",
           "Question_Texte2": "",
           "QuestionImage": ""
         }
