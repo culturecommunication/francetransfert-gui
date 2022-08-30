@@ -8,6 +8,11 @@
         </div>
 
     </mat-card-content>
+
+    <div class="download-elements-card-content-error" *ngIf="error && error.statusCode === 401">
+        <span role="alert">{{'Mot_Passe_Invalide' | translate}}</span><br />
+        <span *ngIf="!error.codeTryCount && error.message" role="alert">{{errorMessage}}</span>
+    </div>
     <div class="download-elements-div-CGU">
         <mat-checkbox (click)="cguChecked()" formControlName="cguCheck" class="checkbox">
             <div [innerHTML]="'Acceptation_CGU' | translate">

@@ -7,9 +7,11 @@
 
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from "@angular/router";
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { FTErrorModel } from 'src/app/models';
 import { DownloadManagerService } from 'src/app/services';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'ft-download-elements',
@@ -26,8 +28,10 @@ export class DownloadElementsComponent implements OnInit, OnDestroy {
 
   error: FTErrorModel;
   buttonDisable = false;
+  errorMessage: string = "";
 
-  constructor(private router: Router, private downloadManagerService: DownloadManagerService) {
+  constructor(private router: Router, private downloadManagerService: DownloadManagerService,
+    private translate: TranslateService,) {
     this.checkCGU = false;
   }
 
@@ -35,7 +39,12 @@ export class DownloadElementsComponent implements OnInit, OnDestroy {
     this.remainingDays = this.calculateDiff(this.availabilityDate);
     this.errorDLSubscription = this.downloadManagerService.downloadError$.subscribe(error => {
       if (error) {
-        this.error = { statusCode: error.statusCode, message: error.message, codeTryCount: error.codeTryCount };
+        this.translate.stream(error.message).pipe(take(1)).subscribe(v => {
+          this.errorMessage = v;
+        });
+        this.error = { statusCode: error.statusCode, message: this.errorMessage, codeTryCount: error.codeTryCount };
+      } else {
+        this.errorMessage = "";
       }
     });
   }
