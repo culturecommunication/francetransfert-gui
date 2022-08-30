@@ -59,7 +59,7 @@
             </div>
             <div class="check-validation-code-card-content-error" *ngIf="error && error.statusCode === 401">
                 <span role="alert">{{'Mot_Passe_Invalide' | translate}}</span><br />
-                <span *ngIf="error.codeTryCount > 0" role="alert">{{'NombreEchecs' | translate}} {{error.codeTryCount}}</span>
+                <span *ngIf="error.codeTryCount > 0 && !publicLink" role="alert">{{'NombreEchecs' | translate}} {{error.codeTryCount}}</span>
                 <span *ngIf="!error.codeTryCount && error.message" role="alert">{{errorMessage}}</span>
             </div>
             <div class="check-validation-code-card-content-error" *ngIf="error && error.statusCode === 400">
