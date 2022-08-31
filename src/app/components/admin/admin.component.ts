@@ -82,51 +82,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.titleService.setTitle('France transfert - Administration d\'un pli');
     this._activatedRoute.queryParams.pipe(takeUntil(this.onDestroy$)).subscribe((params: Array<{ string: string }>) => {
       this.params = params;
-
-      if (this.params['enclosure'] && this.params['token']) {
-        this._adminService
-          .getFileInfos(params)
-          .pipe(take(1))
-          .subscribe(fileInfos => {
-            this.fileInfos = fileInfos;
-            this.fileInfos.rootFiles.map(file => {
-              this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
-            });
-            this.fileInfos.rootDirs.map(file => {
-              this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
-            });
-            this.validUntilDate = new FormControl(new Date(this.fileInfos.validUntilDate));
-            let temp = new Date(this.fileInfos.timestamp);
-            this.selectedDate = temp;
-            //let temp = this.selectedDate;
-            this.maxDate.setDate(temp.getDate() + 90);
-          });
-      } else if (this.loginService.isLoggedIn() && this.params['token'] == null && this.params['enclosure']) {
-        let enclosureId = this.params['enclosure'];
-        this._adminService
-          .getFileInfosConnect({
-            senderMail: this.loginService.tokenInfo.getValue().senderMail,
-            senderToken: this.loginService.tokenInfo.getValue().senderToken,
-          }, enclosureId)
-          .pipe(take(1))
-          .subscribe(fileInfos => {
-            this.fileInfos = fileInfos;
-            this.fileInfos.rootFiles.map(file => {
-              this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
-            });
-            this.fileInfos.rootDirs.map(file => {
-              this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
-            });
-            this.validUntilDate = new FormControl(new Date(this.fileInfos.validUntilDate));
-            let temp = new Date(this.fileInfos.timestamp);
-            this.selectedDate = temp;
-            //let temp = this.selectedDate;
-            this.maxDate.setDate(temp.getDate() + 90);
-          });
-      } else {
-        this._router.navigateByUrl('/error');
-      }
-
+      this.initData();
     });
     this.adminErrorsSubscription = this._adminService.adminError$.subscribe(err => {
       if (err === 401) {
@@ -150,7 +106,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(response => {
         if (response) {
-          this.ngOnInit();
+          this.initData();
         }
       });
   }
@@ -171,7 +127,11 @@ export class AdminComponent implements OnInit, OnDestroy {
           .pipe(take(1))
           .subscribe(response => {
             if (response) {
-              this.location.back();
+              if (this.params['token'] == null) {
+                this.location.back();
+              } else {
+                this.initData();
+              }
             }
           });
       }
@@ -377,4 +337,52 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   }
 
+  initData() {
+    if (this.params['enclosure'] && this.params['token']) {
+      this._adminService
+        .getFileInfos(this.params)
+        .pipe(take(1))
+        .subscribe(fileInfos => {
+          this.fileInfos = fileInfos;
+          this.fileInfos.rootFiles.map(file => {
+            this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
+          });
+          this.fileInfos.rootDirs.map(file => {
+            this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
+          });
+          this.validUntilDate = new FormControl(new Date(this.fileInfos.validUntilDate));
+          let temp = new Date(this.fileInfos.timestamp);
+          this.selectedDate = temp;
+          //let temp = this.selectedDate;
+          this.maxDate.setDate(temp.getDate() + 90);
+        });
+    } else if (this.loginService.isLoggedIn() && this.params['token'] == null && this.params['enclosure']) {
+      let enclosureId = this.params['enclosure'];
+      this._adminService
+        .getFileInfosConnect({
+          senderMail: this.loginService.tokenInfo.getValue().senderMail,
+          senderToken: this.loginService.tokenInfo.getValue().senderToken,
+        }, enclosureId)
+        .pipe(take(1))
+        .subscribe(fileInfos => {
+          this.fileInfos = fileInfos;
+          this.fileInfos.rootFiles.map(file => {
+            this.transfers.push({ ...file, folder: false } as FTTransferModel<Transfer>);
+          });
+          this.fileInfos.rootDirs.map(file => {
+            this.transfers.push({ ...file, size: file.totalSize, folder: true } as FTTransferModel<Transfer>);
+          });
+          this.validUntilDate = new FormControl(new Date(this.fileInfos.validUntilDate));
+          let temp = new Date(this.fileInfos.timestamp);
+          this.selectedDate = temp;
+          //let temp = this.selectedDate;
+          this.maxDate.setDate(temp.getDate() + 90);
+        });
+    } else {
+      this._router.navigateByUrl('/error');
+    }
+  }
+
 }
+
+

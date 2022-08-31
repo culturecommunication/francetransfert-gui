@@ -172,8 +172,12 @@ export class DownloadComponent implements OnInit, OnDestroy {
       .subscribe((response) => {
         if (response.valid) {
           this.downloadValidated = true;
+          this.downloadManagerService.downloadError$.next(null);
         }
-      });
+      },
+        (error) => {
+          this.downloadManagerService.downloadError$.next(error);
+        });
   }
 
   ngOnDestroy() {
