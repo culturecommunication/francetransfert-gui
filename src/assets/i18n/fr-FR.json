@@ -423,7 +423,7 @@
   "Dupliquer-destinataires": "Dupliquer les destinataires",
 
   "CGU-Version": "3.5.0",
-  "Faq-Version": "3.6.0",
+  "Faq-Version": "3.7.0",
   "Accessibilite-Version": "3.4.0",
   "Mentions-légales-Version": "3.6.0",
   "Politique-protection-donnees-Version": "3.4.0",
@@ -638,7 +638,7 @@
         },
         {
           "Question": "Où puis-je trouver d’autres informations sur France transfert ?",
-          "Question_Texte1": "<span>Pour les agents de l’Etat, il y a un salon « France transfert » dans TCHAP qui vous permettra de  suivre les évolutions ou d’échanger avec les autres membres. Vous pouvez vous y abonner. </span><br> <span>Vous pouvez également utiliser le formulaire de contact « Nous contacter » (en bas de page ou dans le menu de la version mobile).</span>",
+          "Question_Texte1": "<span>Pour les agents de l’Etat, il y a un salon « France transfert » dans TCHAP qui vous permettra de  suivre les évolutions ou d’échanger avec les autres membres. Vous pouvez vous y abonner. </span><span>Vous pouvez également utiliser le formulaire de contact « Nous contacter » (en bas de page ou dans le menu de la version mobile).</span><span>Enfin, si vous avez besoin d’aide supplémentaire dans la prise en main de France transfert, une brochure pas-à-pas est disponible ici : <a class='link' rel='noopener noreferrer' href='https://osmose.numerique.gouv.fr/front/publicLink/publicDownload.jsp?id=9bb69b78-cee3-4951-b70d-df031570f294b002893f-de07-400f-bc75-4d4efee4a8a9' target='_blank'>Votre pas-à-pas France transfert</a></span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
           "Question_Texte2": "",
