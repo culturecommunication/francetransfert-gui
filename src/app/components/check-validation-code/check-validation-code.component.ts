@@ -25,6 +25,8 @@ export class CheckValidationCodeComponent implements OnInit, OnDestroy {
 
   @Input() component: 'upload' | 'download';
   @Input() email: string;
+  @Input() publicLink: boolean;
+
   verificationCodeForm: FormGroup;
   @Output() transferCancelled: EventEmitter<boolean> = new EventEmitter();
   @Output() transferValidated: EventEmitter<string> = new EventEmitter();

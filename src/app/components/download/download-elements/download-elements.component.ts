@@ -7,9 +7,12 @@
 
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from "@angular/router";
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { FTErrorModel } from 'src/app/models';
 import { DownloadManagerService } from 'src/app/services';
+import { take } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ft-download-elements',
@@ -23,19 +26,35 @@ export class DownloadElementsComponent implements OnInit, OnDestroy {
   remainingDays: number;
   checkCGU: boolean = false;
   errorDLSubscription: Subscription = new Subscription();
+  checkSub: Subscription = new Subscription();
+  cguForm: FormGroup;
+
 
   error: FTErrorModel;
   buttonDisable = false;
+  errorMessage: string = "";
 
-  constructor(private router: Router, private downloadManagerService: DownloadManagerService) {
+  constructor(private fb: FormBuilder, private router: Router, private downloadManagerService: DownloadManagerService,
+    private translate: TranslateService,) {
     this.checkCGU = false;
+    this.cguForm = this.fb.group({
+      cguCheck: [false, [Validators.requiredTrue]]
+    });
   }
 
   ngOnInit(): void {
     this.remainingDays = this.calculateDiff(this.availabilityDate);
+    this.checkSub = this.cguForm.valueChanges.subscribe(cguValue => {
+      this.checkCGU = cguValue.cguCheck;
+    });
     this.errorDLSubscription = this.downloadManagerService.downloadError$.subscribe(error => {
       if (error) {
-        this.error = { statusCode: error.statusCode, message: error.message, codeTryCount: error.codeTryCount };
+        this.translate.stream(error.message).pipe(take(1)).subscribe(v => {
+          this.errorMessage = v;
+        });
+        this.error = { statusCode: error.statusCode, message: this.errorMessage, codeTryCount: error.codeTryCount };
+      } else {
+        this.errorMessage = "";
       }
     });
   }
@@ -68,6 +87,7 @@ export class DownloadElementsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.checkSub.unsubscribe();
     this.errorDLSubscription.unsubscribe();
   }
 }

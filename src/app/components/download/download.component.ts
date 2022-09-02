@@ -1,8 +1,8 @@
 /*
-  * Copyright (c) Ministère de la Culture (2022) 
-  * 
-  * SPDX-License-Identifier: MIT 
-  * License-Filename: LICENSE.txt 
+  * Copyright (c) Ministère de la Culture (2022)
+  *
+  * SPDX-License-Identifier: MIT
+  * License-Filename: LICENSE.txt
   */
 
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
@@ -172,8 +172,12 @@ export class DownloadComponent implements OnInit, OnDestroy {
       .subscribe((response) => {
         if (response.valid) {
           this.downloadValidated = true;
+          this.downloadManagerService.downloadError$.next(null);
         }
-      });
+      },
+        (error) => {
+          this.downloadManagerService.downloadError$.next(error);
+        });
   }
 
   ngOnDestroy() {

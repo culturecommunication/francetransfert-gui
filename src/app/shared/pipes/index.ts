@@ -11,3 +11,4 @@ export { FileSizePipe } from "./file-size.pipe";
 export { FileTypePipe } from "./file-type.pipe";
 export { FileUnitPipe } from "./file-unit.pipe";
 export { TransfersMappingPipe } from "./transfer-mapping.pipe";
+export { CustomDatePipe } from "./custom.datepipe";
