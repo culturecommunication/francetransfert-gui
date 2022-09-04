@@ -61,7 +61,7 @@
   "LienRéservé": "le lien est réservé aux agents de l'ETAT, merci d'utiliser la fonctionnalité Courriel",
   "QotaDépassé": "Le quota quotidien d'envoi de l'expéditeur est dépassé",
   "Message": "Message :",
-  "CGU": "J'accepte les <a class='link' rel='noopener noreferrer' href='cgu' target='_blank'> CGU</a> et je n'envoie pas de données à caractère personnel ou sensibles non chiffrées au préalable",
+  "CGU": "J'ai pris connaissance des <a class='link' rel='noopener noreferrer' href='cgu' target='_blank'>CGU</a> et je n'envoie pas de données sensibles, telles que définies à l'article 4.2, non chiffrées au préalable.",
 
   "TooltipExpéditeurLien": "l'expéditeur peut être un agent de l'administration française ou un particulier.",
   "Expéditeur": "Expéditeur",
@@ -147,9 +147,9 @@
   "Licence": "Sauf mention contraire, tous les textes de ce site sont sous licence etalab-2.0 ",
   "Version": "Version",
 
-  "Terminé": "Terminé ",
+  "Terminé": "Terminé !",
   "MessageAttenteLien": "Encore un peu de patience, votre pli est bien arrivé sur nos serveurs, le temps de l'analyser et vous recevrez ensuite le lien de téléchargement par courriel. Il sera disponible jusqu’au",
-  "EnvoiPli": "Envoyer un nouveau pli ",
+  "EnvoiPli": "Envoyer un nouveau pli ?",
   "MessageAttente": "Encore un peu de patience, votre pli est bien arrivé sur nos serveurs, le temps de l'analyser et vous recevrez ensuite un courriel de confirmation. Il sera disponible jusqu’au ",
   "Oups": "Oups",
   "ErreurTransfertPli": "Une erreur est survenue pendant le transfert de votre pli. Merci de réessayer.<br />Si le problème persiste n'hésitez pas à le remonter via le formulaire de contact ou de satisfaction.",
@@ -161,11 +161,11 @@
   "Existence_Pli": "Le pli demandé n'existe pas.",
   "Pli_Corrompu": "Le pli a été corrompu, merci de voir avec l'expéditeur pour vous le renvoyer.",
   "Erreur_Récupération_Pli": "Pli inexistant ou supprimé, merci de voir avec l'expéditeur de votre pli.",
-  "Accès_Pli_Sécurisé": "Accès au pli sécurisé ",
+  "Accès_Pli_Sécurisé": "Accès au pli sécurisé !",
 
   "MessageSuccès": "<p class='fr-alert__title' style='font-weight: bolder;font-size: 14px'>Succès de l'envoi</p><p>Merci pour votre contribution, votre avis a été pris en compte.</p>",
 
-  "BienPassé": "Tout s’est bien passé",
+  "BienPassé": "Tout s’est bien passé ?",
   "VotreAvis": "Donnez votre avis sur France transfert",
   "Pas bien": "Pas bien",
   "Moyen": "Moyen",
@@ -279,7 +279,10 @@
 
   "Etes_Vous_Sûr": "Etes-vous sûr ?",
   "Suppression_Pli": "Cette action supprimera définitivement votre pli et le rendra inaccessible.",
+  "Archivage_Pli": "Cette action archivera votre pli et rendra impossible tout téléchargement.",
   "Supprimer": "Supprimer",
+  "Archiver": "Archiver",
+  "Archiver_pli": "Archiver le pli",
   "Suppression_Destinataire": "Êtes vous sûr(e) de vouloir supprimer ce destinataire ?",
   "Lien_Téléchargement": "Son lien de téléchargement reçu par courriel ne permettra plus de télécharger le pli.",
 
@@ -307,7 +310,8 @@
   "Prêt_Partez": "Prêt ? Partez !",
   "Jours_Restants1": "Il vous reste ",
   "Jours_Restants2": " jours pour télécharger le transfert.",
-  "Acceptation_CGU": " J'accepte les <span class='link' (click)='routeToInNewWindow('/cgu')'>CGU</span>",
+  "Acceptation_CGU": " J'ai pris connaissance des   <a class='link' rel='noopener noreferrer' href='cgu' target='_blank'>CGU</a>.",
+
   "Télécharger": "Télécharger",
 
   "Ajouter_Ecran_Accueil": "Ajouter à l'écran d'accueil",
@@ -419,7 +423,7 @@
   "Dupliquer-destinataires": "Dupliquer les destinataires",
 
   "CGU-Version": "3.5.0",
-  "Faq-Version": "3.6.0",
+  "Faq-Version": "3.7.0",
   "Accessibilite-Version": "3.4.0",
   "Mentions-légales-Version": "3.6.0",
   "Politique-protection-donnees-Version": "3.4.0",
@@ -548,7 +552,7 @@
           "Question_Texte1": "<span>Une fois la date de validité du pli passée (par défaut 30 jours après l’envoi du pli) :</span>",
           "Question_Liste": "<li> <span>si le pli n'a pas été téléchargé par au moins un destinataire, l’expéditeur reçoit un courriel lui indiquant les destinataires qui n’ont pas téléchargé le pli </span></li> <li> <span>les fichiers du pli sont automatiquement supprimés et les liens de téléchargement des destinataires (ou le lien de téléchargement public) ne sont donc plus opérationnels </span></li> <li> <span>le pli est dit « archivé » : <ul><li> il reste accessible depuis « Mon compte / Mes plis » (nécessite de se connecter) et permet à l’expéditeur de continuer d’avoir accès aux informations du pli (liste des destinataires, nombre de téléchargements, noms des fichiers contenus dans le pli) ;  </li></ul> <ul><li>il sera définitivement supprimé de France transfert 12 mois après sa création (se référer à la date de fin d’archivage pour rappel)</li></ul></span></li>",
           "Question_Liste_Ordered": "",
-          "Question_Texte2": "<span>Toutefois, pour le moment, en cas de suppression manuelle du pli par l’expéditeur (donc avant sa fin de validité), le pli est complètement supprimé de France transfert et n’est donc pas « archivé ».</span>",
+          "Question_Texte2": "",
           "QuestionImage": ""
         }
       ]
@@ -634,7 +638,7 @@
         },
         {
           "Question": "Où puis-je trouver d’autres informations sur France transfert ?",
-          "Question_Texte1": "<span>Pour les agents de l’Etat, il y a un salon « France transfert » dans TCHAP qui vous permettra de  suivre les évolutions ou d’échanger avec les autres membres. Vous pouvez vous y abonner. </span><br> <span>Vous pouvez également utiliser le formulaire de contact « Nous contacter » (en bas de page ou dans le menu de la version mobile).</span>",
+          "Question_Texte1": "<span>Pour les agents de l’Etat, il y a un salon « France transfert » dans TCHAP qui vous permettra de  suivre les évolutions ou d’échanger avec les autres membres. Vous pouvez vous y abonner. </span><span>Vous pouvez également utiliser le formulaire de contact « Nous contacter » (en bas de page ou dans le menu de la version mobile).</span><span>Enfin, si vous avez besoin d’aide supplémentaire dans la prise en main de France transfert, une brochure pas-à-pas est disponible ici : <a class='link' rel='noopener noreferrer' href='https://osmose.numerique.gouv.fr/front/publicLink/publicDownload.jsp?id=9bb69b78-cee3-4951-b70d-df031570f294b002893f-de07-400f-bc75-4d4efee4a8a9' target='_blank'>Votre pas-à-pas France transfert</a></span>",
           "Question_Liste": "",
           "Question_Liste_Ordered": "",
           "Question_Texte2": "",

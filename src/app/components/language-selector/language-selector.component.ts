@@ -6,11 +6,13 @@
   */
 
 import { Component, OnDestroy, OnInit, inject, Inject, LOCALE_ID } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { LanguageModel } from 'src/app/models';
 import { LanguageSelectionService, UploadService } from 'src/app/services';
 import { TranslateService } from '@ngx-translate/core';
 import { DateAdapter } from '@angular/material/core';
+import { ActivatedRoute } from '@angular/router';
+import { take, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'ft-language-selector',
@@ -19,6 +21,7 @@ import { DateAdapter } from '@angular/material/core';
 })
 export class LanguageSelectorComponent implements OnInit, OnDestroy {
 
+  private onDestroy$: Subject<void> = new Subject();
   public selectedDate: Date = new Date();
   languageSelectionSubscription: Subscription;
   checkValidationSubscription: Subscription;
@@ -33,7 +36,7 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
     public translateService: TranslateService,
     private dateAdapter: DateAdapter<Date>,
     private uploadService: UploadService,
-
+    private _activatedRoute: ActivatedRoute,
   ) {
     //translateService.setDefaultLang("en-US")
 
@@ -42,6 +45,29 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
     this.language = localStorage.getItem('language') ? localStorage.getItem('language') : "fr-FR"
     this.uploadService.setLangueCourriels(localStorage.getItem('language') ? localStorage.getItem('language') : "fr-FR");
 
+
+  }
+
+
+  ngOnInit(): void {
+
+    this.languageSelectionSubscription = this.languageSelectionService.selectedLanguage.subscribe(lang => {
+      this.defaultLanguage = lang;
+    });
+    this.languageList = this.languageSelectionService.languageList;
+
+    this._activatedRoute.queryParams.pipe(takeUntil(this.onDestroy$)).subscribe((params: Array<{ string: string }>) => {
+      if (params["lang"]) {
+        const paramLang = this.languageList.filter(lang => {
+          return lang.value == params["lang"];
+        })[0];
+        if (paramLang) {
+          this.defaultLanguage = paramLang;
+          this.language = paramLang.value;
+          this.selectLanguage(paramLang.value);
+        }
+      }
+    });
 
   }
 
@@ -59,15 +85,9 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
     localStorage.setItem('language', value);
   }
 
-  ngOnInit(): void {
-    this.languageSelectionSubscription = this.languageSelectionService.selectedLanguage.subscribe(lang => {
-      this.defaultLanguage = lang;
-    });
-    this.languageList = this.languageSelectionService.languageList;
-
-  }
-
   ngOnDestroy(): void {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
     this.languageSelectionSubscription.unsubscribe();
     this.checkValidationSubscription.unsubscribe();
   }

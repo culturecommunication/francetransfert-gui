@@ -8,12 +8,19 @@
         </div>
 
     </mat-card-content>
-    <div class="download-elements-div-CGU">
-        <mat-checkbox (click)="cguChecked()" formControlName="cguCheck" class="checkbox">
-            <div [innerHTML]="'Acceptation_CGU' | translate">
-            </div>
-        </mat-checkbox>
+
+    <div class="download-elements-card-content-error" *ngIf="error && error.statusCode === 401">
+        <span role="alert">{{'Mot_Passe_Invalide' | translate}}</span><br />
+        <span *ngIf="!error.codeTryCount && error.message" role="alert">{{errorMessage}}</span>
     </div>
+    <form [formGroup]="cguForm">
+        <div class="download-elements-div-CGU">
+            <mat-checkbox formControlName="cguCheck" class="checkbox">
+                <div [innerHTML]="'Acceptation_CGU' | translate">
+                </div>
+            </mat-checkbox>
+        </div>
+    </form>
     <mat-card-actions class="download-elements-card-actions">
         <button mat-raised-button [disabled]="!checkCGU || buttonDisable" class="download-elements-card-actions-btn"
             (click)="download()">{{'Télécharger' | translate}} </button>
